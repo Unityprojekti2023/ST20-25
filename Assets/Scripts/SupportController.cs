@@ -7,16 +7,16 @@ public class SupportController : MonoBehaviour
     public Transform supportObject;
     public MachineScript machineScript;
 
-    public float maxLeftXPosition = 100f;
+    public float maxLeftXPosition = 47.5f;
     public float maxRightXPosition = 0f;
-    public float waitTime = 15f;
+    public float moveTime = 9f;
+    public float waitTime = 18f;
     public float speed = 5f;
 
     public bool moveSupportLeft = false;
     public bool moveSupportRight = false;
     public bool isTheSupportBeingMoved = false;
     public bool isSupportInPlace = false;
-
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class SupportController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) /* machineScript.isMachineActive == true && isTheSupportBeingMoved == false */) {
+        if(machineScript.moveSupport == true && isTheSupportBeingMoved == false) {
             StartCoroutine(moveSupport());
             isTheSupportBeingMoved = true;
         }
@@ -41,13 +41,13 @@ public class SupportController : MonoBehaviour
 
     IEnumerator moveSupport() {
         moveSupportLeft = true;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(moveTime);
         moveSupportLeft = false;
         isSupportInPlace = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(waitTime);
         moveSupportRight = true;
         isSupportInPlace = false;
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(moveTime);
         moveSupportRight = false;
         isTheSupportBeingMoved = false;
     }

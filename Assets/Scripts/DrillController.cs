@@ -10,7 +10,7 @@ public class DrillController : MonoBehaviour
 
     public float maxLeftXPosition = 30f;
     public float maxRightXPosition = 0f;
-    public float waitTime = 15f;
+    public float waitTime = 18f;
     public float speed = 2f;
 
     public bool moveDrillLeft = false;

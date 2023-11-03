@@ -896,14 +896,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uncutObject: {fileID: 33443403}
   cutObject: {fileID: 1710291826}
-  maxLeftXPosition: -115
+  maxLeftXPosition: -120
   waitTime: 20
   movementSpeed: 1
   isUncutObjectInCuttingPosition: 0
   isCutObjectInCuttingPosition: 0
   isMachineActive: 0
-  isCuttingProcessActive: 0
+  moveSupport: 0
   doorController: {fileID: 346176011}
+  supportController: {fileID: 1578887308}
 --- !u!1 &1565872492 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2321497210010880172, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
@@ -961,11 +962,13 @@ MonoBehaviour:
   machineScript: {fileID: 1344307476}
   maxLeftXPosition: 47.5
   maxRightXPosition: 0
-  waitTime: 15
+  moveTime: 10
+  waitTime: 18
   speed: 5
   moveSupportLeft: 0
   moveSupportRight: 0
   isTheSupportBeingMoved: 0
+  isSupportInPlace: 0
 --- !u!64 &1578887311
 MeshCollider:
   m_ObjectHideFlags: 0
