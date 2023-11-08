@@ -250,7 +250,15 @@ PrefabInstance:
       value: Support
       objectReference: {fileID: 0}
     - target: {fileID: -471785851102269246, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -471785851102269246, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -471785851102269246, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 319935088352404182, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
@@ -350,9 +358,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drillObject: {fileID: 70729552}
   machineScript: {fileID: 1344307476}
-  maxLeftXPosition: 30
+  maxLeftXPosition: 100
   maxRightXPosition: 0
-  waitTime: 15
+  waitTime: 28
   speed: 2
   moveDrillLeft: 0
   moveDrillRight: 0
@@ -412,9 +420,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drillObject: {fileID: 455627264}
   machineScript: {fileID: 1344307476}
-  maxLeftXPosition: 30
+  maxLeftXPosition: 100
   maxRightXPosition: 0
-  waitTime: 15
+  waitTime: 28
   speed: 2
   moveDrillLeft: 0
   moveDrillRight: 0
@@ -626,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 614236463}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9659258, z: -0.2588191, w: 0}
-  m_LocalPosition: {x: -149.9, y: 140.9, z: 223.9}
+  m_LocalPosition: {x: -149.9, y: 145.1, z: 223.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -656,9 +664,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drillObject: {fileID: 655234471}
   machineScript: {fileID: 1344307476}
-  maxLeftXPosition: 30
+  maxLeftXPosition: 100
   maxRightXPosition: 0
-  waitTime: 15
+  waitTime: 28
   speed: 2
   moveDrillLeft: 0
   moveDrillRight: 0
@@ -896,13 +904,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uncutObject: {fileID: 33443403}
   cutObject: {fileID: 1710291826}
-  maxLeftXPosition: -120
+  maxLeftXPosition: -113.5
   waitTime: 20
-  movementSpeed: 1
+  movementSpeed: 1.3
   isUncutObjectInCuttingPosition: 0
   isCutObjectInCuttingPosition: 0
   isMachineActive: 0
   moveSupport: 0
+  moveDrill: 0
+  moveObject: 0
   doorController: {fileID: 346176011}
   supportController: {fileID: 1578887308}
 --- !u!1 &1565872492 stripped
@@ -963,7 +973,7 @@ MonoBehaviour:
   maxLeftXPosition: 47.5
   maxRightXPosition: 0
   moveTime: 10
-  waitTime: 18
+  waitTime: 29
   speed: 5
   moveSupportLeft: 0
   moveSupportRight: 0
@@ -1042,9 +1052,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drillObject: {fileID: 1928441547}
   machineScript: {fileID: 1344307476}
-  maxLeftXPosition: 30
+  maxLeftXPosition: 100
   maxRightXPosition: 0
-  waitTime: 15
+  waitTime: 28
   speed: 2
   moveDrillLeft: 0
   moveDrillRight: 0

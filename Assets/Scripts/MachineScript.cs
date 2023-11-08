@@ -16,6 +16,8 @@ public class MachineScript : MonoBehaviour
     public bool isCutObjectInCuttingPosition = false;
     public bool isMachineActive = false;
     public bool moveSupport = false;
+    public bool moveDrill = false;
+    public bool moveObject = false;
 
     public DoorController doorController;
     public SupportController supportController;
@@ -42,16 +44,18 @@ public class MachineScript : MonoBehaviour
         }
 
         if (supportController.isSupportInPlace == true) {
+                moveDrill = true;
                 StartCoroutine(MoveUncutObjectLeft());
             }
 
         //Moving uncut object
-        if (isMachineActive == true && uncutObject.transform.position.x < maxLeftXPosition) {
+        if (isMachineActive == true && uncutObject.transform.position.x < maxLeftXPosition && moveObject == true) {
             uncutObject.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
         }
 
         //Removing cut object
         if (Input.GetKeyDown(KeyCode.Y) && isMachineActive == false && doorController.isDoorOpen == true && isCutObjectInCuttingPosition == true) {
+            uncutObject.position = new Vector3(10f, -7-93f, -49.28f);
             cutObject.Translate(20f, 0, 0);
             isUncutObjectInCuttingPosition = false;
             isCutObjectInCuttingPosition = false;
@@ -59,9 +63,14 @@ public class MachineScript : MonoBehaviour
     }
 
     IEnumerator MoveUncutObjectLeft() {
+        moveDrill = true;
         isMachineActive = true;
+        yield return new WaitForSeconds(14f);
+        moveObject = true;
         yield return new WaitForSeconds(waitTime);
         isMachineActive = false;
         moveSupport = false;
+        moveDrill = false;
+        moveObject = false;
     }
 }
