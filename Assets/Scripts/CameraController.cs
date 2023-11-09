@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J)) 
         {
             mainCameraActive();
+            isMainCamActive = true;
         }
 
         if (Input.GetKeyDown(KeyCode.K) && controlpanelTrigger.isPlayerNearControlpanel == true)
