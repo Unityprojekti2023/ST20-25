@@ -42,7 +42,7 @@ public class MachineScript : MonoBehaviour
         }
 
         //Calling object moving Coroutine
-        if(Input.GetKeyDown(KeyCode.T) && isUncutObjectInCuttingPosition == true /* && doorController.isDoorOpen == false */ && isCutObjectInCuttingPosition == true) {
+        if(Input.GetKeyDown(KeyCode.T) && isUncutObjectInCuttingPosition == true && doorController.isDoorOpen == false && isCutObjectInCuttingPosition == true) {
             moveSupport = true;
         }
 
