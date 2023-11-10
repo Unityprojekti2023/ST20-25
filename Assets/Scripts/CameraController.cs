@@ -10,9 +10,6 @@ public class CameraController : MonoBehaviour
     public GameObject controlpanelCamera;
     public GameObject insideCamera;
 
-    [Header("Other Objects")]
-    public GameObject player;
-
     [Header("Other Variables")]
     public bool isMainCamActive = true;
 
@@ -34,7 +31,7 @@ public class CameraController : MonoBehaviour
             isMainCamActive = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.K) && controlpanelTrigger.isPlayerNearControlpanel == true)
+        if (Input.GetKeyDown(KeyCode.K) /* && controlpanelTrigger.isPlayerNearControlpanel == true */)
         {
             controlpanelCameraActive();
             isMainCamActive = false;
