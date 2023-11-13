@@ -9,7 +9,7 @@ public class DoorController : MonoBehaviour
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
-    public DoorTrigger doorTrigger;
+    public DoorInteractable doorTrigger;
 
     [Header("Movement Values")]
     public float maxOpening = 72f;
@@ -29,14 +29,6 @@ public class DoorController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isDoorOpeningActive == false && isDoorOpen == false && machineScript.isMachineActive == false  && doorTrigger.isPlayerNearDoor == true)  {
-            StartCoroutine(OpenDoor());
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && isDoorClosingActive == false && isDoorOpen == true && doorTrigger.isPlayerNearDoor == true) {
-            StartCoroutine(CloseDoor());
-        }
-
         if (isDoorOpeningActive == true && door.transform.position.x < maxOpening && isDoorOpen == false) {
             door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
             doorHandle.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
