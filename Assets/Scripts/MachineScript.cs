@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class MachineScript : MonoBehaviour
 {
-
+    [Header("Objects")]
     public Transform uncutObject;
     public Transform cutObject;
 
-    public float maxLeftXPosition = -125f;
-    public float waitTime = 20;
-    public float movementSpeed = 5f; 
+    [Header("References to other scripts")]
+    public DoorController doorController;
+    public SupportController supportController;
 
+    [Header("Movement Values")]
+    public float maxLeftXPosition = -113.5f;
+    public float movementSpeed = 1.3f; 
+    public float waitTime = 20;
+
+    [Header("Boolean Variables")]
     public bool isUncutObjectInCuttingPosition = false;
     public bool isCutObjectInCuttingPosition = false;
     public bool isMachineActive = false;
     public bool moveSupport = false;
     public bool moveDrill = false;
     public bool moveObject = false;
-
-    public DoorController doorController;
-    public SupportController supportController;
 
     void Start()
     {

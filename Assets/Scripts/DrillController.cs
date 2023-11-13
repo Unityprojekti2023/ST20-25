@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class DrillController : MonoBehaviour
 {
-    public Transform drillObject;
+    [Header("Drill Objects")]
+    public Transform drillObject1;
+    public Transform drillObject2;
+    public Transform drillObject3;
+    public Transform drillObject4;
+    public Transform drillObject5;
+    public Transform drillObject6;
 
+    [Header("References to other scripts")]
     public MachineScript machineScript;
 
-    public float maxLeftXPosition = 50f; //vanha 30
+    [Header("Movement Values")]
+    public float maxLeftXPosition = 100f; 
     public float maxRightXPosition = 0f;
-    public float waitTime = 18f; //vanha 15
+    public float waitTime = 28f;
     public float speed = 2f;
 
+    [Header("Boolean Variables")]
     public bool moveDrillLeft = false;
     public bool moveDrillRight = false;
     public bool wasTheDrillAlreadyStarted = false;
@@ -29,12 +38,22 @@ public class DrillController : MonoBehaviour
             wasTheDrillAlreadyStarted = true;
         }
 
-        if (moveDrillLeft == true && drillObject.transform.position.x < maxLeftXPosition) {
-            drillObject.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+        if (moveDrillLeft == true && drillObject1.transform.position.x < maxLeftXPosition) {
+            drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            drillObject2.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            drillObject3.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            drillObject4.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            drillObject5.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            drillObject6.transform.Translate(0f, speed * Time.deltaTime, 0f);
         }
 
-        if (moveDrillRight == true && drillObject.transform.position.x > maxRightXPosition) {
-            drillObject.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+        if (moveDrillRight == true && drillObject1.transform.position.x > maxRightXPosition) {
+            drillObject1.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject2.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject3.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject4.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject5.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject6.transform.Translate(0f, -speed * Time.deltaTime * 3, 0f);
         }
     }
 
