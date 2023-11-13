@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
@@ -39,19 +38,22 @@ public class DoorController : MonoBehaviour
             door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
         }
 
-        if (isDoorClosingActive == true && door.transform.position.x > minOpening && isDoorOpen == true) {
+        if (isDoorClosingActive == true && door.transform.position.x > minOpening && isDoorOpen == true)
+        {
             door.transform.Translate(-movementSpeed * Time.deltaTime, 0f, 0f);
         }
     }
 
-    IEnumerator OpenDoor() {
+    public IEnumerator OpenDoor()
+    {
         isDoorOpeningActive = true;
         yield return new WaitForSeconds(waitTime);
         isDoorOpen = true;
         isDoorOpeningActive = false;
     }
 
-    IEnumerator CloseDoor() {
+    public IEnumerator CloseDoor()
+    {
         isDoorClosingActive = true;
         yield return new WaitForSeconds(waitTime);
         isDoorOpen = false;
