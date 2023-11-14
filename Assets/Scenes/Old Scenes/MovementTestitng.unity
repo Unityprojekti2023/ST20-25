@@ -3846,6 +3846,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8480530770343252688, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
   m_PrefabInstance: {fileID: 374627370}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &374627373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8832523310434471204, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+  m_PrefabInstance: {fileID: 374627370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &374627374 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 554387779110336482, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+  m_PrefabInstance: {fileID: 374627370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &374627375 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -471785851102269246, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+  m_PrefabInstance: {fileID: 374627370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &374627376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4210977643411544478, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
@@ -3854,6 +3869,16 @@ GameObject:
 --- !u!1 &374627377 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1076983883742062398, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+  m_PrefabInstance: {fileID: 374627370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &374627378 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1486622325284101472, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
+  m_PrefabInstance: {fileID: 374627370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &374627379 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -758435078279774510, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
   m_PrefabInstance: {fileID: 374627370}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &374627380 stripped
@@ -3878,20 +3903,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2cbd7a43fe0dc409f5bba44f247104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drillObject1: {fileID: 0}
-  drillObject2: {fileID: 0}
-  drillObject3: {fileID: 0}
-  drillObject4: {fileID: 0}
-  drillObject5: {fileID: 0}
-  drillObject6: {fileID: 0}
+  drillObject1: {fileID: 374627378}
+  drillObject2: {fileID: 374627379}
+  drillObject3: {fileID: 374627375}
+  drillObject4: {fileID: 374627374}
+  drillObject5: {fileID: 374627373}
+  drillObject6: {fileID: 281977709}
   machineScript: {fileID: 1191750845}
-  maxLeftXPosition: 100
-  maxRightXPosition: 0
-  waitTime: 28
-  speed: 2
-  moveDrillLeft: 0
-  moveDrillRight: 0
-  wasTheDrillAlreadyStarted: 0
 --- !u!1 &390564488
 GameObject:
   m_ObjectHideFlags: 0
@@ -5391,8 +5409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad26711c97b8634cb816c33c08f018b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerNearControlpanel: 0
-  cameraController: {fileID: 0}
 --- !u!54 &723405222
 Rigidbody:
   m_ObjectHideFlags: 0

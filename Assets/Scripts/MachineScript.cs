@@ -34,12 +34,12 @@ public class MachineScript : MonoBehaviour
     void Update()
     {
         //Moving objects to cutting position
-        if(Input.GetKeyDown(KeyCode.R) && doorController.isDoorOpen == true && isUncutObjectInCuttingPosition == false && isMachineActive == false) {
+        /*if(Input.GetKeyDown(KeyCode.R) && doorController.isDoorOpen == true && isUncutObjectInCuttingPosition == false && isMachineActive == false) {
             uncutObject.Translate(-20f, 0, 0);
             cutObject.Translate(-20f, 0, 0);
             isUncutObjectInCuttingPosition = true;
             isCutObjectInCuttingPosition = true;
-        }
+        }*/
 
         //Calling object moving Coroutine
         if(Input.GetKeyDown(KeyCode.T) && isUncutObjectInCuttingPosition == true && doorController.isDoorOpen == false && isCutObjectInCuttingPosition == true) {
@@ -57,12 +57,12 @@ public class MachineScript : MonoBehaviour
         }
 
         //Removing cut object
-        if (Input.GetKeyDown(KeyCode.Y) && isMachineActive == false && doorController.isDoorOpen == true && isCutObjectInCuttingPosition == true) {
+        /*if (Input.GetKeyDown(KeyCode.Y) && isMachineActive == false && doorController.isDoorOpen == true && isCutObjectInCuttingPosition == true) {
             uncutObject.position = new Vector3(10f, -7-93f, -49.28f);
             cutObject.Translate(20f, 0, 0);
             isUncutObjectInCuttingPosition = false;
             isCutObjectInCuttingPosition = false;
-        }
+        }*/
     }
 
     IEnumerator MoveUncutObjectLeft() {

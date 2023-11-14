@@ -12,6 +12,8 @@ public class SupportController : MonoBehaviour
     [Header("References to other scripts")]
     public MachineScript machineScript;
 
+    MouseControlPanelInteractable controlPanelInteractable;
+
     [Header("Movement Values")]
     public float maxLeftXPosition = 47.5f;
     public float maxRightXPosition = 0f;
@@ -27,12 +29,12 @@ public class SupportController : MonoBehaviour
 
     void Start()
     {
-        
+        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();
     }
 
     void Update()
     {
-        if(machineScript.moveSupport == true && isTheSupportBeingMoved == false) {
+        if(controlPanelInteractable.moveSupport == true && isTheSupportBeingMoved == false) {
             StartCoroutine(moveSupport());
             isTheSupportBeingMoved = true;
         }
