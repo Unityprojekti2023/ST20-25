@@ -34,18 +34,23 @@ public class MouseControlPanelInteractable : MonoBehaviour
                         // Check if the collider belongs to the specified layer
                         if (((1 << collider.gameObject.layer) & controlPanelLayer) != 0)
                         {
-                            if (buttonName == "btn_CycleStart")
+                            switch (buttonName)
                             {
-                                Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                //Calling object moving Coroutine
-                                if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen )
-                                {
-                                    machineScript.moveSupport = true;
-                                }
-                            }
-                            else if (buttonName == "btn_FeedHold")
-                            {
-                                Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                case "btn_CycleStart":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+
+                                    if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen)
+                                    {
+                                        machineScript.moveSupport = true;
+                                    }
+                                    break;
+
+                                case "btn_FeedHold":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    // Handle interaction for btn_FeedHold
+                                    break;
+
+                                    // Add more cases for other button names as needed
                             }
                         }
                     }
