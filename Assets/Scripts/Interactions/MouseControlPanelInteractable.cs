@@ -51,6 +51,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                     // Add more cases for other button names as needed
+                                    // Rename button into btn_"BUTTON NAME" and collider after which add case with that btn name
                             }
                         }
                     }
