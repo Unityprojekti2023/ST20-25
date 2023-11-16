@@ -11,10 +11,11 @@ public class CameraController : MonoBehaviour
 
     [Header("Other Variables")]
     public bool isMainCamActive = true;
+    public GameObject crosshair;
 
     [Header("References to other scripts")]
-    public ControlpanelTrigger controlpanelTrigger;
-    public PlayerController playerController;
+    //ControlpanelTrigger controlpanelTrigger;
+    PlayerController playerController;
 
     void Awake() 
     {
@@ -34,7 +35,7 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         
-        controlpanelTrigger = FindObjectOfType<ControlpanelTrigger>();
+        //controlpanelTrigger = FindObjectOfType<ControlpanelTrigger>();
         playerController = FindObjectOfType<PlayerController>();
     }
 
@@ -63,6 +64,7 @@ public class CameraController : MonoBehaviour
         isMainCamActive = true;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
+        crosshair.SetActive(true);
 
         // Show player model when switching to the main camera
         if (playerController != null)
@@ -77,6 +79,8 @@ public class CameraController : MonoBehaviour
         isMainCamActive = false;
         controlpanelCamera.SetActive(true);
         insideCamera.SetActive(false);
+        crosshair.SetActive(false);
+
         // Hide player model when switching to the control panel camera
         if (playerController != null)
         {
@@ -90,6 +94,7 @@ public class CameraController : MonoBehaviour
         isMainCamActive = false;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(true);
+        crosshair.SetActive(false);
 
         // Hide player model when switching to the inside camera
         if (playerController != null)

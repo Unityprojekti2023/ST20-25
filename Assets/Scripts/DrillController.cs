@@ -13,8 +13,7 @@ public class DrillController : MonoBehaviour
     public Transform drillObject6;
 
     [Header("References to other scripts")]
-    public MachineScript machineScript;
-    MouseControlPanelInteractable controlPanelInteractable;
+    MachineScript machineScript;
 
     [Header("Movement Values")]
     float maxLeftXPosition = 100f; 
@@ -29,12 +28,12 @@ public class DrillController : MonoBehaviour
 
     void Start()
     {
-        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();
+        machineScript = FindObjectOfType<MachineScript>();
     }
 
     void Update()
     {
-        if (controlPanelInteractable.isMachineActive && !wasTheDrillAlreadyStarted && controlPanelInteractable.moveDrill) {
+        if (machineScript.isMachineActive && !wasTheDrillAlreadyStarted && machineScript.moveDrill) {
             StartCoroutine(moveDrill());
             wasTheDrillAlreadyStarted = true;
         }
