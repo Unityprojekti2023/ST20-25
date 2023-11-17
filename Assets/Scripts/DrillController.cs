@@ -28,27 +28,27 @@ public class DrillController : MonoBehaviour
     public Transform drillObject21;
 
     [Header("References to other scripts")]
-    public MachineScript machineScript;
+    MachineScript machineScript;
 
     [Header("Movement Values")]
-    public float maxLeftXPosition = 100f; 
-    public float maxRightXPosition = 0f;
-    public float waitTime = 28f;
-    public float speed = 2f;
+    float maxLeftXPosition = 100f; 
+    float maxRightXPosition = 0f;
+    float waitTime = 28f;
+    float speed = 2f;
 
     [Header("Boolean Variables")]
-    public bool moveDrillLeft = false;
-    public bool moveDrillRight = false;
-    public bool wasTheDrillAlreadyStarted = false;
+    bool moveDrillLeft = false;
+    bool moveDrillRight = false;
+    bool wasTheDrillAlreadyStarted = false;
 
     void Start()
     {
-        
+        machineScript = FindObjectOfType<MachineScript>();
     }
 
     void Update()
     {
-        if (machineScript.isMachineActive == true && wasTheDrillAlreadyStarted == false && machineScript.moveDrill == true) {
+        if (machineScript.isMachineActive && !wasTheDrillAlreadyStarted && machineScript.moveDrill) {
             StartCoroutine(moveDrill());
             wasTheDrillAlreadyStarted = true;
         }

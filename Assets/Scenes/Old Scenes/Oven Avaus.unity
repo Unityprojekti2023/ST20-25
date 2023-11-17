@@ -1190,13 +1190,6 @@ MonoBehaviour:
   drillObject5: {fileID: 1690200187}
   drillObject6: {fileID: 63589869}
   machineScript: {fileID: 1344307476}
-  maxLeftXPosition: 100
-  maxRightXPosition: 0
-  waitTime: 28
-  speed: 2
-  moveDrillLeft: 0
-  moveDrillRight: 0
-  wasTheDrillAlreadyStarted: 0
 --- !u!1 &90788166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,9 +1526,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6835028bd455d64ca8e5b7a48b453b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  playerModel: {fileID: 0}
   moveSpeed: 100
-  sensitivity: 2
   maxYRotation: 80
+  optionsMenu: {fileID: 0}
+  cameraBackButton: {fileID: 0}
 --- !u!143 &164605156
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1994,7 +1990,7 @@ MonoBehaviour:
   door: {fileID: 346176007}
   doorHandle: {fileID: 1565872493}
   machineScript: {fileID: 1344307476}
-  doorTrigger: {fileID: 6606315}
+  doorTrigger: {fileID: 0}
   maxOpening: 72
   minOpening: 0
   movementSpeed: 75
@@ -4215,6 +4211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cycle Start
       objectReference: {fileID: 0}
+    - target: {fileID: 6512510688612296998, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+      propertyPath: m_TagString
+      value: CycleStart
+      objectReference: {fileID: 0}
     - target: {fileID: 6658855197454641006, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
       propertyPath: m_LocalScale.y
       value: 120
@@ -4569,8 +4569,38 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1764622193}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6512510688612296998, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 457575254}
   m_SourcePrefab: {fileID: 100100000, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+--- !u!1 &457575253 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6512510688612296998, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+  m_PrefabInstance: {fileID: 457575252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &457575254
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457575253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3163171260390484736, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
 --- !u!1001 &457760422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7919,7 +7949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad26711c97b8634cb816c33c08f018b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerNearControlpanel: 0
 --- !u!1 &1977921176
 GameObject:
   m_ObjectHideFlags: 0
@@ -7954,6 +7983,7 @@ MonoBehaviour:
   insideCamera: {fileID: 1624920511}
   isMainCamActive: 1
   controlpanelTrigger: {fileID: 1802907224}
+  playerController: {fileID: 0}
 --- !u!4 &1977921178
 Transform:
   m_ObjectHideFlags: 0

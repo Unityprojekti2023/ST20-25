@@ -4,16 +4,16 @@ using TMPro;
 public class RayInteractor : MonoBehaviour
 {
     public TextMeshProUGUI interactText;
-    public float interactDistance = 50f;
+    public float interactDistance = 80f;
 
     void Update()
     { 
-        if (CameraController.Instance != null && CameraController.Instance.isMainCamActive)
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null && mainCamera.CompareTag("MainCamera"))
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            RaycastHit hit;
+            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
-            if (Physics.Raycast(ray, out hit, interactDistance))
+            if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 

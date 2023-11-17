@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ControlpanelTrigger : MonoBehaviour, IInteractable
 {
-    public bool isPlayerNearControlpanel = false;
-    public CameraController cameraController;
+    CameraController cameraController;
 
     void Start()
     {
@@ -18,22 +17,6 @@ public class ControlpanelTrigger : MonoBehaviour, IInteractable
         if (cameraController != null)
         {
             cameraController.ControlpanelCameraActive();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerNearControlpanel = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerNearControlpanel = false;
         }
     }
 }
