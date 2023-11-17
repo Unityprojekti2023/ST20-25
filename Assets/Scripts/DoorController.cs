@@ -21,6 +21,7 @@ public class DoorController : MonoBehaviour
     public bool isDoorOpen = false;
     public bool isDoorOpeningActive = false;
     public bool isDoorClosingActive = false;
+    public bool playOpeningClip = false;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class DoorController : MonoBehaviour
         if (isDoorOpeningActive == true && door.transform.position.x < maxOpening && isDoorOpen == false) {
             door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
             doorHandle.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+            playOpeningClip = true;
         }
 
         if (isDoorClosingActive == true && door.transform.position.x > minOpening && isDoorOpen == true)

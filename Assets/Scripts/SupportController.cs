@@ -12,6 +12,8 @@ public class SupportController : MonoBehaviour
     [Header("References to other scripts")]
     public MachineScript machineScript;
 
+    MouseControlPanelInteractable controlPanelInteractable;
+
     [Header("Movement Values")]
     public float maxLeftXPosition = 47.5f;
     public float maxRightXPosition = 0f;
@@ -27,30 +29,30 @@ public class SupportController : MonoBehaviour
 
     void Start()
     {
-        
+        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();
     }
 
     void Update()
     {
-        if(machineScript.moveSupport == true && isTheSupportBeingMoved == false) {
-            StartCoroutine(moveSupport());
+        if(machineScript.moveSupport&& !isTheSupportBeingMoved) {
+            StartCoroutine(MoveSupport());
             isTheSupportBeingMoved = true;
         }
 
-        if (moveSupportLeft == true && supportObject1.transform.position.x < maxLeftXPosition) {
+        if (moveSupportLeft && supportObject1.transform.position.x < maxLeftXPosition) {
             supportObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);
             supportObject2.transform.Translate(speed * Time.deltaTime, 0f, 0f);
             supportObject3.transform.Translate(speed * Time.deltaTime, 0f, 0f);
         }
 
-        if (moveSupportRight == true && supportObject1.transform.position.x > maxRightXPosition) {
+        if (moveSupportRight && supportObject1.transform.position.x > maxRightXPosition) {
             supportObject1.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
             supportObject2.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
             supportObject3.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
         }
     }
 
-    IEnumerator moveSupport() {
+    IEnumerator MoveSupport() {
         moveSupportLeft = true;
         yield return new WaitForSeconds(moveTime);
         moveSupportLeft = false;
