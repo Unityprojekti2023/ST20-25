@@ -13,6 +13,15 @@ public class MouseControlPanelInteractable : MonoBehaviour
 
     public Camera controlPanelCamera;
 
+    public bool isPowerONClicked = false;
+    public bool isPowerOFFClicked = false;
+    public bool isEmergencyStopClicked = false;
+    public bool isEmergencyStopClicked2 = false;
+    public bool isResetClicked = false;
+    public bool isLatheOn = false;
+    public bool isZeroReturnClicked = false;
+    public bool isAllClicked = false;
+
     void Start()
     {
     }
@@ -36,12 +45,26 @@ public class MouseControlPanelInteractable : MonoBehaviour
                         {
                             switch (buttonName)
                             {
+                                case "btnZeroReturn":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    isZeroReturnClicked = true;
+                                    break;
+
+                                case "btnALL":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    if(isZeroReturnClicked) {
+                                        isAllClicked = true;
+                                    }
+                                    break;
+
                                 case "btn_CycleStart":
                                     Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
 
-                                    if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen)
+                                    if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
                                         machineScript.moveSupport = true;
+                                        isZeroReturnClicked = false;
+                                        isAllClicked = false;
                                     }
                                     break;
 
@@ -49,6 +72,42 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     // Handle interaction for btn_FeedHold
                                     break;
+
+                                case "btnPowerON":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    isPowerONClicked = true;
+                                    isPowerOFFClicked = false;
+                                    break;
+
+                                case "btnEmergencyStop":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    if (isPowerONClicked) {
+                                        isEmergencyStopClicked = true;
+                                    } 
+
+                                    if (isEmergencyStopClicked) {
+                                        isEmergencyStopClicked2 = true;
+                                    }
+                                    break;
+
+                                case "btnReset":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    if (isEmergencyStopClicked) {
+                                        isResetClicked = true;
+                                        isLatheOn = true;
+                                    }
+                                    break;
+
+                                case "btnPowerOFF":
+                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    if (isEmergencyStopClicked2 && isLatheOn) {
+                                        isPowerOFFClicked = true;
+                                        isLatheOn = false;
+                                        isPowerONClicked = false;
+                                        isResetClicked = false;
+                                    }
+                                    break;
+
 
                                     // Add more cases for other button names as needed
                                     // Rename button into btn_"BUTTON NAME" and collider after which add case with that btn name

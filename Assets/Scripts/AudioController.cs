@@ -14,15 +14,8 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
-        if (doorController.isDoorOpeningActive == true && isClipPlaying == false) {
-            isClipPlaying = true;
-            playOpeningClip();
+        if (doorController.playOpeningClip == true) {
+            source.PlayOneShot(openingClip);
         }
-    }
-
-    public IEnumerator playOpeningClip() {
-        source.PlayOneShot(openingClip);
-        yield return new WaitForSeconds(doorController.waitTime);
-        isClipPlaying = false;
     }
 }
