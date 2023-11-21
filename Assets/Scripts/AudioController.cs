@@ -10,21 +10,12 @@ public class AudioController : MonoBehaviour
 
     public DoorController doorController;
 
-    public bool isOpeningClipPlaying = false;
-    public bool isClosingClipPlaying = false;
+    public bool isClipPlaying = false;
 
     void Update()
     {
-        if (doorController.playOpeningClip == true && isOpeningClipPlaying == false) {
+        if (doorController.playOpeningClip == true) {
             source.PlayOneShot(openingClip);
-            isOpeningClipPlaying = true;
-            isClosingClipPlaying = false;
-        }
-
-        if (doorController.playClosingClip == true && isClosingClipPlaying == false) {
-            source.PlayOneShot(closingClip);
-            isClosingClipPlaying = true;
-            isOpeningClipPlaying = false;
         }
     }
 }
