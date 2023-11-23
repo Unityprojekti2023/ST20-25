@@ -8,6 +8,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     public DoorController doorController;
     public InventoryManager inventoryManager;
     public MachineScript machineScript;
+    public TextInformation textInfo;
 
     public void Interact()
     {
@@ -18,11 +19,15 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 if (!machineScript.isUncutObjectInCuttingPosition)
                 {
                     inventoryManager.RemoveItem("UncutItem");
+
+                    textInfo.UpdateText("Item [Uncut item] removed");
                     machineScript.MoveObjectsToCuttingPosition();
                 }
                 else if (machineScript.isUncutObjectInCuttingPosition)
                 {
                     inventoryManager.AddItem("UncutItem");
+
+                    textInfo.UpdateText("Item [Uncut item] picked up");
                     machineScript.RemoveObjectsFromCuttingPosition();
                 }
                 else
@@ -33,16 +38,25 @@ public class LatheInteractable : MonoBehaviour, IInteractable
             else if (machineScript.isAnimationComplete)
             {
                 inventoryManager.AddItem("CutItem");
+
+                textInfo.UpdateText("Item [Cut item] picked up");
+                machineScript.RemoveObjectsFromCuttingPosition();
+            }
+            else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition)
+            {
+                inventoryManager.AddItem("UncutItem");
+
+                textInfo.UpdateText("Item [Uncut item] picked up");
                 machineScript.RemoveObjectsFromCuttingPosition();
             }
             else
             {
-                inventoryManager.AddItem("UncutItem");
-                machineScript.RemoveObjectsFromCuttingPosition();
+                textInfo.UpdateText("No items on player");
             }
         }
         else
         {
+            textInfo.UpdateText("No items in inventory");
             Debug.Log("Cannot interact under current conditions.");
         }
     }

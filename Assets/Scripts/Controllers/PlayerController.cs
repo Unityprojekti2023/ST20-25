@@ -7,14 +7,16 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     public Camera playerCamera;
     public GameObject playerModel; // Add a reference to the player model
-    public float moveSpeed = 160.0f;
+    public float moveSpeed = 200.0f;
     public float maxYRotation = 80.0f;
 
     private float rotationX = 0;
 
     public OptionsMenu optionsMenu;
-    
-    public GameObject cameraBackButton;
+
+    public GameObject mainCameraButton;
+    public GameObject controlPanelCamerakButton;
+    public GameObject insideCamerakButton;
 
     void Start()
     {
@@ -22,8 +24,10 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         playerModel = GameObject.FindWithTag("PlayerModel");
-        
-        cameraBackButton.SetActive(false);
+
+        mainCameraButton.SetActive(false);
+        controlPanelCamerakButton.SetActive(false);
+        insideCamerakButton.SetActive(false);
     }
 
     void Update()
@@ -63,14 +67,18 @@ public class PlayerController : MonoBehaviour
 
     void ShowCursor()
     {
-        cameraBackButton.SetActive(true);
+        mainCameraButton.SetActive(true);
+        controlPanelCamerakButton.SetActive(true);
+        insideCamerakButton.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     void HideCursor()
     {
-        cameraBackButton.SetActive(false);
+        mainCameraButton.SetActive(false);
+        controlPanelCamerakButton.SetActive(false);
+        insideCamerakButton.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

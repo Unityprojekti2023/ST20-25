@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {   public static CameraController Instance;
@@ -16,6 +17,10 @@ public class CameraController : MonoBehaviour
     [Header("References to other scripts")]
     //ControlpanelTrigger controlpanelTrigger;
     PlayerController playerController;
+
+    public Button mainCameraButton;
+    public Button panelCameraButton;
+    public Button insideCameraButton;
 
     void Awake() 
     {
@@ -34,6 +39,11 @@ public class CameraController : MonoBehaviour
         mainCamera.SetActive(true);
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
+
+        
+        mainCameraButton.onClick.AddListener(MainCameraActive);
+        panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
+        insideCameraButton.onClick.AddListener(InsideCameraActive);
         
         //controlpanelTrigger = FindObjectOfType<ControlpanelTrigger>();
         playerController = FindObjectOfType<PlayerController>();
@@ -80,6 +90,8 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(true);
         insideCamera.SetActive(false);
         crosshair.SetActive(false);
+        panelCameraButton.interactable = false;
+        insideCameraButton.interactable = true;
 
         // Hide player model when switching to the control panel camera
         if (playerController != null)
@@ -95,6 +107,8 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(true);
         crosshair.SetActive(false);
+        insideCameraButton.interactable = false;
+        panelCameraButton.interactable = true;
 
         // Hide player model when switching to the inside camera
         if (playerController != null)
