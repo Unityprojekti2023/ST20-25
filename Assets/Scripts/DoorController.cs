@@ -22,7 +22,7 @@ public class DoorController : MonoBehaviour
     public bool isDoorOpeningActive = false;
     public bool isDoorClosingActive = false;
     public bool playOpeningClip = false;
-    public bool playClosingClip = true;
+    public bool playClosingClip = false;
 
     void Start()
     {

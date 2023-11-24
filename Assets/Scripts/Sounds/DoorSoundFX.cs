@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioController : MonoBehaviour
+public class DoorSoundFX : MonoBehaviour
 {
     public AudioSource source;
     public AudioClip openingClip;
@@ -15,13 +15,13 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
-        if (doorController.playOpeningClip == true && isOpeningClipPlaying == false) {
+        if (doorController.playOpeningClip && !isOpeningClipPlaying) {
             source.PlayOneShot(openingClip);
             isOpeningClipPlaying = true;
             isClosingClipPlaying = false;
         }
 
-        if (doorController.playClosingClip == true && isClosingClipPlaying == false) {
+        if (doorController.playClosingClip && !isClosingClipPlaying) {
             source.PlayOneShot(closingClip);
             isClosingClipPlaying = true;
             isOpeningClipPlaying = false;

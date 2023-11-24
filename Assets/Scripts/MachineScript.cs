@@ -7,7 +7,7 @@ public class MachineScript : MonoBehaviour
     [Header("Objects")]
     public Transform uncutObject;
     public Transform cutObject;
-
+    
     [Header("References to other scripts")]
     public DoorController doorController;
     public SupportController supportController;
