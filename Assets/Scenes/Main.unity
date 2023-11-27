@@ -419,8 +419,8 @@ Transform:
   m_GameObject: {fileID: 15318088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 521.1041}
-  m_LocalScale: {x: 100, y: 1, z: 200}
+  m_LocalPosition: {x: -102, y: -0, z: 443.9003}
+  m_LocalScale: {x: 120, y: 1, z: 140}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3959,7 +3959,6 @@ GameObject:
   - component: {fileID: 137822036}
   - component: {fileID: 137822035}
   - component: {fileID: 137822034}
-  - component: {fileID: 137822033}
   m_Layer: 5
   m_Name: InsideCameraButton
   m_TagString: Untagged
@@ -3987,18 +3986,6 @@ RectTransform:
   m_AnchoredPosition: {x: -404, y: 121.2}
   m_SizeDelta: {x: 82.1899, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &137822033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137822031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e28005a7560984ca6ef36f4b64ff5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &137822034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5921,10 +5908,34 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5207899289295864072, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35f7d13888aac654194b2df733e10ca5, type: 2}
     - target: {fileID: 919132149155446097, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
       propertyPath: m_Name
       value: Table
       objectReference: {fileID: 0}
+    - target: {fileID: 3009656203756597145, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92b230397d4d2d04385f3f3a95c82eac, type: 2}
+    - target: {fileID: 4945754290286823763, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92b230397d4d2d04385f3f3a95c82eac, type: 2}
+    - target: {fileID: 5583425837814418825, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b56f973011ef25f4b932b2546872b142, type: 2}
+    - target: {fileID: 5871315300188898243, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92b230397d4d2d04385f3f3a95c82eac, type: 2}
+    - target: {fileID: 6768476080261241257, guid: 607db95aeaddd9c46b3c70ef56004605, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 92b230397d4d2d04385f3f3a95c82eac, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8831,7 +8842,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.999999, y: 2.94, z: 10}
+  m_Size: {x: 9.999999, y: 6.99, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &463401075
 GameObject:
@@ -21408,7 +21419,6 @@ GameObject:
   - component: {fileID: 1728962913}
   - component: {fileID: 1728962912}
   - component: {fileID: 1728962911}
-  - component: {fileID: 1728962910}
   m_Layer: 5
   m_Name: ControlPanelCameraButton
   m_TagString: Untagged
@@ -21436,18 +21446,6 @@ RectTransform:
   m_AnchoredPosition: {x: -404, y: 159.9}
   m_SizeDelta: {x: 82.1899, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1728962910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728962908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e28005a7560984ca6ef36f4b64ff5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1728962911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24100,7 +24098,6 @@ GameObject:
   - component: {fileID: 1948234517}
   - component: {fileID: 1948234516}
   - component: {fileID: 1948234515}
-  - component: {fileID: 1948234514}
   m_Layer: 5
   m_Name: MainCameraButton
   m_TagString: Untagged
@@ -24128,18 +24125,6 @@ RectTransform:
   m_AnchoredPosition: {x: -404, y: 230}
   m_SizeDelta: {x: 82.1899, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1948234514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948234512}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e28005a7560984ca6ef36f4b64ff5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1948234515
 MonoBehaviour:
   m_ObjectHideFlags: 0
