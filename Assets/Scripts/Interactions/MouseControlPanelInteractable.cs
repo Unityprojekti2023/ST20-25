@@ -22,8 +22,14 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isZeroReturnClicked = false;
     public bool isAllClicked = false;
 
+    public bool isAudioClipPlaying = false;
+
+    public AudioSource source;
+    public AudioClip buttonPressClip;
+
     void Start()
     {
+        source.volume = 0.05f;
     }
     void Update()
     {
@@ -48,6 +54,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                 case "btnZeroReturn":
                                     Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     isZeroReturnClicked = true;
+                                    PlayAudioClip();
                                     break;
 
                                 case "btnALL":
@@ -55,6 +62,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isZeroReturnClicked) {
                                         isAllClicked = true;
                                     }
+                                    PlayAudioClip();
                                     break;
 
                                 case "btn_CycleStart":
@@ -66,17 +74,20 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isZeroReturnClicked = false;
                                         isAllClicked = false;
                                     }
+                                    PlayAudioClip();
                                     break;
 
                                 case "btn_FeedHold":
                                     Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     // Handle interaction for btn_FeedHold
+                                    PlayAudioClip();
                                     break;
 
                                 case "btnPowerON":
                                     Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     isPowerONClicked = true;
                                     isPowerOFFClicked = false;
+                                    PlayAudioClip();
                                     break;
 
                                 case "btnEmergencyStop":
@@ -96,6 +107,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isResetClicked = true;
                                         isLatheOn = true;
                                     }
+                                    PlayAudioClip();
                                     break;
 
                                 case "btnPowerOFF":
@@ -106,6 +118,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isPowerONClicked = false;
                                         isResetClicked = false;
                                     }
+                                    PlayAudioClip();
                                     break;
 
 
@@ -117,5 +130,19 @@ public class MouseControlPanelInteractable : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlayAudioClip()
+    {
+        if(isAudioClipPlaying == false) {
+            source.PlayOneShot(buttonPressClip);
+            isAudioClipPlaying = true;
+            StartCoroutine(soundEffectDelay());
+        }
+    }
+
+    public IEnumerator soundEffectDelay(){
+        yield return new WaitForSeconds(0.4f);
+        isAudioClipPlaying = false;
     }
 }
