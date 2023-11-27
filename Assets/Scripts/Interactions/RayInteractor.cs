@@ -24,19 +24,19 @@ public class RayInteractor : MonoBehaviour
                     switch(targetName)
                     {
                         case "ST20-25 Luukku":
-                            ShowInteractText("Open Door : [Mouse 1]");
+                            ShowInteractText("Open Door : [LMB]");
                             break;
                         case "ControlpanelTrigger":
-                            ShowInteractText("Inspect panel : [Mouse 1]");
+                            ShowInteractText("Inspect panel : [LMB]");
                             break;
                         case "ST20-25 Puristin":
-                            ShowInteractText("Place/Remove piece : [Mouse 1]");
+                            ShowInteractText("Place/Remove piece : [LMB]");
                             break;
                         case "ItemPile":
-                            ShowInteractText("Pickup item : [Mouse 1]");
+                            ShowInteractText("Pickup item : [LMB]");
                             break;
                         case "ItemPlacementSpot":
-                            ShowInteractText("Place item : [Mouse 1]");
+                            ShowInteractText("Place item : [LMB]");
                             break;
                             
                     }
