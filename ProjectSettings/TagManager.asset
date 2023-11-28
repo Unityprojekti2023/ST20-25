@@ -8,6 +8,7 @@ TagManager:
   - ControlpanelTrigger
   - PlayerModel
   - ControlPanelCamera
+  - Text
   layers:
   - Default
   - TransparentFX
