@@ -10,7 +10,7 @@ public class RayInteractor : MonoBehaviour
     { 
         Camera mainCamera = Camera.main;
         if (mainCamera != null && mainCamera.CompareTag("MainCamera"))
-        {
+        {            
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))

@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class EscapeMenu : MonoBehaviour
 {
+    [Header("References to other scripts")]
     public GameObject escapeMenu;
     public GameObject optionsMenu;
+
     public static bool GameIsPaused = false;
 
     void Start()
@@ -16,7 +18,7 @@ public class EscapeMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q)) //TODO: Change to Escape once game is ready for builds, since Escape doens't work in the editors Game mode
         {
             if (GameIsPaused)
             {
@@ -31,8 +33,8 @@ public class EscapeMenu : MonoBehaviour
 
     public void Pause()
     {
-        escapeMenu.SetActive(true);
-        Time.timeScale = 0f;
+        escapeMenu.SetActive(true); //Show escape menu
+        Time.timeScale = 0f; //Pause game time
         Cursor.visible = true; //Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
         GameIsPaused = true;
@@ -40,8 +42,8 @@ public class EscapeMenu : MonoBehaviour
 
     public void Resume()
     {
-        escapeMenu.SetActive(false);
-        optionsMenu.SetActive(false);
+        escapeMenu.SetActive(false); //Hide escape menu
+        optionsMenu.SetActive(false); //Hide options menu
         Time.timeScale = 1; // Resume game
         Cursor.visible = false; // Hide mouse cursor when menu is closed
         Cursor.lockState = CursorLockMode.Locked;

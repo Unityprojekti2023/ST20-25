@@ -52,13 +52,13 @@ public class MouseControlPanelInteractable : MonoBehaviour
                             switch (buttonName)
                             {
                                 case "btnZeroReturn":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     isZeroReturnClicked = true;
                                     PlayAudioClip();
                                     break;
 
                                 case "btnALL":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     if(isZeroReturnClicked) {
                                         isAllClicked = true;
                                     }
@@ -66,8 +66,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
                                         machineScript.moveSupport = true;
@@ -78,20 +77,20 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_FeedHold":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     // Handle interaction for btn_FeedHold
                                     PlayAudioClip();
                                     break;
 
                                 case "btnPowerON":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     isPowerONClicked = true;
                                     isPowerOFFClicked = false;
                                     PlayAudioClip();
                                     break;
 
                                 case "btnEmergencyStop":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     if (isPowerONClicked) {
                                         isEmergencyStopClicked = true;
                                     } 
@@ -102,7 +101,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btnReset":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     if (isEmergencyStopClicked) {
                                         isResetClicked = true;
                                         isLatheOn = true;
@@ -111,7 +110,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btnPowerOFF":
-                                    Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     if (isEmergencyStopClicked2 && isLatheOn) {
                                         isPowerOFFClicked = true;
                                         isLatheOn = false;

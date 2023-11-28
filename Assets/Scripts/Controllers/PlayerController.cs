@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("References to other scripts")]
     CharacterController controller;
-    public Camera playerCamera;
-    public GameObject playerModel; // Add a reference to the player model
-    public float moveSpeed = 200.0f;
-    public float maxYRotation = 80.0f;
-
-    private float rotationX = 0;
-
     public OptionsMenu optionsMenu;
 
+    [Header("References to Gameobjects")]
+    public Camera playerCamera;    
+    public GameObject playerModel;
     public GameObject mainCameraButton;
     public GameObject controlPanelCamerakButton;
     public GameObject insideCamerakButton;
+
+    public float moveSpeed = 200.0f;
+    public float maxYRotation = 80.0f;
+    private float rotationX = 0;
+
+
 
     void Start()
     {
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
         playerModel = GameObject.FindWithTag("PlayerModel");
 
+        //Hide camera switch buttons from UI
         mainCameraButton.SetActive(false);
         controlPanelCamerakButton.SetActive(false);
         insideCamerakButton.SetActive(false);

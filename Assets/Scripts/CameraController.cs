@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     //ControlpanelTrigger controlpanelTrigger;
     PlayerController playerController;
 
+    [Header("Buttons for camera switching")]
     public Button mainCameraButton;
     public Button panelCameraButton;
     public Button insideCameraButton;

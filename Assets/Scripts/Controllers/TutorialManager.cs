@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    [Header("References to other scripts")]
+    public PlayerController playerController;
+
+    [Header("References to gameobjects")]
     public GameObject[] popUps;
+    
     private int popUpIndex;
     private Vector3 startPosition;
     private float minDistanceTraveled = 100.0f;
-    public PlayerController playerController;
 
     void Start()
     {

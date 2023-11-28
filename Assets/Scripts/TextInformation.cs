@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TextInformation : MonoBehaviour
 {
     private TextMeshProUGUI textComponent;
+
     private Coroutine hideCoroutine;
     public float logDuration = 1.5f;
 
@@ -26,7 +27,7 @@ public class TextInformation : MonoBehaviour
             }
 
             textComponent.text = message;
-            hideCoroutine = StartCoroutine(HideAfterDelay());
+            hideCoroutine = StartCoroutine(HideAfterDelay()); //Start coroutine
         }
     }
 
