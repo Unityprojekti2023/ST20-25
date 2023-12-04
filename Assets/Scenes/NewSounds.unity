@@ -6495,7 +6495,7 @@ MonoBehaviour:
   latheCuttingClip: {fileID: 8300000, guid: e188729c95a6b45448efa8ea3edfcd82, type: 3}
   machineScript: {fileID: 1191750845}
   isLatheCuttingClipAlreadyPlaying: 0
-  CuttingClipStartDelay: 11.5
+  CuttingClipStartDelay: 12
   volume: 0.02
 --- !u!1 &384948140
 GameObject:
@@ -26322,7 +26322,7 @@ MonoBehaviour:
   doorController: {fileID: 2099531900}
   isOpeningClipPlaying: 0
   isClosingClipPlaying: 0
-  volume: 0.1
+  volume: 0.5
 --- !u!1 &2104150062
 GameObject:
   m_ObjectHideFlags: 0
