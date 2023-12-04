@@ -6,6 +6,8 @@ public class SupportController : MonoBehaviour
 {
     [Header("Objects")]
     public Transform supportObject1;
+    public Transform supportObject2;
+    public Transform supportObject3;
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
@@ -13,10 +15,10 @@ public class SupportController : MonoBehaviour
     MouseControlPanelInteractable controlPanelInteractable;
 
     [Header("Movement Values")]
-    public float maxLeftXPosition = 47.5f; //Old value 47.5
+    public float maxLeftXPosition = 47.5f;
     public float maxRightXPosition = 0f;
     public float moveTime = 10f;
-    public float waitTime = 31f; //Old value 29
+    public float waitTime = 29f;
     public float speed = 5f;
 
     [Header("Boolean Variables")]
@@ -39,10 +41,14 @@ public class SupportController : MonoBehaviour
 
         if (moveSupportLeft && supportObject1.transform.position.x < maxLeftXPosition) {
             supportObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            supportObject2.transform.Translate(speed * Time.deltaTime, 0f, 0f);
+            supportObject3.transform.Translate(speed * Time.deltaTime, 0f, 0f);
         }
 
         if (moveSupportRight && supportObject1.transform.position.x > maxRightXPosition) {
             supportObject1.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
+            supportObject2.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
+            supportObject3.transform.Translate(-speed * Time.deltaTime, 0f, 0f);
         }
     }
 

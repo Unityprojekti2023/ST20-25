@@ -4,37 +4,44 @@ using UnityEngine;
 
 public class LatheSoundFX : MonoBehaviour
 {
-    [Header("Audio sources & clips")]
     public AudioSource source;
+    public AudioClip latheOnClip;
     public AudioClip latheCuttingClip;
-
-    [Header("References to other scripts")]
     public MachineScript machineScript;
-
-    [Header("Values & variables")]
+    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public bool isLatheOnClipAlreadyPlaying = false;
     public bool isLatheCuttingClipAlreadyPlaying = false;
-    public float CuttingClipStartDelay = 12f;
-    public float volume = 0.02f;
+    public float latheOnClipLength = 17.5f; //Lathe ON audio clip length in seconds
+    public float latheCuttingClipLength = 0f; //Lathe cutting audio clip length in seconds
 
     void Start() 
     {
-        source.volume = volume;                                                         // Setting volume level for the audio source
+        source.volume = 0.2f;
     }
 
     void Update()
     {
-        if (machineScript.isMachineActive && !isLatheCuttingClipAlreadyPlaying) {       // Checking if the machine is active and making sure an audio clip isn't playing already
-            StartCoroutine(latheCuttingStartDelay());                                   // Calling coroutine to play the audio clip
+        if(mouseControlPanelInteractable.isLatheOn && !isLatheOnClipAlreadyPlaying) 
+        {
+            source.PlayOneShot(latheOnClip);
+            isLatheOnClipAlreadyPlaying = true;
+            StartCoroutine(latheOnClipRestart());
         }
 
-        if (machineScript.isAnimationComplete) {                                        // Checking if the cutting animation is complete
-            isLatheCuttingClipAlreadyPlaying = false;                                   // Making "isLatheCuttingClipAlreadyPlaying" false so the audio clip can be played again next time an item is being cut
+        if (machineScript.isMachineActive && !isLatheCuttingClipAlreadyPlaying) {
+            source.PlayOneShot(latheCuttingClip);
+            isLatheCuttingClipAlreadyPlaying = true;
+            StartCoroutine(latheCuttingClipRestart());
         }
     }
+    
+    public IEnumerator latheOnClipRestart(){
+        yield return new WaitForSeconds(latheOnClipLength);
+        isLatheOnClipAlreadyPlaying = false;
+    }
 
-    public IEnumerator latheCuttingStartDelay(){                                        // Function for playing lathe cutting audio clip
-        yield return new WaitForSeconds(CuttingClipStartDelay);                         // Waiting for the drill to get close to the object to be cut, before starting audio clip
-        source.PlayOneShot(latheCuttingClip);                                           // Playing the audio clip
-        isLatheCuttingClipAlreadyPlaying = true;                                        // Setting "isLatheCuttingClipAlreadyPlaying" to prevent multiple audio clips from playing at once
+    public IEnumerator latheCuttingClipRestart(){
+        yield return new WaitForSeconds(latheCuttingClipLength);
+        isLatheCuttingClipAlreadyPlaying = false;
     }
 }
