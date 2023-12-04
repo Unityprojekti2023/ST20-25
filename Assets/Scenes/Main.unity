@@ -7519,14 +7519,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 374627381}
-  latheOnClip: {fileID: 8300000, guid: 165c9b6f07cae34489969db59e27e987, type: 3}
-  latheCuttingClip: {fileID: 0}
+  latheOnClip: {fileID: 0}
+  latheCuttingClip: {fileID: 8300000, guid: 0c0afede5369bbd4da3b18ea80a4ee07, type: 3}
   machineScript: {fileID: 1191750845}
   mouseControlPanelInteractable: {fileID: 1596111089}
   isLatheOnClipAlreadyPlaying: 0
   isLatheCuttingClipAlreadyPlaying: 0
   latheOnClipLength: 17.5
-  latheCuttingClipLength: 0
+  latheCuttingClipLength: 20
+  volume: 0.1
 --- !u!1 &384948140
 GameObject:
   m_ObjectHideFlags: 0
@@ -9871,10 +9872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe742b3e2b6641740a5e4907257ceace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 1045571685}
   popUps:
   - {fileID: 1076682916}
   - {fileID: 1921096964}
-  playerController: {fileID: 1045571685}
 --- !u!1 &578819069
 GameObject:
   m_ObjectHideFlags: 0
@@ -15356,14 +15357,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6835028bd455d64ca8e5b7a48b453b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionsMenu: {fileID: 1675791124}
   playerCamera: {fileID: 1047893779}
   playerModel: {fileID: 1045571678}
-  moveSpeed: 200
-  maxYRotation: 80
-  optionsMenu: {fileID: 1675791124}
   mainCameraButton: {fileID: 1948234512}
   controlPanelCamerakButton: {fileID: 1728962908}
   insideCamerakButton: {fileID: 137822031}
+  moveSpeed: 200
+  maxYRotation: 80
 --- !u!114 &1045571686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20077,7 +20078,7 @@ MonoBehaviour:
   isAllClicked: 0
   isAudioClipPlaying: 0
   source: {fileID: 723405224}
-  buttonPressClip: {fileID: 8300000, guid: 0daa046551cb29b4897ac1cad22d2934, type: 3}
+  buttonPressClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}
 --- !u!1 &1601448749
 GameObject:
   m_ObjectHideFlags: 0
@@ -27214,8 +27215,8 @@ MonoBehaviour:
   doorTrigger: {fileID: 2099531902}
   maxOpening: 72
   minOpening: 0
-  movementSpeed: 75
-  waitTime: 1.2
+  movementSpeed: 35
+  waitTime: 2
   isDoorOpen: 0
   isDoorOpeningActive: 0
   isDoorClosingActive: 0
@@ -27269,11 +27270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1336760089}
-  openingClip: {fileID: 8300000, guid: e15b2ef3306a4764eaff9fe9f477200d, type: 3}
-  closingClip: {fileID: 8300000, guid: d9104808eaa43ae4aa879203b8555620, type: 3}
+  openingClip: {fileID: 8300000, guid: 13ae7cd5cb17f8c4e81424c3776129f7, type: 3}
+  closingClip: {fileID: 8300000, guid: 95c33f63fa9abbb4ba18fb89f9e4ef8c, type: 3}
   doorController: {fileID: 2099531900}
   isOpeningClipPlaying: 0
   isClosingClipPlaying: 0
+  volume: 0.1
 --- !u!1 &2104150062
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,7 +69,7 @@ public class MachineScript : MonoBehaviour
     {
         moveDrill = true;
         isMachineActive = true;
-        yield return new WaitForSeconds(14f);
+        yield return new WaitForSeconds(18f); // old = 14
         moveObject = true;
         yield return new WaitForSeconds(waitTime);
         isMachineActive = false;
