@@ -5,17 +5,6 @@ public class DoorController : MonoBehaviour
 {
     [Header("Objects")]
     public Transform door;
-    public Transform doorHandle;
-
-    [Header("References to other scripts")]
-    public MachineScript machineScript;
-    public DoorInteractable doorTrigger;
-
-    [Header("Movement Values")]
-    public float maxOpening = 72f;
-    public float minOpening = 0f;
-    public float movementSpeed = 60f;    
-    public float waitTime = 1.2f;
 
     [Header("Boolean Variables")]
     public bool isDoorOpen = false;
@@ -24,42 +13,42 @@ public class DoorController : MonoBehaviour
     public bool playOpeningClip = false;
     public bool playClosingClip = false;
 
-    void Start()
-    {
-         
-    }
+    [Header("Other Values")]
+    public float maxOpening = 72f;
+    public float minOpening = 0f;
+    public float movementSpeed = 60f;    
+    public float waitTime = 1.2f;
 
     void Update()
     {
-        if (isDoorOpeningActive == true && door.transform.position.x < maxOpening && isDoorOpen == false) {
-            door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
-            doorHandle.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
-            playOpeningClip = true;
-            playClosingClip = false;
+        if (isDoorOpeningActive == true && door.transform.position.x < maxOpening && isDoorOpen == false)   // Checking if door opening procedure is active, making sure the door isnt at its max opening value,
+        {                                                                                                   // and checking that the door is closed before attempting to open the door.
+            door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);                               // Translating the door's X value
+            playOpeningClip = true;                                                                         // Setting "playOpeningClip" to "true" so door opening audio clip can be played
+            playClosingClip = false;                                                
         }
 
-        if (isDoorClosingActive == true && door.transform.position.x > minOpening && isDoorOpen == true)
-        {
-            door.transform.Translate(-movementSpeed * Time.deltaTime, 0f, 0f);
-            doorHandle.transform.Translate(-movementSpeed * Time.deltaTime, 0f, 0f);
+        if (isDoorClosingActive == true && door.transform.position.x > minOpening && isDoorOpen == true)    // Checking if the door closing procedure is active, making sure the door isnt at its min opening value,
+        {                                                                                                   // and checking that the door is opened before attempting to close the door.            
+            door.transform.Translate(-movementSpeed * Time.deltaTime, 0f, 0f);                              // Translating the door's X-value
+            playClosingClip = true;                                                                         // Setting "playClosingClip" to "true" so door opening audio clip can be played
             playOpeningClip = false;
-            playClosingClip = true;
         }
     }
 
-    public IEnumerator OpenDoor()
+    public IEnumerator OpenDoor()                                                                           // Door opening function, setting the door opening procedure active for 1.2 seconds so the door can be moved on line 29.
     {
-        isDoorOpeningActive = true;
-        yield return new WaitForSeconds(waitTime);
-        isDoorOpen = true;
-        isDoorOpeningActive = false;
+        isDoorOpeningActive = true;                                                                         // Setting the door opening procedure as "active"
+        yield return new WaitForSeconds(waitTime);                                                          // Adding a delay before next line is executed
+        isDoorOpen = true;                                                                                  // Marking the door as "opened"
+        isDoorOpeningActive = false;                                                                        // Door opening procedure is set back to "inactive" after the delay
     }
 
-    public IEnumerator CloseDoor()
+    public IEnumerator CloseDoor()                                                                          // Door closing function, setting the door closing procedure active for 1.2 seconds so the door can be moved on line 35.
     {
-        isDoorClosingActive = true;
-        yield return new WaitForSeconds(waitTime);
-        isDoorOpen = false;
-        isDoorClosingActive = false;
+        isDoorClosingActive = true;                                                                         // Setting door closing procedure as "active"
+        yield return new WaitForSeconds(waitTime);                                                          // Adding a delay and marking the door as closed after the delay
+        isDoorOpen = false;                                                                                 // Marking the door as closed
+        isDoorClosingActive = false;                                                                        // Door closing procedure is set back to "inactive" after the delay
     }
 }
