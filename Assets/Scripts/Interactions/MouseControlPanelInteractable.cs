@@ -98,6 +98,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if (isEmergencyStopClicked) {
                                         isEmergencyStopClicked2 = true;
                                     }
+                                    PlayAudioClip();
                                     break;
 
                                 case "btnReset":
