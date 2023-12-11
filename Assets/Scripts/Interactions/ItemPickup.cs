@@ -4,14 +4,17 @@ public class ItemPickup : MonoBehaviour, IInteractable
 {
     public string itemID = "UncutItem";
     public InventoryManager inventoryManager;
+    public bool isUncutItemAlreadyInInventory = false;
 
     public TextInformation textInfo;
 
     public void Interact()
     {
         // Check if there are still items in the pile
-        if (transform.childCount > 0)
+        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory)
         {
+            isUncutItemAlreadyInInventory = true;
+
             // Get the topmost item in the pile
             GameObject topItem = transform.GetChild(transform.childCount - 1).gameObject;
 
