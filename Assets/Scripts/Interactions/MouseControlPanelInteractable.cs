@@ -21,6 +21,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isLatheOn = false;
     public bool isZeroReturnClicked = false;
     public bool isAllClicked = false;
+    public bool isLathingActive = false;
 
     public bool isAudioClipPlaying = false;
 
@@ -72,6 +73,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         machineScript.moveSupport = true;
                                         isZeroReturnClicked = false;
                                         isAllClicked = false;
+                                        isLathingActive = true;
                                     }
                                     PlayAudioClip();
                                     break;

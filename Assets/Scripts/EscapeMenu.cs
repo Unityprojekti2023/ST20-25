@@ -8,7 +8,13 @@ public class EscapeMenu : MonoBehaviour
     public GameObject escapeMenu;
     public GameObject optionsMenu;
     public LatheSoundFX latheSoundFX;
-    public AudioSource source;
+    public DoorController doorController;
+    public MouseControlPanelInteractable mouseControlPanelInteractable;
+
+    [Header("References to audio sources")]
+    public AudioSource latheAudioSource;
+    public AudioSource openingAudioSource;
+    public AudioSource closingAudioSource;
 
     public static bool GameIsPaused = false;
     public bool isGamePaused = false;
@@ -36,23 +42,25 @@ public class EscapeMenu : MonoBehaviour
 
     public void Pause()
     {
-        escapeMenu.SetActive(true); //Show escape menu
-        Time.timeScale = 0f; //Pause game time
-        Cursor.visible = true; //Show mouse cursor
+        escapeMenu.SetActive(true);     //Show escape menu
+        Time.timeScale = 0f;            //Pause game time
+        Cursor.visible = true;          //Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
         GameIsPaused = true;
-        source.Pause();
+        latheAudioSource.Pause();       //Pausing lathe audio clip
+        openingAudioSource.Pause();     //Pausing door opening audio clip
+        closingAudioSource.Pause();     //Pausing door closing audio clip
         isGamePaused = true;
     }
 
     public void Resume()
     {
-        escapeMenu.SetActive(false); //Hide escape menu
-        optionsMenu.SetActive(false); //Hide options menu
-        Time.timeScale = 1; // Resume game
-        Cursor.visible = false; // Hide mouse cursor when menu is closed
+        escapeMenu.SetActive(false);    //Hide escape menu
+        optionsMenu.SetActive(false);   //Hide options menu
+        Time.timeScale = 1;             // Resume game
+        Cursor.visible = false;         // Hide mouse cursor when menu is closed
         Cursor.lockState = CursorLockMode.Locked;
-        GameIsPaused = false; // Update game pause state
+        GameIsPaused = false;           // Update game pause state
 
         // Deselect the button
         EventSystem.current.SetSelectedGameObject(null);
@@ -60,7 +68,15 @@ public class EscapeMenu : MonoBehaviour
         isGamePaused = false;
 
         if (latheSoundFX.isLatheCuttingClipAlreadyPlaying) {
-            source.Play();
+            latheAudioSource.Play();                            // If lathing audio clip was playing when game was paused, resuming audio clip
+        }
+
+        if (doorController.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive) {
+            openingAudioSource.Play();                          // If door opening audio clip was playing when game was paused, resuming audio clip
+        }
+        
+        if (doorController.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive) {
+            closingAudioSource.Play();                          // If door closing audio clip was playing when game was paused, resuming audio clip
         }
     }
 

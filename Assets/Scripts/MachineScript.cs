@@ -11,6 +11,7 @@ public class MachineScript : MonoBehaviour
     [Header("References to other scripts")]
     public DoorController doorController;
     public SupportController supportController;
+    public MouseControlPanelInteractable mouseControlPanelInteractable;
 
     [Header("Movement Values")]
     public float maxLeftXPosition = -113.5f;

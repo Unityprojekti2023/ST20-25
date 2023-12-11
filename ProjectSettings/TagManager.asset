@@ -10,6 +10,7 @@ TagManager:
   - ControlPanelCamera
   - Text
   - AudioTrigger
+  - Door
   layers:
   - Default
   - TransparentFX
