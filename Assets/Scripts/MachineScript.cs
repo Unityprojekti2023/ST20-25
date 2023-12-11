@@ -29,8 +29,9 @@ public class MachineScript : MonoBehaviour
 
     void Start()
     {
-        uncutObject.Translate(20f, 0, 0);
-        cutObject.Translate(20f, 0, 0);
+        
+        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+        cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
     }
 
     void Update()
@@ -50,8 +51,8 @@ public class MachineScript : MonoBehaviour
 
     public void MoveObjectsToCuttingPosition()
     {
-        uncutObject.Translate(-20f, 0, 0);
-        cutObject.Translate(-20f, 0, 0);
+        uncutObject.position = new Vector3(-130f, 102.4f, 182.7f);
+        cutObject.position = new Vector3(-131.2f, 102.4f, 182.7f);
         isUncutObjectInCuttingPosition = true;
         isCutObjectInCuttingPosition = true;
         isAnimationComplete = false;
@@ -59,8 +60,8 @@ public class MachineScript : MonoBehaviour
 
     public void RemoveObjectsFromCuttingPosition()
     {
-        uncutObject.Translate(20f, 0, 0);
-        cutObject.Translate(20f, 0, 0);
+        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+        cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
         isUncutObjectInCuttingPosition = false;
         isCutObjectInCuttingPosition = false;
         isAnimationComplete = false;
@@ -70,7 +71,7 @@ public class MachineScript : MonoBehaviour
     {
         moveDrill = true;
         isMachineActive = true;
-        yield return new WaitForSeconds(18f); // old = 14
+        yield return new WaitForSeconds(18f);
         moveObject = true;
         yield return new WaitForSeconds(waitTime);
         isMachineActive = false;

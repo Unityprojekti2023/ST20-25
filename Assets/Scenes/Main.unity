@@ -7900,7 +7900,6 @@ MonoBehaviour:
   inventoryManager: {fileID: 574679439}
   textInfo: {fileID: 590410041}
   hiddenItem: {fileID: 1840226323}
-  itemPickup: {fileID: 0}
 --- !u!65 &463286648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8800,7 +8799,7 @@ GameObject:
   - component: {fileID: 571069038}
   - component: {fileID: 571069037}
   m_Layer: 0
-  m_Name: ST20-25 (1)
+  m_Name: ST20-25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

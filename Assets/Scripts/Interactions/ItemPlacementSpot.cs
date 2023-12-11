@@ -8,7 +8,6 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
     public TextInformation textInfo;
 
     public GameObject hiddenItem;
-    public ItemPickup itemPickup;
 
     private void Start()
     {
