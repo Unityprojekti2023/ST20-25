@@ -30,12 +30,15 @@ public class TutorialManager : MonoBehaviour
         {
             if (i == popUpIndex)
             {
-                popUps[i].SetActive(true);
-
+                if(popUps[i] != null) {
+                    popUps[i].SetActive(true);
+                }
             }
             else
             {
-                popUps[i].SetActive(false);
+                if(popUps[i] != null) {
+                    popUps[i].SetActive(false);
+                }
             }
         }
 
