@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EscapeMenu : MonoBehaviour
 {
@@ -86,8 +87,30 @@ public class EscapeMenu : MonoBehaviour
         optionsMenu.SetActive(true);
     }
 
+    public void Back()
+    {
+        escapeMenu.SetActive(true);
+        optionsMenu.SetActive(false);
+    }
+
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void RestartGame()
+    {
+        GameIsPaused = false;
+        escapeMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ReturnMainMenu()
+    {
+        escapeMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        GameIsPaused = false;
+        SceneManager.LoadScene(0);
     }
 }
