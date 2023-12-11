@@ -6368,8 +6368,8 @@ MonoBehaviour:
   latheCuttingClip: {fileID: 8300000, guid: e188729c95a6b45448efa8ea3edfcd82, type: 3}
   machineScript: {fileID: 1191750845}
   isLatheCuttingClipAlreadyPlaying: 0
-  CuttingClipStartDelay: 12
-  volume: 0.02
+  CuttingClipStartDelay: 6
+  volume: 0.2
 --- !u!1 &384948140
 GameObject:
   m_ObjectHideFlags: 0
@@ -12337,6 +12337,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cfb1a831ab629f94491b8a2e1151050a, type: 2}
+    - target: {fileID: 9182293928324688784, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182293928324688784, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.72
+      objectReference: {fileID: 0}
     - target: {fileID: 9182293928324688784, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.764
@@ -19093,6 +19101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   escapeMenu: {fileID: 6491055}
   optionsMenu: {fileID: 1675791120}
+  source: {fileID: 374627381}
 --- !u!114 &1589835471
 MonoBehaviour:
   m_ObjectHideFlags: 0

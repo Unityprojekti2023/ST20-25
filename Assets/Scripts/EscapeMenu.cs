@@ -7,6 +7,7 @@ public class EscapeMenu : MonoBehaviour
     [Header("References to other scripts")]
     public GameObject escapeMenu;
     public GameObject optionsMenu;
+    public AudioSource source;
 
     public static bool GameIsPaused = false;
 
@@ -38,6 +39,7 @@ public class EscapeMenu : MonoBehaviour
         Cursor.visible = true; //Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
         GameIsPaused = true;
+        source.Pause();
     }
 
     public void Resume()
@@ -51,6 +53,8 @@ public class EscapeMenu : MonoBehaviour
 
         // Deselect the button
         EventSystem.current.SetSelectedGameObject(null);
+
+        source.Play();
     }
 
     public void Options()

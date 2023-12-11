@@ -14,10 +14,11 @@ public class LatheSoundFX : MonoBehaviour
     [Header("Values & variables")]
     public bool isLatheCuttingClipAlreadyPlaying = false;
     public float CuttingClipStartDelay = 12f;
-    public float volume = 0.02f;
+    public float volume = 0.2f;
 
     void Start() 
     {
+        source.clip = latheCuttingClip;
         source.volume = volume;                                                         // Setting volume level for the audio source
     }
 
@@ -34,7 +35,7 @@ public class LatheSoundFX : MonoBehaviour
 
     public IEnumerator latheCuttingStartDelay(){                                        // Function for playing lathe cutting audio clip
         yield return new WaitForSeconds(CuttingClipStartDelay);                         // Waiting for the drill to get close to the object to be cut, before starting audio clip
-        source.PlayOneShot(latheCuttingClip);                                           // Playing the audio clip
+        source.Play();                                                                  // Playing the audio clip
         isLatheCuttingClipAlreadyPlaying = true;                                        // Setting "isLatheCuttingClipAlreadyPlaying" to prevent multiple audio clips from playing at once
     }
 }
