@@ -9,6 +9,7 @@ TagManager:
   - PlayerModel
   - ControlPanelCamera
   - Text
+  - AudioTrigger
   layers:
   - Default
   - TransparentFX

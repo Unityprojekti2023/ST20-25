@@ -10,6 +10,8 @@ public class LatheSoundFX : MonoBehaviour
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
+    public EscapeMenu escapeMenu;
+    public LatheAudioTrigger latheAudioTrigger;
 
     [Header("Values & variables")]
     public bool isLatheCuttingClipAlreadyPlaying = false;
@@ -25,17 +27,26 @@ public class LatheSoundFX : MonoBehaviour
     void Update()
     {
         if (machineScript.isMachineActive && !isLatheCuttingClipAlreadyPlaying) {       // Checking if the machine is active and making sure an audio clip isn't playing already
-            StartCoroutine(latheCuttingStartDelay());                                   // Calling coroutine to play the audio clip
+            if (latheAudioTrigger.playAudioClip) {
+                source.Play();                                                          // Playing the audio clip
+                isLatheCuttingClipAlreadyPlaying = true;                                // Setting "isLatheCuttingClipAlreadyPlaying" to prevent multiple audio clips from playing at once
+            }   
         }
 
         if (machineScript.isAnimationComplete) {                                        // Checking if the cutting animation is complete
             isLatheCuttingClipAlreadyPlaying = false;                                   // Making "isLatheCuttingClipAlreadyPlaying" false so the audio clip can be played again next time an item is being cut
         }
+
+        if (escapeMenu.isGamePaused) {
+            Time.timeScale = 0;
+        }
+        else {
+            Time.timeScale = 1.0f;
+        }
     }
 
     public IEnumerator latheCuttingStartDelay(){                                        // Function for playing lathe cutting audio clip
         yield return new WaitForSeconds(CuttingClipStartDelay);                         // Waiting for the drill to get close to the object to be cut, before starting audio clip
-        source.Play();                                                                  // Playing the audio clip
-        isLatheCuttingClipAlreadyPlaying = true;                                        // Setting "isLatheCuttingClipAlreadyPlaying" to prevent multiple audio clips from playing at once
+        
     }
 }

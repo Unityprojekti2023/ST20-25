@@ -7,9 +7,11 @@ public class EscapeMenu : MonoBehaviour
     [Header("References to other scripts")]
     public GameObject escapeMenu;
     public GameObject optionsMenu;
+    public LatheSoundFX latheSoundFX;
     public AudioSource source;
 
     public static bool GameIsPaused = false;
+    public bool isGamePaused = false;
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class EscapeMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         GameIsPaused = true;
         source.Pause();
+        isGamePaused = true;
     }
 
     public void Resume()
@@ -54,7 +57,11 @@ public class EscapeMenu : MonoBehaviour
         // Deselect the button
         EventSystem.current.SetSelectedGameObject(null);
 
-        source.Play();
+        isGamePaused = false;
+
+        if (latheSoundFX.isLatheCuttingClipAlreadyPlaying) {
+            source.Play();
+        }
     }
 
     public void Options()
