@@ -29,27 +29,25 @@ public class MachineScript : MonoBehaviour
 
     void Start()
     {
-        
-        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);                                  //Hiding the uncut and cut objects on start
         cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
     }
 
     void Update()
     {
-        if (supportController.isSupportInPlace && !moveDrill)
+        if (supportController.isSupportInPlace && !moveDrill)                                       // Checking if the support is in place and the drill isnt moving already
         {
-            moveDrill = true;
-            StartCoroutine(MoveUncutObjectLeft());
+            moveDrill = true;                                                                       // Setting moveDrill to true, so the drill can begin moving
+            StartCoroutine(MoveUncutObjectLeft());                                                  // Starting the coroutine to move uncut object left (for the cutting animation)
         }
 
-        // Moving uncut object
-        if (isMachineActive && uncutObject.transform.position.x < maxLeftXPosition && moveObject)
+        if (isMachineActive && uncutObject.transform.position.x < maxLeftXPosition && moveObject)   // Checking if machine is active, making sure the object is within its allowed X position
         {
-            uncutObject.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+            uncutObject.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);                // Translating the uncut objects X position slowly to create the effect that the metal object is being cut
         }
     }
 
-    public void MoveObjectsToCuttingPosition()
+    public void MoveObjectsToCuttingPosition()                                                      // Function to move objects into cutting position
     {
         uncutObject.position = new Vector3(-130f, 102.4f, 182.7f);
         cutObject.position = new Vector3(-131.2f, 102.4f, 182.7f);
@@ -58,7 +56,7 @@ public class MachineScript : MonoBehaviour
         isAnimationComplete = false;
     }
 
-    public void RemoveObjectsFromCuttingPosition()
+    public void RemoveObjectsFromCuttingPosition()                                                  // Function to remove objects from the cutting position
     {
         uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
         cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
@@ -67,7 +65,7 @@ public class MachineScript : MonoBehaviour
         isAnimationComplete = false;
     }
 
-    IEnumerator MoveUncutObjectLeft()
+    IEnumerator MoveUncutObjectLeft()                                                               // Coroutine responsible for moving the drill and objects at the right time
     {
         moveDrill = true;
         isMachineActive = true;

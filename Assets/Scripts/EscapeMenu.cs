@@ -28,7 +28,7 @@ public class EscapeMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) //TODO: Change to Escape once game is ready for builds, since Escape doens't work in the editors Game mode
+        if (Input.GetKeyDown(KeyCode.Escape)) //TODO: Change to Escape once game is ready for builds, since Escape doens't work in the editors Game mode
         {
             if (GameIsPaused)
             {

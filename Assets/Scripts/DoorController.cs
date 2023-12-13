@@ -25,7 +25,8 @@ public class DoorController : MonoBehaviour
     {
         if (isDoorOpeningActive == true && door.transform.position.x < maxOpening && isDoorOpen == false)   // Checking if door opening procedure is active, making sure the door isnt at its max opening value,
         {                                                                                                   // and checking that the door is closed before attempting to open the door.
-            if (!mouseControlPanelInteractable.isLathingActive) {                                           // Making sure Lathing isnt active
+            if (!mouseControlPanelInteractable.isLathingActive)                                             // Making sure Lathing isnt active
+            {                                           
                 door.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);                           // Translating the door's X value
                 playOpeningClip = true;                                                                     // Setting "playOpeningClip" to "true" so door opening audio clip can be played
                 playClosingClip = false; 

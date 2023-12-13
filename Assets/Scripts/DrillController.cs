@@ -13,8 +13,8 @@ public class DrillController : MonoBehaviour
     [Header("Movement Values")]
     float maxLeftXPosition = 100f; 
     float maxRightXPosition = 0f;
-    float waitTime = 30f; //old value 28
-    float speed = 1.8f; //old value 2
+    float waitTime = 30f;
+    float speed = 1.8f;
 
     [Header("Boolean Variables")]
     bool moveDrillLeft = false;
@@ -45,7 +45,8 @@ public class DrillController : MonoBehaviour
         }
     }
 
-    IEnumerator moveDrill() {                                                                           //Coroutine responsible for setting boolean variables after certain delays
+    IEnumerator moveDrill() 
+    {                                                                           //Coroutine responsible for setting boolean variables after certain delays
         moveDrillLeft = true;                                                                           // Setting "moveDrillLeft" to true so the drill can be moved left
         yield return new WaitForSeconds(waitTime);      
         moveDrillLeft = false;                                                                          // Setting "moveDrillLeft" back to false after the cutting animation has finished.
