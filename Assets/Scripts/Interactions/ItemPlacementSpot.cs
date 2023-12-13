@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+
 public class ItemPlacementSpot : MonoBehaviour, IInteractable
 {
     public string requiredItemID = "CutItem"; // The item ID required for placement
@@ -18,6 +19,8 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         // Check if the player has the required item in the inventory
         if (inventoryManager.HasItem(requiredItemID))
         {
+            //itemPickup.isUncutItemAlreadyInInventory = false;
+
             //Show hidden item
             hiddenItem.SetActive(true);
 

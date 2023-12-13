@@ -9,6 +9,8 @@ TagManager:
   - PlayerModel
   - ControlPanelCamera
   - Text
+  - AudioTrigger
+  - Door
   layers:
   - Default
   - TransparentFX

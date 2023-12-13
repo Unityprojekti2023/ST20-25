@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
     [Header("References to gameobjects")]
     public GameObject[] popUps;
     
+    [Header("Other values")]
     private int popUpIndex;
     private Vector3 startPosition;
     private float minDistanceTraveled = 100.0f;
@@ -30,12 +31,15 @@ public class TutorialManager : MonoBehaviour
         {
             if (i == popUpIndex)
             {
-                popUps[i].SetActive(true);
-
+                if(popUps[i] != null) {
+                    popUps[i].SetActive(true);
+                }
             }
             else
             {
-                popUps[i].SetActive(false);
+                if(popUps[i] != null) {
+                    popUps[i].SetActive(false);
+                }
             }
         }
 

@@ -9,6 +9,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     public InventoryManager inventoryManager;
     public MachineScript machineScript;
     public TextInformation textInfo;
+    public ItemPickup itemPickup;
 
     public void Interact()
     {
@@ -21,14 +22,16 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 if (!machineScript.isUncutObjectInCuttingPosition)
                 {
                     inventoryManager.RemoveItem("UncutItem");
+                    itemPickup.isUncutItemAlreadyInInventory = false;
 
                     textInfo.UpdateText("Item [Uncut item] removed");
                     machineScript.MoveObjectsToCuttingPosition();
                 }
                 //If there is uncut item in cuttin position remove it and add to players inventory
-                else if (machineScript.isUncutObjectInCuttingPosition)
+                else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
                 {
                     inventoryManager.AddItem("UncutItem");
+                    itemPickup.isUncutItemAlreadyInInventory = true;
 
                     textInfo.UpdateText("Item [Uncut item] picked up");
                     machineScript.RemoveObjectsFromCuttingPosition();
@@ -48,9 +51,10 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 machineScript.RemoveObjectsFromCuttingPosition();
             }
             //Check if player does not have uncut item in inventory and there is uncut item in the machine.
-            else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition)
+            else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
             {
                 inventoryManager.AddItem("UncutItem");
+                itemPickup.isUncutItemAlreadyInInventory = true;
 
                 textInfo.UpdateText("Item [Uncut item] picked up");
                 machineScript.RemoveObjectsFromCuttingPosition();

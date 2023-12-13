@@ -21,14 +21,19 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isLatheOn = false;
     public bool isZeroReturnClicked = false;
     public bool isAllClicked = false;
+    public bool isLathingActive = false;
+    public bool areNotesShown = false;
 
     public bool isAudioClipPlaying = false;
 
+    public Transform notes;
     public AudioSource source;
     public AudioClip buttonPressClip;
 
     void Start()
     {
+        notes.Translate(0, -200f, 0);
+        //Move notes under the floor (Y Axis)
         source.volume = 0.05f;
     }
     void Update()
@@ -72,6 +77,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         machineScript.moveSupport = true;
                                         isZeroReturnClicked = false;
                                         isAllClicked = false;
+                                        isLathingActive = true;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -121,6 +127,16 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     PlayAudioClip();
                                     break;
 
+                                case "HELP":
+                                if (areNotesShown) {
+                                    notes.Translate(0, -200f, 0);
+                                    areNotesShown = false;
+                                } else if(!areNotesShown) {
+                                    notes.Translate(0, 200f, 0);
+                                    areNotesShown = true;
+                                }
+                                PlayAudioClip();
+                                break;
 
                                     // Add more cases for other button names as needed
                                     // Rename button into btn_"BUTTON NAME" and collider after which add case with that btn name

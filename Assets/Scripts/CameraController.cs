@@ -28,20 +28,19 @@ public class CameraController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);
+          Destroy(gameObject);
         }
     }
     void Start()
-    {
+    {   
         mainCamera.SetActive(true);
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
 
-        
         mainCameraButton.onClick.AddListener(MainCameraActive);
         panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
         insideCameraButton.onClick.AddListener(InsideCameraActive);

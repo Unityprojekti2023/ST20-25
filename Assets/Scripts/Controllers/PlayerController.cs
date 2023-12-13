@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject controlPanelCamerakButton;
     public GameObject insideCamerakButton;
 
+    [Header("Other values")]
     public float moveSpeed = 200.0f;
     public float maxYRotation = 80.0f;
     private float rotationX = 0;
