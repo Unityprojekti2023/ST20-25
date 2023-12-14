@@ -10,25 +10,51 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     public MachineScript machineScript;
     public TextInformation textInfo;
     public ItemPickup itemPickup;
+    public EscapeMenu escapeMenu;
 
     public void Interact()
     {
-        if (doorController.isDoorOpen && !machineScript.isMachineActive)
+        if (!escapeMenu.isGamePaused) 
         {
-            //Check if player has uncut item in inventory
-            if (inventoryManager.HasItem("UncutItem"))
+            if (doorController.isDoorOpen && !machineScript.isMachineActive)
             {
-                //Check if there is not an uncut item in cutting position
-                if (!machineScript.isUncutObjectInCuttingPosition)
+                //Check if player has uncut item in inventory
+                if (inventoryManager.HasItem("UncutItem"))
                 {
-                    inventoryManager.RemoveItem("UncutItem");
-                    itemPickup.isUncutItemAlreadyInInventory = false;
+                    //Check if there is not an uncut item in cutting position
+                    if (!machineScript.isUncutObjectInCuttingPosition)
+                    {
+                        inventoryManager.RemoveItem("UncutItem");
+                        itemPickup.isUncutItemAlreadyInInventory = false;
 
-                    textInfo.UpdateText("Item [Uncut item] removed");
-                    machineScript.MoveObjectsToCuttingPosition();
+                        textInfo.UpdateText("Item [Uncut item] removed");
+                        machineScript.MoveObjectsToCuttingPosition();
+                    }
+                    //If there is uncut item in cuttin position remove it and add to players inventory
+                    else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
+                    {
+                        inventoryManager.AddItem("UncutItem");
+                        itemPickup.isUncutItemAlreadyInInventory = true;
+
+                        textInfo.UpdateText("Item [Uncut item] picked up");
+                        machineScript.RemoveObjectsFromCuttingPosition();
+                    }
+                    else
+                    {
+                       Debug.Log("Something went wrong");
+                    }
                 }
-                //If there is uncut item in cuttin position remove it and add to players inventory
-                else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
+                //Check if machine has run it's cutting animation
+                else if (machineScript.isAnimationComplete)
+                {
+                    //Add cut item to player inventory
+                    inventoryManager.AddItem("CutItem");
+
+                    textInfo.UpdateText("Item [Cut item] picked up");
+                    machineScript.RemoveObjectsFromCuttingPosition();
+                }
+                //Check if player does not have uncut item in inventory and there is uncut item in the machine.
+                else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
                 {
                     inventoryManager.AddItem("UncutItem");
                     itemPickup.isUncutItemAlreadyInInventory = true;
@@ -38,36 +64,14 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 }
                 else
                 {
-                    Debug.Log("Something went wrong");
+                    textInfo.UpdateText("No items on player");
                 }
-            }
-            //Check if machine has run it's cutting animation
-            else if (machineScript.isAnimationComplete)
-            {
-                //Add cut item to player inventory
-                inventoryManager.AddItem("CutItem");
-
-                textInfo.UpdateText("Item [Cut item] picked up");
-                machineScript.RemoveObjectsFromCuttingPosition();
-            }
-            //Check if player does not have uncut item in inventory and there is uncut item in the machine.
-            else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
-            {
-                inventoryManager.AddItem("UncutItem");
-                itemPickup.isUncutItemAlreadyInInventory = true;
-
-                textInfo.UpdateText("Item [Uncut item] picked up");
-                machineScript.RemoveObjectsFromCuttingPosition();
             }
             else
             {
-                textInfo.UpdateText("No items on player");
+                textInfo.UpdateText("No items in inventory");
+                Debug.Log("Cannot interact under current conditions.");
             }
-        }
-        else
-        {
-            textInfo.UpdateText("No items in inventory");
-            Debug.Log("Cannot interact under current conditions.");
         }
     }
 }

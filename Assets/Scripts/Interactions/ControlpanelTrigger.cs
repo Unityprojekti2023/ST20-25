@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlpanelTrigger : MonoBehaviour, IInteractable
 {
     CameraController cameraController;
+    public EscapeMenu escapeMenu;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class ControlpanelTrigger : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Change camera view to control panel camera
-        if (cameraController != null)
+        if (cameraController != null && !escapeMenu.isGamePaused)
         {
             cameraController.ControlpanelCameraActive();
         }

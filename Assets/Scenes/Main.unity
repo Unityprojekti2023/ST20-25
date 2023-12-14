@@ -10517,6 +10517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad26711c97b8634cb816c33c08f018b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escapeMenu: {fileID: 1589835470}
 --- !u!54 &723405222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16159,6 +16160,7 @@ MonoBehaviour:
   machineScript: {fileID: 1191750845}
   textInfo: {fileID: 590410041}
   itemPickup: {fileID: 2062293290}
+  escapeMenu: {fileID: 1589835470}
 --- !u!1 &1197144938
 GameObject:
   m_ObjectHideFlags: 0
@@ -26916,8 +26918,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: UncutItem
   inventoryManager: {fileID: 574679439}
-  isUncutItemAlreadyInInventory: 0
+  escapeMenu: {fileID: 1589835470}
   textInfo: {fileID: 590410041}
+  isUncutItemAlreadyInInventory: 0
 --- !u!65 &2062293292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28160,6 +28163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 2099531900}
+  escapeMenu: {fileID: 1589835470}
 --- !u!64 &2099531908
 MeshCollider:
   m_ObjectHideFlags: 0

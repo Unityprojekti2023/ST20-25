@@ -4,14 +4,14 @@ public class ItemPickup : MonoBehaviour, IInteractable
 {
     public string itemID = "UncutItem";
     public InventoryManager inventoryManager;
-    public bool isUncutItemAlreadyInInventory = false;
-
+    public EscapeMenu escapeMenu;
     public TextInformation textInfo;
+    public bool isUncutItemAlreadyInInventory = false;
 
     public void Interact()
     {
         // Check if there are still items in the pile
-        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory)
+        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory && !escapeMenu.isGamePaused)
         {
             isUncutItemAlreadyInInventory = true;
 

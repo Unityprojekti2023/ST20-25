@@ -8,11 +8,11 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public DoorController doorController;
     public SupportController supportController;
     public MachineScript machineScript;
-
+    public EscapeMenu escapeMenu;
     public LayerMask controlPanelLayer;
-
     public Camera controlPanelCamera;
 
+    [Header("Boolean variables")]
     public bool isPowerONClicked = false;
     public bool isPowerOFFClicked = false;
     public bool isEmergencyStopClicked = false;
@@ -23,9 +23,9 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isAllClicked = false;
     public bool isLathingActive = false;
     public bool areNotesShown = false;
-
     public bool isAudioClipPlaying = false;
 
+    [Header("References to objects and files")]
     public Transform notes;
     public AudioSource source;
     public AudioClip buttonPressClip;
@@ -39,7 +39,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     void Update()
     {
         // Check if controlPanelCamera is active before proceeding
-        if (controlPanelCamera != null && controlPanelCamera.gameObject.activeInHierarchy)
+        if (controlPanelCamera != null && controlPanelCamera.gameObject.activeInHierarchy && !escapeMenu.isGamePaused)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -57,21 +57,25 @@ public class MouseControlPanelInteractable : MonoBehaviour
                             switch (buttonName)
                             {
                                 case "btnZeroReturn":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                    isZeroReturnClicked = true;
+                                    if(isLatheOn) 
+                                    {
+                                        isZeroReturnClicked = true;
+                                        
+                                    }
                                     PlayAudioClip();
                                     break;
 
                                 case "btnALL":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                    if(isZeroReturnClicked) {
+                                    
+                                    if(isZeroReturnClicked && isLatheOn) 
+                                    {
                                         isAllClicked = true;
                                     }
                                     PlayAudioClip();
                                     break;
 
                                 case "btn_CycleStart":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
+                                    
                                     if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
                                         machineScript.moveSupport = true;
@@ -83,33 +87,32 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_FeedHold":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     // Handle interaction for btn_FeedHold
                                     PlayAudioClip();
                                     break;
 
                                 case "btnPowerON":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
                                     isPowerONClicked = true;
                                     isPowerOFFClicked = false;
                                     PlayAudioClip();
                                     break;
 
                                 case "btnEmergencyStop":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                    if (isPowerONClicked) {
+                                    if (isPowerONClicked) 
+                                    {
                                         isEmergencyStopClicked = true;
                                     } 
 
-                                    if (isEmergencyStopClicked) {
+                                    if (isEmergencyStopClicked) 
+                                    {
                                         isEmergencyStopClicked2 = true;
                                     }
                                     PlayAudioClip();
                                     break;
 
                                 case "btnReset":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                    if (isEmergencyStopClicked) {
+                                    if (isEmergencyStopClicked) 
+                                    {
                                         isResetClicked = true;
                                         isLatheOn = true;
                                     }
@@ -117,8 +120,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btnPowerOFF":
-                                    //Debug.Log("Interacted with ControlPanel: " + hit.collider.gameObject.name);
-                                    if (isEmergencyStopClicked2 && isLatheOn) {
+                                    if (isEmergencyStopClicked2 && isLatheOn) 
+                                    {
                                         isPowerOFFClicked = true;
                                         isLatheOn = false;
                                         isPowerONClicked = false;
@@ -128,10 +131,12 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "HELP":
-                                if (areNotesShown) {
+                                if (areNotesShown) 
+                                {
                                     notes.Translate(0, -200f, 0);
                                     areNotesShown = false;
-                                } else if(!areNotesShown) {
+                                } else if(!areNotesShown) 
+                                {
                                     notes.Translate(0, 200f, 0);
                                     areNotesShown = true;
                                 }
