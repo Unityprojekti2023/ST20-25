@@ -8013,6 +8013,7 @@ MonoBehaviour:
   requiredItemID: CutItem
   inventoryManager: {fileID: 574679439}
   textInfo: {fileID: 590410041}
+  escapeMenu: {fileID: 1589835470}
   hiddenItem: {fileID: 1840226323}
 --- !u!65 &463286648
 BoxCollider:
@@ -10448,28 +10449,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712763980}
   m_CullTransparentMesh: 1
---- !u!64 &722596343
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5153206168353508653}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3379164165495916520, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
 --- !u!1 &723405217
 GameObject:
   m_ObjectHideFlags: 0
@@ -20502,6 +20481,7 @@ MonoBehaviour:
   doorController: {fileID: 2099531900}
   supportController: {fileID: 988224646}
   machineScript: {fileID: 1191750845}
+  escapeMenu: {fileID: 1589835470}
   controlPanelLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -33750,7 +33730,7 @@ GameObject:
   - component: {fileID: 8894866022897960314}
   - component: {fileID: 600244402982201549}
   - component: {fileID: 2139527107447137481}
-  - component: {fileID: 722596343}
+  - component: {fileID: 8894866022897960315}
   m_Layer: 0
   m_Name: ST20-25
   m_TagString: Untagged
@@ -37843,6 +37823,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1477538000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8894866022897960315
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153206168353508653}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.2076926, y: 6.7269454, z: 21.310162}
+  m_Center: {x: -28.363901, y: 3.4648056, z: 10.834282}
 --- !u!23 &8916231732351882254
 MeshRenderer:
   m_ObjectHideFlags: 0
