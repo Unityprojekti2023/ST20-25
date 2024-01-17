@@ -19,6 +19,7 @@ public class DrillController : MonoBehaviour
     [Header("Boolean Variables")]
     bool moveDrillLeft = false;
     bool moveDrillRight = false;
+
     bool wasTheDrillAlreadyStarted = false;
 
     void Start()
