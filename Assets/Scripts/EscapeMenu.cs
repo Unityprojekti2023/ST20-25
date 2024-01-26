@@ -13,7 +13,10 @@ public class EscapeMenu : MonoBehaviour
     public MouseControlPanelInteractable mouseControlPanelInteractable;
 
     [Header("References to audio sources")]
-    public AudioSource latheAudioSource;
+    public AudioSource beginningSource;
+    public AudioSource endingSource;
+    public AudioSource lathingSource;
+    public AudioSource idlingSource;
     public AudioSource openingAudioSource;
     public AudioSource closingAudioSource;
 
@@ -43,41 +46,66 @@ public class EscapeMenu : MonoBehaviour
 
     public void Pause()
     {
-        escapeMenu.SetActive(true);     //Show escape menu
-        Time.timeScale = 0f;            //Pause game time
-        Cursor.visible = true;          //Show mouse cursor
+        escapeMenu.SetActive(true);     // Show escape menu
+        Time.timeScale = 0f;            // Pause game time
+        Cursor.visible = true;          // Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
         GameIsPaused = true;
-        latheAudioSource.Pause();       //Pausing lathe audio clip
-        openingAudioSource.Pause();     //Pausing door opening audio clip
-        closingAudioSource.Pause();     //Pausing door closing audio clip
+        beginningSource.Pause();        // Pausing "Beginning" audio clip
+        endingSource.Pause();           // Pausing "Endind" audio clip
+        lathingSource.Pause();          // Pausing "Lathing" audio clip
+        idlingSource.Pause();           // Pausing "Idling" audio clip
+        openingAudioSource.Pause();     // Pausing door opening audio clip
+        closingAudioSource.Pause();     // Pausing door closing audio clip
         isGamePaused = true;
     }
 
     public void Resume()
     {
-        escapeMenu.SetActive(false);    //Hide escape menu
-        optionsMenu.SetActive(false);   //Hide options menu
-        Time.timeScale = 1;             // Resume game
-        Cursor.visible = false;         // Hide mouse cursor when menu is closed
-        Cursor.lockState = CursorLockMode.Locked;
-        GameIsPaused = false;           // Update game pause state
+        escapeMenu.SetActive(false);                // Hide escape menu
+        optionsMenu.SetActive(false);               // Hide options menu
+        Time.timeScale = 1;                         // Resume game
+        Cursor.visible = false;                     // Hide mouse cursor when menu is closed
+        Cursor.lockState = CursorLockMode.Locked;   // Locking the cursor
+        GameIsPaused = false;                       // Update game pause state
 
         // Deselect the button
         EventSystem.current.SetSelectedGameObject(null);
 
         isGamePaused = false;
 
-        if (latheSoundFX.isLatheCuttingClipAlreadyPlaying) {
-            latheAudioSource.Play();                            // If lathing audio clip was playing when game was paused, resuming audio clip
+        // If "Beginning" audio clip was playing when game was paused, resuming the audio clip
+        if(latheSoundFX.isBeginningClipPlaying) 
+        {
+            beginningSource.Play();
         }
 
+        // If "Ending" audio clip was playing when game was paused, resuming the audio clip
+        if(latheSoundFX.isEndingClipPlaying)
+        {
+            endingSource.Play();
+        }
+
+        // If "Lathing" audio clip was playing when game was paused, resuming the audio clip
+        if(latheSoundFX.isLathingClipPlaying)
+        {
+            lathingSource.Play();
+        }
+
+        // If "Idling" audio clip was playing when game was paused, resuming the audio clip
+        if(latheSoundFX.isIdlingClipPlaying)
+        {
+            idlingSource.Play();
+        }
+
+        // If door opening audio clip was playing when game was paused, resuming audio clip
         if (doorController.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive) {
-            openingAudioSource.Play();                          // If door opening audio clip was playing when game was paused, resuming audio clip
+            openingAudioSource.Play();
         }
         
+        // If door closing audio clip was playing when game was paused, resuming audio clip
         if (doorController.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive) {
-            closingAudioSource.Play();                          // If door closing audio clip was playing when game was paused, resuming audio clip
+            closingAudioSource.Play();
         }
     }
 

@@ -10,51 +10,33 @@ public class DrillController : MonoBehaviour
     [Header("References to other scripts")]
     MachineScript machineScript;
 
-    [Header("Movement Values")]
-    float maxLeftXPosition = 100f; 
-    float maxRightXPosition = 0f;
-    float waitTime = 30f;
-    float speed = 1.8f;
+    [Header("Values and Variables")]
+    public float speed = 1.8f;
+    public int activeCounter = 0;
+    public int animation1Counter = 5;
 
     [Header("Boolean Variables")]
-    bool moveDrillLeft = false;
-    bool moveDrillRight = false;
-
-    bool wasTheDrillAlreadyStarted = false;
+    public bool moveDrillLeft = false;
+    public bool moveDrillRight = false;
 
     void Start()
     {
-        machineScript = FindObjectOfType<MachineScript>();                                              // Getting a reference to machineScript
+        machineScript = FindObjectOfType<MachineScript>();                                              
     }
 
     void Update()
     {
-        if (machineScript.isMachineActive && !wasTheDrillAlreadyStarted && machineScript.moveDrill)     // Checking if the machine is active, making sure the drill wasn't already started and getting confirmation from machineScript to move the drill.
+        if (machineScript.moveDrill)     
         {
-            StartCoroutine(moveDrill());                                                                // Calling moveDrill coroutine
-            wasTheDrillAlreadyStarted = true;                                                           // Setting "wasTheDrillAlreadyStarted" to true so the coroutine isn't ran multiple times
+            if (moveDrillLeft == true && activeCounter < animation1Counter)
+            {
+                drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);                           
+            }
         }
 
-        if (moveDrillLeft == true && drillObject1.transform.position.x < maxLeftXPosition)              //Checking if it's time to move drill left and making sure the drill doesnt exceed it's max left X position.
+        if (moveDrillRight == true)
         {
-            drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);                           // Translating the drill's X position
+            drillObject1.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);                      
         }
-
-        if (moveDrillRight == true && drillObject1.transform.position.x > maxRightXPosition)            //Checking if it's time to move drill right and making sure the drill doesnt exceed it's max right X position.
-        {
-            drillObject1.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);                      // Translating the drill's X position
-        }
-    }
-
-    IEnumerator moveDrill() 
-    {                                                                           //Coroutine responsible for setting boolean variables after certain delays
-        moveDrillLeft = true;                                                                           // Setting "moveDrillLeft" to true so the drill can be moved left
-        yield return new WaitForSeconds(waitTime);      
-        moveDrillLeft = false;                                                                          // Setting "moveDrillLeft" back to false after the cutting animation has finished.
-        yield return new WaitForSeconds(1f);            
-        moveDrillRight = true;                                                                          // Setting "moveDrillRight" to true so the drill can be moved right.
-        yield return new WaitForSeconds(10f);           
-        moveDrillRight = false;                                                                         // Setting "moveDrillRight" back to false after the drill has been moved back to its starting position
-        wasTheDrillAlreadyStarted = false;                                                              // Setting "wasTheDrillAlreadyStarted" back to false, so coroutine can be ran again.
     }
 }

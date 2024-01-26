@@ -9,7 +9,6 @@ public class SupportController : MonoBehaviour
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
-
     MouseControlPanelInteractable controlPanelInteractable;
 
     [Header("Movement Values")]
@@ -23,7 +22,8 @@ public class SupportController : MonoBehaviour
     public bool moveSupportLeft = false;
     public bool moveSupportRight = false;
     public bool isTheSupportBeingMoved = false;
-    public bool isSupportInPlace = false;
+    public bool isSupportInLeftSpot = false;
+    public bool isSupportInRightSpot = false;
 
     void Start()
     {
@@ -33,34 +33,29 @@ public class SupportController : MonoBehaviour
 
     void Update()
     {
-        if(machineScript.moveSupport&& !isTheSupportBeingMoved)                                 // Checking if machineScript has given the ok to move support and making sure the support isnt moving already
+        // Checking if certain conditions meet before starting to move the support left
+        if(machineScript.moveSupport && !isTheSupportBeingMoved && !isSupportInLeftSpot && machineScript.isMachineActive)
         {
-            StartCoroutine(MoveSupport());                                                      // Starting the coroutine to move the support
+            moveSupportLeft = true;
             isTheSupportBeingMoved = true;
         }
 
-        if (moveSupportLeft && supportObject1.transform.position.x < maxLeftXPosition)          // Checking if its time to move support left and the support is within allowed X position
+        // Checking if certain conditions meet before starting to move the support right
+        if(machineScript.isAnimationComplete && !isTheSupportBeingMoved && !isSupportInRightSpot) {
+            isTheSupportBeingMoved = true;
+            moveSupportRight = true;
+        }
+
+        // Checking if its time to move the support left
+        if(moveSupportLeft)
         {
             supportObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);                 // Translating the support´s X position to the left
         }
 
-        if (moveSupportRight && supportObject1.transform.position.x > maxRightXPosition)        // Checking if its time to move support right and the support is within allowed X position
+        // Checking if its time to move the support right
+        if(moveSupportRight)
         {
             supportObject1.transform.Translate(-speed * Time.deltaTime, 0f, 0f);                // Translating the support´s X position to the right
         }
-    }
-
-    IEnumerator MoveSupport()                           // Coroutine responsible for making sure that everything happens at the right time
-    {
-        moveSupportLeft = true;
-        yield return new WaitForSeconds(moveTime);
-        moveSupportLeft = false;
-        isSupportInPlace = true;
-        yield return new WaitForSeconds(waitTime);
-        moveSupportRight = true;
-        isSupportInPlace = false;
-        yield return new WaitForSeconds(moveTime);
-        moveSupportRight = false;
-        isTheSupportBeingMoved = false;
     }
 }
