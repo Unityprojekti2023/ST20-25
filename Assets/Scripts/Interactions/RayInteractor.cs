@@ -7,10 +7,10 @@ public class RayInteractor : MonoBehaviour
     public float interactDistance = 80f;
 
     void Update()
-    { 
+    {
         Camera mainCamera = Camera.main;
         if (mainCamera != null && mainCamera.CompareTag("MainCamera"))
-        {            
+        {
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
@@ -21,7 +21,7 @@ public class RayInteractor : MonoBehaviour
                 if (interactable != null)
                 {
                     //ShowInteractText(targetName);
-                    switch(targetName)
+                    switch (targetName)
                     {
                         case "ST20-25 Luukku":
                             ShowInteractText("Open Door : [LMB] or [E]");
@@ -38,7 +38,10 @@ public class RayInteractor : MonoBehaviour
                         case "ItemPlacementSpot":
                             ShowInteractText("Place item : [LMB] or [E]");
                             break;
-                            
+                        case "Door Frame.001":
+                            ShowInteractText("Exit game : [LMB] or [E]");
+                            break;
+
                     }
 
                     if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))

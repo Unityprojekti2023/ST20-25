@@ -9937,7 +9937,7 @@ Transform:
   m_GameObject: {fileID: 675125346}
   serializedVersion: 2
   m_LocalRotation: {x: 0.29883623, y: 0.64085644, z: -0.29883623, w: 0.64085644}
-  m_LocalPosition: {x: -2588, y: 1105, z: -238.46997}
+  m_LocalPosition: {x: -503, y: 417, z: 167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28813,6 +28813,12 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -5958581814417614381, guid: 12e44112dc2f1714491a09cf5efa37a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2135792859}
+    - targetCorrespondingSourceObject: {fileID: -5958581814417614381, guid: 12e44112dc2f1714491a09cf5efa37a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2135792858}
     - targetCorrespondingSourceObject: {fileID: 4609237721288642837, guid: 12e44112dc2f1714491a09cf5efa37a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 141188576}
@@ -28826,6 +28832,45 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 935341029}
   m_SourcePrefab: {fileID: 100100000, guid: 12e44112dc2f1714491a09cf5efa37a7, type: 3}
+--- !u!1 &2135792857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5958581814417614381, guid: 12e44112dc2f1714491a09cf5efa37a7, type: 3}
+  m_PrefabInstance: {fileID: 2135792856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2135792858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135792857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1677d0087efd3e47963e7c3e32f9525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuSceneName: MainMenu
+--- !u!65 &2135792859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135792857}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.16, y: 1.8000002, z: 1.8896377}
+  m_Center: {x: 0.046764378, y: 0.0049808626, z: -0.000000059604645}
 --- !u!4 &10733625359274913
 Transform:
   m_ObjectHideFlags: 0
