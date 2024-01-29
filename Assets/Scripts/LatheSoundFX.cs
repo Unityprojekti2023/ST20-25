@@ -4,49 +4,72 @@ using UnityEngine;
 
 public class LatheSoundFX : MonoBehaviour
 {
-    [Header("Audio sources & clips")]
-    public AudioSource source;
-    public AudioClip latheCuttingClip;
+    [Header("Audio Sources")]
+    public AudioSource beginningSource;
+    public AudioSource endingSource;
+    public AudioSource lathingSource;
+    public AudioSource idlingSource;
 
-    [Header("References to other scripts")]
-    public MachineScript machineScript;
-    public EscapeMenu escapeMenu;
-    public LatheAudioTrigger latheAudioTrigger;
+    [Header("Audio Clips")]
+    public AudioClip beginningClip;
+    public AudioClip endingClip;
+    public AudioClip lathingClip;
+    public AudioClip idlingClip;
 
-    [Header("Values & variables")]
-    public bool isLatheCuttingClipAlreadyPlaying = false;
-    public float CuttingClipStartDelay = 12f;
-    public float volume = 0.2f;
+    [Header("Boolean Variables")]
+    public bool playBeginningClip = false;
+    public bool playEndingClip = false;
+    public bool playLathingClip = false;
+    public bool playIdlingclip = false;
+
+    public bool isBeginningClipPlaying = false;
+    public bool isEndingClipPlaying = false;
+    public bool isLathingClipPlaying = false;
+    public bool isIdlingClipPlaying = false;
+
+    public float volume = 0.5f;
 
     void Start() 
     {
-        source.clip = latheCuttingClip;
-        source.volume = volume;                                                         // Setting volume level for the audio source
+        beginningSource.clip = beginningClip;
+        endingSource.clip = endingClip;
+        lathingSource.clip = lathingClip;
+        idlingSource.clip = idlingClip;
+
+        beginningSource.volume = volume;
+        endingSource.volume = volume;
+        lathingSource.volume = volume;
+        idlingSource.volume = volume;
     }
 
     void Update()
     {
-        if (machineScript.isMachineActive && !isLatheCuttingClipAlreadyPlaying)         // Checking if the machine is active and making sure an audio clip isn't playing already
-        {       
-            if (latheAudioTrigger.playAudioClip) 
-            {
-                source.Play();                                                          // Playing the audio clip
-                isLatheCuttingClipAlreadyPlaying = true;                                // Setting "isLatheCuttingClipAlreadyPlaying" to prevent multiple audio clips from playing at once
-            }   
+        // Checking if its time to play "Beginning" audio clip, and making sure the clip isnt already playing
+        if(playBeginningClip && !isBeginningClipPlaying)
+        {
+            beginningSource.Play();
+            isBeginningClipPlaying = true;
         }
 
-        if (machineScript.isAnimationComplete) 
-        {                                                                               // Checking if the cutting animation is complete
-            isLatheCuttingClipAlreadyPlaying = false;                                   // Making "isLatheCuttingClipAlreadyPlaying" false so the audio clip can be played again next time an item is being cut
+        // Checking if its time to play "Ending" audio clip, and making sure the clip isnt already playing
+        if(playEndingClip && !isEndingClipPlaying)
+        {
+            endingSource.Play();
+            isEndingClipPlaying = true;
         }
 
-        if (escapeMenu.isGamePaused) 
+        // Checking if its time to play "Lathing" audio clip, and making sure the clip isnt already playing
+        if(playLathingClip && !isLathingClipPlaying)
         {
-            Time.timeScale = 0;                                                         // Changing timescale to 0 when game is paused to stop coroutine timers
+            lathingSource.Play();
+            isLathingClipPlaying = true;
         }
-        else
+
+        // Checking if its time to play "Idling" audio clip, and making sure the clip isnt already playing
+        if(playIdlingclip && !isIdlingClipPlaying)
         {
-            Time.timeScale = 1.0f;                                                      // Changing timescale back to 1 when game is not paused anymore to continue coroutine timers
+            idlingSource.Play();
+            isIdlingClipPlaying = true;
         }
     }
 }

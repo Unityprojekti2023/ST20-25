@@ -11,6 +11,9 @@ TagManager:
   - Text
   - AudioTrigger
   - Door
+  - LatheTrigger
+  - SupportTrigger
+  - ObjectTrigger
   layers:
   - Default
   - TransparentFX
