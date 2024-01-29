@@ -11,6 +11,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     public TextInformation textInfo;
     public ItemPickup itemPickup;
     public EscapeMenu escapeMenu;
+    public LatheRightTrigger latheRightTrigger;
+    public DrillController drillController;
 
     public void Interact()
     {
@@ -52,6 +54,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                     textInfo.UpdateText("Item [Cut item] picked up");
                     machineScript.RemoveObjectsFromCuttingPosition();
+                    latheRightTrigger.counter = 0;
+                    drillController.activeCounter = 0;
                 }
                 //Check if player does not have uncut item in inventory and there is uncut item in the machine.
                 else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)

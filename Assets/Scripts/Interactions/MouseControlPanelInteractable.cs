@@ -75,9 +75,9 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    
                                     if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
+                                        machineScript.isMachineActive = true;
                                         machineScript.moveSupport = true;
                                         isZeroReturnClicked = false;
                                         isAllClicked = false;

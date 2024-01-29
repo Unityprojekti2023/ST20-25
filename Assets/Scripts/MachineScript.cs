@@ -7,11 +7,17 @@ public class MachineScript : MonoBehaviour
     [Header("Objects")]
     public Transform uncutObject;
     public Transform cutObject;
+    public Transform partiallyCutObject1;
+    public Transform partiallyCutObject2;
+    public Transform partiallyCutObject3;
+    public Transform partiallyCutObject4;
+    public Transform partiallyCutObject5;
 
     [Header("References to other scripts")]
     public DoorController doorController;
     public SupportController supportController;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public LatheMiddleTrigger latheMiddleTrigger;
 
     [Header("Movement Values")]
     public float maxLeftXPosition = -113.5f;
@@ -31,26 +37,57 @@ public class MachineScript : MonoBehaviour
     {
         uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);                                  //Hiding the uncut and cut objects on start
         cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+
+        partiallyCutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject3.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject4.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject5.position = new Vector3(-100f, 102.4f, 182.7f);
     }
 
     void Update()
     {
-        if (supportController.isSupportInPlace && !moveDrill)                                       // Checking if the support is in place and the drill isnt moving already
+        if (supportController.isSupportInLeftSpot && !moveDrill)                                    // Checking if the support is in place and the drill isnt moving already
         {
             moveDrill = true;                                                                       // Setting moveDrill to true, so the drill can begin moving
-            StartCoroutine(MoveUncutObjectLeft());                                                  // Starting the coroutine to move uncut object left (for the cutting animation)
         }
 
-        if (isMachineActive && uncutObject.transform.position.x < maxLeftXPosition && moveObject)   // Checking if machine is active, making sure the object is within its allowed X position
-        {
-            uncutObject.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);                // Translating the uncut objects X position slowly to create the effect that the metal object is being cut
+        if(latheMiddleTrigger.moveUncutObject){
+            uncutObject.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
         }
+
+        if(latheMiddleTrigger.movePartiallyCutObject1){
+            partiallyCutObject1.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+        }
+
+        if(latheMiddleTrigger.movePartiallyCutObject2){
+            partiallyCutObject2.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+        }
+
+        if(latheMiddleTrigger.movePartiallyCutObject3){
+            partiallyCutObject3.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+        }
+
+        if(latheMiddleTrigger.movePartiallyCutObject4){
+            partiallyCutObject4.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+        }
+
+        if(latheMiddleTrigger.movePartiallyCutObject5){
+            partiallyCutObject5.transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
+        }
+
     }
-
     public void MoveObjectsToCuttingPosition()                                                      // Function to move objects into cutting position
     {
         uncutObject.position = new Vector3(-130f, 102.4f, 182.7f);
         cutObject.position = new Vector3(-131.2f, 102.4f, 182.7f);
+
+        partiallyCutObject1.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject2.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject3.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject4.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject5.position = new Vector3(-130f, 102.4f, 182.7f);
+
         isUncutObjectInCuttingPosition = true;
         isCutObjectInCuttingPosition = true;
         isAnimationComplete = false;
@@ -60,22 +97,15 @@ public class MachineScript : MonoBehaviour
     {
         uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
         cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+
+        partiallyCutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject3.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject4.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject5.position = new Vector3(-100f, 102.4f, 182.7f);
+
         isUncutObjectInCuttingPosition = false;
         isCutObjectInCuttingPosition = false;
         isAnimationComplete = false;
-    }
-
-    IEnumerator MoveUncutObjectLeft()                                                               // Coroutine responsible for moving the drill and objects at the right time
-    {
-        moveDrill = true;
-        isMachineActive = true;
-        yield return new WaitForSeconds(18f);
-        moveObject = true;
-        yield return new WaitForSeconds(waitTime);
-        isMachineActive = false;
-        moveSupport = false;
-        moveDrill = false;
-        moveObject = false;
-        isAnimationComplete = true;
     }
 }
