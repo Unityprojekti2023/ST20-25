@@ -8,6 +8,7 @@ public class LatheLeftTrigger : MonoBehaviour
     public DrillController drillController;
     public LatheMiddleTrigger latheMiddleTrigger;
     public LatheSoundFX latheSoundFX;
+    
 
     [Header("Other values")]
     public bool isLatheAtLeftPosition = false;
@@ -48,6 +49,8 @@ public class LatheLeftTrigger : MonoBehaviour
 
                 case 5:
                     latheMiddleTrigger.movePartiallyCutObject5 = false;
+                    drillController.moveLatheUp = true;
+                    drillController.moveLatheDown = false;
                     break;
             }
 

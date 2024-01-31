@@ -57,24 +57,36 @@ public class LatheMiddleTrigger : MonoBehaviour
 
                 case 1:
                     movePartiallyCutObject1 = true;
+                    StartCoroutine(adjustDrill());
                     break;
 
                 case 2:
                     movePartiallyCutObject2 = true;
+                    StartCoroutine(adjustDrill());
                     break;
 
                 case 3:
                     movePartiallyCutObject3 = true;
+                    StartCoroutine(adjustDrill());
                     break;
 
                 case 4:
                     movePartiallyCutObject4 = true;
+                    StartCoroutine(adjustDrill());
                     break;
                 
                 case 5:
                     movePartiallyCutObject5 = true;
+                    StartCoroutine(adjustDrill());
                     break;
             }
         }
     } 
+
+    private IEnumerator adjustDrill()
+    {
+        drillController.forceLatheDown = true;
+        yield return new WaitForSeconds(0.1f);
+        drillController.forceLatheDown = false;
+    }
 }
