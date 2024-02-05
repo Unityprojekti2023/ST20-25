@@ -30,7 +30,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                         itemPickup.isUncutItemAlreadyInInventory = false;
 
                         textInfo.UpdateText("Item [Uncut item] removed");
-                        machineScript.MoveObjectsToCuttingPosition();
+                        machineScript.moveUncutObjectToCuttingPosition();
+                        //machineScript.MoveObjectsToCuttingPosition();
                     }
                     //If there is uncut item in cuttin position remove it and add to players inventory
                     else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
@@ -39,7 +40,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                         itemPickup.isUncutItemAlreadyInInventory = true;
 
                         textInfo.UpdateText("Item [Uncut item] picked up");
-                        machineScript.RemoveObjectsFromCuttingPosition();
+                        machineScript.removeUncutObjectFromCuttingPosition();
+                        //machineScript.RemoveObjectsFromCuttingPosition();
                     }
                     else
                     {
@@ -53,7 +55,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     inventoryManager.AddItem("CutItem");
 
                     textInfo.UpdateText("Item [Cut item] picked up");
-                    machineScript.RemoveObjectsFromCuttingPosition();
+                    machineScript.removeUncutObjectFromCuttingPosition();
+                    //machineScript.RemoveObjectsFromCuttingPosition();
                     latheRightTrigger.counter = 0;
                     drillController.activeCounter = 0;
                 }
@@ -64,7 +67,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     itemPickup.isUncutItemAlreadyInInventory = true;
 
                     textInfo.UpdateText("Item [Uncut item] picked up");
-                    machineScript.RemoveObjectsFromCuttingPosition();
+                    machineScript.removeUncutObjectFromCuttingPosition();
+                    //machineScript.RemoveObjectsFromCuttingPosition();
                 }
                 else
                 {

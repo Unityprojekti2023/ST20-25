@@ -14,7 +14,8 @@ public class DrillController : MonoBehaviour
     [Header("Values and Variables")]
     public float speed = 1.8f;
     public int activeCounter = 0;
-    public int animation1Counter = 5;
+    public int targetCounter = 0;
+    public int selectedProgram = 0;
 
     [Header("Boolean Variables")]
     public bool moveDrillLeft = false;
@@ -36,7 +37,7 @@ public class DrillController : MonoBehaviour
         if (machineScript.moveDrill)     
         {
             // Checking if its time to move the drill left, and making sure activeCounter is less than animation1counter
-            if (moveDrillLeft == true && activeCounter < animation1Counter)
+            if (moveDrillLeft == true && activeCounter < targetCounter)
             {
                 // Translating the drill´s X position
                 drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);

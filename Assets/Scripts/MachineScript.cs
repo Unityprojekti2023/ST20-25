@@ -6,7 +6,8 @@ public class MachineScript : MonoBehaviour
 {
     [Header("Objects")]
     public Transform uncutObject;
-    public Transform cutObject;
+    public Transform cutObject1;
+    public Transform cutObject2;
     public Transform partiallyCutObject1;
     public Transform partiallyCutObject2;
     public Transform partiallyCutObject3;
@@ -26,7 +27,7 @@ public class MachineScript : MonoBehaviour
 
     [Header("Boolean Variables")]
     public bool isUncutObjectInCuttingPosition = false;
-    public bool isCutObjectInCuttingPosition = false;
+    //public bool isCutObjectInCuttingPosition = false;
     public bool isMachineActive = false;
     public bool moveSupport = false;
     public bool moveDrill = false;
@@ -36,7 +37,8 @@ public class MachineScript : MonoBehaviour
     void Start()
     {
         uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);                                  //Hiding the uncut and cut objects on start
-        cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+        cutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
+        cutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
 
         partiallyCutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
         partiallyCutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
@@ -77,35 +79,50 @@ public class MachineScript : MonoBehaviour
         }
 
     }
-    public void MoveObjectsToCuttingPosition()                                                      // Function to move objects into cutting position
-    {
+
+    public void moveUncutObjectToCuttingPosition(){
         uncutObject.position = new Vector3(-130f, 102.4f, 182.7f);
-        cutObject.position = new Vector3(-131.2f, 102.4f, 182.7f);
+        isUncutObjectInCuttingPosition = true;
+    }
+
+    public void removeUncutObjectFromCuttingPosition(){
+        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+        isUncutObjectInCuttingPosition = false;
+    }
+
+    public void moveCutObject1ToCuttingPosition(){
+        cutObject1.position = new Vector3(-131.2f, 102.4f, 182.7f);
 
         partiallyCutObject1.position = new Vector3(-130f, 102.4f, 182.7f);
         partiallyCutObject2.position = new Vector3(-130f, 102.4f, 182.7f);
         partiallyCutObject3.position = new Vector3(-130f, 102.4f, 182.7f);
         partiallyCutObject4.position = new Vector3(-130f, 102.4f, 182.7f);
         partiallyCutObject5.position = new Vector3(-130f, 102.4f, 182.7f);
-
-        isUncutObjectInCuttingPosition = true;
-        isCutObjectInCuttingPosition = true;
-        isAnimationComplete = false;
     }
 
-    public void RemoveObjectsFromCuttingPosition()                                                  // Function to remove objects from the cutting position
-    {
-        uncutObject.position = new Vector3(-100f, 102.4f, 182.7f);
-        cutObject.position = new Vector3(-100f, 102.4f, 182.7f);
+    public void removeCutObject1FromCuttingPosition(){
+        cutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
 
         partiallyCutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
         partiallyCutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
         partiallyCutObject3.position = new Vector3(-100f, 102.4f, 182.7f);
         partiallyCutObject4.position = new Vector3(-100f, 102.4f, 182.7f);
         partiallyCutObject5.position = new Vector3(-100f, 102.4f, 182.7f);
+    }
 
-        isUncutObjectInCuttingPosition = false;
-        isCutObjectInCuttingPosition = false;
-        isAnimationComplete = false;
+    public void moveCutObject2ToCuttingPosition(){
+        cutObject2.position = new Vector3(-131.2f, 102.4f, 182.7f);
+
+        partiallyCutObject1.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject3.position = new Vector3(-130f, 102.4f, 182.7f);
+        partiallyCutObject5.position = new Vector3(-130f, 102.4f, 182.7f);
+    }
+
+    public void removeCutObject2FromCuttingPosition(){
+        cutObject2.position = new Vector3(-100f, 102.4f, 182.7f);
+
+        partiallyCutObject1.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject3.position = new Vector3(-100f, 102.4f, 182.7f);
+        partiallyCutObject5.position = new Vector3(-100f, 102.4f, 182.7f);
     }
 }
