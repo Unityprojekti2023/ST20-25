@@ -31,7 +31,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                         textInfo.UpdateText("Item [Uncut item] removed");
                         machineScript.moveUncutObjectToCuttingPosition();
-                        //machineScript.MoveObjectsToCuttingPosition();
                     }
                     //If there is uncut item in cuttin position remove it and add to players inventory
                     else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
@@ -41,7 +40,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                         textInfo.UpdateText("Item [Uncut item] picked up");
                         machineScript.removeUncutObjectFromCuttingPosition();
-                        //machineScript.RemoveObjectsFromCuttingPosition();
+                        machineScript.removeCutObject1FromCuttingPosition();
+                        machineScript.removeCutObject2FromCuttingPosition();
                     }
                     else
                     {
@@ -56,9 +56,12 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                     textInfo.UpdateText("Item [Cut item] picked up");
                     machineScript.removeUncutObjectFromCuttingPosition();
-                    //machineScript.RemoveObjectsFromCuttingPosition();
+                    machineScript.removeCutObject1FromCuttingPosition();
+                    machineScript.removeCutObject2FromCuttingPosition();
+                    
                     latheRightTrigger.counter = 0;
                     drillController.activeCounter = 0;
+                    machineScript.isAnimationComplete = false;
                 }
                 //Check if player does not have uncut item in inventory and there is uncut item in the machine.
                 else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
@@ -68,7 +71,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                     textInfo.UpdateText("Item [Uncut item] picked up");
                     machineScript.removeUncutObjectFromCuttingPosition();
-                    //machineScript.RemoveObjectsFromCuttingPosition();
+                    machineScript.removeCutObject1FromCuttingPosition();
+                    machineScript.removeCutObject2FromCuttingPosition();
                 }
                 else
                 {

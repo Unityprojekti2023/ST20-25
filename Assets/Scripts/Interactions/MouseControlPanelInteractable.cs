@@ -81,7 +81,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                 case "btn_CycleStart":
                                     if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
-                                        if(drillController.selectedProgram > 0 && drillController.selectedProgram <= programCount) //Checking if a valid program is selected
+                                        if(drillController.selectedProgram > 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {
                                             machineScript.isMachineActive = true;
                                             machineScript.moveSupport = true;
@@ -105,6 +105,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                                 drillController.targetCounter = 4;
                                                 machineScript.moveCutObject2ToCuttingPosition();
                                             break;
+
+                                            // Add more cases for new programs
                                         }
                                     }
                                     PlayAudioClip();
