@@ -13,6 +13,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public LayerMask controlPanelLayer;
     public Camera controlPanelCamera;
     public RayInteractor rayInteractor;
+    public ControlpanelController controlpanelController;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -26,6 +27,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isLathingActive = false;
     public bool areNotesShown = false;
     public bool isAudioClipPlaying = false;
+    public bool isStartUpSequenceDone = false;
 
     [Header("References to objects and files")]
     public Transform notes;
@@ -122,10 +124,12 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     isPowerONClicked = true;
                                     isPowerOFFClicked = false;
                                     PlayAudioClip();
+
+                                    StartCoroutine(startupSequence());
                                     break;
 
                                 case "btnEmergencyStop":
-                                    if (isPowerONClicked) 
+                                    if (isPowerONClicked && isStartUpSequenceDone) 
                                     {
                                         isEmergencyStopClicked = true;
                                     } 
@@ -153,6 +157,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isLatheOn = false;
                                         isPowerONClicked = false;
                                         isResetClicked = false;
+                                        isStartUpSequenceDone = false;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -212,5 +217,16 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public IEnumerator soundEffectDelay(){
         yield return new WaitForSeconds(0.4f);
         isAudioClipPlaying = false;
+    }
+
+    public IEnumerator startupSequence()
+    {
+        controlpanelController.showBlackScreen = true;
+        yield return new WaitForSeconds(1f);                // How many seconds the "Black" screen is showing
+        controlpanelController.showAttentionScreen = true;
+        controlpanelController.showBlackScreen = false;
+        yield return new WaitForSeconds(5f);                // How many seconds the "Attention" screen is showing
+        controlpanelController.showAttentionScreen = false;
+        isStartUpSequenceDone = true;
     }
 }
