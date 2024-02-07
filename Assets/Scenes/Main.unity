@@ -2768,6 +2768,7 @@ PrefabInstance:
     - {fileID: -1164418691112584202, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
     - {fileID: -8927957187560260080, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
     - {fileID: -7233742652208732214, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+    - {fileID: -8700617353114198275, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
       insertIndex: 26
@@ -3323,6 +3324,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8582108408330111523, guid: e4cc0f46e34f54e469a72a70eb20a5ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 859237783}
+    - targetCorrespondingSourceObject: {fileID: -8582108408330111523, guid: e4cc0f46e34f54e469a72a70eb20a5ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 859237784}
     - targetCorrespondingSourceObject: {fileID: 4609237721288642837, guid: e4cc0f46e34f54e469a72a70eb20a5ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 68451453}
@@ -7507,8 +7511,8 @@ Transform:
   m_GameObject: {fileID: 369689623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 272.4, y: 82, z: 1077.8}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 267.6, y: 82, z: 1078.3}
+  m_LocalScale: {x: 10, y: 10, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -7526,7 +7530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drillObject1: {fileID: 810514126}
-  drillObject2: {fileID: 0}
+  drillObject2: {fileID: 167671342}
   speed: 1.5
   activeCounter: 0
   targetCounter: 0
@@ -14122,6 +14126,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 574679439}
   textInfo: {fileID: 590410041}
+--- !u!65 &859237784
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859237781}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0045000017, y: 0.004500002, z: 0.018000003}
+  m_Center: {x: 0.000000014579296, y: 2.6822097e-10, z: 0.0090000015}
 --- !u!1 &864121444
 GameObject:
   m_ObjectHideFlags: 0
@@ -16891,14 +16916,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045571678}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -122, y: 96.2, z: 767}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 654, y: 96.2, z: 1650}
   m_LocalScale: {x: 50, y: 90, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1047893777}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &1045571685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23307,12 +23332,13 @@ MonoBehaviour:
   doorController: {fileID: 2099531900}
   supportController: {fileID: 988224646}
   machineScript: {fileID: 1191750845}
-  drillController: {fileID: 0}
+  drillController: {fileID: 374627386}
   escapeMenu: {fileID: 1589835470}
   controlPanelLayer:
     serializedVersion: 2
     m_Bits: 64
   controlPanelCamera: {fileID: 1950427763}
+  rayInteractor: {fileID: 0}
   isPowerONClicked: 0
   isPowerOFFClicked: 0
   isEmergencyStopClicked: 0
