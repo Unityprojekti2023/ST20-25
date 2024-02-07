@@ -28,6 +28,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool areNotesShown = false;
     public bool isAudioClipPlaying = false;
     public bool isStartUpSequenceDone = false;
+    public bool hasStartUpBegun = false;
 
     [Header("References to objects and files")]
     public Transform notes;
@@ -125,7 +126,11 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     isPowerOFFClicked = false;
                                     PlayAudioClip();
 
-                                    StartCoroutine(startupSequence());
+                                    if(!hasStartUpBegun)
+                                    {
+                                        StartCoroutine(startupSequence());
+                                        hasStartUpBegun = true;
+                                    }
                                     break;
 
                                 case "btnEmergencyStop":
@@ -158,6 +163,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isPowerONClicked = false;
                                         isResetClicked = false;
                                         isStartUpSequenceDone = false;
+                                        hasStartUpBegun = false;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -221,11 +227,12 @@ public class MouseControlPanelInteractable : MonoBehaviour
 
     public IEnumerator startupSequence()
     {
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showBlackScreen = true;
-        yield return new WaitForSeconds(1f);                // How many seconds the "Black" screen is showing
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
-        yield return new WaitForSeconds(5f);                // How many seconds the "Attention" screen is showing
+        yield return new WaitForSeconds(Random.Range(5f, 10f));
         controlpanelController.showAttentionScreen = false;
         isStartUpSequenceDone = true;
     }
