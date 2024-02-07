@@ -12,6 +12,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public EscapeMenu escapeMenu;
     public LayerMask controlPanelLayer;
     public Camera controlPanelCamera;
+    public RayInteractor rayInteractor;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
