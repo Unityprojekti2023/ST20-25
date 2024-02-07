@@ -8,6 +8,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public DoorController doorController;
     public SupportController supportController;
     public MachineScript machineScript;
+    public DrillController drillController;
     public EscapeMenu escapeMenu;
     public LayerMask controlPanelLayer;
     public Camera controlPanelCamera;
@@ -29,6 +30,9 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public Transform notes;
     public AudioSource source;
     public AudioClip buttonPressClip;
+
+    [Header("Variables")]
+    public int programCount = 2; //Value indicating how many different programs we have
 
     void Start()
     {
@@ -75,13 +79,35 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    if (machineScript.isUncutObjectInCuttingPosition && machineScript.isCutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked)
+                                    if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
-                                        machineScript.isMachineActive = true;
-                                        machineScript.moveSupport = true;
-                                        isZeroReturnClicked = false;
-                                        isAllClicked = false;
-                                        isLathingActive = true;
+                                        if(drillController.selectedProgram > 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
+                                        {
+                                            machineScript.isMachineActive = true;
+                                            machineScript.moveSupport = true;
+                                            isZeroReturnClicked = false;
+                                            isAllClicked = false;
+                                            isLathingActive = true;
+                                        } else if (drillController.selectedProgram == 0){
+                                            // Handle error for "No program selected"
+                                        } else {
+                                            // Handle error for "Invalid program selected
+                                        }
+
+                                        switch(drillController.selectedProgram)
+                                        {
+                                            case 1: // Program #1
+                                                drillController.targetCounter = 6;
+                                                machineScript.moveCutObject1ToCuttingPosition();
+                                            break;
+
+                                            case 2: // Program #2
+                                                drillController.targetCounter = 4;
+                                                machineScript.moveCutObject2ToCuttingPosition();
+                                            break;
+
+                                            // Add more cases for new programs
+                                        }
                                     }
                                     PlayAudioClip();
                                     break;
@@ -140,6 +166,26 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     notes.Translate(0, 200f, 0);
                                     areNotesShown = true;
                                 }
+                                PlayAudioClip();
+                                break;
+
+                                case "btnListProgram":
+                                PlayAudioClip();
+                                break;
+
+                                case "btnSelectProgram":
+                                PlayAudioClip();
+                                break;
+
+                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
+                                case "btn1":
+                                drillController.selectedProgram = 1;
+                                PlayAudioClip();
+                                break;
+
+                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
+                                case "btn2":
+                                drillController.selectedProgram = 2;
                                 PlayAudioClip();
                                 break;
 

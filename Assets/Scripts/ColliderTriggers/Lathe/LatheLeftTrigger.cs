@@ -8,6 +8,7 @@ public class LatheLeftTrigger : MonoBehaviour
     public DrillController drillController;
     public LatheMiddleTrigger latheMiddleTrigger;
     public LatheSoundFX latheSoundFX;
+    
 
     [Header("Other values")]
     public bool isLatheAtLeftPosition = false;
@@ -23,6 +24,63 @@ public class LatheLeftTrigger : MonoBehaviour
             latheSoundFX.playIdlingclip = true;                                 // Setting "playIdlingClip" to true to start idling audio clip
 
             latheSoundFX.isLathingClipPlaying = false;
+
+            switch(drillController.selectedProgram)
+            {
+                case 1: // Program #1 Case
+                    switch(drillController.activeCounter)                               // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheMiddleTrigger)
+                    {
+                        case 0:
+                            latheMiddleTrigger.moveUncutObject = false;
+                        break;
+
+                        case 1:
+                            latheMiddleTrigger.movePartiallyCutObject1 = false;
+                        break;
+
+                        case 2:
+                            latheMiddleTrigger.movePartiallyCutObject2 = false;
+                        break;
+
+                        case 3:
+                            latheMiddleTrigger.movePartiallyCutObject3 = false;
+                        break;
+
+                        case 4:
+                            latheMiddleTrigger.movePartiallyCutObject4 = false;
+                        break;
+
+                        case 5:
+                            latheMiddleTrigger.movePartiallyCutObject5 = false;
+                            drillController.moveLatheUp = true;
+                            drillController.moveLatheDown = false;
+                        break;
+                    }
+                break;
+
+                case 2: // Program #2 Case
+                    switch(drillController.activeCounter)
+                    {
+                        case 0:
+                            latheMiddleTrigger.moveUncutObject = false;
+                        break;
+
+                        case 1:
+                            latheMiddleTrigger.movePartiallyCutObject1 = false;
+                        break;
+
+                        case 2:
+                            latheMiddleTrigger.movePartiallyCutObject3 = false;
+                        break;
+
+                        case 3:
+                            latheMiddleTrigger.movePartiallyCutObject5 = false;
+                            drillController.moveLatheUp = true;
+                            drillController.moveLatheDown = false;
+                        break;
+                    }
+                break;
+            }
 
             switch(drillController.activeCounter)                               // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheMiddleTrigger)
             {
@@ -48,6 +106,8 @@ public class LatheLeftTrigger : MonoBehaviour
 
                 case 5:
                     latheMiddleTrigger.movePartiallyCutObject5 = false;
+                    drillController.moveLatheUp = true;
+                    drillController.moveLatheDown = false;
                     break;
             }
 

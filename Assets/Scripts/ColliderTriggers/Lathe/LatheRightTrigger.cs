@@ -34,7 +34,7 @@ public class LatheRightTrigger : MonoBehaviour
                 drillController.speed = fastSpeed;                                  // Setting the drill´s movement speed to "fast"
             }
 
-            if(counter == 1)                                                        // Checking if counter is 1 (Meaning the drill has completed 1 full animation cycle)
+            if(counter <= 1)                                                        // Checking if counter is 1 (Meaning the drill has completed 1 full animation cycle)
             {
                 machineScript.isMachineActive = false;                              // Resetting different values to "reset" the system for next animation cycle
                 mouseControlPanelInteractable.isLathingActive = false;

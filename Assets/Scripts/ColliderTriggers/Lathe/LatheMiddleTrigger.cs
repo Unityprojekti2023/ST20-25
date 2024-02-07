@@ -25,7 +25,7 @@ public class LatheMiddleTrigger : MonoBehaviour
         {
             latheSoundFX.isBeginningClipPlaying = false;
 
-            if(drillController.activeCounter < drillController.animation1Counter)           // Checking if activeCounter is less than animationCounter (Meaning that the drill hasnt done enough loops yet)
+            if(drillController.activeCounter < drillController.targetCounter)           // Checking if activeCounter is less than animationCounter (Meaning that the drill hasnt done enough loops yet)
             {
                 drillController.moveDrillLeft = true;                                       // Setting "moveDrillLeft" to true to begin movement to the left
                 drillController.moveDrillRight = false;
@@ -37,7 +37,7 @@ public class LatheMiddleTrigger : MonoBehaviour
                 latheSoundFX.isIdlingClipPlaying = false;
             }
 
-            if(drillController.activeCounter == drillController.animation1Counter)          // Checking when activeCounter matches animationCounter (meaning the drill has done enough loops and can return to starting location)
+            if(drillController.activeCounter == drillController.targetCounter)          // Checking when activeCounter matches animationCounter (meaning the drill has done enough loops and can return to starting location)
             {   
                 latheSoundFX.playEndingClip = true;                                         // Playing ending audio clip and stopping idling audio clip
                 latheSoundFX.playIdlingclip = false;
@@ -49,32 +49,73 @@ public class LatheMiddleTrigger : MonoBehaviour
                 machineScript.isAnimationComplete = true;
             }
 
-            switch(drillController.activeCounter)                                           // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheRightTrigger)
+            switch(drillController.selectedProgram)
             {
-                case 0:
-                    moveUncutObject = true;
-                    break;
+                case 1: // Program #1 case
+                    switch(drillController.activeCounter)                                           // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheRightTrigger)
+                    {
+                        case 0:
+                            moveUncutObject = true;
+                        break;
 
-                case 1:
-                    movePartiallyCutObject1 = true;
-                    break;
+                        case 1:
+                            movePartiallyCutObject1 = true;
+                            StartCoroutine(adjustDrill(0.1f));
+                        break;
 
-                case 2:
-                    movePartiallyCutObject2 = true;
-                    break;
+                        case 2:
+                            movePartiallyCutObject2 = true;
+                            StartCoroutine(adjustDrill(0.1f));
+                        break;
 
-                case 3:
-                    movePartiallyCutObject3 = true;
-                    break;
+                        case 3:
+                            movePartiallyCutObject3 = true;
+                            StartCoroutine(adjustDrill(0.1f));
+                        break;
 
-                case 4:
-                    movePartiallyCutObject4 = true;
-                    break;
+                        case 4:
+                            movePartiallyCutObject4 = true;
+                            StartCoroutine(adjustDrill(0.1f));
+                        break;
                 
-                case 5:
-                    movePartiallyCutObject5 = true;
-                    break;
+                        case 5:
+                            movePartiallyCutObject5 = true;
+                            StartCoroutine(adjustDrill(0.1f));
+                        break;
+                    }
+                break;
+                
+                case 2: // Program #2 case
+                    switch(drillController.activeCounter)
+                    {
+                        case 0:
+                            moveUncutObject = true;
+                        break;
+
+                        case 1:
+                            movePartiallyCutObject1 = true;
+                            StartCoroutine(adjustDrill(0.2f));
+                        break;
+
+                        case 2:
+                            movePartiallyCutObject3 = true;
+                            StartCoroutine(adjustDrill(0.2f));
+                        break;
+
+                        case 3:
+                            movePartiallyCutObject5 = true;
+                            StartCoroutine(adjustDrill(0.2f));
+                        break;
+                    }
+                break;
             }
         }
     } 
+
+    private IEnumerator adjustDrill(float adjustAmount)
+    {
+        drillController.forceLatheDown = true;
+        yield return new WaitForSeconds(adjustAmount);
+        drillController.forceLatheDown = false;
+    }
 }
