@@ -6,9 +6,8 @@ public class RayInteractor : MonoBehaviour
     public TextMeshProUGUI interactText;
     public float interactDistance = 80f;
 
-    float holdDuration = 2f; // Adjust the duration as needed
+    float holdDuration = 1.5f; // Adjust the duration as needed
     float currentHoldTime = 0f;
-    bool holdingButton = false;
     bool carcassInteracted = false;
     bool glassesInteracted = false;
 
@@ -62,7 +61,6 @@ public class RayInteractor : MonoBehaviour
                                 if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
                                 {
                                     ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
-                                    holdingButton = true;
                                     currentHoldTime += Time.deltaTime;
 
                                     if (currentHoldTime >= holdDuration)
@@ -91,7 +89,6 @@ public class RayInteractor : MonoBehaviour
                                 if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
                                 {
                                     ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
-                                    holdingButton = true;
                                     currentHoldTime += Time.deltaTime;
 
                                     if (currentHoldTime >= holdDuration)
@@ -145,7 +142,6 @@ public class RayInteractor : MonoBehaviour
     }
     void ResetHoldTimer()
     {
-        holdingButton = false;
         currentHoldTime = 0f;
     }
 

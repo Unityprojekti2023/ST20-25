@@ -7,6 +7,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     [Header("References to other scripts")]
     public DoorController doorController;
     public InventoryManager inventoryManager;
+    public ObjectiveManager objectiveManager;
     public MachineScript machineScript;
     public TextInformation textInfo;
     public ItemPickup itemPickup;
@@ -28,6 +29,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     {
                         inventoryManager.RemoveItem("UncutItem");
                         itemPickup.isUncutItemAlreadyInInventory = false;
+                        objectiveManager.CompleteObjective("Place piece in place");
 
                         textInfo.UpdateText("Item [Uncut item] removed");
                         machineScript.moveUncutObjectToCuttingPosition();

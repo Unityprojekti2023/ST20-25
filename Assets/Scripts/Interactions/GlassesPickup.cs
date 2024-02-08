@@ -6,10 +6,12 @@ public class GlassesPickup : MonoBehaviour, IInteractable
     public InventoryManager inventoryManager;
     public TextInformation textInfo;
 
+    public ObjectiveManager objectiveManager;
     public void Interact()
     {
         // Logic for handling Shoes interaction
         inventoryManager.AddItem("Safety glasses");
         textInfo.UpdateText("Safety glasses added");
+        objectiveManager.CompleteObjective("Put on safety glasses");
     }
 }

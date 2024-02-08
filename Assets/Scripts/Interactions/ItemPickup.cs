@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour, IInteractable
 {
-    public string itemID = "UncutItem";
+    [Header("References to other scripts")]
     public InventoryManager inventoryManager;
     public EscapeMenu escapeMenu;
     public TextInformation textInfo;
+    public ObjectiveManager objectiveManager;
+
+
+    public string itemID = "UncutItem";
     public bool isUncutItemAlreadyInInventory = false;
 
     public void Interact()
@@ -21,6 +25,8 @@ public class ItemPickup : MonoBehaviour, IInteractable
             // Add the item to the player's inventory
             inventoryManager.AddItem(itemID);
             textInfo.UpdateText("Item [Uncut item] picked up");
+            objectiveManager.CompleteObjective("Pick up uncut piece");
+
 
             // Hide the top item
             topItem.SetActive(false);
