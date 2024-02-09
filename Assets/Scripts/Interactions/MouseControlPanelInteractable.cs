@@ -13,6 +13,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public LayerMask controlPanelLayer;
     public Camera controlPanelCamera;
     public RayInteractor rayInteractor;
+    public ControlpanelController controlpanelController;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -26,6 +27,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isLathingActive = false;
     public bool areNotesShown = false;
     public bool isAudioClipPlaying = false;
+    public bool isStartUpSequenceDone = false;
+    public bool hasStartUpBegun = false;
 
     [Header("References to objects and files")]
     public Transform notes;
@@ -122,10 +125,16 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     isPowerONClicked = true;
                                     isPowerOFFClicked = false;
                                     PlayAudioClip();
+
+                                    if(!hasStartUpBegun)
+                                    {
+                                        StartCoroutine(startupSequence());
+                                        hasStartUpBegun = true;
+                                    }
                                     break;
 
                                 case "btnEmergencyStop":
-                                    if (isPowerONClicked) 
+                                    if (isPowerONClicked && isStartUpSequenceDone) 
                                     {
                                         isEmergencyStopClicked = true;
                                     } 
@@ -153,6 +162,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isLatheOn = false;
                                         isPowerONClicked = false;
                                         isResetClicked = false;
+                                        isStartUpSequenceDone = false;
+                                        hasStartUpBegun = false;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -212,5 +223,17 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public IEnumerator soundEffectDelay(){
         yield return new WaitForSeconds(0.4f);
         isAudioClipPlaying = false;
+    }
+
+    public IEnumerator startupSequence()
+    {
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        controlpanelController.showBlackScreen = true;
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        controlpanelController.showAttentionScreen = true;
+        controlpanelController.showBlackScreen = false;
+        yield return new WaitForSeconds(Random.Range(5f, 10f));
+        controlpanelController.showAttentionScreen = false;
+        isStartUpSequenceDone = true;
     }
 }
