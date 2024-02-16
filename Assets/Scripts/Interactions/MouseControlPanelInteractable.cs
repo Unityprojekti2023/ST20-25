@@ -78,6 +78,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isZeroReturnClicked && isLatheOn) 
                                     {
                                         isAllClicked = true;
+                                        controlpanelController.showHomeScreen2 = true;
+                                        controlpanelController.showHomeScreen1 = false;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -164,6 +166,10 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isResetClicked = false;
                                         isStartUpSequenceDone = false;
                                         hasStartUpBegun = false;
+
+                                        //Temporarily here
+                                        controlpanelController.showHomeScreen1 = false;
+                                        controlpanelController.showHomeScreen2 = false;
                                     }
                                     PlayAudioClip();
                                     break;
@@ -233,6 +239,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
         yield return new WaitForSeconds(Random.Range(5f, 10f));
+        controlpanelController.showHomeScreen1 = true;
         controlpanelController.showAttentionScreen = false;
         isStartUpSequenceDone = true;
     }
