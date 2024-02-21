@@ -22,7 +22,7 @@ public class ControlpanelController : MonoBehaviour
         HomeScreen2.SetActive(false);
     }
 
-    void Update()
+    public void updateScreenImage()
     {
         if(showBlackScreen){
             BlackScreen.SetActive(true);

@@ -14,6 +14,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public Camera controlPanelCamera;
     public RayInteractor rayInteractor;
     public ControlpanelController controlpanelController;
+    public HandleJog handleJog;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -29,6 +30,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isAudioClipPlaying = false;
     public bool isStartUpSequenceDone = false;
     public bool hasStartUpBegun = false;
+    public bool canPressHandleJogButton = true;
 
     [Header("References to objects and files")]
     public Transform notes;
@@ -37,6 +39,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
 
     [Header("Variables")]
     public int programCount = 2; //Value indicating how many different programs we have
+    public int handleJogPosition = 1;
 
     void Start()
     {
@@ -80,6 +83,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isAllClicked = true;
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
+                                        controlpanelController.updateScreenImage();
                                     }
                                     PlayAudioClip();
                                     break;
@@ -170,6 +174,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         //Temporarily here
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.showHomeScreen2 = false;
+                                        controlpanelController.updateScreenImage();
                                     }
                                     PlayAudioClip();
                                     break;
@@ -195,16 +200,44 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                 PlayAudioClip();
                                 break;
 
-                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
-                                case "btn1":
-                                drillController.selectedProgram = 1;
-                                PlayAudioClip();
+                                case "btnHandleJogPlus":
+                                    if(canPressHandleJogButton)
+                                    {
+                                        canPressHandleJogButton = false;
+                                        StartCoroutine(handleJogButtonPressDelay());
+
+                                        if(handleJogPosition == 8){
+                                            handleJogPosition = 1;
+                                        } else {
+                                            handleJogPosition++;
+                                        }
+
+                                        if(drillController.selectedProgram < programCount){
+                                            drillController.selectedProgram++;
+                                        }
+
+                                        handleJog.updateJogPosition();
+                                    }
                                 break;
 
-                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
-                                case "btn2":
-                                drillController.selectedProgram = 2;
-                                PlayAudioClip();
+                                case "btnHandleJogMinus":
+                                    if(canPressHandleJogButton)
+                                    {
+                                        canPressHandleJogButton = false;
+                                        StartCoroutine(handleJogButtonPressDelay());
+
+                                        if(handleJogPosition == 1){
+                                            handleJogPosition = 8;
+                                        } else {
+                                            handleJogPosition--;
+                                        }
+
+                                        if (drillController.selectedProgram > 1){
+                                            drillController.selectedProgram--;
+                                        }
+
+                                        handleJog.updateJogPosition();
+                                    }
                                 break;
 
                                     // Add more cases for other button names as needed
@@ -231,16 +264,25 @@ public class MouseControlPanelInteractable : MonoBehaviour
         isAudioClipPlaying = false;
     }
 
+    public IEnumerator handleJogButtonPressDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        canPressHandleJogButton = true;
+    }
+
     public IEnumerator startupSequence()
     {
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showBlackScreen = true;
+        controlpanelController.updateScreenImage();
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
+        controlpanelController.updateScreenImage();
         yield return new WaitForSeconds(Random.Range(5f, 10f));
         controlpanelController.showHomeScreen1 = true;
         controlpanelController.showAttentionScreen = false;
+        controlpanelController.updateScreenImage();
         isStartUpSequenceDone = true;
     }
 }
