@@ -8882,7 +8882,7 @@ GameObject:
   - component: {fileID: 450286556}
   - component: {fileID: 450286555}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: WorkAreaCollider
   m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23592,6 +23592,7 @@ MonoBehaviour:
     m_Bits: 64
   controlPanelCamera: {fileID: 1950427763}
   rayInteractor: {fileID: 0}
+  controlpanelController: {fileID: 0}
   isPowerONClicked: 0
   isPowerOFFClicked: 0
   isEmergencyStopClicked: 0
@@ -23603,6 +23604,8 @@ MonoBehaviour:
   isLathingActive: 0
   areNotesShown: 0
   isAudioClipPlaying: 0
+  isStartUpSequenceDone: 0
+  hasStartUpBegun: 0
   notes: {fileID: 1725458234}
   source: {fileID: 1775444563}
   buttonPressClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}
