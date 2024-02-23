@@ -29,7 +29,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     {
                         inventoryManager.RemoveItem("UncutItem");
                         itemPickup.isUncutItemAlreadyInInventory = false;
-                        objectiveManager.CompleteObjective("Place piece in place");
 
                         textInfo.UpdateText("Item [Uncut item] removed");
                         machineScript.moveUncutObjectToCuttingPosition();
