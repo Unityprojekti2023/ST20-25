@@ -17,7 +17,7 @@ public class DoorSoundFX : MonoBehaviour
     [Header("Variables")]
     public bool isOpeningClipPlaying = false;
     public bool isClosingClipPlaying = false;
-    public float volume = 0.5f;
+    public float volume = 0.1f;
 
     void Start()
     {
