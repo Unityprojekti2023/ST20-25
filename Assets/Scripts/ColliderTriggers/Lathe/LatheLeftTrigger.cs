@@ -27,7 +27,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
             switch(drillController.selectedProgram)
             {
-                case 1: // Program #1 Case
+                case 0: // Program #0 Case
                     switch(drillController.activeCounter)                               // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheMiddleTrigger)
                     {
                         case 0:
@@ -58,7 +58,7 @@ public class LatheLeftTrigger : MonoBehaviour
                     }
                 break;
 
-                case 2: // Program #2 Case
+                case 1: // Program #1 Case
                     switch(drillController.activeCounter)
                     {
                         case 0:
