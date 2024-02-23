@@ -36,7 +36,7 @@ public class LightController : MonoBehaviour
             whiteLight.Translate(0, 20f, 0);                                                        // Moving the white light back to position
         }
 
-        if (mouseControlPanelInteractable.isResetClicked && !isRedLightAlreadyInPosition)           // Checking if reset button was clicked (Last button in the PowerON procedure) and making sure red light isn't already in position
+        if (mouseControlPanelInteractable.isPowerONClicked && !isRedLightAlreadyInPosition)         // Checking if POWER ON button was clicked and making sure red light isn't already in position
         {
             isRedLightAlreadyInPosition = true;                                                     // Making "isRedLightAlreadyInPosition" true so the red light isn't moved more than once
             redLight.Translate(0, 20f, 0);                                                          // Moving the red light into position

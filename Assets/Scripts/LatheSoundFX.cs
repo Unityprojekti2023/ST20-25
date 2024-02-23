@@ -27,7 +27,7 @@ public class LatheSoundFX : MonoBehaviour
     public bool isLathingClipPlaying = false;
     public bool isIdlingClipPlaying = false;
 
-    public float volume = 0.5f;
+    public float volume = 0.1f;
 
     void Start() 
     {

@@ -14,6 +14,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public Camera controlPanelCamera;
     public RayInteractor rayInteractor;
     public ControlpanelController controlpanelController;
+    public HandleJog handleJog;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -29,6 +30,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public bool isAudioClipPlaying = false;
     public bool isStartUpSequenceDone = false;
     public bool hasStartUpBegun = false;
+    public bool canPressHandleJogButton = true;
+    public bool isProgramSelected = false;
 
     [Header("References to objects and files")]
     public Transform notes;
@@ -36,7 +39,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public AudioClip buttonPressClip;
 
     [Header("Variables")]
-    public int programCount = 2; //Value indicating how many different programs we have
+    public int programCount = 1; 
+    public int handleJogPosition = 1;
 
     void Start()
     {
@@ -68,7 +72,6 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isLatheOn) 
                                     {
                                         isZeroReturnClicked = true;
-                                        
                                     }
                                     PlayAudioClip();
                                     break;
@@ -78,6 +81,21 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isZeroReturnClicked && isLatheOn) 
                                     {
                                         isAllClicked = true;
+                                        controlpanelController.showHomeScreen2 = true;
+                                        controlpanelController.showHomeScreen1 = false;
+                                        controlpanelController.updateScreenImage();
+                                    }
+                                    PlayAudioClip();
+                                    break;
+
+                                case "btnPowerUpRestart": // Pressing this button once does the same exact thing as Zero Return + ALL
+                                    if(isLatheOn)
+                                    {
+                                        isZeroReturnClicked = true;
+                                        isAllClicked = true;
+                                        controlpanelController.showHomeScreen2 = true;
+                                        controlpanelController.showHomeScreen1 = false;
+                                        controlpanelController.updateScreenImage();
                                     }
                                     PlayAudioClip();
                                     break;
@@ -85,27 +103,25 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                 case "btn_CycleStart":
                                     if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked)
                                     {
-                                        if(drillController.selectedProgram > 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
+                                        if(drillController.selectedProgram >= 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {
                                             machineScript.isMachineActive = true;
                                             machineScript.moveSupport = true;
                                             isZeroReturnClicked = false;
                                             isAllClicked = false;
                                             isLathingActive = true;
-                                        } else if (drillController.selectedProgram == 0){
-                                            // Handle error for "No program selected"
                                         } else {
                                             // Handle error for "Invalid program selected
                                         }
 
                                         switch(drillController.selectedProgram)
                                         {
-                                            case 1: // Program #1
+                                            case 0: // Program #0
                                                 drillController.targetCounter = 6;
                                                 machineScript.moveCutObject1ToCuttingPosition();
                                             break;
 
-                                            case 2: // Program #2
+                                            case 1: // Program #1
                                                 drillController.targetCounter = 4;
                                                 machineScript.moveCutObject2ToCuttingPosition();
                                             break;
@@ -164,41 +180,88 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isResetClicked = false;
                                         isStartUpSequenceDone = false;
                                         hasStartUpBegun = false;
+                                        controlpanelController.isProgramSelectionActive = false;
+
+                                        controlpanelController.showHomeScreen1 = false;
+                                        controlpanelController.showHomeScreen2 = false;
+                                        controlpanelController.updateScreenImage();
                                     }
                                     PlayAudioClip();
                                     break;
 
                                 case "HELP":
-                                if (areNotesShown) 
-                                {
-                                    notes.Translate(0, -200f, 0);
-                                    areNotesShown = false;
-                                } else if(!areNotesShown) 
-                                {
-                                    notes.Translate(0, 200f, 0);
-                                    areNotesShown = true;
-                                }
-                                PlayAudioClip();
+                                    if (areNotesShown) 
+                                    {
+                                        notes.Translate(0, -200f, 0);
+                                        areNotesShown = false;
+                                    } else if(!areNotesShown) 
+                                    {
+                                        notes.Translate(0, 200f, 0);
+                                        areNotesShown = true;
+                                    }
+                                    PlayAudioClip();
                                 break;
 
                                 case "btnListProgram":
-                                PlayAudioClip();
+                                    if(isLatheOn && isAllClicked)
+                                    {
+                                        controlpanelController.isProgramSelectionActive = true;
+                                        controlpanelController.showHomeScreen2 = false;
+                                        controlpanelController.updateScreenImage();
+                                    }
+                                    PlayAudioClip();
                                 break;
 
                                 case "btnSelectProgram":
-                                PlayAudioClip();
+                                    if(isLatheOn && isAllClicked)
+                                    {
+                                        isProgramSelected = true;
+                                    }
+                                    PlayAudioClip();
                                 break;
 
-                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
-                                case "btn1":
-                                drillController.selectedProgram = 1;
-                                PlayAudioClip();
+                                case "btnHandleJogPlus":
+                                    if(canPressHandleJogButton)
+                                    {
+                                        canPressHandleJogButton = false;
+                                        StartCoroutine(handleJogButtonPressDelay());
+
+                                        if(handleJogPosition == 8){
+                                            handleJogPosition = 1;
+                                        } else {
+                                            handleJogPosition++;
+                                        }
+
+                                        if(drillController.selectedProgram < programCount && !isProgramSelected)
+                                        {
+                                            drillController.selectedProgram++;
+                                        }
+
+                                        controlpanelController.updateScreenImage();
+                                        handleJog.updateJogPosition();
+                                    }
                                 break;
 
-                                //TEMPORARY CASE FOR PROGRAM SELECTION TESTING - CAN BE DELETED WHEN FEATURE IS FINISHED
-                                case "btn2":
-                                drillController.selectedProgram = 2;
-                                PlayAudioClip();
+                                case "btnHandleJogMinus":
+                                    if(canPressHandleJogButton)
+                                    {
+                                        canPressHandleJogButton = false;
+                                        StartCoroutine(handleJogButtonPressDelay());
+
+                                        if(handleJogPosition == 1){
+                                            handleJogPosition = 8;
+                                        } else {
+                                            handleJogPosition--;
+                                        }
+
+                                        if (drillController.selectedProgram > 0 && !isProgramSelected)
+                                        {
+                                            drillController.selectedProgram--;
+                                        }
+
+                                        controlpanelController.updateScreenImage();
+                                        handleJog.updateJogPosition();
+                                    }
                                 break;
 
                                     // Add more cases for other button names as needed
@@ -225,15 +288,25 @@ public class MouseControlPanelInteractable : MonoBehaviour
         isAudioClipPlaying = false;
     }
 
+    public IEnumerator handleJogButtonPressDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        canPressHandleJogButton = true;
+    }
+
     public IEnumerator startupSequence()
     {
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showBlackScreen = true;
+        controlpanelController.updateScreenImage();
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
+        controlpanelController.updateScreenImage();
         yield return new WaitForSeconds(Random.Range(5f, 10f));
+        controlpanelController.showHomeScreen1 = true;
         controlpanelController.showAttentionScreen = false;
+        controlpanelController.updateScreenImage();
         isStartUpSequenceDone = true;
     }
 }

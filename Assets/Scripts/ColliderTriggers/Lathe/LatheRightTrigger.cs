@@ -41,6 +41,7 @@ public class LatheRightTrigger : MonoBehaviour
                 drillController.moveDrillRight = false;
                 isDrillMovingAlready = false;
                 machineScript.moveDrill = false;
+                mouseControlPanelInteractable.isProgramSelected = false;
             }
         }
     }   
