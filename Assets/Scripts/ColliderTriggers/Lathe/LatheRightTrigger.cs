@@ -8,6 +8,7 @@ public class LatheRightTrigger : MonoBehaviour
     public DrillController drillController;
     public MachineScript machineScript;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public RayInteractor rayInteractor;
 
     float fastSpeed = 5f;
     public int counter = 0;
@@ -51,6 +52,7 @@ public class LatheRightTrigger : MonoBehaviour
         if(other.gameObject.tag== "LatheTrigger")                                   // Making sure trigger collided with the correct object
         {
             counter++;                                                              // Incrementing the counter
+            rayInteractor.scrapPilesThrownIntoCorrectTrashbin = 0;
         }
     }
 }
