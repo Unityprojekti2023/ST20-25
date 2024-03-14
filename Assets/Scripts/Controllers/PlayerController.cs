@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public OptionsMenu optionsMenu;
 
     [Header("References to Gameobjects")]
-    public Camera playerCamera;    
+    public Camera playerCamera;
     public GameObject playerModel;
     public GameObject mainCameraButton;
     public GameObject controlPanelCamerakButton;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 200.0f;
     public float maxYRotation = 80.0f;
     private float rotationX = 0;
+    private bool canMove = true;
 
 
 
@@ -41,8 +42,15 @@ public class PlayerController : MonoBehaviour
         {
             if (CameraController.Instance.isMainCamActive)
             {
-                HandlePlayerInput();
-                HideCursor();
+                if (canMove)
+                {
+                    HandlePlayerInput();
+                    HideCursor();
+                }
+                else
+                {
+                    ShowCursor();
+                }
             }
             else
             {
@@ -86,6 +94,11 @@ public class PlayerController : MonoBehaviour
         insideCamerakButton.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void ToggleMovement(bool canMove)
+    {
+        this.canMove = canMove;
     }
 
     // Method to show the player model
