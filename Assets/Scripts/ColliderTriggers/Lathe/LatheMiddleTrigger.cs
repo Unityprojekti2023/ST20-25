@@ -45,7 +45,6 @@ public class LatheMiddleTrigger : MonoBehaviour
                 latheSoundFX.isIdlingClipPlaying = false;
 
                 mouseControlPanelInteractable.isLathingActive = false;
-                machineScript.isMachineActive = false;
                 machineScript.isAnimationComplete = true;
             }
 

@@ -32,6 +32,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                         textInfo.UpdateText("Item [Uncut item] removed");
                         machineScript.moveUncutObjectToCuttingPosition();
+                        objectiveManager.CompleteObjective("Place piece in place");
                     }
                     //If there is uncut item in cuttin position remove it and add to players inventory
                     else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)

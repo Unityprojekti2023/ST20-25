@@ -14,9 +14,14 @@ public class CleaningFeature : MonoBehaviour
 
     void Start()
     {
-        HideScrapPile1();
-        HideScrapPile2();
-        HideScrapPile3();
+        scrapPile1.Translate(0, -10f, 0);
+        isPile1Visible = false;
+
+        scrapPile2.Translate(0, -10f, 0);
+        isPile2Visible = false;
+
+        scrapPile3.Translate(0, -10f, 0);
+        isPile3Visible = false;
     }
 
     public void ShowScrapPile1()
@@ -43,33 +48,6 @@ public class CleaningFeature : MonoBehaviour
         {
             scrapPile3.Translate(0, 10f, 0);
             isPile3Visible = true;
-        }
-    }
-
-    public void HideScrapPile1()
-    {
-        if(isPile1Visible)
-        {
-            scrapPile1.Translate(0, -10f, 0);
-            isPile1Visible = false;
-        }
-    }
-
-    public void HideScrapPile2()
-    {
-        if(isPile2Visible)
-        {
-            scrapPile2.Translate(0, -10f, 0);
-            isPile2Visible = false;
-        }
-    }
-
-    public void HideScrapPile3()
-    {
-        if(isPile3Visible)
-        {
-            scrapPile3.Translate(0, -10f, 0);
-            isPile3Visible = false;
         }
     }
 }

@@ -9,9 +9,9 @@ public class ScrapInteraction : MonoBehaviour
     public bool isPlayerNearScrapPiles = false;
     public bool isShovelFull = false;
 
-    bool isPile1Cleaned = false;
-    bool isPile2Cleaned = false;
-    bool isPile3Cleaned = false;
+    public bool isPile1Cleaned = false;
+    public bool isPile2Cleaned = false;
+    public bool isPile3Cleaned = false;
 
     public Transform scrapPile1;
     public Transform scrapPile2;

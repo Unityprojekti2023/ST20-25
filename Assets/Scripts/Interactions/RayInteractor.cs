@@ -8,6 +8,8 @@ public class RayInteractor : MonoBehaviour
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
     public DoorController doorController;
+    public ObjectiveManager objectiveManager;
+    public TextInformation textInformation;
     public float interactDistance = 80f;
 
     float holdDuration = 1.5f; // Adjust the duration as needed
@@ -17,6 +19,7 @@ public class RayInteractor : MonoBehaviour
     public bool shovelEquipped = false;
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
+    public int scrapPilesThrownIntoWrongTrashbin = 0;
 
     void Update()
     {
@@ -206,6 +209,16 @@ public class RayInteractor : MonoBehaviour
                                         interactable.Interact();
                                         scrapInteraction.isShovelFull = false;
                                         ResetHoldTimer();
+                                        scrapPilesThrownIntoWrongTrashbin++;
+
+                                        if(scrapPilesThrownIntoWrongTrashbin == 3)
+                                        {
+                                            objectiveManager.DeductPoints(100); //Removing another 100 points if all 3 scrap piles were thrown into the wrong trash bin (for a total of -200 points)
+                                            textInformation.UpdateText("+100 Points for cleaning all three metal scrap spots!");
+                                        } else {
+                                            objectiveManager.DeductPoints(50); //Removing 50 points for throwing the metal scraps into the wrong trash bin
+                                            textInformation.UpdateText("+50 Points for cleaning metal scraps!");
+                                        }
                                     }
                                 }
                                 else
@@ -231,6 +244,13 @@ public class RayInteractor : MonoBehaviour
                                         scrapInteraction.isShovelFull = false;
                                         ResetHoldTimer();
                                         scrapPilesThrownIntoCorrectTrashbin++;
+                                        
+                                        if(scrapPilesThrownIntoCorrectTrashbin == 3)
+                                        {
+                                            objectiveManager.DeductPoints(-100); //Adding another 100 points if all 3 scrap piles were thrown into the correct trash bin (for a total of +200 points)
+                                        } else {
+                                            objectiveManager.DeductPoints(-50); //Adding 50 points for throwing the metal scraps into the correct trash bin
+                                        }
                                     }
                                 }
                                 else

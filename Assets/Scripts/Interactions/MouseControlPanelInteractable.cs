@@ -15,6 +15,10 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public RayInteractor rayInteractor;
     public ControlpanelController controlpanelController;
     public HandleJog handleJog;
+    public CleaningFeature cleaningFeature;
+    public ObjectiveManager objectiveManager;
+    public TextInformation textInformation;
+    public ScrapInteraction scrapInteraction;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -41,6 +45,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     [Header("Variables")]
     public int programCount = 1; 
     public int handleJogPosition = 1;
+    public string whichCutItemWasLathed = " ";
 
     void Start()
     {
@@ -101,17 +106,27 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked)
+                                    if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
                                     {
                                         if(drillController.selectedProgram >= 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {
                                             machineScript.isMachineActive = true;
                                             machineScript.moveSupport = true;
-                                            isZeroReturnClicked = false;
-                                            isAllClicked = false;
+                                            //isZeroReturnClicked = false;
+                                            //isAllClicked = false;
                                             isLathingActive = true;
+                                            scrapInteraction.isPile1Cleaned = false;
+                                            scrapInteraction.isPile2Cleaned = false;
+                                            scrapInteraction.isPile3Cleaned = false;
+
+                                            if(cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
+                                            {
+                                                objectiveManager.DeductPoints(200);
+                                                textInformation.UpdateText("-200 points for not cleaning up after lathing!");
+                                            }
+
                                         } else {
-                                            // Handle error for "Invalid program selected
+                                            textInformation.UpdateText("Invalid program selected!");
                                         }
 
                                         switch(drillController.selectedProgram)
@@ -119,15 +134,20 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                             case 0: // Program #0
                                                 drillController.targetCounter = 6;
                                                 machineScript.moveCutObject1ToCuttingPosition();
+                                                whichCutItemWasLathed = "CutObject1";
                                             break;
 
                                             case 1: // Program #1
                                                 drillController.targetCounter = 4;
                                                 machineScript.moveCutObject2ToCuttingPosition();
+                                                whichCutItemWasLathed = "CutObject2";
                                             break;
 
                                             // Add more cases for new programs
                                         }
+                                    } else 
+                                    {
+                                        textInformation.UpdateText("Not all conditions are met to run program!");
                                     }
                                     PlayAudioClip();
                                     break;

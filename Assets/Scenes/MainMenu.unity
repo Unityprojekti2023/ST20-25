@@ -1946,7 +1946,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551190578
 MonoBehaviour:
@@ -1968,11 +1968,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "In this game you will learn how to start and stop the Haas ST20-25 Lathe.
-    In addition, we learn how to lathe a piece of metal with the lathe.\t\t\n\nPlayer
-    movement works with the regular movement keys (WASD) and camera can be turned
-    with the mouse\n\nWith the left mouse button or E, you can interact with the
-    lathing objects and the lathe itself\n\nThe ESC key is used to pause the game"
+  m_text: "In this game you will learn basics on how to safely and correctly operate
+    the Haas ST20-25 Lathe. Currently the lathe has two programs you can run which
+    result in different looking end results. \r\n\r\nDetailed instructions on how
+    to operate the lathe can be found ingame. To see the instructions, press \u201DHELP\u201D
+    on the control panel. You should see some notes on the right side of the control
+    panel.\r\n\r\nControls:\r\nWASD \u2013 Movement \r\nMouse \u2013 Camera control\r\nE
+    / LMB \u2013 Interacting with objects\r\nESC \u2013 Pause menu\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1999,8 +2001,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -81,7 +81,7 @@ public class EscapeMenu : MonoBehaviour
         }
 
         // If "Ending" audio clip was playing when game was paused, resuming the audio clip
-        if(latheSoundFX.isEndingClipPlaying)
+        if(latheSoundFX.isEndingClipPlaying && latheSoundFX.endingClipPlayCounter == 0)
         {
             endingSource.Play();
         }
