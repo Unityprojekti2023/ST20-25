@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI objectiveList;
     public int currentStage = 0;
     //How many stages are in objective list, change to be equal to number of cases or change to dynamical function later on.
-    int numberofStages = 1;
+    int numberofStages = 2;
     public GameObject endScreenUI;
     public GameObject gameUI;
 
