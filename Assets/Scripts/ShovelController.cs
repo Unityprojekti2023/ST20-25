@@ -13,35 +13,32 @@ public class ShovelController : MonoBehaviour
     
     void Start()
     {
-        playerEmptyShovel.SetActive(false);
+        playerEmptyShovel.SetActive(false);     // Setting both shovels attached to the player as inactive on startup
         playerFullShovel.SetActive(false);
     }
 
     void Update()
     {
-        if(rayInteractor.shovelEquipped && !scrapInteraction.isShovelFull)
+        if(rayInteractor.shovelEquipped && !scrapInteraction.isShovelFull)      // Checking if shovel is equipped and shovel is not full
         {
-            playerEmptyShovel.SetActive(true);
+            playerEmptyShovel.SetActive(true);                                  // Setting empty shovel as active
             playerFullShovel.SetActive(false);
             propShovel.SetActive(false);
             objectiveManager.CompleteObjective("Equip shovel");
         } 
-        else if(rayInteractor.shovelEquipped && scrapInteraction.isShovelFull)
+        else if(rayInteractor.shovelEquipped && scrapInteraction.isShovelFull)  // Checking if shovel is equipped and shovel is full
         {
             playerEmptyShovel.SetActive(false);
-            playerFullShovel.SetActive(true);
+            playerFullShovel.SetActive(true);                                   // Setting full shovel as active
             propShovel.SetActive(false);
         } 
         else 
         {
             playerEmptyShovel.SetActive(false);
             playerFullShovel.SetActive(false);
-            propShovel.SetActive(true);
+            propShovel.SetActive(true);                                         // If shovel is not equipped, setting prop shovel (on the table) active
 
-            //if(rayInteractor.scrapPilesThrownIntoCorrectTrashbin > 0 || rayInteractor.scrapPilesThrownIntoWrongTrashbin > 0)
-            //{
-                objectiveManager.CompleteObjective("Un-equip shovel");
-            //}
+            objectiveManager.CompleteObjective("Un-equip shovel");
         }
     }
 }

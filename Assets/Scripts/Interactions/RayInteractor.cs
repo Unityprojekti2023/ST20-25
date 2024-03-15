@@ -250,9 +250,6 @@ public class RayInteractor : MonoBehaviour
                                         {
                                             objectiveManager.CompleteObjective("Clean metal scraps");
                                         } 
-                                        //else {
-                                        //    objectiveManager.DeductPoints(-50); //Adding 50 points for throwing the metal scraps into the correct trash bin
-                                        //}
                                     }
                                 }
                                 else
@@ -285,7 +282,7 @@ public class RayInteractor : MonoBehaviour
             HideInteractText();
         }
 
-        if(shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull)
+        if(shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && doorController.isDoorOpen)
         {
             if(cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
             {

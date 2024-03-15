@@ -11,22 +11,23 @@ public class LatheAudioTrigger : MonoBehaviour
     [Header("Other values")]
     public int counter = 0;
 
-    private void OnTriggerEnter(Collider other)                                 // Checking when this trigger collides with the audio collider
+    private void OnTriggerEnter(Collider other)                                 //Checking for collisions
     {
-        if (other.gameObject.tag == "AudioTrigger")
+        if (other.gameObject.tag == "AudioTrigger")                             //Making sure we collided with the correct object
         {
-            counter++;                                                          // Incrementing the counter
+            counter++;
 
-            if (counter%2 == 0) 
+            if (counter%2 == 0)                                                 //Checking if counter is even or odd
             {
-                mouseControlPanelInteractable.isLathingActive = false;          // Setting "isLathingActive" to false when the lathe is returning back to starting position
+                mouseControlPanelInteractable.isLathingActive = false;          //When counter is even, lathe is returning back to starting position = Setting "isLathingActive" to fals
             } else {
-                latheSoundFX.playBeginningClip = true;                          // Setting "playBeginningClip" to true so that the beginning audio clip will be played
-            }
+                latheSoundFX.playBeginningClip = true;                          //When counter is odd, lathe is starting its animation = Setting "playBeginningClip" to true
+            }                                                                   //so that the beginning audio clip will be played
         }
     } 
 
-    private void OnTriggerExit(Collider other) {
-        latheSoundFX.playBeginningClip = false;                                 // When the trigger leaves the collider setting "playBeginningClip" back to false 
+    private void OnTriggerExit(Collider other)                                  //Checking for when the object leaves the collider
+    {
+        latheSoundFX.playBeginningClip = false;                                 //Setting "playBeginningClip" back to false 
     }
 }

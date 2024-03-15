@@ -45,30 +45,26 @@ public class LatheSoundFX : MonoBehaviour
 
     void Update()
     {
-        // Checking if its time to play "Beginning" audio clip, and making sure the clip isnt already playing
-        if(playBeginningClip && !isBeginningClipPlaying)
+        if(playBeginningClip && !isBeginningClipPlaying)        // Checking if its time to play "Beginning" audio clip, and making sure the clip isnt already playing
         {
             beginningSource.Play();
             isBeginningClipPlaying = true;
         }
 
-        // Checking if its time to play "Ending" audio clip, and making sure the clip isnt already playing
-        if(playEndingClip && !isEndingClipPlaying)
+        if(playEndingClip && !isEndingClipPlaying)              // Checking if its time to play "Ending" audio clip, and making sure the clip isnt already playing
         {
             endingSource.Play();
             isEndingClipPlaying = true;
             endingClipPlayCounter++;
         }
 
-        // Checking if its time to play "Lathing" audio clip, and making sure the clip isnt already playing
-        if(playLathingClip && !isLathingClipPlaying)
+        if(playLathingClip && !isLathingClipPlaying)            // Checking if its time to play "Lathing" audio clip, and making sure the clip isnt already playing
         {
             lathingSource.Play();
             isLathingClipPlaying = true;
         }
 
-        // Checking if its time to play "Idling" audio clip, and making sure the clip isnt already playing
-        if(playIdlingclip && !isIdlingClipPlaying)
+        if(playIdlingclip && !isIdlingClipPlaying)              // Checking if its time to play "Idling" audio clip, and making sure the clip isnt already playing
         {
             idlingSource.Play();
             isIdlingClipPlaying = true;

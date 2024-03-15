@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SupportLeftTrigger : MonoBehaviour
 {
+    [Header("References to other scripts")]
     public SupportController supportController;
 
     private void OnTriggerEnter(Collider other)                     // Checking for collisions

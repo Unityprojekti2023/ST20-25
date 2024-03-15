@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShovelPickup : MonoBehaviour, IInteractable
 {
+    [Header("References to other scripts")]
     public TextInformation textInfo;
     public ShovelController shovelController;
     public RayInteractor rayInteractor;
@@ -12,7 +13,7 @@ public class ShovelPickup : MonoBehaviour, IInteractable
     {
         if(!rayInteractor.shovelEquipped)
         {
-            textInfo.UpdateText("Shovel equipped");
+            textInfo.UpdateText("Shovel equipped");         
         }
 
         if(rayInteractor.shovelEquipped)

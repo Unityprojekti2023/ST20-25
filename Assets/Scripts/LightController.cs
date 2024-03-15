@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
+    [Header("References to objects")]
     public Transform whiteLight;
     public Transform greenLight;
     public Transform redLight;
 
+    [Header("Variables")]
     public bool isGreenLightAlreadyInPosition = false;
     public bool isRedLightAlreadyInPosition = false;
 
+    [Header("References to other scripts")]
     public MachineScript machineScript;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
     

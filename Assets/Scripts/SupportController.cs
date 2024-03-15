@@ -27,8 +27,7 @@ public class SupportController : MonoBehaviour
 
     void Start()
     {
-        // Getting a reference to the controlpanel interactable script
-        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();
+        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();           // Getting a reference to the controlpanel interactable script
     }
 
     void Update()
@@ -46,14 +45,12 @@ public class SupportController : MonoBehaviour
             moveSupportRight = true;
         }
 
-        // Checking if its time to move the support left
-        if(moveSupportLeft)
+        if(moveSupportLeft)                                                                     // Checking if its time to move the support left
         {
             supportObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);                 // Translating the support´s X position to the left
         }
 
-        // Checking if its time to move the support right
-        if(moveSupportRight)
+        if(moveSupportRight)                                                                    // Checking if its time to move the support right
         {
             supportObject1.transform.Translate(-speed * Time.deltaTime, 0f, 0f);                // Translating the support´s X position to the right
         }

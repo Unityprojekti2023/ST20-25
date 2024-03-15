@@ -15,7 +15,6 @@ public class CameraController : MonoBehaviour
     public GameObject crosshair;
 
     [Header("References to other scripts")]
-    //ControlpanelTrigger controlpanelTrigger;
     PlayerController playerController;
 
     [Header("Buttons for camera switching")]
@@ -45,27 +44,7 @@ public class CameraController : MonoBehaviour
         panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
         insideCameraButton.onClick.AddListener(InsideCameraActive);
         
-        //controlpanelTrigger = FindObjectOfType<ControlpanelTrigger>();
         playerController = FindObjectOfType<PlayerController>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J)) 
-        {
-            MainCameraActive();
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ControlpanelCameraActive();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            InsideCameraActive();
-        }
-
     }
 
     public void MainCameraActive()
@@ -76,10 +55,9 @@ public class CameraController : MonoBehaviour
         insideCamera.SetActive(false);
         crosshair.SetActive(true);
 
-        // Show player model when switching to the main camera
         if (playerController != null)
         {
-            playerController.ShowPlayerModel();
+            playerController.ShowPlayerModel();         // Show player model when switching to the main camera
         }
     }
 
@@ -93,10 +71,9 @@ public class CameraController : MonoBehaviour
         panelCameraButton.interactable = false;
         insideCameraButton.interactable = true;
 
-        // Hide player model when switching to the control panel camera
         if (playerController != null)
         {
-            playerController.HidePlayerModel();
+            playerController.HidePlayerModel();         // Hide player model when switching to the control panel camera
         }
     }
 
@@ -110,10 +87,9 @@ public class CameraController : MonoBehaviour
         insideCameraButton.interactable = false;
         panelCameraButton.interactable = true;
 
-        // Hide player model when switching to the inside camera
         if (playerController != null)
         {
-            playerController.HidePlayerModel();
+            playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
         }
     }
 }

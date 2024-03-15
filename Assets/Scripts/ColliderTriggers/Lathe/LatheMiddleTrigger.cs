@@ -19,39 +19,35 @@ public class LatheMiddleTrigger : MonoBehaviour
     public bool movePartiallyCutObject4 = false;
     public bool movePartiallyCutObject5 = false;
 
-    private void OnTriggerEnter(Collider other)                                             // Checking for collisions
+    private void OnTriggerEnter(Collider other)                                     // Checking for collisions
     {
-        if(other.gameObject.tag == "LatheTrigger")                                          // Making sure we collided with the correct object                             
+        if(other.gameObject.tag == "LatheTrigger")                                  // Making sure we collided with the correct object
         {
             latheSoundFX.isBeginningClipPlaying = false;
 
-            if(drillController.activeCounter < drillController.targetCounter)           // Checking if activeCounter is less than animationCounter (Meaning that the drill hasnt done enough loops yet)
+            if(drillController.activeCounter < drillController.targetCounter)       // Checking if activeCounter is less than animationCounter (Meaning that the drill hasnt done enough loops yet)
             {
-                drillController.moveDrillLeft = true;                                       // Setting "moveDrillLeft" to true to begin movement to the left
+                drillController.moveDrillLeft = true;                               // Setting "moveDrillLeft" to true to begin movement to the left
                 drillController.moveDrillRight = false;
-                drillController.speed = slowSpeed;                                          // Slowing the drill´s movement speed
-
-                latheSoundFX.playLathingClip = true;                                        // Playing lathing audio clip, and stopping idling audio clip
+                drillController.speed = slowSpeed;                                  // Slowing the drill´s movement speed for lathing
+                latheSoundFX.playLathingClip = true;                                // Playing lathing audio clip, and stopping idling audio clip
                 latheSoundFX.playIdlingclip = false;
-
                 latheSoundFX.isIdlingClipPlaying = false;
             }
 
-            if(drillController.activeCounter == drillController.targetCounter)          // Checking when activeCounter matches animationCounter (meaning the drill has done enough loops and can return to starting location)
+            if(drillController.activeCounter == drillController.targetCounter)      // Checking when activeCounter matches animationCounter (meaning the drill has done enough loops and can return to starting location)
             {   
-                latheSoundFX.playEndingClip = true;                                         // Playing ending audio clip and stopping idling audio clip
+                latheSoundFX.playEndingClip = true;                                 // Playing ending audio clip and stopping idling audio clip
                 latheSoundFX.playIdlingclip = false;
-
                 latheSoundFX.isIdlingClipPlaying = false;
-
                 mouseControlPanelInteractable.isLathingActive = false;
                 machineScript.isAnimationComplete = true;
             }
 
-            switch(drillController.selectedProgram)
+            switch(drillController.selectedProgram)                                 //Switch for different programs
             {
                 case 0: // Program #0 case
-                    switch(drillController.activeCounter)                                           // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheRightTrigger)
+                    switch(drillController.activeCounter)                           // Switch cases for each activeCounter value (each loop the drill takes between LatheLeftTrigger and LatheRightTrigger)
                     {
                         case 0:
                             moveUncutObject = true;
@@ -107,14 +103,16 @@ public class LatheMiddleTrigger : MonoBehaviour
                         break;
                     }
                 break;
+
+                // Add new cases for new programs
             }
         }
     } 
 
-    private IEnumerator adjustDrill(float adjustAmount)
+    private IEnumerator adjustDrill(float adjustAmount)                             // Coroutine to adjust drill´s height after each back and forth cycle
     {
-        drillController.forceLatheDown = true;
+        drillController.forceLatheDown = true;                                      // Forcing the lathe to move down for the adjustAmount of time
         yield return new WaitForSeconds(adjustAmount);
-        drillController.forceLatheDown = false;
+        drillController.forceLatheDown = false;                                     // Stopping downward movement after adjustAmount of time has passed
     }
 }

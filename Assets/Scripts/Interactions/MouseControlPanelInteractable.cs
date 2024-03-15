@@ -81,7 +81,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     PlayAudioClip();
                                     break;
 
-                                case "btnALL":
+                                case "btnALL":                                                          // Pressing "Zero Return" + "All" does the same exact thing as "Power Up Restart"
                                     
                                     if(isZeroReturnClicked && isLatheOn) 
                                     {
@@ -94,7 +94,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     PlayAudioClip();
                                     break;
 
-                                case "btnPowerUpRestart": // Pressing this button once does the same exact thing as Zero Return + ALL
+                                case "btnPowerUpRestart":                                               // Pressing this button once does the same exact thing as Zero Return + ALL
                                     if(isLatheOn)
                                     {
                                         isZeroReturnClicked = true;
@@ -108,14 +108,12 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    if (machineScript.isUncutObjectInCuttingPosition /*&& machineScript.isCutObjectInCuttingPosition */ && !doorController.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
+                                    if (machineScript.isUncutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
                                     {
                                         if(drillController.selectedProgram >= 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {
                                             machineScript.isMachineActive = true;
                                             machineScript.moveSupport = true;
-                                            //isZeroReturnClicked = false;
-                                            //isAllClicked = false;
                                             isLathingActive = true;
                                             scrapInteraction.isPile1Cleaned = false;
                                             scrapInteraction.isPile2Cleaned = false;
@@ -136,14 +134,14 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         switch(drillController.selectedProgram)
                                         {
                                             case 0: // Program #0
-                                                drillController.targetCounter = 6;
-                                                machineScript.moveCutObject1ToCuttingPosition();
+                                                drillController.targetCounter = 6;                      // targetCounter indicates how many round trips the lathe will do in the animation
+                                                machineScript.moveCutObject1ToCuttingPosition();        // Moving the program #0 cut object into place (Inside uncut object)
                                                 whichCutItemWasLathed = "CutObject1";
                                             break;
 
                                             case 1: // Program #1
-                                                drillController.targetCounter = 4;
-                                                machineScript.moveCutObject2ToCuttingPosition();
+                                                drillController.targetCounter = 4;                      // targetCounter indicates how many round trips the lathe will do in the animation
+                                                machineScript.moveCutObject2ToCuttingPosition();        // Moving the program #1 cut object into place (Inside uncut object)
                                                 whichCutItemWasLathed = "CutObject2";
                                             break;
 
@@ -157,7 +155,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_FeedHold":
-                                    // Handle interaction for btn_FeedHold
+                                    // Handle interaction for btn_FeedHold, dont know how this button behaves IRL
                                     PlayAudioClip();
                                     break;
 
@@ -302,39 +300,40 @@ public class MouseControlPanelInteractable : MonoBehaviour
         }
     }
 
-    public void PlayAudioClip()
+    public void PlayAudioClip()                                     // Function for playing button press audio clip
     {
-        if(isAudioClipPlaying == false) {
-            source.PlayOneShot(buttonPressClip);
-            isAudioClipPlaying = true;
+        if(isAudioClipPlaying == false) {                           // Making sure audio clip isnt already playing
+            source.PlayOneShot(buttonPressClip);                    // Playing audioclip once
+            isAudioClipPlaying = true;                              // Setting isAudioClipPlaying to true, to prevent multiple audio clips from playing at once
             StartCoroutine(soundEffectDelay());
         }
     }
 
-    public IEnumerator soundEffectDelay(){
-        yield return new WaitForSeconds(0.4f);
+    public IEnumerator soundEffectDelay()                           // Delay function for button press audio
+    {
+        yield return new WaitForSeconds(0.4f);                      // Waiting 0.4 seconds, then allowing audio to be played again
         isAudioClipPlaying = false;
     }
 
-    public IEnumerator handleJogButtonPressDelay()
+    public IEnumerator handleJogButtonPressDelay()                  // Delay function for handle jog button presses
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f);                      // Waiting 0.4 seconds, then allowing audio to be played again
         canPressHandleJogButton = true;
     }
 
-    public IEnumerator startupSequence()
+    public IEnumerator startupSequence()                            // Coroutine responsible for the startup sequence
     {
-        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        yield return new WaitForSeconds(Random.Range(1f, 3f));      // Wait 1-3 seconds before showing first screen
         controlpanelController.showBlackScreen = true;
         controlpanelController.updateScreenImage();
-        yield return new WaitForSeconds(Random.Range(1f, 3f));
+        yield return new WaitForSeconds(Random.Range(1f, 3f));      // Wait 1-3 seconds before updating to "attention" screen
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
         controlpanelController.updateScreenImage();
-        yield return new WaitForSeconds(Random.Range(5f, 10f));
+        yield return new WaitForSeconds(Random.Range(5f, 10f));     // Wait 5-10 seconds before showing "home screen 1"
         controlpanelController.showHomeScreen1 = true;
         controlpanelController.showAttentionScreen = false;
         controlpanelController.updateScreenImage();
-        isStartUpSequenceDone = true;
+        isStartUpSequenceDone = true;                               // Marking startup sequence as completed
     }
 }

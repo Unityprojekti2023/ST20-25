@@ -28,44 +28,39 @@ public class DrillController : MonoBehaviour
 
     void Start()
     {
-        // Getting a reference to MachineScript
-        machineScript = FindObjectOfType<MachineScript>();                                              
+        machineScript = FindObjectOfType<MachineScript>();          // Getting a reference to MachineScript                                          
     }
 
     void Update()
     {
         if (machineScript.moveDrill)     
         {
-            // Checking if its time to move the drill left, and making sure activeCounter is less than animation1counter
-            if (moveDrillLeft == true && activeCounter < targetCounter)
+            if (moveDrillLeft == true && activeCounter < targetCounter)                             // Checking if its time to move the drill left, and making sure activeCounter is less than animation1counter
             {
-                // Translating the drill´s X position
-                drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);
-                drillObject2.transform.Translate(speed * Time.deltaTime, 0f, 0f);                           
+                drillObject1.transform.Translate(speed * Time.deltaTime, 0f, 0f);                   // Translating the drill´s X position
+                drillObject2.transform.Translate(speed * Time.deltaTime, 0f, 0f);                
             }
         }
 
-        // Checking if its time to move drill right
-        if (moveDrillRight == true)
+        if (moveDrillRight == true)                                                                 // Checking if its time to move drill right
         {
-            // Translating the drill´s X position
-            drillObject1.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);
+            drillObject1.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);                  // Translating the drill´s X position
             drillObject2.transform.Translate(-speed * Time.deltaTime * 3, 0f, 0f);                      
         }
 
-        if(moveLatheDown && !isLatheAtBottomPosition)
+        if(moveLatheDown && !isLatheAtBottomPosition)                                               // Checking if its time to move lathe down, and the lathe isnt already at the bottom position
         {
             drillObject1.transform.Translate(0f, 1 * Time.deltaTime, 1.5f * Time.deltaTime);
         }
 
-        if(moveLatheUp && !isLatheAtTopPosition)
+        if(moveLatheUp && !isLatheAtTopPosition)                                                    // Checking if its time to move lathe up, and the lathe isnt already at the bottom position
         {
             drillObject1.transform.Translate(0f, -1 * Time.deltaTime, -1.5f * Time.deltaTime);
         }
 
         if(forceLatheDown)
         {
-            drillObject1.transform.Translate(0f, 1 * Time.deltaTime, 1.5f * Time.deltaTime);
+            drillObject1.transform.Translate(0f, 1 * Time.deltaTime, 1.5f * Time.deltaTime);        // This is to "force" the lathe down more beyond the bottom position
         }
     }
 }

@@ -27,7 +27,6 @@ public class MachineScript : MonoBehaviour
 
     [Header("Boolean Variables")]
     public bool isUncutObjectInCuttingPosition = false;
-    //public bool isCutObjectInCuttingPosition = false;
     public bool isMachineActive = false;
     public bool moveSupport = false;
     public bool moveDrill = false;
