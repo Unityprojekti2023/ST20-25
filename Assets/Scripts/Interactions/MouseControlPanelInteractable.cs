@@ -19,6 +19,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
     public ScrapInteraction scrapInteraction;
+    public GameController gameController;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -215,14 +216,19 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "HELP":
-                                    if (areNotesShown) 
+                                    if(gameController.canDisplayNotes)
                                     {
-                                        notes.Translate(0, -200f, 0);
-                                        areNotesShown = false;
-                                    } else if(!areNotesShown) 
-                                    {
-                                        notes.Translate(0, 200f, 0);
-                                        areNotesShown = true;
+                                        if (areNotesShown) 
+                                        {
+                                            notes.Translate(0, -200f, 0);
+                                            areNotesShown = false;
+                                        } else if(!areNotesShown) 
+                                        {
+                                            notes.Translate(0, 200f, 0);
+                                            areNotesShown = true;
+                                        }
+                                    } else {
+                                        textInformation.UpdateText("Cannot display help in test mode!");
                                     }
                                     PlayAudioClip();
                                 break;

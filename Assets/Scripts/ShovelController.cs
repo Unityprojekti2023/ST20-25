@@ -38,7 +38,7 @@ public class ShovelController : MonoBehaviour
             playerFullShovel.SetActive(false);
             propShovel.SetActive(true);                                         // If shovel is not equipped, setting prop shovel (on the table) active
 
-            objectiveManager.CompleteObjective("Un-equip shovel");
+            objectiveManager.CompleteObjective("Unequip shovel");
         }
     }
 }

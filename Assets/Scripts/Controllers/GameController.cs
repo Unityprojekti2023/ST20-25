@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     [Header("References to other scripts")]
     private ObjectiveManager objectiveManager;
-
+    public EscapeMenu escapeMenu;
 
     [Header("References to gameobjects")]
     public TextMeshProUGUI scoreText;
@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     [Header("Other values")]
     public int currentStage = 0;
     public int numberofStages = 7;
+    public bool canDisplayNotes = false;
+
     void Start()
     {
         //Hide end score UI
@@ -35,15 +37,19 @@ public class GameController : MonoBehaviour
         //Check if playing on Test mode to hide objective list and score.
         if (PlayerPrefs.GetInt("HideUI", 0) == 1)
         {
+            canDisplayNotes = false;
+
             // Hide UI element if it exists
             if (objectiveList != null)
             {
                 objectiveList.gameObject.SetActive(false);
-            }
+            } 
             if (scoreText != null)
             {
                 scoreText.gameObject.SetActive(false);
             }
+        } else {
+            canDisplayNotes = true;
         }
 
         // Initialize with the objectives of the first stage
@@ -112,7 +118,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case 6:
-                objectiveManager.AddObjective("Un-equip shovel", 100);
+                objectiveManager.AddObjective("Unequip shovel", 100);
                 objectiveManager.AddObjective("Turn the lathe off", 100);
                 break;
 
@@ -139,5 +145,6 @@ public class GameController : MonoBehaviour
 
         endScoreText.text = $"Your final Score: {objectiveManager.GetCurrentScore()}";
 
+        escapeMenu.Pause();
     }
 }

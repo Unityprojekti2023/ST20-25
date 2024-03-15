@@ -5501,7 +5501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8862745}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8272,15 +8272,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8288,11 +8288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.145
+      value: 0.237
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.385
+      value: 1.076
       objectReference: {fileID: 0}
     - target: {fileID: 759000921428097735, guid: 94585dcc2d17d5a4b96ef4bb89160d6f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11479,6 +11479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19150a799ab47a5498004ae521109de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escapeMenu: {fileID: 1589835470}
   scoreText: {fileID: 565563236}
   endScoreText: {fileID: 812134735}
   objectiveList: {fileID: 791892847}
@@ -11486,6 +11487,7 @@ MonoBehaviour:
   gameUI: {fileID: 1589835469}
   currentStage: 0
   numberofStages: 7
+  canDisplayNotes: 0
 --- !u!1 &578819069
 GameObject:
   m_ObjectHideFlags: 0
@@ -22457,16 +22459,28 @@ PrefabInstance:
       value: EmptyShovel
       objectReference: {fileID: 0}
     - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.145
+      value: 0.237
       objectReference: {fileID: 0}
     - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.385
+      value: 1.076
       objectReference: {fileID: 0}
     - target: {fileID: 6792889486997172550, guid: 7df625f3b9777d644bcd265bde392219, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26884,6 +26898,7 @@ MonoBehaviour:
   objectiveManager: {fileID: 574679441}
   textInformation: {fileID: 590410041}
   scrapInteraction: {fileID: 230333459}
+  gameController: {fileID: 574679442}
   isPowerONClicked: 0
   isPowerOFFClicked: 0
   isEmergencyStopClicked: 0
