@@ -214,10 +214,11 @@ public class RayInteractor : MonoBehaviour
                                         if(scrapPilesThrownIntoWrongTrashbin == 3)
                                         {
                                             objectiveManager.DeductPoints(100); //Removing another 100 points if all 3 scrap piles were thrown into the wrong trash bin (for a total of -200 points)
-                                            textInformation.UpdateText("+100 Points for cleaning all three metal scrap spots!");
-                                        } else {
+                                            textInformation.UpdateText("Wrong trash bin! -100 points");
+                                        } 
+                                        else {
                                             objectiveManager.DeductPoints(50); //Removing 50 points for throwing the metal scraps into the wrong trash bin
-                                            textInformation.UpdateText("+50 Points for cleaning metal scraps!");
+                                            textInformation.UpdateText("Wrong trash bin! -50 points");
                                         }
                                     }
                                 }
@@ -247,10 +248,11 @@ public class RayInteractor : MonoBehaviour
                                         
                                         if(scrapPilesThrownIntoCorrectTrashbin == 3)
                                         {
-                                            objectiveManager.DeductPoints(-100); //Adding another 100 points if all 3 scrap piles were thrown into the correct trash bin (for a total of +200 points)
-                                        } else {
-                                            objectiveManager.DeductPoints(-50); //Adding 50 points for throwing the metal scraps into the correct trash bin
-                                        }
+                                            objectiveManager.CompleteObjective("Clean metal scraps");
+                                        } 
+                                        //else {
+                                        //    objectiveManager.DeductPoints(-50); //Adding 50 points for throwing the metal scraps into the correct trash bin
+                                        //}
                                     }
                                 }
                                 else

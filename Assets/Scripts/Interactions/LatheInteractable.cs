@@ -64,6 +64,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     latheRightTrigger.counter = 0;
                     drillController.activeCounter = 0;
                     machineScript.isAnimationComplete = false;
+
+                    objectiveManager.CompleteObjective("Pick up cut piece");
                 }
                 //Check if player does not have uncut item in inventory and there is uncut item in the machine.
                 else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)

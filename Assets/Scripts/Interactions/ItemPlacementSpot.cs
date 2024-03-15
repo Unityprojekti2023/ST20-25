@@ -9,6 +9,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
     public EscapeMenu escapeMenu;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
     public ItemPickup itemPickup;
+    public ObjectiveManager objectiveManager;
 
     public GameObject hiddenItem;
     public GameObject hiddenItem2;
@@ -44,6 +45,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
                 itemPickup.isAnItemActiveAlready = false;
                 mouseControlPanelInteractable.whichCutItemWasLathed = " ";
                 //itemPickup.isUncutItemAlreadyInInventory = false;
+                objectiveManager.CompleteObjective("Place cut piece on the table");   
             }
             else
             {

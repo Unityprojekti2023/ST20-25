@@ -89,6 +89,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.updateScreenImage();
+                                        objectiveManager.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -101,6 +102,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.updateScreenImage();
+                                        objectiveManager.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -118,6 +120,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                             scrapInteraction.isPile1Cleaned = false;
                                             scrapInteraction.isPile2Cleaned = false;
                                             scrapInteraction.isPile3Cleaned = false;
+
+                                            objectiveManager.CompleteObjective("Run a program");
 
                                             if(cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
                                             {
@@ -187,6 +191,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     {
                                         isResetClicked = true;
                                         isLatheOn = true;
+                                        objectiveManager.CompleteObjective("Turn on the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -205,6 +210,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.showHomeScreen2 = false;
                                         controlpanelController.updateScreenImage();
+
+                                        objectiveManager.CompleteObjective("Turn the lathe off");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -236,6 +243,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isLatheOn && isAllClicked)
                                     {
                                         isProgramSelected = true;
+                                        objectiveManager.CompleteObjective("Select a program");
                                     }
                                     PlayAudioClip();
                                 break;
