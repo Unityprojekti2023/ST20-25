@@ -8,7 +8,7 @@ public class LatheLeftTrigger : MonoBehaviour
     public DrillController drillController;
     public LatheMiddleTrigger latheMiddleTrigger;
     public LatheSoundFX latheSoundFX;
-    
+    public CleaningFeature cleaningFeature;
 
     [Header("Other values")]
     public bool isLatheAtLeftPosition = false;
@@ -36,6 +36,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 1:
                             latheMiddleTrigger.movePartiallyCutObject1 = false;
+                            cleaningFeature.ShowScrapPile1();
                         break;
 
                         case 2:
@@ -44,6 +45,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 3:
                             latheMiddleTrigger.movePartiallyCutObject3 = false;
+                            cleaningFeature.ShowScrapPile2();
                         break;
 
                         case 4:
@@ -52,6 +54,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 5:
                             latheMiddleTrigger.movePartiallyCutObject5 = false;
+                            cleaningFeature.ShowScrapPile3();
                             drillController.moveLatheUp = true;
                             drillController.moveLatheDown = false;
                         break;
@@ -67,14 +70,17 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 1:
                             latheMiddleTrigger.movePartiallyCutObject1 = false;
+                            cleaningFeature.ShowScrapPile1();
                         break;
 
                         case 2:
                             latheMiddleTrigger.movePartiallyCutObject3 = false;
+                            cleaningFeature.ShowScrapPile2();
                         break;
 
                         case 3:
                             latheMiddleTrigger.movePartiallyCutObject5 = false;
+                            cleaningFeature.ShowScrapPile3();
                             drillController.moveLatheUp = true;
                             drillController.moveLatheDown = false;
                         break;

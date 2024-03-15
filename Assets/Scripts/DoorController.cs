@@ -43,17 +43,23 @@ public class DoorController : MonoBehaviour
 
     public IEnumerator OpenDoor()                                                                           // Door opening function, setting the door opening procedure active for 1.2 seconds so the door can be moved on line 29.
     {
-        isDoorOpeningActive = true;                                                                         // Setting the door opening procedure as "active"
-        yield return new WaitForSeconds(waitTime);                                                          // Adding a delay before next line is executed
-        isDoorOpen = true;                                                                                  // Marking the door as "opened"
-        isDoorOpeningActive = false;                                                                        // Door opening procedure is set back to "inactive" after the delay
+        if(!mouseControlPanelInteractable.isLathingActive)
+        {
+            isDoorOpeningActive = true;                                                                         // Setting the door opening procedure as "active"
+            yield return new WaitForSeconds(waitTime);                                                          // Adding a delay before next line is executed
+            isDoorOpen = true;                                                                                  // Marking the door as "opened"
+            isDoorOpeningActive = false;                                                                        // Door opening procedure is set back to "inactive" after the delay
+        }
     }
 
     public IEnumerator CloseDoor()                                                                          // Door closing function, setting the door closing procedure active for 1.2 seconds so the door can be moved on line 35.
     {
-        isDoorClosingActive = true;                                                                         // Setting door closing procedure as "active"
-        yield return new WaitForSeconds(waitTime);                                                          // Adding a delay and marking the door as closed after the delay
-        isDoorOpen = false;                                                                                 // Marking the door as closed
-        isDoorClosingActive = false;                                                                        // Door closing procedure is set back to "inactive" after the delay
+        if(!mouseControlPanelInteractable.isLathingActive)
+        {
+            isDoorClosingActive = true;                                                                         // Setting door closing procedure as "active"
+            yield return new WaitForSeconds(waitTime);                                                          // Adding a delay and marking the door as closed after the delay
+            isDoorOpen = false;                                                                                 // Marking the door as closed
+            isDoorClosingActive = false;                                                                        // Door closing procedure is set back to "inactive" after the delay
+        }
     }
 }

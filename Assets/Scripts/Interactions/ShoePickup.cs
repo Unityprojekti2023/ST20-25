@@ -6,6 +6,7 @@ public class ShoesPickup : MonoBehaviour, IInteractable
     public InventoryManager inventoryManager;
     public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
+    public bool areShoesEquipped = false;
 
     public void Interact()
     {
@@ -13,5 +14,6 @@ public class ShoesPickup : MonoBehaviour, IInteractable
         inventoryManager.AddItem("Shoes");
         textInfo.UpdateText("Shoes added");
         objectiveManager.CompleteObjective("Put on safety shoes");
+        areShoesEquipped = true;
     }
 }

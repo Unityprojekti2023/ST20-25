@@ -8,6 +8,8 @@ public class LatheRightTrigger : MonoBehaviour
     public DrillController drillController;
     public MachineScript machineScript;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public RayInteractor rayInteractor;
+    public LatheSoundFX latheSoundFX;
 
     float fastSpeed = 5f;
     public int counter = 0;
@@ -37,6 +39,7 @@ public class LatheRightTrigger : MonoBehaviour
             if(counter <= 1)                                                        // Checking if counter is 1 (Meaning the drill has completed 1 full animation cycle)
             {
                 machineScript.isMachineActive = false;                              // Resetting different values to "reset" the system for next animation cycle
+                //machineScript.isAnimationComplete = true;
                 mouseControlPanelInteractable.isLathingActive = false;
                 drillController.moveDrillRight = false;
                 isDrillMovingAlready = false;
@@ -51,6 +54,8 @@ public class LatheRightTrigger : MonoBehaviour
         if(other.gameObject.tag== "LatheTrigger")                                   // Making sure trigger collided with the correct object
         {
             counter++;                                                              // Incrementing the counter
+            rayInteractor.scrapPilesThrownIntoCorrectTrashbin = 0;
+            latheSoundFX.endingClipPlayCounter = 0;
         }
     }
 }

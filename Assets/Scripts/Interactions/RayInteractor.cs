@@ -1,15 +1,25 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class RayInteractor : MonoBehaviour
 {
     public TextMeshProUGUI interactText;
+    public ScrapInteraction scrapInteraction;
+    public CleaningFeature cleaningFeature;
+    public DoorController doorController;
+    public ObjectiveManager objectiveManager;
+    public TextInformation textInformation;
     public float interactDistance = 80f;
 
     float holdDuration = 1.5f; // Adjust the duration as needed
     float currentHoldTime = 0f;
     bool carcassInteracted = false;
     bool glassesInteracted = false;
+    public bool shovelEquipped = false;
+    bool canInteractAgain = true;
+    public int scrapPilesThrownIntoCorrectTrashbin = 0;
+    public int scrapPilesThrownIntoWrongTrashbin = 0;
 
     void Update()
     {
@@ -29,32 +39,54 @@ public class RayInteractor : MonoBehaviour
                     switch (targetName)
                     {
                         case "ST20-25 Luukku":
-                            ShowInteractText($"Open door: [LMB] or [E]");
-                            CheckAndInteract(interactable);
+                            if(!shovelEquipped && !doorController.isDoorOpen)
+                            {
+                                ShowInteractText($"Open door: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            } 
+
+                            if(!shovelEquipped && doorController.isDoorOpen)
+                            {
+                                ShowInteractText($"Close door: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            }
                             break;
 
                         case "ControlpanelTrigger":
-                            ShowInteractText($"Inspect panel: [LMB] or [E]");
-                            CheckAndInteract(interactable);
+                            if(!shovelEquipped)
+                            {
+                                ShowInteractText($"Inspect panel: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            }
+
                             break;
 
                         case "ST20-25 Puristin":
-                            ShowInteractText($"Place/Remove piece: [LMB] or [E]");
-                            CheckAndInteract(interactable);
+                            if(!shovelEquipped)
+                            {
+                                ShowInteractText($"Place/Remove piece: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            }
                             break;
 
                         case "ItemPile":
-                            ShowInteractText($"Pick up Item: [LMB] or [E]");
-                            CheckAndInteract(interactable);
+                            if(!shovelEquipped)
+                            {
+                                ShowInteractText($"Pick up Item: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            }
                             break;
 
                         case "ItemPlacementSpot":
-                            ShowInteractText($"Place Item: [LMB] or [E]");
-                            CheckAndInteract(interactable);
+                            if(!shovelEquipped)
+                            {
+                                ShowInteractText($"Place Item: [LMB] or [E]");
+                                CheckAndInteract(interactable);
+                            }
                             break;
 
                         case "Carcass":
-                            if (!carcassInteracted)
+                            if (!carcassInteracted && !shovelEquipped)
                             {
                                 ShowInteractText($"Hold to put shoes on: [LMB] or [E]");
 
@@ -82,7 +114,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "Safetyglasses":
-                            if (!glassesInteracted)
+                            if (!glassesInteracted && !shovelEquipped)
                             {
                                 ShowInteractText($"Hold to put safetyglasses on: [LMB] or [E]");
 
@@ -109,10 +141,131 @@ public class RayInteractor : MonoBehaviour
                             }
                             break;
 
+                        case "Shovel":
+                            if(!shovelEquipped && canInteractAgain)
+                            {
+                                ShowInteractText($"Hold to equip shovel: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        shovelEquipped = true;
+                                        canInteractAgain = false;
+                                        StartCoroutine(interactionDelay());
+                                        ResetHoldTimer();
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            }
+                            else if (shovelEquipped && canInteractAgain)
+                            {
+                                ShowInteractText($"Hold to unequip shovel: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        shovelEquipped = false;
+                                        canInteractAgain = false;
+                                        StartCoroutine(interactionDelay());
+                                        ResetHoldTimer();
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            } else {
+                                HideInteractText();
+                            }
+
+                            
+                        break;
+
+                        case "SteelTrashCan":
+                            if(scrapInteraction.isShovelFull && shovelEquipped)
+                            {
+                                ShowInteractText($"Hold to throw scraps: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        scrapInteraction.isShovelFull = false;
+                                        ResetHoldTimer();
+                                        scrapPilesThrownIntoWrongTrashbin++;
+
+                                        if(scrapPilesThrownIntoWrongTrashbin == 3)
+                                        {
+                                            objectiveManager.DeductPoints(100); //Removing another 100 points if all 3 scrap piles were thrown into the wrong trash bin (for a total of -200 points)
+                                            textInformation.UpdateText("Wrong trash bin! -100 points");
+                                        } 
+                                        else {
+                                            objectiveManager.DeductPoints(50); //Removing 50 points for throwing the metal scraps into the wrong trash bin
+                                            textInformation.UpdateText("Wrong trash bin! -50 points");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            }
+                        break;
+
+                        case "AluminiumTrashCan":
+                            if(scrapInteraction.isShovelFull && shovelEquipped)
+                            {
+                                ShowInteractText($"Hold to throw scraps: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        scrapInteraction.isShovelFull = false;
+                                        ResetHoldTimer();
+                                        scrapPilesThrownIntoCorrectTrashbin++;
+                                        
+                                        if(scrapPilesThrownIntoCorrectTrashbin == 3)
+                                        {
+                                            objectiveManager.CompleteObjective("Clean metal scraps");
+                                        } 
+                                        //else {
+                                        //    objectiveManager.DeductPoints(-50); //Adding 50 points for throwing the metal scraps into the correct trash bin
+                                        //}
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            }
+                        break;
+
                         default:
                             // For other cases, just hide the text
                             HideInteractText();
-                            break;
+                        break;
                     }
 
                 }
@@ -130,6 +283,14 @@ public class RayInteractor : MonoBehaviour
         else
         {
             HideInteractText();
+        }
+
+        if(shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull)
+        {
+            if(cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
+            {
+                ShowInteractText($"Press to pick up scraps: [LMB] or [E]");
+            }
         }
     }
 
@@ -155,5 +316,11 @@ public class RayInteractor : MonoBehaviour
     {
         ResetHoldTimer(); // Reset the timer when hiding the text
         interactText.gameObject.SetActive(false);
+    }
+
+    IEnumerator interactionDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        canInteractAgain = true;
     }
 }

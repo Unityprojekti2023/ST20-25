@@ -32,6 +32,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
                         textInfo.UpdateText("Item [Uncut item] removed");
                         machineScript.moveUncutObjectToCuttingPosition();
+                        objectiveManager.CompleteObjective("Place piece in place");
                     }
                     //If there is uncut item in cuttin position remove it and add to players inventory
                     else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
@@ -63,6 +64,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     latheRightTrigger.counter = 0;
                     drillController.activeCounter = 0;
                     machineScript.isAnimationComplete = false;
+
+                    objectiveManager.CompleteObjective("Pick up cut piece");
                 }
                 //Check if player does not have uncut item in inventory and there is uncut item in the machine.
                 else if (!inventoryManager.HasItem("UncutItem") && machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)

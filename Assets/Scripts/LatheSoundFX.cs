@@ -26,6 +26,7 @@ public class LatheSoundFX : MonoBehaviour
     public bool isEndingClipPlaying = false;
     public bool isLathingClipPlaying = false;
     public bool isIdlingClipPlaying = false;
+    public int endingClipPlayCounter = 0;
 
     public float volume = 0.1f;
 
@@ -56,6 +57,7 @@ public class LatheSoundFX : MonoBehaviour
         {
             endingSource.Play();
             isEndingClipPlaying = true;
+            endingClipPlayCounter++;
         }
 
         // Checking if its time to play "Lathing" audio clip, and making sure the clip isnt already playing

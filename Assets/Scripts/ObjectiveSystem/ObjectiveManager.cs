@@ -2,10 +2,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class ScoreEvent
+{
+    public string description;
+    public int scoreChange;
+
+    public ScoreEvent(string description, int scoreChange)
+    {
+        this.description = description;
+        this.scoreChange = scoreChange;
+    }
+}
+
 public class ObjectiveManager : MonoBehaviour
 {
     public List<Objective> objectives = new List<Objective>();
     private int score;
+    private List<ScoreEvent> scoreEvents = new List<ScoreEvent>(); // List to store score events
 
     // Add an objective to the list
     public void AddObjective(string description, int score)
@@ -26,7 +39,9 @@ public class ObjectiveManager : MonoBehaviour
         if (obj != null && !obj.isCompleted)
         {
             obj.isCompleted = true;
-            score += obj.scoreValue;
+            int scoreChange = obj.scoreValue;
+            score += scoreChange;
+            AddScoreEvent(description, scoreChange); // Add score event
         }
     }
 
@@ -50,7 +65,20 @@ public class ObjectiveManager : MonoBehaviour
 
     public void DeductPoints(int deductionPoints)
     {
-        //score = Mathf.Max(0, score - deductionPoints);
-        score = score - deductionPoints;
+        score -= deductionPoints;
+        AddScoreEvent("Deduct Points", -deductionPoints); // Add score event for deduction
+    }
+
+    //Method to add a score event
+    private void AddScoreEvent(string description, int scoreChange)
+    {
+        ScoreEvent scoreEvent = new ScoreEvent(description, scoreChange);
+        scoreEvents.Add(scoreEvent);
+    }
+
+    // Method to retrieve score events
+    public List<ScoreEvent> GetScoreEvents()
+    {
+        return scoreEvents;
     }
 }

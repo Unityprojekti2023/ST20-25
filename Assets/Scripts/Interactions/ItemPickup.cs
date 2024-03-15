@@ -8,15 +8,16 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
 
-
     public string itemID = "UncutItem";
     public bool isUncutItemAlreadyInInventory = false;
+    public bool isAnItemActiveAlready = false;
 
     public void Interact()
     {
         // Check if there are still items in the pile
-        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory && !escapeMenu.isGamePaused)
+        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory && !escapeMenu.isGamePaused && !isAnItemActiveAlready)
         {
+            isAnItemActiveAlready = true;
             isUncutItemAlreadyInInventory = true;
 
             // Get the topmost item in the pile
