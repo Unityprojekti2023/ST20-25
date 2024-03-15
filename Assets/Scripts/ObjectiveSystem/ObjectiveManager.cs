@@ -58,6 +58,7 @@ public class ObjectiveManager : MonoBehaviour
         return descriptions.All(description => objectives.Any(obj => obj.description == description && obj.isCompleted));
     }
 
+    //Return current score
     public int GetCurrentScore()
     {
         return score;

@@ -6,17 +6,24 @@ using UnityEngine.SceneManagement; // Import the SceneManagement namespace
 
 public class GameController : MonoBehaviour
 {
+    [Header("References to other scripts")]
     private ObjectiveManager objectiveManager;
+
+
+    [Header("References to gameobjects")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI objectiveList;
-    public int currentStage = 0;
-    public int numberofStages = 7;
     public GameObject endScreenUI;
     public GameObject gameUI;
 
+
+    [Header("Other values")]
+    public int currentStage = 0;
+    public int numberofStages = 7;
     void Start()
     {
+        //Hide end score UI
         if (endScreenUI != null)
         {
             endScreenUI.SetActive(false);
@@ -24,6 +31,8 @@ public class GameController : MonoBehaviour
 
         objectiveManager = GetComponent<ObjectiveManager>();
 
+
+        //Check if playing on Test mode to hide objective list and score.
         if (PlayerPrefs.GetInt("HideUI", 0) == 1)
         {
             // Hide UI element if it exists
@@ -91,7 +100,7 @@ public class GameController : MonoBehaviour
                 objectiveManager.AddObjective("Select a program", 100);
                 objectiveManager.AddObjective("Run a program", 100);
                 break;
-            
+
             case 4:
                 objectiveManager.AddObjective("Pick up cut piece", 100);
                 objectiveManager.AddObjective("Place cut piece on the table", 100);
