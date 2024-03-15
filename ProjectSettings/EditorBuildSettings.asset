@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e2946203404e64445a58c148ec16c917
   - enabled: 1
-    path: Assets/Scenes/CleaningFeature.unity
+    path: Assets/Scenes/Main.unity
     guid: c0ab583b40184d843a37411af5eda741
   m_configObjects: {}
