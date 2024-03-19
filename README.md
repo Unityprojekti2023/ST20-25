@@ -5,20 +5,20 @@ Project Details
 • Project idea:       Design and build a simple game for students to practice     
 • Project goal:       Build a fully functional and usable practice game 
 
-Project #1
+Project #1    
 • Start date          9.10.2023    
 • End date            15.12.2023    
 • Group size          3 Students    
 
-Project #2
+Project #2    
 • Start date          15.1.2024    
 • End date            15.3.2024   
 • Group size          3 Students   
 
-Project #3
+Project #3    
 • Start date          19.3.2024   
-• End date            -
-• Group size          
+• End date            -    
+• Group size              
 
 Tools used in the project:    
 • Unity - The engine the game is built on    
