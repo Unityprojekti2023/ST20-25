@@ -10,6 +10,7 @@ public class RayInteractor : MonoBehaviour
     public DoorController doorController;
     public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
+    public LockerController lockerController;
     public float interactDistance = 80f;
 
     float holdDuration = 1.5f; // Adjust the duration as needed
@@ -17,9 +18,11 @@ public class RayInteractor : MonoBehaviour
     bool carcassInteracted = false;
     bool glassesInteracted = false;
     public bool shovelEquipped = false;
+    public bool LockerDoorOpen = false;
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
     public int scrapPilesThrownIntoWrongTrashbin = 0;
+
 
     void Update()
     {
@@ -51,7 +54,7 @@ public class RayInteractor : MonoBehaviour
                                 CheckAndInteract(interactable);
                             }
                             break;
-
+                        
                         case "ControlpanelTrigger":
                             if(!shovelEquipped)
                             {
@@ -84,6 +87,51 @@ public class RayInteractor : MonoBehaviour
                                 CheckAndInteract(interactable);
                             }
                             break;
+
+                        //case "LockerDoor":
+                        //    if (!LockerDoorOpen)
+                        //    {
+                        //        ShowInteractText($"Hold to open door: [LMB] or [E]");
+
+                        //        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                        //        {
+                        //            ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                        //            currentHoldTime += Time.deltaTime;
+
+                        //            if (currentHoldTime >= holdDuration)
+                        //            {
+                        //                interactable.Interact();
+                        //                LockerDoorOpen = true;
+                        //                ResetHoldTimer();
+                        //            }
+                        //        }
+                        //        else
+                        //        {
+                        //            ResetHoldTimer();
+                        //        }
+                        //    }
+                        //    if (LockerDoorOpen)
+                        //    {
+                        //        ShowInteractText($"Hold to close door: [LMB] or [E]");
+
+                        //        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                        //        {
+                        //            ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                        //            currentHoldTime += Time.deltaTime;
+
+                        //            if (currentHoldTime >= holdDuration)
+                        //            {
+                        //                interactable.Interact();
+                        //                LockerDoorOpen = false;
+                        //                ResetHoldTimer();
+                        //            }
+                        //        }
+                        //        else
+                        //        {
+                        //            ResetHoldTimer();
+                        //        }
+                        //    }
+                        //    break;
 
                         case "Carcass":
                             if (!carcassInteracted && !shovelEquipped)
