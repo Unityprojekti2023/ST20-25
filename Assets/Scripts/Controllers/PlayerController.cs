@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mainCameraButton;
     public GameObject controlPanelCamerakButton;
     public GameObject insideCamerakButton;
+    //public GameObject helpCameraButton;
 
     [Header("Other values")]
     public float moveSpeed = 200.0f;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         mainCameraButton.SetActive(false);
         controlPanelCamerakButton.SetActive(false);
         insideCamerakButton.SetActive(false);
+        //helpCameraButton.SetActive(false);
     }
 
     void Update()
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviour
         mainCameraButton.SetActive(true);
         controlPanelCamerakButton.SetActive(true);
         insideCamerakButton.SetActive(true);
+        //helpCameraButton.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
         mainCameraButton.SetActive(false);
         controlPanelCamerakButton.SetActive(false);
         insideCamerakButton.SetActive(false);
+        //helpCameraButton.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

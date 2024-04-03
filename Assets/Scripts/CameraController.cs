@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public GameObject mainCamera;
     public GameObject controlpanelCamera;
     public GameObject insideCamera;
+    //public GameObject helpCamera;
 
     [Header("Other Variables")]
     public bool isMainCamActive = true;
@@ -21,6 +22,7 @@ public class CameraController : MonoBehaviour
     public Button mainCameraButton;
     public Button panelCameraButton;
     public Button insideCameraButton;
+    //public Button helpCameraButton;
 
     void Awake() 
     {
@@ -39,11 +41,13 @@ public class CameraController : MonoBehaviour
         mainCamera.SetActive(true);
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
+        //helpCamera.SetActive(false);
 
         mainCameraButton.onClick.AddListener(MainCameraActive);
         panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
         insideCameraButton.onClick.AddListener(InsideCameraActive);
-        
+        //helpCameraButton.onClick.AddListener(HelpCameraActive);
+
         playerController = FindObjectOfType<PlayerController>();
     }
 
@@ -53,6 +57,7 @@ public class CameraController : MonoBehaviour
         isMainCamActive = true;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
+        //helpCamera.SetActive(false);
         crosshair.SetActive(true);
 
         if (playerController != null)
@@ -67,9 +72,11 @@ public class CameraController : MonoBehaviour
         isMainCamActive = false;
         controlpanelCamera.SetActive(true);
         insideCamera.SetActive(false);
+        //helpCamera.SetActive(false);
         crosshair.SetActive(false);
         panelCameraButton.interactable = false;
         insideCameraButton.interactable = true;
+        //helpCameraButton.interactable = true;
 
         if (playerController != null)
         {
@@ -83,14 +90,34 @@ public class CameraController : MonoBehaviour
         isMainCamActive = false;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(true);
+        //helpCamera.SetActive(false);
         crosshair.SetActive(false);
         insideCameraButton.interactable = false;
         panelCameraButton.interactable = true;
+        //helpCameraButton.interactable = true;
 
         if (playerController != null)
         {
-            playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
+            playerController.HidePlayerModel();         // Hide player model when switching to the help camera
         }
     }
+
+    //public void HelpCameraActive()
+    //{
+    //    mainCamera.SetActive(false);
+    //    isMainCamActive = false;
+    //    controlpanelCamera.SetActive(false);
+    //    insideCamera.SetActive(false);
+    //    helpCamera.SetActive(true);
+    //    crosshair.SetActive(false);
+    //    insideCameraButton.interactable = true;
+    //    panelCameraButton.interactable = true;
+    //    helpCameraButton.interactable = false;
+
+    //    if (playerController != null)
+    //    {
+    //        playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
+    //    }
+    //}
 }
 
