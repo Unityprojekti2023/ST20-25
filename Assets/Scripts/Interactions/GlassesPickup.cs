@@ -18,7 +18,7 @@ public class GlassesPickup : MonoBehaviour, IInteractable
         objectiveManager.CompleteObjective("Put on safety glasses");
         //safetyGlasses.SetActive(false);
         areGlassesEquipped = true;
-        safetyGlasses.Translate(0, -600f, 0);
+        safetyGlasses.Translate(0, -100f, 0);
 
     }
 }

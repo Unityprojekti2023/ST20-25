@@ -132,6 +132,7 @@ public class EscapeMenu : MonoBehaviour
         escapeMenu.SetActive(false);
         optionsMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     public void ReturnMainMenu()
