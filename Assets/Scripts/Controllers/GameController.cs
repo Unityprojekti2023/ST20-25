@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
     [Header("Other values")]
     public int currentStage = 0;
-    public int numberofStages = 7;
+    public int numberofStages = 9;
     public bool canDisplayNotes = false;
 
     void Start()
@@ -120,6 +120,14 @@ public class GameController : MonoBehaviour
             case 6:
                 objectiveManager.AddObjective("Unequip shovel", 100);
                 objectiveManager.AddObjective("Turn the lathe off", 100);
+                break;
+
+            case 7:
+                objectiveManager.AddObjective("Equip caliper", 100);
+                break;
+
+            case 8:
+                objectiveManager.AddObjective("Unequip caliper", 100);
                 break;
 
             default:

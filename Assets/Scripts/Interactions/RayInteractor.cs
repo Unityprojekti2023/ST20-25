@@ -19,6 +19,7 @@ public class RayInteractor : MonoBehaviour
     bool glassesInteracted = false;
     public bool shovelEquipped = false;
     public bool LockerDoorOpen = false;
+    public bool caliperEquipped = false;
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
     public int scrapPilesThrownIntoWrongTrashbin = 0;
@@ -42,13 +43,13 @@ public class RayInteractor : MonoBehaviour
                     switch (targetName)
                     {
                         case "ST20-25 Luukku":
-                            if(!shovelEquipped && !doorController.isDoorOpen)
+                            if(!shovelEquipped && !doorController.isDoorOpen && !caliperEquipped)
                             {
                                 ShowInteractText($"Open door: [LMB] or [E]");
                                 CheckAndInteract(interactable);
                             } 
 
-                            if(!shovelEquipped && doorController.isDoorOpen)
+                            if(!shovelEquipped && doorController.isDoorOpen && !caliperEquipped)
                             {
                                 ShowInteractText($"Close door: [LMB] or [E]");
                                 CheckAndInteract(interactable);
@@ -56,7 +57,7 @@ public class RayInteractor : MonoBehaviour
                             break;
                         
                         case "ControlpanelTrigger":
-                            if(!shovelEquipped)
+                            if(!shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Inspect panel: [LMB] or [E]");
                                 CheckAndInteract(interactable);
@@ -65,7 +66,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "ST20-25 Puristin":
-                            if(!shovelEquipped)
+                            if(!shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Place/Remove piece: [LMB] or [E]");
                                 CheckAndInteract(interactable);
@@ -73,7 +74,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "ItemPile":
-                            if(!shovelEquipped)
+                            if(!shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Pick up Item: [LMB] or [E]");
                                 CheckAndInteract(interactable);
@@ -81,7 +82,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "ItemPlacementSpot":
-                            if(!shovelEquipped)
+                            if(!shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Place Item: [LMB] or [E]");
                                 CheckAndInteract(interactable);
@@ -134,7 +135,7 @@ public class RayInteractor : MonoBehaviour
                         //    break;
 
                         case "Carcass":
-                            if (!carcassInteracted && !shovelEquipped)
+                            if (!carcassInteracted && !shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Hold to put shoes on: [LMB] or [E]");
 
@@ -162,7 +163,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "Safetyglasses":
-                            if (!glassesInteracted && !shovelEquipped)
+                            if (!glassesInteracted && !shovelEquipped && !caliperEquipped)
                             {
                                 ShowInteractText($"Hold to put safetyglasses on: [LMB] or [E]");
 
@@ -190,7 +191,7 @@ public class RayInteractor : MonoBehaviour
                             break;
 
                         case "Shovel":
-                            if(!shovelEquipped && canInteractAgain)
+                            if(!shovelEquipped && canInteractAgain && !caliperEquipped)
                             {
                                 ShowInteractText($"Hold to equip shovel: [LMB] or [E]");
 
@@ -213,7 +214,7 @@ public class RayInteractor : MonoBehaviour
                                     ResetHoldTimer();
                                 }
                             }
-                            else if (shovelEquipped && canInteractAgain)
+                            else if (shovelEquipped && canInteractAgain && !caliperEquipped)
                             {
                                 ShowInteractText($"Hold to unequip shovel: [LMB] or [E]");
 
@@ -239,8 +240,65 @@ public class RayInteractor : MonoBehaviour
                                 HideInteractText();
                             }
 
+
                             
                         break;
+
+                        case "CaliperBox":
+                            if (!caliperEquipped && canInteractAgain)
+                            {
+                                ShowInteractText($"Hold to equip caliber: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        caliperEquipped = true;
+                                        canInteractAgain = false;
+                                        StartCoroutine(interactionDelay());
+                                        ResetHoldTimer();
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            }
+                            else if (caliperEquipped && canInteractAgain)
+                            {
+                                ShowInteractText($"Hold to unequip caliber: [LMB] or [E]");
+
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+                                    currentHoldTime += Time.deltaTime;
+
+                                    if (currentHoldTime >= holdDuration)
+                                    {
+                                        interactable.Interact();
+                                        caliperEquipped = false;
+                                        canInteractAgain = false;
+                                        StartCoroutine(interactionDelay());
+                                        ResetHoldTimer();
+                                    }
+                                }
+                                else
+                                {
+                                    ResetHoldTimer();
+                                }
+                            }
+                            else
+                            {
+                                HideInteractText();
+                            }
+
+
+
+                            break;
 
                         case "SteelTrashCan":
                             if(scrapInteraction.isShovelFull && shovelEquipped)
