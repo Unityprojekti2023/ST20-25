@@ -4,6 +4,9 @@ using System.Collections;
 
 public class RayInteractor : MonoBehaviour
 {
+    public GameObject GameController;
+    public CameraController CameraController;
+
     public TextMeshProUGUI interactText;
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
@@ -12,7 +15,7 @@ public class RayInteractor : MonoBehaviour
     public TextInformation textInformation;
     public LockerController lockerController;
     public float interactDistance = 80f;
-
+    
     float holdDuration = 1.5f; // Adjust the duration as needed
     float currentHoldTime = 0f;
     bool carcassInteracted = false;
@@ -20,11 +23,24 @@ public class RayInteractor : MonoBehaviour
     public bool shovelEquipped = false;
     public bool LockerDoorOpen = false;
     public bool caliperEquipped = false;
+    public bool itemPlaced = false;
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
     public int scrapPilesThrownIntoWrongTrashbin = 0;
 
-
+    private void Start()
+    {
+        GameController = GameObject.FindGameObjectWithTag("GameController");
+        if (GameController != null)
+        {
+            // Get the CameraController script attached to the GameController object
+            CameraController = GameController.GetComponent<CameraController>();
+        }
+        else
+        {
+            Debug.LogError("GameController object not found!");
+        }
+    }
     void Update()
     {
         Camera mainCamera = Camera.main;
@@ -70,6 +86,7 @@ public class RayInteractor : MonoBehaviour
                             {
                                 ShowInteractText($"Place/Remove piece: [LMB] or [E]");
                                 CheckAndInteract(interactable);
+                                itemPlaced = true;
                             }
                             break;
 
@@ -79,6 +96,7 @@ public class RayInteractor : MonoBehaviour
                                 ShowInteractText($"Pick up Item: [LMB] or [E]");
                                 CheckAndInteract(interactable);
                             }
+                            
                             break;
 
                         case "ItemPlacementSpot":
@@ -89,6 +107,18 @@ public class RayInteractor : MonoBehaviour
                             }
                             break;
 
+                        case "Measurements":
+                            if (caliperEquipped)
+                            {
+                                ShowInteractText($"Measure Item: [LMB] or [E]");
+                                if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+                                {
+                                    interactable.Interact();
+                                    CameraController.CaliperCameraActive();
+                                }
+
+                            }
+                            break;
                         //case "LockerDoor":
                         //    if (!LockerDoorOpen)
                         //    {

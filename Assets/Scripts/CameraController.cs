@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public GameObject controlpanelCamera;
     public GameObject insideCamera;
     public GameObject helpCamera;
+    public GameObject caliperCamera;
 
     [Header("Other Variables")]
     public bool isMainCamActive = true;
@@ -42,6 +43,7 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         helpCamera.SetActive(false);
+        caliperCamera.SetActive(false);
 
         mainCameraButton.onClick.AddListener(MainCameraActive);
         panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
@@ -68,6 +70,10 @@ public class CameraController : MonoBehaviour
         {
             HelpCameraActive();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            CaliperCameraActive();
+        }
     }
     public void MainCameraActive()
     {
@@ -76,6 +82,7 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         helpCamera.SetActive(false);
+        caliperCamera.SetActive(false);
         crosshair.SetActive(true);
 
         if (playerController != null)
@@ -91,6 +98,7 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(true);
         insideCamera.SetActive(false);
         helpCamera.SetActive(false);
+        caliperCamera.SetActive(false);
         crosshair.SetActive(false);
         panelCameraButton.interactable = false;
         insideCameraButton.interactable = true;
@@ -109,6 +117,7 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(true);
         helpCamera.SetActive(false);
+        caliperCamera.SetActive(false);
         crosshair.SetActive(false);
         insideCameraButton.interactable = false;
         panelCameraButton.interactable = true;
@@ -127,10 +136,33 @@ public class CameraController : MonoBehaviour
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         helpCamera.SetActive(true);
+        caliperCamera.SetActive(false);
         crosshair.SetActive(false);
         insideCameraButton.interactable = true;
         panelCameraButton.interactable = true;
         helpCameraButton.interactable = false;
+
+        if (playerController != null)
+        {
+            playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
+        }
+    }
+
+    public void CaliperCameraActive()
+    {
+
+        mainCamera.SetActive(false);
+        isMainCamActive = false;
+        controlpanelCamera.SetActive(false);
+        insideCamera.SetActive(false);
+        helpCamera.SetActive(false);
+        caliperCamera.SetActive(true);
+        crosshair.SetActive(false);
+
+        insideCameraButton.interactable = false;
+        panelCameraButton.interactable = false;
+        helpCameraButton.interactable = false;
+
 
         if (playerController != null)
         {
