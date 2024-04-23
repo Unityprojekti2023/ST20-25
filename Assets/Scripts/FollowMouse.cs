@@ -5,20 +5,22 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     public Camera caliperCamera; // Camera for the measuring table
-    public GameObject table; // table object for the calipers height
+    //public GameObject table; // table object for the calipers height
 
     public Transform body;
     public Transform gib;
-    public Transform scale;
     public Transform screen;
     public Transform slide;
     public Transform hexa1;
     public Transform hexa2;
     public Transform flatScrew;
 
+    public TextInformation caliperTextUI;
+    public TextMesh caliperText;
+
     private Transform[] moveObjects;
 
-    public float yOffset = 8f;  // offset to raise the caliper on the table
+    //public float yOffset = 8f;  // offset to raise the caliper on the table
     public float scrollSpeed = 0.1f;
 
     public float maxXPosition = 0f;
@@ -27,16 +29,20 @@ public class FollowMouse : MonoBehaviour
     public float maxXScrew = -0.02974f;
     public float minXScrew = -0.12974f;
 
+    private bool isRotated = false;
+    private bool canRotate = true;
+
     private void Start()
     {
         // I got the print for the caliper and the moving parts are not grouped in there so we put then in array to
         // to move them together
-        moveObjects = new Transform[] { body, gib, scale, screen, slide, hexa1, hexa2};
+        moveObjects = new Transform[] { body, gib, screen, slide, hexa1, hexa2};
     }
     void Update()
     {
         if (caliperCamera.gameObject.activeSelf)
         {
+            canRotate = true;
             float scrollInput = Input.GetAxis("Mouse ScrollWheel"); //mouse scroll input
 
             foreach (Transform moveObject in moveObjects)
@@ -62,15 +68,50 @@ public class FollowMouse : MonoBehaviour
             //flatScrew.Translate(Vector3.right * scrollInput * scrollSpeed, Space.World);
 
             Vector3 mousePosition = Input.mousePosition;
-            //mouseposition from screen to worldspace
-            Vector3 worldPosition = caliperCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, caliperCamera.transform.position.z));
-            //raise calipers y position from table
-            worldPosition.y = table.transform.position.y + yOffset;
-            //update objects position to mouse position
-            transform.position = worldPosition;
-            //object going fast and far compared to the mouse movemet, change calculations
+
+            //ray from the camera to the mouse position
+            Ray ray = caliperCamera.ScreenPointToRay(mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 offset = hit.point - transform.position;
+
+                //keep y-position flat so it doenst jump with the objects on the table
+                transform.position += new Vector3(offset.x, 0f, offset.z);
+
+                //screens position to the caliper and display as text
+                float relativeXPosition = screen.localPosition.x *-100;
+                caliperText.text = relativeXPosition.ToString("F3");
+                caliperTextUI.UpdateText(relativeXPosition.ToString("F3"));
+            }
+
+            if (canRotate && (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E)))
+            {
+                StartCoroutine(RotateCoroutine());
+            }
 
         }
 
+    }
+    IEnumerator RotateCoroutine()
+    {
+        canRotate = false;
+
+        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+        {
+            if (!isRotated)
+            {
+                transform.Rotate(0f, -90f, 0f);
+                isRotated = true;
+            }
+            else
+            {
+                transform.Rotate(0f, 90f, 0f);
+                isRotated = false;
+            }
+        }
+        yield return new WaitForSeconds(0.2f);
+        canRotate = true;
     }
 }

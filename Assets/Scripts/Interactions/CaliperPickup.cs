@@ -16,9 +16,9 @@ public class CaliperPickup: MonoBehaviour, IInteractable
             textInfo.UpdateText("Caliber equipped");
         }
 
-        if (rayInteractor.caliperEquipped)
-        {
-            textInfo.UpdateText("Caliber unequipped");
-        }
+        //if (rayInteractor.caliperEquipped)
+        //{
+        //    textInfo.UpdateText("Caliber unequipped");
+        //}
     }
 }

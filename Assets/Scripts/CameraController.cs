@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
     public GameObject insideCamera;
     public GameObject helpCamera;
     public GameObject caliperCamera;
+    public GameObject caliper;
 
     [Header("Other Variables")]
     public bool isMainCamActive = true;
@@ -84,6 +85,7 @@ public class CameraController : MonoBehaviour
         helpCamera.SetActive(false);
         caliperCamera.SetActive(false);
         crosshair.SetActive(true);
+        caliper.SetActive(false);
 
         if (playerController != null)
         {
@@ -150,7 +152,7 @@ public class CameraController : MonoBehaviour
 
     public void CaliperCameraActive()
     {
-
+        caliper.SetActive(true);
         mainCamera.SetActive(false);
         isMainCamActive = false;
         controlpanelCamera.SetActive(false);
