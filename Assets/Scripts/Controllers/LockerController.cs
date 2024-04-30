@@ -17,15 +17,8 @@ public class LockerController : MonoBehaviour,IInteractable
     
     private float totalRotation = 0f;
     private float maxRotation = 90f;
-
-
-
-    void Start()
-    {
-
-    }
-
     
+    //experimenting, would make much more sense to handle door opening with rays
     void Update()
     {
         float rotationAmount = 90f * Time.deltaTime;

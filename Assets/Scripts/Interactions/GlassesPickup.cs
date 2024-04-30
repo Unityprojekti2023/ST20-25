@@ -5,7 +5,7 @@ public class GlassesPickup : MonoBehaviour, IInteractable
 {
     public InventoryManager inventoryManager;
     public TextInformation textInfo;
-    public Transform safetyGlasses;
+    public GameObject glasses;
     public bool areGlassesEquipped = false;
     
 
@@ -16,9 +16,8 @@ public class GlassesPickup : MonoBehaviour, IInteractable
         inventoryManager.AddItem("Safety glasses");
         textInfo.UpdateText("Safety glasses added");
         objectiveManager.CompleteObjective("Put on safety glasses");
-        //safetyGlasses.SetActive(false);
         areGlassesEquipped = true;
-        safetyGlasses.Translate(0, -100f, 0);
+        glasses.SetActive(false);
 
     }
 }

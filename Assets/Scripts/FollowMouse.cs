@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     public Camera caliperCamera; // Camera for the measuring table
-    //public GameObject table; // table object for the calipers height
+    public GameObject table; // table object for the calipers height
 
     public Transform body;
     public Transform gib;
@@ -20,14 +20,14 @@ public class FollowMouse : MonoBehaviour
 
     private Transform[] moveObjects;
 
-    //public float yOffset = 8f;  // offset to raise the caliper on the table
+    public float yOffset = 8f;  // offset to raise the caliper on the table
     public float scrollSpeed = 0.1f;
 
     public float maxXPosition = 0f;
-    public float minXPosition = -0.1f;
+    public float minXPosition = -0.2f;
 
     public float maxXScrew = -0.02974f;
-    public float minXScrew = -0.12974f;
+    public float minXScrew = -0.22974f;
 
     private bool isRotated = false;
     private bool canRotate = true;

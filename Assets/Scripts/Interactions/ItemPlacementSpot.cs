@@ -13,11 +13,21 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
 
     public GameObject hiddenItem;
     public GameObject hiddenItem2;
+    public GameObject hiddenItemMalfunction;
+    public GameObject hiddenItem2Malfunction;
+
+    public GameObject blueprint;
+    public GameObject obj1Blueprint;
+    public GameObject obj2Blueprint;
 
     private void Start()
     {
         hiddenItem.SetActive(false);
         hiddenItem2.SetActive(false);
+        hiddenItemMalfunction.SetActive(false);
+        hiddenItem2Malfunction.SetActive(false);
+        obj1Blueprint.SetActive(false);
+        obj2Blueprint.SetActive(false);
     }
 
     public void Interact()
@@ -30,15 +40,39 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
             {
                 switch(mouseControlPanelInteractable.whichCutItemWasLathed)
                 {
+                    //When placing cutobject on the table, there is 50% chance for it to be malfunctioned,
+                    //correct blueprint will appear and you can measure if the object is correct
                     case "CutObject1":
-                        hiddenItem.SetActive(true);
+                        if(Random.value < 0.5f)
+                        {
+                            hiddenItem.SetActive(true);
+                            Debug.Log("1");
+                        }
+                        else
+                        {
+                            hiddenItemMalfunction.SetActive(true);
+                            Debug.Log("1h");
+                        }
                         inventoryManager.RemoveItem(requiredItemID);
-                    break;
+                        blueprint.SetActive(false);
+                        obj1Blueprint.SetActive(true);
+                        break;
 
                     case "CutObject2":
-                        hiddenItem2.SetActive(true);
+                        if (Random.value < 0.5f)
+                        {
+                            hiddenItem2.SetActive(true);
+                            Debug.Log("2");
+                        }
+                        else
+                        {
+                            hiddenItem2Malfunction.SetActive(true);
+                            Debug.Log("2h");
+                        }
                         inventoryManager.RemoveItem(requiredItemID);
-                    break;
+                        blueprint.SetActive(false);
+                        obj2Blueprint.SetActive(true);
+                        break;
                 }
 
                 textInfo.UpdateText("Item [Cut item 1] removed");
