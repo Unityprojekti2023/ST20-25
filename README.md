@@ -16,9 +16,9 @@ Project #2
 • Group size          3 Students   
 
 Project #3    
-• Start date          19.3.2024   
-• End date            -    
-• Group size              
+• Start date          15.3.2024   
+• End date            3.5.2024   
+• Group size          1 student 
 
 Tools used in the project:    
 • Unity - The engine the game is built on    
