@@ -81,6 +81,7 @@ public class FollowMouse : MonoBehaviour
                 transform.position += new Vector3(offset.x, 0f, offset.z);
 
                 //screens position to the caliper and display as text
+                //float relativeXPosition = screen.localPosition.x *-100;
                 float relativeXPosition = screen.localPosition.x *-100;
                 caliperText.text = relativeXPosition.ToString("F3");
                 caliperTextUI.UpdateText(relativeXPosition.ToString("F3"));

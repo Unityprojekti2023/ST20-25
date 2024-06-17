@@ -93,40 +93,45 @@ public class GameController : MonoBehaviour
                 break;
 
             case 1:
+                objectiveManager.AddObjective("Pick up the clipboard", 100);
+                objectiveManager.AddObjective("Inspect the drawing", 100);
+                break;
+
+            case 2:
                 objectiveManager.AddObjective("Pick up uncut piece", 100);
                 objectiveManager.AddObjective("Place piece in place", 100);
                 break;
 
-            case 2:
+            case 3:
                 objectiveManager.AddObjective("Turn on the lathe", 100);
                 objectiveManager.AddObjective("Initialize the lathe", 100);
                 break;
 
-            case 3:
+            case 4:
                 objectiveManager.AddObjective("Select a program", 100);
                 objectiveManager.AddObjective("Run a program", 100);
                 break;
 
-            case 4:
+            case 5:
                 objectiveManager.AddObjective("Pick up cut piece", 100);
                 objectiveManager.AddObjective("Place cut piece on the table", 100);
                 break;
 
-            case 5:
+            case 6:
                 objectiveManager.AddObjective("Equip shovel", 100);
                 objectiveManager.AddObjective("Clean metal scraps", 100);
                 break;
 
-            case 6:
+            case 7:
                 objectiveManager.AddObjective("Unequip shovel", 100);
                 objectiveManager.AddObjective("Turn the lathe off", 100);
                 break;
 
-            case 7:
+            case 8:
                 objectiveManager.AddObjective("Equip caliper", 100);
                 break;
 
-            case 8:
+            case 9:
                 objectiveManager.AddObjective("Unequip caliper", 100);
                 break;
 
