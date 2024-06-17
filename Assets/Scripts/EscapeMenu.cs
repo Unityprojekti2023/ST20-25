@@ -131,6 +131,7 @@ public class EscapeMenu : MonoBehaviour
         GameIsPaused = false;
         escapeMenu.SetActive(false);
         optionsMenu.SetActive(false);
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
@@ -140,6 +141,7 @@ public class EscapeMenu : MonoBehaviour
         escapeMenu.SetActive(false);
         optionsMenu.SetActive(false);
         GameIsPaused = false;
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 }

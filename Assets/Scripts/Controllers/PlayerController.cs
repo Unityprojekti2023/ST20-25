@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
         controlPanelCamerakButton.SetActive(false);
         insideCamerakButton.SetActive(false);
         helpCameraButton.SetActive(false);
+
+        Debug.Log("Player can move now: " + canMove);
     }
 
     void Update()
