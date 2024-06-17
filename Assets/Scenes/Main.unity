@@ -12853,10 +12853,14 @@ MonoBehaviour:
   endScoreText: {fileID: 812134735}
   objectiveList: {fileID: 791892847}
   endScreenUI: {fileID: 1660298061}
+  clipboard: {fileID: 1279054841}
   gameUI: {fileID: 1589835469}
   currentStage: 0
   numberofStages: 9
   canDisplayNotes: 0
+  clipboardImage:
+  - {fileID: 21300000, guid: b89c9234e37ddf04f9ea34181a4ef1ed, type: 3}
+  - {fileID: 21300000, guid: 226bfa450026f2a41a60710c7370523c, type: 3}
 --- !u!1 &578819069
 GameObject:
   m_ObjectHideFlags: 0
@@ -25975,6 +25979,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1279054841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1436944102497898, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
+  m_PrefabInstance: {fileID: 475781430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1289070612
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI objectiveList;
     public GameObject endScreenUI;
+    public GameObject clipboard;
     public GameObject gameUI;
 
 
@@ -22,6 +23,11 @@ public class GameController : MonoBehaviour
     public int currentStage = 0;
     public int numberofStages = 9;
     public bool canDisplayNotes = false;
+
+
+    [Header("Clipboard image")]
+    //Array of materials for clipboard image
+    public Sprite[] clipboardImage;
 
     void Start()
     {
@@ -53,7 +59,9 @@ public class GameController : MonoBehaviour
         }
 
         // Initialize with the objectives of the first stage
+        AssignRandomImage();
         InitializeStageObjectives();
+        
     }
 
     void Update()
@@ -139,6 +147,16 @@ public class GameController : MonoBehaviour
                 Debug.Log("All stages completed!");
                 break;
         }
+    }
+
+    private void AssignRandomImage ()
+    {
+        //Assign random material to clipboard
+        int randomMaterial = Random.Range(0, clipboardImage.Length);
+        clipboard.GetComponent<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
+        //clipboard.GetComponentInChildren<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
+        Debug.Log("Random material assigned to clipboard");
+        Debug.Log(randomMaterial);
     }
 
     void TransitionToEndScreen()
