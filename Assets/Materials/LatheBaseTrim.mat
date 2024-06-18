@@ -32,7 +32,7 @@ Material:
     - _GlossMapScale: 0.491
     - _Glossiness: 0.054
     - _GlossyReflections: 0
-    - _Metallic: 0.465
+    - _Metallic: 0.443
     - _Mode: 0
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 0

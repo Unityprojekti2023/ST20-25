@@ -11212,7 +11212,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b029dcbe861c6084abd974570ad59790, type: 2}
+  - {fileID: 2100000, guid: d73404047a323a94bbf66cf5d8f8eac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11456,6 +11456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clipboard
       objectReference: {fileID: 0}
+    - target: {fileID: 1685343955664076, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4795266759639050, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_LocalScale.x
       value: 30
@@ -11525,7 +11529,7 @@ PrefabInstance:
       addedObject: {fileID: 1723984897}
     - targetCorrespondingSourceObject: {fileID: 1685343955664076, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1723984898}
+      addedObject: {fileID: 1723984901}
   m_SourcePrefab: {fileID: 100100000, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
 --- !u!1 &487926118
 GameObject:
@@ -31954,7 +31958,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1723984898
+--- !u!114 &1723984901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31966,9 +31970,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0765900e9d08324eb9f3bdb78653cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipboard: {fileID: 1723984893}
   inventoryManager: {fileID: 574679439}
   textInfo: {fileID: 590410041}
   objectiveManager: {fileID: 574679441}
+  newPosition: {x: 83.6, y: 76.5, z: 397.9}
+  newRotation: {x: 0, y: -90, z: 0}
 --- !u!1 &1724401250
 GameObject:
   m_ObjectHideFlags: 0
