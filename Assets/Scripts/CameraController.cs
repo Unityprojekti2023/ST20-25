@@ -1,16 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
-{   public static CameraController Instance;
+{
+    public static CameraController Instance;
+
     [Header("Cameras")]
     public GameObject mainCamera;
     public GameObject controlpanelCamera;
     public GameObject insideCamera;
     public GameObject helpCamera;
-    public GameObject caliperCamera;
+    public Camera caliperCamera;
     public GameObject caliper;
 
     [Header("Other Variables")]
@@ -26,150 +27,135 @@ public class CameraController : MonoBehaviour
     public Button insideCameraButton;
     public Button helpCameraButton;
 
-    void Awake() 
+    private Dictionary<Button, GameObject> buttonCameraMap;
+
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         else
         {
-          Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
-    void Start()
-    {   
-        mainCamera.SetActive(true);
-        controlpanelCamera.SetActive(false);
-        insideCamera.SetActive(false);
-        helpCamera.SetActive(false);
-        caliperCamera.SetActive(false);
 
-        mainCameraButton.onClick.AddListener(MainCameraActive);
-        panelCameraButton.onClick.AddListener(ControlpanelCameraActive);        
-        insideCameraButton.onClick.AddListener(InsideCameraActive);
-        helpCameraButton.onClick.AddListener(HelpCameraActive);
+    void Start()
+    {
+        buttonCameraMap = new Dictionary<Button, GameObject>
+        {
+            { mainCameraButton, mainCamera },
+            { panelCameraButton, controlpanelCamera },
+            { insideCameraButton, insideCamera },
+            { helpCameraButton, helpCamera }
+        };
+
+        foreach (var entry in buttonCameraMap)
+        {
+            entry.Key.onClick.AddListener(() => ActivateCamera(entry.Value, entry.Key));
+        }
+
+        SetInitialCameraState();
 
         playerController = FindObjectOfType<PlayerController>();
     }
-    private void Update()
+
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            MainCameraActive();
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            ControlpanelCameraActive();
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            InsideCameraActive();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            HelpCameraActive();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CaliperCameraActive();
-        }
+        // TODO: Delete this code block closer to the end of the project
+        if (Input.GetKeyDown(KeyCode.H)) ActivateCamera(mainCamera, mainCameraButton);
+        if (Input.GetKeyDown(KeyCode.J)) ActivateCamera(controlpanelCamera, panelCameraButton);
+        if (Input.GetKeyDown(KeyCode.K)) ActivateCamera(insideCamera, insideCameraButton);
+        if (Input.GetKeyDown(KeyCode.L)) ActivateCamera(helpCamera, helpCameraButton);
+        if (Input.GetKeyDown(KeyCode.P)) ActivateCaliperCamera(caliperCamera);
     }
-    public void MainCameraActive()
+
+    private void SetInitialCameraState()
     {
         mainCamera.SetActive(true);
-        isMainCamActive = true;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         helpCamera.SetActive(false);
-        caliperCamera.SetActive(false);
+        caliperCamera.gameObject.SetActive(false);
         crosshair.SetActive(true);
+
+        SetButtonInteractability(mainCameraButton);
+    }
+
+    private void ActivateCamera(GameObject camera, Button button)
+    {
+        foreach (var cam in buttonCameraMap.Values)
+        {
+            cam.SetActive(cam == camera);
+        }
+
+        mainCamera.SetActive(camera == mainCamera);
+        controlpanelCamera.SetActive(camera == controlpanelCamera);
+        insideCamera.SetActive(camera == insideCamera);
+        helpCamera.SetActive(camera == helpCamera);
+        caliperCamera.gameObject.SetActive(false);
         caliper.SetActive(false);
+        crosshair.SetActive(camera == mainCamera);
+
+        isMainCamActive = camera == mainCamera;
+
+        SetButtonInteractability(button);
 
         if (playerController != null)
         {
-            playerController.ShowPlayerModel();         // Show player model when switching to the main camera
+            if (isMainCamActive)
+            {
+                playerController.ShowPlayerModel();
+            }
+            else
+            {
+                playerController.HidePlayerModel();
+            }
         }
     }
 
-    public void ControlpanelCameraActive()
+    private void SetButtonInteractability(Button activeButton)
     {
-        mainCamera.SetActive(false);
-        isMainCamActive = false;
-        controlpanelCamera.SetActive(true);
-        insideCamera.SetActive(false);
-        helpCamera.SetActive(false);
-        caliperCamera.SetActive(false);
-        crosshair.SetActive(false);
-        panelCameraButton.interactable = false;
-        insideCameraButton.interactable = true;
-        helpCameraButton.interactable = true;
-
-        if (playerController != null)
+        foreach (var button in buttonCameraMap.Keys)
         {
-            playerController.HidePlayerModel();         // Hide player model when switching to the control panel camera
+            button.interactable = button != activeButton;
         }
     }
 
-    public void InsideCameraActive()
+    public void ActivateCaliperCamera(Camera calibrointiKamera = null)
     {
-        mainCamera.SetActive(false);
-        isMainCamActive = false;
-        controlpanelCamera.SetActive(false);
-        insideCamera.SetActive(true);
-        helpCamera.SetActive(false);
-        caliperCamera.SetActive(false);
-        crosshair.SetActive(false);
-        insideCameraButton.interactable = false;
-        panelCameraButton.interactable = true;
-        helpCameraButton.interactable = true;
-
-        if (playerController != null)
+        if (calibrointiKamera == null)
         {
-            playerController.HidePlayerModel();         // Hide player model when switching to the help camera
+            calibrointiKamera = caliperCamera;
         }
-    }
-
-    public void HelpCameraActive()
-    {
-        mainCamera.SetActive(false);
-        isMainCamActive = false;
-        controlpanelCamera.SetActive(false);
-        insideCamera.SetActive(false);
-        helpCamera.SetActive(true);
-        caliperCamera.SetActive(false);
-        crosshair.SetActive(false);
-        insideCameraButton.interactable = true;
-        panelCameraButton.interactable = true;
-        helpCameraButton.interactable = false;
-
-        if (playerController != null)
-        {
-            playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
-        }
-    }
-
-    public void CaliperCameraActive()
-    {
         caliper.SetActive(true);
         mainCamera.SetActive(false);
-        isMainCamActive = false;
         controlpanelCamera.SetActive(false);
         insideCamera.SetActive(false);
         helpCamera.SetActive(false);
-        caliperCamera.SetActive(true);
+        //caliperCamera.SetActive(true);
         crosshair.SetActive(false);
+        calibrointiKamera.gameObject.SetActive(true);
+        isMainCamActive = false;
 
-        insideCameraButton.interactable = false;
+        SetButtonInteractability(null);
+
+        // Hide all other camera buttons and only show the main camera button
+        mainCameraButton.interactable = true;
         panelCameraButton.interactable = false;
+        insideCameraButton.interactable = false;
         helpCameraButton.interactable = false;
 
-
-        if (playerController != null)
+        /*if (playerController != null)
         {
-            playerController.HidePlayerModel();         // Hide player model when switching to the inside camera
-        }
+            playerController.HidePlayerModel();
+        }*/
     }
-}
 
+        // Public methods for activating cameras
+    public void ActivateMainCamera() => ActivateCamera(mainCamera, mainCameraButton);
+    public void ActivateControlpanelCamera() => ActivateCamera(controlpanelCamera, panelCameraButton);
+    public void ActivateInsideCamera() => ActivateCamera(insideCamera, insideCameraButton);
+    public void ActivateHelpCamera() => ActivateCamera(helpCamera, helpCameraButton);
+}

@@ -30,7 +30,7 @@ public class RayInteractor : MonoBehaviour
 
     private void Start()
     {
-        GameController = GameObject.FindGameObjectWithTag("GameController");
+        //GameController = GameObject.FindGameObjectWithTag("GameController");
         if (GameController != null)
         {
             // Get the CameraController script attached to the GameController object
@@ -122,7 +122,8 @@ public class RayInteractor : MonoBehaviour
                                 if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
                                 {
                                     interactable.Interact();
-                                    CameraController.CaliperCameraActive();
+                                    //CameraController.CaliperCameraActive();
+                                    CameraController.ActivateCaliperCamera();
                                 }
 
                             }

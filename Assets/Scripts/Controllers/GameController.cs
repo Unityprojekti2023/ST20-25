@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI objectiveList;
     public GameObject endScreenUI;
-    public GameObject clipboard;
+    public GameObject clipboardImageSlot;
+    public TextMeshProUGUI clibBoardTextSlot;
     public GameObject gameUI;
 
 
@@ -23,6 +24,8 @@ public class GameController : MonoBehaviour
     public int currentStage = 0;
     public int numberofStages = 9;
     public bool canDisplayNotes = false;
+    
+    private List<string> materialList = new List<string> {"Teräs", "Alumiini"};
 
 
     [Header("Clipboard image")]
@@ -59,7 +62,7 @@ public class GameController : MonoBehaviour
         }
 
         // Initialize with the objectives of the first stage
-        AssignRandomImage();
+        AssignRandomTask();
         InitializeStageObjectives();
         
     }
@@ -149,14 +152,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void AssignRandomImage ()
+    private void AssignRandomTask ()    // Assign random task to clipboard for what player needs to cut during this playthrough
     {
         //Assign random material to clipboard
         int randomMaterial = Random.Range(0, clipboardImage.Length);
-        clipboard.GetComponent<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
-        //clipboard.GetComponentInChildren<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
-        Debug.Log("Random material assigned to clipboard");
-        Debug.Log(randomMaterial);
+        clipboardImageSlot.GetComponent<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
+        clibBoardTextSlot.text = materialList[Random.Range(0, materialList.Count)];
     }
 
     void TransitionToEndScreen()
