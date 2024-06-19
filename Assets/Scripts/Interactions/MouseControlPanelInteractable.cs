@@ -6,13 +6,11 @@ public class MouseControlPanelInteractable : MonoBehaviour
 {
     [Header("References to other scripts")]
     public DoorController doorController;
-    public SupportController supportController;
     public MachineScript machineScript;
     public DrillController drillController;
     public EscapeMenu escapeMenu;
     public LayerMask controlPanelLayer;
     public Camera controlPanelCamera;
-    public RayInteractor rayInteractor;
     public ControlpanelController controlpanelController;
     public HandleJog handleJog;
     public CleaningFeature cleaningFeature;

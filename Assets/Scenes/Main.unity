@@ -42385,7 +42385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorController: {fileID: 2099531900}
-  supportController: {fileID: 988224646}
   machineScript: {fileID: 1191750845}
   drillController: {fileID: 374627386}
   escapeMenu: {fileID: 1589835470}
@@ -42393,8 +42392,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   controlPanelCamera: {fileID: 1950427763}
-  rayInteractor: {fileID: 1045571686}
-  controlpanelController: {fileID: 0}
+  controlpanelController: {fileID: 919132149395317117}
   handleJog: {fileID: 92735200}
   cleaningFeature: {fileID: 1149944383}
   objectiveManager: {fileID: 574679441}
