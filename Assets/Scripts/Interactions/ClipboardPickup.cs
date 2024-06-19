@@ -8,12 +8,15 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     [Header("References to other objects")]
     public GameObject clipboard;
     private GameObject heldClipboard;
+    public Renderer clipboardImageSlot;
+    public TMPro.TextMeshProUGUI clibBoardTextSlot;
 
     [Header("References to other scripts")]
     public InventoryManager inventoryManager;
     public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
     public CameraController cameraController;
+    public TaskManager taskManager;
 
     [Header("Other variables")]
     public Vector3 newPosition;
@@ -24,6 +27,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     void Start()
     {
+        taskManager.AssignRandomTask(clipboardImageSlot, clibBoardTextSlot);
         if (clipboard == null)
         {
             Debug.LogError("Clipboard reference not set in ClipboardPickup!");

@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class MistakeGenerator : MonoBehaviour
 {
-    [Header("References to each part of the prefab")]
-    public Transform[] parts;
-
     [Header("Minimun and maximum values for random length and thickness")]
     // The minimum and maximum values for the length and thickness of the parts
     public Vector2 minMaxLength = new(0.9f, 1.1f);
     public Vector2 minMaxThickness = new(0.9f, 1.1f); 
-    void Start()
+    public void GenerateMistakes(Transform[] parts)
     {
+        // Loop through all the parts
         foreach (Transform part in parts)
         {
-            Debug.Log($"Modifying part: {part.name}"); // TODO: remove this line
+            // Randomize the length and thickness of the part
+            Debug.Log("Modifying part: " + part.name); //TODO: remove this line
             ModifyPart(part);
-        }        
+        }
     }
 
     void ModifyPart(Transform part)

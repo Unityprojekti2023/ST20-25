@@ -10,14 +10,12 @@ public class GameController : MonoBehaviour
     private ObjectiveManager objectiveManager;
     public EscapeMenu escapeMenu;
 
+
     [Header("References to gameobjects")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI objectiveList;
     public GameObject endScreenUI;
-    public GameObject clipboardImageSlot;
-    public TextMeshProUGUI clibBoardTextSlot;
-    public GameObject gameUI;
 
 
     [Header("Other values")]
@@ -28,12 +26,19 @@ public class GameController : MonoBehaviour
     private List<string> materialList = new List<string> {"Teräs", "Alumiini"};
 
 
+    //Testing stuff
+    private Animator anim;
+
+
     [Header("Clipboard image")]
     //Array of materials for clipboard image
     public Sprite[] clipboardImage;
 
     void Start()
     {
+        //TESTING ANITMATOR
+        anim = GetComponent<Animator>();
+
         //Hide end score UI
         if (endScreenUI != null)
         {
@@ -62,13 +67,17 @@ public class GameController : MonoBehaviour
         }
 
         // Initialize with the objectives of the first stage
-        AssignRandomTask();
         InitializeStageObjectives();
         
     }
 
     void Update()
     {
+        //TESTING ANIMATOR
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            anim.SetTrigger("StartLathe");
+        }
         // Check if all objectives are completed for the current stage
         if (objectiveManager.AreAllObjectivesCompleted())
         {
@@ -152,13 +161,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void AssignRandomTask ()    // Assign random task to clipboard for what player needs to cut during this playthrough
-    {
-        //Assign random material to clipboard
-        int randomMaterial = Random.Range(0, clipboardImage.Length);
-        clipboardImageSlot.GetComponent<Renderer>().material.mainTexture = clipboardImage[randomMaterial].texture;
-        clibBoardTextSlot.text = materialList[Random.Range(0, materialList.Count)];
-    }
 
     void TransitionToEndScreen()
     {

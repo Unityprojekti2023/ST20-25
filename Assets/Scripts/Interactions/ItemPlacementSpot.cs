@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
     public GameObject hiddenItemMalfunction;
     public GameObject hiddenItem2Malfunction;
 
+    public MistakeGenerator mistakeGenerator;
+
     private void Start()
     {
         hiddenItem.SetActive(false);
@@ -26,39 +29,20 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        //Check if the player has the required item in the inventory
-        switch ("CutObject1")
+        //TODO: Takes this to lathe controller
+        // This will generate mistake always when the item is placed on the spot
+        hiddenItem.SetActive(true);
+        Transform[] allParts = hiddenItem.transform.GetComponentsInChildren<Transform>();
+        List<Transform> parts = new();
+        foreach (Transform part in allParts)
         {
-            //When placing cutobject on the table, there is 50% chance for it to be malfunctioned,
-            //correct blueprint will appear and you can measure if the object is correct
-            case "CutObject1":
-                if (Random.value < 0.5f)
-                {
-                    hiddenItem.SetActive(true);
-                    Debug.Log("1");
-                }
-                else
-                {
-                    hiddenItemMalfunction.SetActive(true);
-                    Debug.Log("1h");
-                }
-                inventoryManager.RemoveItem(requiredItemID);
-                break;
-
-            case "CutObject2":
-                if (Random.value < 0.5f)
-                {
-                    hiddenItem2.SetActive(true);
-                    Debug.Log("2");
-                }
-                else
-                {
-                    hiddenItem2Malfunction.SetActive(true);
-                    Debug.Log("2h");
-                }
-                inventoryManager.RemoveItem(requiredItemID);
-                break;
+            if (part.name.Contains("Cylinder"))
+            {
+                parts.Add(part);
+            }
         }
+
+        mistakeGenerator.GenerateMistakes(parts.ToArray());
 
         textInfo.UpdateText("Item [Cut item 1] removed");
         itemPickup.isAnItemActiveAlready = false;
