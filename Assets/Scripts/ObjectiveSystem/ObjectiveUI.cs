@@ -4,7 +4,6 @@ using TMPro;
 
 public class ObjectiveUI : MonoBehaviour
 {
-    public ObjectiveManager objectiveManager;
     public TextMeshProUGUI objectiveListText;
     public Color completedColor = Color.green;
 
@@ -17,7 +16,7 @@ public class ObjectiveUI : MonoBehaviour
     {
         string objectiveText = "Objectives:\n";
 
-        foreach (Objective obj in objectiveManager.objectives)
+        foreach (Objective obj in ObjectiveManager.Instance.objectives)
         {
             string status = obj.isCompleted ? " [Completed]" : "";
 

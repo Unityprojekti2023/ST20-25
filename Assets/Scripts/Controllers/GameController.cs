@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement; // Import the SceneManagement namespace
 public class GameController : MonoBehaviour
 {
     [Header("References to other scripts")]
-    private ObjectiveManager objectiveManager;
+    private ObjectiveManager ObjectiveManager.Instance;
     public EscapeMenu escapeMenu;
     public TaskManager taskManager;
     public ClipboardPickup clipboardPickup;
@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
         // Get the TaskManager component
         taskManager = GetComponent<TaskManager>();
         clipboardPickup = FindObjectOfType<ClipboardPickup>();
-        objectiveManager = GetComponent<ObjectiveManager>();
+        ObjectiveManager.Instance = GetComponent<ObjectiveManager>();
 
 
         //Check if playing on Test mode to hide objective list and score.
@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
             anim.SetTrigger("StartLathe");
         }
         // Check if all objectives are completed for the current stage
-        if (objectiveManager.AreAllObjectivesCompleted())
+        if (ObjectiveManager.Instance.AreAllObjectivesCompleted())
         {
             // All objectives for the current stage are completed, proceed to the next stage
             Debug.Log($"Stage {currentStage + 1} objectives completed! Proceed to the next stage.");
@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour
             currentStage++;
 
             // Empty objectives and add objectives for the next stage
-            objectiveManager.EmptyObjective();
+            ObjectiveManager.Instance.EmptyObjective();
             InitializeStageObjectives();
 
             // Check if all stages are completed
@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
         }
 
         //Display current score
-        scoreText.text = $"Score: {objectiveManager.GetCurrentScore()}";
+        scoreText.text = $"Score: {ObjectiveManager.Instance.GetCurrentScore()}";
     }
 
     void InitializeStageObjectives()
@@ -112,51 +112,51 @@ public class GameController : MonoBehaviour
         switch (currentStage)
         {
             case 0:
-                objectiveManager.AddObjective("Put on safety shoes", 100);
-                objectiveManager.AddObjective("Put on safety glasses", 100);
+                ObjectiveManager.Instance.AddObjective("Put on safety shoes", 100);
+                ObjectiveManager.Instance.AddObjective("Put on safety glasses", 100);
                 break;
 
             case 1:
-                objectiveManager.AddObjective("Pick up the clipboard", 50);
-                objectiveManager.AddObjective("Inspect the drawing", 50);
+                ObjectiveManager.Instance.AddObjective("Pick up the clipboard", 50);
+                ObjectiveManager.Instance.AddObjective("Inspect the drawing", 50);
                 break;
 
             case 2:
-                objectiveManager.AddObjective("Pick up correct raw piece", 100);
-                objectiveManager.AddObjective("Place piece in place", 100);
+                ObjectiveManager.Instance.AddObjective("Pick up correct raw piece", 100);
+                ObjectiveManager.Instance.AddObjective("Place piece in place", 100);
                 break;
 
             case 3:
-                objectiveManager.AddObjective("Turn on the lathe", 100);
-                objectiveManager.AddObjective("Initialize the lathe", 100);
+                ObjectiveManager.Instance.AddObjective("Turn on the lathe", 100);
+                ObjectiveManager.Instance.AddObjective("Initialize the lathe", 100);
                 break;
 
             case 4:
-                objectiveManager.AddObjective("Select a program", 100);
-                objectiveManager.AddObjective("Run a program", 100);
+                ObjectiveManager.Instance.AddObjective("Select a program", 100);
+                ObjectiveManager.Instance.AddObjective("Run a program", 100);
                 break;
 
             case 5:
-                objectiveManager.AddObjective("Pick up cut piece", 100);
-                objectiveManager.AddObjective("Place cut piece on the table", 100);
+                ObjectiveManager.Instance.AddObjective("Pick up cut piece", 100);
+                ObjectiveManager.Instance.AddObjective("Place cut piece on the table", 100);
                 break;
 
             case 6:
-                objectiveManager.AddObjective("Equip shovel", 100);
-                objectiveManager.AddObjective("Clean metal scraps", 100);
+                ObjectiveManager.Instance.AddObjective("Equip shovel", 100);
+                ObjectiveManager.Instance.AddObjective("Clean metal scraps", 100);
                 break;
 
             case 7:
-                objectiveManager.AddObjective("Unequip shovel", 100);
-                objectiveManager.AddObjective("Turn the lathe off", 100);
+                ObjectiveManager.Instance.AddObjective("Unequip shovel", 100);
+                ObjectiveManager.Instance.AddObjective("Turn the lathe off", 100);
                 break;
 
             case 8:
-                objectiveManager.AddObjective("Equip caliper", 100);
+                ObjectiveManager.Instance.AddObjective("Equip caliper", 100);
                 break;
 
             case 9:
-                objectiveManager.AddObjective("Unequip caliper", 100);
+                ObjectiveManager.Instance.AddObjective("Unequip caliper", 100);
                 break;
 
             default:
@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour
             playerController.ToggleMovement(false);
         }
 
-        endScoreText.text = $"Your final Score: {objectiveManager.GetCurrentScore()}";
+        endScoreText.text = $"Your final Score: {ObjectiveManager.Instance.GetCurrentScore()}";
 
         escapeMenu.Pause();
     }

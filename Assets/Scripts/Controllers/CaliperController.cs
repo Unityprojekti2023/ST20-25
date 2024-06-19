@@ -6,7 +6,6 @@ public class CaliperController : MonoBehaviour
 {
     public GameObject playerCaliper;
     public GameObject tableCaliber;
-    public ObjectiveManager objectiveManager;
     public RayInteractor rayInteractor;
 
     void Start()
@@ -21,13 +20,13 @@ public class CaliperController : MonoBehaviour
         {
             playerCaliper.SetActive(true);                                  
             tableCaliber.SetActive(false);
-            objectiveManager.CompleteObjective("Equip caliper");
+            ObjectiveManager.Instance.CompleteObjective("Equip caliper");
         }
         else if (!rayInteractor.caliperEquipped)  
         {
             playerCaliper.SetActive(false);
             tableCaliber.SetActive(true);
-            objectiveManager.CompleteObjective("Unequip caliper");
+            ObjectiveManager.Instance.CompleteObjective("Unequip caliper");
         }
     }
 }

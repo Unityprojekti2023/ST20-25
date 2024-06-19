@@ -5,7 +5,6 @@ using UnityEngine;
 public class LatheInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    public ObjectiveManager objectiveManager;
     public MachineScript machineScript;
     public ItemPickup itemPickup;
     public LatheRightTrigger latheRightTrigger;
@@ -26,7 +25,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                     itemPickup.isUncutItemAlreadyInInventory = false;
 
                     machineScript.moveUncutObjectToCuttingPosition();
-                    objectiveManager.CompleteObjective("Place piece in place");
+                    ObjectiveManager.Instance.CompleteObjective("Place piece in place");
                 }
                 //If there is uncut item in cuttin position remove it and add to players inventory
                 else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
@@ -57,7 +56,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 drillController.activeCounter = 0;
                 machineScript.isAnimationComplete = false;
 
-                objectiveManager.CompleteObjective("Pick up cut piece");
+                ObjectiveManager.Instance.CompleteObjective("Pick up cut piece");
             }
             //Check if player does not have uncut item in inventory and there is uncut item in the machine.
             else if (!InventoryManager.Instance.CheckHands() && machineScript.isUncutObjectInCuttingPosition)

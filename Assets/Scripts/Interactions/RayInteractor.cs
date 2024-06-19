@@ -15,7 +15,6 @@ public class RayInteractor : MonoBehaviour
     public TextMeshProUGUI interactText;
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
-    public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
     public float interactDistance = 80f;
 
@@ -275,18 +274,18 @@ public class RayInteractor : MonoBehaviour
                     {
                         if (scrapCount == threshold)
                         {
-                            objectiveManager.DeductPoints(multipleThrowPenalty);
+                            ObjectiveManager.Instance.DeductPoints(multipleThrowPenalty);
                             textInformation.UpdateText(multipleThrowText);
                         }
                         else
                         {
-                            objectiveManager.DeductPoints(singleThrowPenalty);
+                            ObjectiveManager.Instance.DeductPoints(singleThrowPenalty);
                             textInformation.UpdateText(singleThrowText);
                         }
                     }
                     else if (scrapCount == threshold)
                     {
-                        objectiveManager.CompleteObjective("Clean metal scraps");
+                        ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
                     }
                 }
             }

@@ -16,9 +16,23 @@ public class ScoreEvent
 
 public class ObjectiveManager : MonoBehaviour
 {
+    public static ObjectiveManager Instance { get; private set; }
+
     public List<Objective> objectives = new List<Objective>();
     private int score;
     private List<ScoreEvent> scoreEvents = new List<ScoreEvent>(); // List to store score events
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Add an objective to the list
     public void AddObjective(string description, int score)

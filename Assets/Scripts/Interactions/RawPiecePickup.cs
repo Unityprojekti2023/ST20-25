@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    public ObjectiveManager objectiveManager;
     private TaskManager taskManager;
     private GameObject topItem;
     private GameObject heldItem;
@@ -52,11 +51,11 @@ public class ItemPickup : MonoBehaviour, IInteractable
 
             if (itemRenderer != null && itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
             {
-                objectiveManager.CompleteObjective($"Pick up correct raw piece");
+                ObjectiveManager.Instance.CompleteObjective($"Pick up correct raw piece");
             }
             else
             {
-                objectiveManager.DeductPoints(50);
+                ObjectiveManager.Instance.DeductPoints(50);
                 return;
             }
 

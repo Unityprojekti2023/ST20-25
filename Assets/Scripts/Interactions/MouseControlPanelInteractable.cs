@@ -13,7 +13,6 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public ControlpanelController controlpanelController;
     public HandleJog handleJog;
     public CleaningFeature cleaningFeature;
-    public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
     public ScrapInteraction scrapInteraction;
     public GameController gameController;
@@ -87,7 +86,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.UpdateScreenImage();
-                                        objectiveManager.CompleteObjective("Initialize the lathe");
+                                        ObjectiveManager.Instance.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -100,7 +99,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.UpdateScreenImage();
-                                        objectiveManager.CompleteObjective("Initialize the lathe");
+                                        ObjectiveManager.Instance.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -117,11 +116,11 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                             scrapInteraction.isPile2Cleaned = false;
                                             scrapInteraction.isPile3Cleaned = false;
 
-                                            objectiveManager.CompleteObjective("Run a program");
+                                            ObjectiveManager.Instance.CompleteObjective("Run a program");
 
                                             if(cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
                                             {
-                                                objectiveManager.DeductPoints(200);
+                                                ObjectiveManager.Instance.DeductPoints(200);
                                                 textInformation.UpdateText("-200 points for not cleaning up after lathing!");
                                             }
 
@@ -187,7 +186,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     {
                                         isResetClicked = true;
                                         isLatheOn = true;
-                                        objectiveManager.CompleteObjective("Turn on the lathe");
+                                        ObjectiveManager.Instance.CompleteObjective("Turn on the lathe");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -207,7 +206,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         controlpanelController.showHomeScreen2 = false;
                                         controlpanelController.UpdateScreenImage();
 
-                                        objectiveManager.CompleteObjective("Turn the lathe off");
+                                        ObjectiveManager.Instance.CompleteObjective("Turn the lathe off");
                                     }
                                     PlayAudioClip();
                                     break;
@@ -244,7 +243,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     if(isLatheOn && isAllClicked)
                                     {
                                         isProgramSelected = true;
-                                        objectiveManager.CompleteObjective("Select a program");
+                                        ObjectiveManager.Instance.CompleteObjective("Select a program");
                                     }
                                     PlayAudioClip();
                                 break;

@@ -7,7 +7,6 @@ public class ShovelController : MonoBehaviour
     public GameObject playerEmptyShovel;
     public GameObject playerFullShovel;
     public GameObject propShovel;
-    public ObjectiveManager objectiveManager;
     public RayInteractor rayInteractor;
     public ScrapInteraction scrapInteraction;
     
@@ -24,7 +23,7 @@ public class ShovelController : MonoBehaviour
             playerEmptyShovel.SetActive(true);                                  // Setting empty shovel as active
             playerFullShovel.SetActive(false);
             propShovel.SetActive(false);
-            objectiveManager.CompleteObjective("Equip shovel");
+            ObjectiveManager.Instance.CompleteObjective("Equip shovel");
         } 
         else if(rayInteractor.shovelEquipped && scrapInteraction.isShovelFull)  // Checking if shovel is equipped and shovel is full
         {
@@ -38,7 +37,7 @@ public class ShovelController : MonoBehaviour
             playerFullShovel.SetActive(false);
             propShovel.SetActive(true);                                         // If shovel is not equipped, setting prop shovel (on the table) active
 
-            objectiveManager.CompleteObjective("Unequip shovel");
+            ObjectiveManager.Instance.CompleteObjective("Unequip shovel");
         }
     }
 }

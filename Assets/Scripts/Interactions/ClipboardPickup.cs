@@ -12,7 +12,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     public TMPro.TextMeshProUGUI clibBoardTextSlot;
 
     [Header("References to other scripts")]
-    public ObjectiveManager objectiveManager;
     public CameraController cameraController;
     [Header("Other variables")]
     public Vector3 newPosition;
@@ -39,7 +38,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         {
             // Add the item to the player's inventory
             InventoryManager.Instance.AddItem("clipboard","Item [Clipboard] picked up");
-            objectiveManager.CompleteObjective("Pick up the clipboard");
+            ObjectiveManager.Instance.CompleteObjective("Pick up the clipboard");
 
             // Instantiate the clipboard at the attachment point
             heldClipboard = Instantiate(clipboard, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
@@ -66,7 +65,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
                 }
             }
             InventoryManager.Instance.RemoveItem("clipboard","Item [Clipboard] removed from inventory");
-            //objectiveManager.CompleteObjective("Place the clipboard on the table"); //Enable later when the objective is added
+            //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); //Enable later when the objective is added
         }
         else
         {
@@ -79,7 +78,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     {
         if (InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp && Input.GetKeyDown(KeyCode.Mouse1))
         {
-            objectiveManager.CompleteObjective("Inspect the drawing");
+            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
             cameraController.ActivateCaliperCamera(heldClipboardCamera);
         }
         
