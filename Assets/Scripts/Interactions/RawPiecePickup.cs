@@ -1,18 +1,22 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     public InventoryManager inventoryManager;
-    public EscapeMenu escapeMenu;
-    public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
     private TaskManager taskManager;
+    private GameObject topItem;
+    private GameObject heldItem;
 
     public string itemID = "UncutItem";
     public bool isUncutItemAlreadyInInventory = false;
     public bool isAnItemActiveAlready = false;
+
+    [Header("References to other objects")]
+    public Transform attachmentPoint;
 
     private void Start()
     {
@@ -22,48 +26,56 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Check if there are still items in the pile
-        if (transform.childCount > 0 && !isUncutItemAlreadyInInventory && !escapeMenu.isGamePaused && !isAnItemActiveAlready)
+        if (transform.childCount > 0 && !inventoryManager.AreHandsFull())
         {
             // Check if material is correct
             string currentMaterial = taskManager.GetCurrentMaterialName();
-            Debug.Log($"Picked up item should have been: {currentMaterial}");
 
+            // Get the top item from the pile
+            topItem = transform.GetChild(transform.childCount - 1).gameObject;
 
             isAnItemActiveAlready = true;
-            isUncutItemAlreadyInInventory = true;
 
-            // Get the topmost item in the pile
-            GameObject topItem = transform.GetChild(transform.childCount - 1).gameObject;
+            // Add the item to the player's inventory
+            inventoryManager.AddItem(itemID, $"Item [{itemID}] picked up");
+            inventoryManager.handsFull = true;
+
+            // Instantiate the clipboard at the attachment point
+            heldItem = Instantiate(topItem, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
+
+            // Hide the topItem
+            topItem.SetActive(false);
 
             Renderer itemRenderer = topItem.GetComponent<Renderer>();
             {
-                string materialName = itemRenderer.material.name;
-                Debug.Log($"Material name: {materialName}");
+                _ = itemRenderer.material.name;
             }
 
             if (itemRenderer != null && itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
             {
-
-                textInfo.UpdateText($"Item [{itemID}] picked up it was the correct material");
+                objectiveManager.CompleteObjective($"Pick up correct raw piece");
             }
             else
             {
-                textInfo.UpdateText($"Item [{itemID}] picked up it was the wrong material");
+                objectiveManager.DeductPoints(50);
                 return;
             }
 
-
-            // Add the item to the player's inventory
-            inventoryManager.AddItem(itemID);
-            //textInfo.UpdateText($"Item [{itemID}] picked up");
-            objectiveManager.CompleteObjective($"Pick up {itemID} piece");
-
-
-            // Hide the top item
-            topItem.SetActive(false);
-
-            // Optionally, you can destroy the item instead of just hiding it
-            Destroy(topItem);
         }
+
+        // Place item pack into the pile if hands are full
+        else if (inventoryManager.AreHandsFull())
+        {
+            Destroy(heldItem);
+            topItem.SetActive(true);
+            topItem = null;
+            inventoryManager.handsFull = false;
+        }
+    }
+
+    // TODO: Method to be called destroy the top item in the pile when placed in the lathe
+    public void DestroyTopItem()
+    {
+        Destroy(topItem);
     }
 }

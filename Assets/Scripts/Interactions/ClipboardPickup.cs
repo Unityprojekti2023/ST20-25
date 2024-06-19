@@ -13,7 +13,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     [Header("References to other scripts")]
     public InventoryManager inventoryManager;
-    public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
     public CameraController cameraController;
     [Header("Other variables")]
@@ -40,8 +39,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         if (!inventoryManager.HasItem("clipboard") && !clipboardBeenPickedUp)
         {
             // Add the item to the player's inventory
-            inventoryManager.AddItem("clipboard");
-            textInfo.UpdateText("Item [Clipboard] picked up");
+            inventoryManager.AddItem("clipboard","Item [Clipboard] picked up");
             objectiveManager.CompleteObjective("Pick up the clipboard");
 
             // Instantiate the clipboard at the attachment point
@@ -68,8 +66,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
                     child.gameObject.SetActive(true);
                 }
             }
-            inventoryManager.RemoveItem("clipboard");
-            textInfo.UpdateText("Item [Clipboard] removed from inventory");
+            inventoryManager.RemoveItem("clipboard","Item [Clipboard] removed from inventory");
             //objectiveManager.CompleteObjective("Place the clipboard on the table"); //Enable later when the objective is added
         }
         else

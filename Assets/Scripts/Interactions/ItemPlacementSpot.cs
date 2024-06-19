@@ -45,7 +45,8 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         mistakeGenerator.GenerateMistakes(parts.ToArray());
 
         textInfo.UpdateText("Item [Cut item 1] removed");
-        itemPickup.isAnItemActiveAlready = false;
+        //inventoryManager.RemoveItem("CutItem", "Item [Cut item 1] removed");
+        inventoryManager.handsFull = false;
         mouseControlPanelInteractable.whichCutItemWasLathed = " ";
         //itemPickup.isUncutItemAlreadyInInventory = false;
         objectiveManager.CompleteObjective("Place cut piece on the table");

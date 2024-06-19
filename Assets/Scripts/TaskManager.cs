@@ -28,9 +28,6 @@ public class TaskManager : MonoBehaviour
         // Get a random material from the list
         currentMaterialName = materialList[UnityEngine.Random.Range(0, materialList.Count)];
 
-        Debug.Log($"Tasks material is: {currentMaterialName}"); //TODO: remove this line
-
-
         // Get a random clipboard image
         currentMaterialIndex = UnityEngine.Random.Range(0, clipboardImage.Length);
 

@@ -3,11 +3,21 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    private TextInformation textInfo;
+    // Variable to check if hands are full
+    public bool handsFull = false;
+
     private List<string> inventory = new();
 
-    public void AddItem(string itemID)
+    private void Start()
+    {
+        textInfo = FindObjectOfType<TextInformation>();
+    }
+
+    public void AddItem(string itemID, string itemInfoText = "")
     {
         Debug.Log("Picked item " + itemID);
+        textInfo.UpdateText(itemInfoText);
         inventory.Add(itemID);
     }
 
@@ -16,9 +26,15 @@ public class InventoryManager : MonoBehaviour
         return inventory.Contains(itemID);
     }
 
-    public void RemoveItem(string itemID)
+    public void RemoveItem(string itemID, string itemInfoText = "")
     {
         Debug.Log("Removed item " + itemID);
+        textInfo.UpdateText(itemInfoText);
         inventory.Remove(itemID);
+    }
+
+    public bool AreHandsFull()
+    {
+        return handsFull;
     }
 }

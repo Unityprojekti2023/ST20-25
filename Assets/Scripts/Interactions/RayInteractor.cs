@@ -18,7 +18,6 @@ public class RayInteractor : MonoBehaviour
     public DoorController doorController;
     public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
-    public LockerController lockerController;
     public float interactDistance = 80f;
 
     float holdDuration = 1.5f; // Adjust the duration as needed
@@ -28,7 +27,6 @@ public class RayInteractor : MonoBehaviour
     public bool shovelEquipped = false;
     public bool LockerDoorOpen = false;
     public bool caliperEquipped = false;
-    public bool itemPlaced = false;
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
     public int scrapPilesThrownIntoWrongTrashbin = 0;
@@ -170,7 +168,6 @@ public class RayInteractor : MonoBehaviour
         {
             ShowInteractText($"Place/Remove piece: [LMB] or [E]");
             CheckAndInteract(interactable);
-            itemPlaced = true;
         }
     }
 

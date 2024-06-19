@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case 2:
-                objectiveManager.AddObjective("Pick up uncut piece", 100);
+                objectiveManager.AddObjective("Pick up correct raw piece", 100);
                 objectiveManager.AddObjective("Place piece in place", 100);
                 break;
 
