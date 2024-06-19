@@ -12,7 +12,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     public TMPro.TextMeshProUGUI clibBoardTextSlot;
 
     [Header("References to other scripts")]
-    public InventoryManager inventoryManager;
     public ObjectiveManager objectiveManager;
     public CameraController cameraController;
     [Header("Other variables")]
@@ -36,10 +35,10 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!inventoryManager.HasItem("clipboard") && !clipboardBeenPickedUp)
+        if (!InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp)
         {
             // Add the item to the player's inventory
-            inventoryManager.AddItem("clipboard","Item [Clipboard] picked up");
+            InventoryManager.Instance.AddItem("clipboard","Item [Clipboard] picked up");
             objectiveManager.CompleteObjective("Pick up the clipboard");
 
             // Instantiate the clipboard at the attachment point
@@ -54,7 +53,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
             clipboardBeenPickedUp = true;
         }
-        else if (inventoryManager.HasItem("clipboard"))
+        else if (InventoryManager.Instance.HasItem("clipboard"))
         {
             // Destroy held clipboard object
             Destroy(heldClipboard);
@@ -66,7 +65,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
                     child.gameObject.SetActive(true);
                 }
             }
-            inventoryManager.RemoveItem("clipboard","Item [Clipboard] removed from inventory");
+            InventoryManager.Instance.RemoveItem("clipboard","Item [Clipboard] removed from inventory");
             //objectiveManager.CompleteObjective("Place the clipboard on the table"); //Enable later when the objective is added
         }
         else
@@ -78,7 +77,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (inventoryManager.HasItem("clipboard") && !clipboardBeenPickedUp && Input.GetKeyDown(KeyCode.Mouse1))
+        if (InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp && Input.GetKeyDown(KeyCode.Mouse1))
         {
             objectiveManager.CompleteObjective("Inspect the drawing");
             cameraController.ActivateCaliperCamera(heldClipboardCamera);

@@ -29,14 +29,14 @@ public class DoorSoundFX : MonoBehaviour
 
     void Update()
     {
-        if (DoorController.instance.playOpeningClip && !isOpeningClipPlaying && !mouseControlPanelInteractable.isLathingActive) 
+        if (DoorController.Instance.playOpeningClip && !isOpeningClipPlaying && !mouseControlPanelInteractable.isLathingActive) 
         {                                                                   // Checking if the "playOpeningClip" has been set to true in DoorController and making sure a clip isn't already playing
             openingSource.Play();                                           // Playing door opening audio clip
             isOpeningClipPlaying = true;                                    // Setting "isOpeningClipPlaying" to true so multiple audio clips dont play at once
             isClosingClipPlaying = false;                                      
         }
 
-        if (DoorController.instance.playClosingClip && !isClosingClipPlaying && !mouseControlPanelInteractable.isLathingActive) 
+        if (DoorController.Instance.playClosingClip && !isClosingClipPlaying && !mouseControlPanelInteractable.isLathingActive) 
         {                                                                   // Checking if "playClosingClip" has been set to true in DoorController and making sure a clip isn't already playing
             closingSource.Play();                                           // Playing door closing audio clip
             isClosingClipPlaying = true;                                    // Setting "isClosingClipPlaying" to true so multiple audio clips dont play at once

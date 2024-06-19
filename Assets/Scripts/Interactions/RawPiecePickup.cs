@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    public InventoryManager inventoryManager;
     public ObjectiveManager objectiveManager;
     private TaskManager taskManager;
     private GameObject topItem;
@@ -26,7 +25,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Check if there are still items in the pile
-        if (transform.childCount > 0 && !inventoryManager.AreHandsFull())
+        if (transform.childCount > 0 && !InventoryManager.Instance.CheckHands())
         {
             // Check if material is correct
             string currentMaterial = taskManager.GetCurrentMaterialName();
@@ -37,8 +36,8 @@ public class ItemPickup : MonoBehaviour, IInteractable
             isAnItemActiveAlready = true;
 
             // Add the item to the player's inventory
-            inventoryManager.AddItem(itemID, $"Item [{itemID}] picked up");
-            inventoryManager.handsFull = true;
+            InventoryManager.Instance.AddItem(itemID, $"Item [{itemID}] picked up");
+            InventoryManager.Instance.ToggleHands();
 
             // Instantiate the clipboard at the attachment point
             heldItem = Instantiate(topItem, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
@@ -64,12 +63,12 @@ public class ItemPickup : MonoBehaviour, IInteractable
         }
 
         // Place item pack into the pile if hands are full
-        else if (inventoryManager.AreHandsFull())
+        else if (InventoryManager.Instance.CheckHands())
         {
             Destroy(heldItem);
             topItem.SetActive(true);
             topItem = null;
-            inventoryManager.handsFull = false;
+            InventoryManager.Instance.ToggleHands();
         }
     }
 

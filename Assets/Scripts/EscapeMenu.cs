@@ -104,13 +104,13 @@ public class EscapeMenu : MonoBehaviour
         }
 
         // If door opening audio clip was playing when game was paused, resuming audio clip
-        if (DoorController.instance.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
+        if (DoorController.Instance.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
         {
             openingAudioSource.Play();
         }
 
         // If door closing audio clip was playing when game was paused, resuming audio clip
-        if (DoorController.instance.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
+        if (DoorController.Instance.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
         {
             closingAudioSource.Play();
         }

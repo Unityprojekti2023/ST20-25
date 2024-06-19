@@ -22,7 +22,7 @@ public class ScrapInteraction : MonoBehaviour
 
     void Update()
     {
-        if(rayInteractor.shovelEquipped && isPlayerNearScrapPiles && DoorController.instance.isDoorOpen)                                 // Making sure shovel is equipped, player is near scrappiles and the door is open
+        if(rayInteractor.shovelEquipped && isPlayerNearScrapPiles && DoorController.Instance.isDoorOpen)                                 // Making sure shovel is equipped, player is near scrappiles and the door is open
         {
             if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))                                                        // Checking for inputs
             {

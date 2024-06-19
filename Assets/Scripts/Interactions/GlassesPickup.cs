@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GlassesPickup : MonoBehaviour, IInteractable
 {
-    public InventoryManager inventoryManager;
     public TextInformation textInfo;
     public GameObject glasses;
     public bool areGlassesEquipped = false;
@@ -13,7 +12,7 @@ public class GlassesPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Logic for handling Shoes interaction
-        inventoryManager.AddItem("Safety glasses");
+        InventoryManager.Instance.AddItem("Safety glasses");
         textInfo.UpdateText("Safety glasses added");
         objectiveManager.CompleteObjective("Put on safety glasses");
         areGlassesEquipped = true;

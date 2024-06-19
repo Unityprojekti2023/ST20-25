@@ -75,7 +75,7 @@ public class RayInteractor : MonoBehaviour
             HideInteractText();
         }
 
-        if (shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && DoorController.instance.isDoorOpen)
+        if (shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && DoorController.Instance.isDoorOpen)
         {
             if (cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
             {
@@ -140,7 +140,7 @@ public class RayInteractor : MonoBehaviour
     {
         if (!shovelEquipped && !caliperEquipped)
         {
-            if (!DoorController.instance.isDoorOpen)
+            if (!DoorController.Instance.isDoorOpen)
             {
                 ShowInteractText($"Open door: [LMB] or [E]");
             }

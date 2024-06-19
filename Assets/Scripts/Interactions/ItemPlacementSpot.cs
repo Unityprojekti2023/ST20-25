@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemPlacementSpot : MonoBehaviour, IInteractable
 {
     public string requiredItemID = "CutItem"; // The item ID required for placement
-    public InventoryManager inventoryManager;
     public TextInformation textInfo;
     public EscapeMenu escapeMenu;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
@@ -45,8 +44,8 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         mistakeGenerator.GenerateMistakes(parts.ToArray());
 
         textInfo.UpdateText("Item [Cut item 1] removed");
-        //inventoryManager.RemoveItem("CutItem", "Item [Cut item 1] removed");
-        inventoryManager.handsFull = false;
+        //InventoryManager.Instance.RemoveItem("CutItem", "Item [Cut item 1] removed");
+        InventoryManager.Instance.ToggleHands();
         mouseControlPanelInteractable.whichCutItemWasLathed = " ";
         //itemPickup.isUncutItemAlreadyInInventory = false;
         objectiveManager.CompleteObjective("Place cut piece on the table");

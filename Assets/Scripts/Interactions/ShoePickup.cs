@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ShoesPickup : MonoBehaviour, IInteractable
 {
-    public InventoryManager inventoryManager;
     public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
     public GameObject shoes;
@@ -12,7 +11,7 @@ public class ShoesPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Logic for handling Shoes interaction
-        inventoryManager.AddItem("Shoes");
+        InventoryManager.Instance.AddItem("Shoes");
         textInfo.UpdateText("Shoes added");
         objectiveManager.CompleteObjective("Put on safety shoes");
         areShoesEquipped = true;

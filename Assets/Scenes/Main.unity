@@ -6842,7 +6842,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cleaningFeature: {fileID: 1149944383}
   rayInteractor: {fileID: 1045571686}
-  doorController: {fileID: 2099531900}
   scrapPile1: {fileID: 1261888307}
   scrapPile2: {fileID: 373200010}
   scrapPile3: {fileID: 1240052947}
@@ -14662,7 +14661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 574679439}
   objectiveManager: {fileID: 574679441}
-  itemID: "Ter\xE4s Aihio"
+  itemID: "Ter\xE4s aihio"
   isUncutItemAlreadyInInventory: 0
   isAnItemActiveAlready: 0
   attachmentPoint: {fileID: 1451123884}
@@ -21784,7 +21783,6 @@ Transform:
   - {fileID: 6095930642522554138}
   - {fileID: 543450652664329446}
   - {fileID: 1047893777}
-  - {fileID: 1451123884}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &1045571685
@@ -21826,7 +21824,6 @@ MonoBehaviour:
   interactText: {fileID: 463401077}
   scrapInteraction: {fileID: 230333459}
   cleaningFeature: {fileID: 1149944383}
-  doorController: {fileID: 2099531900}
   objectiveManager: {fileID: 574679441}
   textInformation: {fileID: 590410041}
   interactDistance: 80
@@ -21906,7 +21903,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1451123884}
   m_Father: {fileID: 1045571684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1047893779
@@ -24114,7 +24112,6 @@ MonoBehaviour:
   partiallyCutObject3: {fileID: 388114664}
   partiallyCutObject4: {fileID: 653537453}
   partiallyCutObject5: {fileID: 911478535}
-  doorController: {fileID: 2099531900}
   supportController: {fileID: 988224646}
   mouseControlPanelInteractable: {fileID: 919132149395317116}
   latheMiddleTrigger: {fileID: 1989595758}
@@ -24161,13 +24158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1d5b4e8dbe88f419d1c5215117462a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorController: {fileID: 2099531900}
   inventoryManager: {fileID: 574679439}
   objectiveManager: {fileID: 574679441}
   machineScript: {fileID: 1191750845}
-  textInfo: {fileID: 590410041}
   itemPickup: {fileID: 2062293290}
-  escapeMenu: {fileID: 1589835470}
   latheRightTrigger: {fileID: 864121446}
   drillController: {fileID: 374627386}
 --- !u!1 &1192805286
@@ -28199,12 +28193,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451123883}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.70710677, z: -0.70710677, w: 0}
-  m_LocalPosition: {x: 0.442, y: 0.263, z: 0.491}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.442, y: -0.31699997, z: 0.56}
+  m_LocalScale: {x: 0.009999996, y: 0.009999997, z: 0.009999997}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1045571684}
+  m_Father: {fileID: 1047893777}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
 --- !u!1 &1454276812
 GameObject:
@@ -30385,7 +30379,6 @@ MonoBehaviour:
   escapeMenu: {fileID: 6491055}
   optionsMenu: {fileID: 1675791120}
   latheSoundFX: {fileID: 669621792}
-  doorController: {fileID: 2099531900}
   mouseControlPanelInteractable: {fileID: 0}
   beginningSource: {fileID: 1907502628}
   endingSource: {fileID: 2143059994}
@@ -40810,7 +40803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7518045ff1a9bc540b3e6ac992152d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorController: {fileID: 2099531900}
 --- !u!64 &2099531908
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -40849,7 +40841,6 @@ MonoBehaviour:
   closingSource: {fileID: 1213105912}
   openingClip: {fileID: 8300000, guid: d57dd58116bbbef4c8ff4e08cd5216c5, type: 3}
   closingClip: {fileID: 8300000, guid: 0db762f8912c0594998c1550f3f41adf, type: 3}
-  doorController: {fileID: 2099531900}
   mouseControlPanelInteractable: {fileID: 919132149395317116}
   isOpeningClipPlaying: 0
   isClosingClipPlaying: 0
@@ -42577,7 +42568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9655f7c7a7b972a428de3aa24c173261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorController: {fileID: 2099531900}
   machineScript: {fileID: 1191750845}
   drillController: {fileID: 374627386}
   escapeMenu: {fileID: 1589835470}

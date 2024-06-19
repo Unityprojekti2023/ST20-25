@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public static DoorController instance { get; private set; }
+    public static DoorController Instance { get; private set; }
     [Header("Objects")]
     public Transform door;
 
@@ -25,9 +25,9 @@ public class DoorController : MonoBehaviour
     private void Awake()
     {
         // Ensure that there is only one instance of this class
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
