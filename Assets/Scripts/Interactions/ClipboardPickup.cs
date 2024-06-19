@@ -44,20 +44,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
             // Instantiate the clipboard at the attachment point
             heldClipboard = Instantiate(clipboard, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
-            //heldClipboardCamera =  heldClipboard.GetComponentInChildren<Camera>();
-
-            if(heldClipboardCamera != null)
-            {
-                Debug.Log("Clipboard has camera");
-            }
-            else
-            {
-                Debug.Log("Clipboard does not have camera");
-            }
-
-
-            // Adjust position and rotation of the clipboard if needed
-            //heldClipboard.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
             // Hide the clipboard's children
             foreach (Transform child in clipboard.transform)
@@ -95,8 +81,10 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     {
         if (inventoryManager.HasItem("clipboard") && !clipboardBeenPickedUp && Input.GetKeyDown(KeyCode.Mouse1))
         {
+            objectiveManager.CompleteObjective("Inspect the drawing");
             cameraController.ActivateCaliperCamera(heldClipboardCamera);
         }
+        
     }
 
     private void MoveObject(GameObject gameObject)

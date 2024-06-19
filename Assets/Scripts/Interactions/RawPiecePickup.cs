@@ -25,8 +25,8 @@ public class ItemPickup : MonoBehaviour, IInteractable
 
             // Add the item to the player's inventory
             inventoryManager.AddItem(itemID);
-            textInfo.UpdateText("Item [Uncut item] picked up");
-            objectiveManager.CompleteObjective("Pick up uncut piece");
+            textInfo.UpdateText($"Item [{itemID}] picked up");
+            objectiveManager.CompleteObjective($"Pick up {itemID} piece");
 
 
             // Hide the top item

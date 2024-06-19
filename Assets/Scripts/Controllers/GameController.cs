@@ -104,8 +104,8 @@ public class GameController : MonoBehaviour
                 break;
 
             case 1:
-                objectiveManager.AddObjective("Pick up the clipboard", 100);
-                objectiveManager.AddObjective("Inspect the drawing", 100);
+                objectiveManager.AddObjective("Pick up the clipboard", 50);
+                objectiveManager.AddObjective("Inspect the drawing", 50);
                 break;
 
             case 2:

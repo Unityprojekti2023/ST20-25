@@ -31,16 +31,22 @@ public class EscapeMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) //TODO: Change to Escape once game is ready for builds, since Escape doens't work in the editors Game mode
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (CameraController.Instance.isMainCamActive) // Check if main camera is active, if yes then show escape menu
             {
-                Resume();
+                if (!GameIsPaused)
+                {
+                    Pause();
+                }
+                else
+                {
+                    Resume();
+                }
+                return; // Return to avoid further execution of code
             }
-            else
-            {
-                Pause();
-            }
+            
+            CameraController.Instance.ActivateMainCamera(); // Activate main camera if in another camera
         }
     }
 
@@ -75,36 +81,38 @@ public class EscapeMenu : MonoBehaviour
         isGamePaused = false;
 
         // If "Beginning" audio clip was playing when game was paused, resuming the audio clip
-        if(latheSoundFX.isBeginningClipPlaying) 
+        if (latheSoundFX.isBeginningClipPlaying)
         {
             beginningSource.Play();
         }
 
         // If "Ending" audio clip was playing when game was paused, resuming the audio clip
-        if(latheSoundFX.isEndingClipPlaying && latheSoundFX.endingClipPlayCounter == 0)
+        if (latheSoundFX.isEndingClipPlaying && latheSoundFX.endingClipPlayCounter == 0)
         {
             endingSource.Play();
         }
 
         // If "Lathing" audio clip was playing when game was paused, resuming the audio clip
-        if(latheSoundFX.isLathingClipPlaying)
+        if (latheSoundFX.isLathingClipPlaying)
         {
             lathingSource.Play();
         }
 
         // If "Idling" audio clip was playing when game was paused, resuming the audio clip
-        if(latheSoundFX.isIdlingClipPlaying)
+        if (latheSoundFX.isIdlingClipPlaying)
         {
             idlingSource.Play();
         }
 
         // If door opening audio clip was playing when game was paused, resuming audio clip
-        if (doorController.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive) {
+        if (doorController.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
+        {
             openingAudioSource.Play();
         }
-        
+
         // If door closing audio clip was playing when game was paused, resuming audio clip
-        if (doorController.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive) {
+        if (doorController.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
+        {
             closingAudioSource.Play();
         }
     }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class ShovelPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    public TextInformation textInfo;
+    private readonly TextInformation textInfo;
     public ShovelController shovelController;
-    public RayInteractor rayInteractor;
+    private readonly RayInteractor rayInteractor;
 
     public void Interact()
     {
