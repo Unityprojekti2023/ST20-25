@@ -3042,12 +3042,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 92735199}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1596111089}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1596111090}
     - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1532078814}
@@ -4297,7 +4291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleJog: {fileID: 95938936}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
 --- !u!54 &92735201
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11838,6 +11832,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1338607898}
     m_Modifications:
+    - target: {fileID: -8802482516400080979, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
     - target: {fileID: -8679921383154817045, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -11890,6 +11888,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3688977961119269543, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: -2859109400176981367, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: -94537584604338257, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: 341920284656771483, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: 371752809346082776, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
     - target: {fileID: 919132149155446097, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
       propertyPath: m_Name
       value: SH_1001
@@ -11898,6 +11916,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1769590732886145239, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12540,6 +12562,7 @@ GameObject:
   - component: {fileID: 574679440}
   - component: {fileID: 574679441}
   - component: {fileID: 574679442}
+  - component: {fileID: 574679443}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -12653,6 +12676,26 @@ MonoBehaviour:
   clipboardImage:
   - {fileID: 21300000, guid: b89c9234e37ddf04f9ea34181a4ef1ed, type: 3}
   - {fileID: 21300000, guid: 226bfa450026f2a41a60710c7370523c, type: 3}
+--- !u!114 &574679443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574679436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4498fc0d6dea24c4680df946a25a8d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parts:
+  - {fileID: 9208624312654162502}
+  - {fileID: 5688021658462715194}
+  - {fileID: 7427493502036250744}
+  - {fileID: 3734714321165049152}
+  - {fileID: 2472678091589648054}
+  minMaxLength: {x: 0.9, y: 1.1}
+  minMaxThickness: {x: 0.9, y: 1.1}
 --- !u!1 &578819069
 GameObject:
   m_ObjectHideFlags: 0
@@ -13076,6 +13119,123 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logDuration: 1.5
+--- !u!1001 &598164617
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1338607898}
+    m_Modifications:
+    - target: {fileID: -8802482516400080979, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: -3688977961119269543, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: -94537584604338257, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: 341920284656771483, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: 371752809346082776, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: 1769590732886145239, guid: dd024838b18bc2a4cb4a964bfbce23f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c2ae3be6d52eba641b1ea5ff0d971b52, type: 2}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.51
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.39
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2859109400176981367, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cd37ddc662b72845bf8e7988bdac2f7, type: 2}
+    - target: {fileID: -2439370426823017878, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cd37ddc662b72845bf8e7988bdac2f7, type: 2}
+    - target: {fileID: -1439730007547781893, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cd37ddc662b72845bf8e7988bdac2f7, type: 2}
+    - target: {fileID: 919132149155446097, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Name
+      value: SH_1002
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129496810705857465, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cd37ddc662b72845bf8e7988bdac2f7, type: 2}
+    - target: {fileID: 7071182760956848314, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cd37ddc662b72845bf8e7988bdac2f7, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
 --- !u!1 &598559848
 GameObject:
   m_ObjectHideFlags: 0
@@ -13814,7 +13974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121abefde77c9ca4692512b84ef03785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
   latheSoundFX: {fileID: 669621792}
   counter: 0
 --- !u!114 &669621792
@@ -15099,6 +15259,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725560504}
   m_Mesh: {fileID: -1623824208030696702, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
+--- !u!4 &728128087 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edefcaad5e57d6e49bc1f1fdfc2473d7, type: 3}
+  m_PrefabInstance: {fileID: 598164617}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &739528474
 GameObject:
   m_ObjectHideFlags: 0
@@ -17934,7 +18099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drillController: {fileID: 374627386}
   machineScript: {fileID: 1191750845}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 919132149395317116}
   rayInteractor: {fileID: 1045571686}
   latheSoundFX: {fileID: 669621792}
   counter: 0
@@ -19034,7 +19199,7 @@ MonoBehaviour:
   isGreenLightAlreadyInPosition: 0
   isRedLightAlreadyInPosition: 0
   machineScript: {fileID: 1191750845}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 919132149395317116}
 --- !u!4 &915465326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7406206233590005549, guid: 552b200fe76f68f429fd03439cbfd6e5, type: 3}
@@ -23761,7 +23926,7 @@ MonoBehaviour:
   partiallyCutObject5: {fileID: 911478535}
   doorController: {fileID: 2099531900}
   supportController: {fileID: 988224646}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 919132149395317116}
   latheMiddleTrigger: {fileID: 1989595758}
   maxLeftXPosition: -113.5
   movementSpeed: 1.5
@@ -26516,14 +26681,14 @@ PrefabInstance:
       addedObject: {fileID: 8217241819451982305}
     - targetCorrespondingSourceObject: {fileID: 5781989440777388526, guid: fdcd84bdba3fbf24d873b6e926443215, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 728128087}
+    - targetCorrespondingSourceObject: {fileID: 5781989440777388526, guid: fdcd84bdba3fbf24d873b6e926443215, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1227455791}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6185417188531607389, guid: fdcd84bdba3fbf24d873b6e926443215, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1338607899}
-    - targetCorrespondingSourceObject: {fileID: 6185417188531607389, guid: fdcd84bdba3fbf24d873b6e926443215, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1338607901}
   m_SourcePrefab: {fileID: 100100000, guid: fdcd84bdba3fbf24d873b6e926443215, type: 3}
 --- !u!1 &1338607897 stripped
 GameObject:
@@ -26551,33 +26716,13 @@ MonoBehaviour:
   inventoryManager: {fileID: 574679439}
   textInfo: {fileID: 590410041}
   escapeMenu: {fileID: 1589835470}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
   itemPickup: {fileID: 2062293290}
   objectiveManager: {fileID: 574679441}
   hiddenItem: {fileID: 8737635603096263515}
   hiddenItem2: {fileID: 8737635603096263515}
   hiddenItemMalfunction: {fileID: 8737635603096263515}
   hiddenItem2Malfunction: {fileID: 8737635603096263515}
---- !u!114 &1338607901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338607897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4498fc0d6dea24c4680df946a25a8d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parts:
-  - {fileID: 9208624312654162502}
-  - {fileID: 5688021658462715194}
-  - {fileID: 7427493502036250744}
-  - {fileID: 3734714321165049152}
-  - {fileID: 2472678091589648054}
-  minMaxLength: {x: 1, y: 1}
-  minMaxThickness: {x: 1, y: 1}
 --- !u!1 &1342594160
 GameObject:
   m_ObjectHideFlags: 0
@@ -30047,7 +30192,7 @@ MonoBehaviour:
   optionsMenu: {fileID: 1675791120}
   latheSoundFX: {fileID: 669621792}
   doorController: {fileID: 2099531900}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
   beginningSource: {fileID: 1907502628}
   endingSource: {fileID: 2143059994}
   lathingSource: {fileID: 1257516498}
@@ -30166,88 +30311,6 @@ MonoBehaviour:
   objectiveManager: {fileID: 574679441}
   objectiveListText: {fileID: 791892847}
   completedColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!1 &1596111088 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1bb0b05a765f41e42b69ff2dd07afd04, type: 3}
-  m_PrefabInstance: {fileID: 47400881}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1596111089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596111088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9655f7c7a7b972a428de3aa24c173261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorController: {fileID: 2099531900}
-  supportController: {fileID: 988224646}
-  machineScript: {fileID: 1191750845}
-  drillController: {fileID: 374627386}
-  escapeMenu: {fileID: 1589835470}
-  controlPanelLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  controlPanelCamera: {fileID: 1950427763}
-  rayInteractor: {fileID: 1045571686}
-  controlpanelController: {fileID: 1596111090}
-  handleJog: {fileID: 92735200}
-  cleaningFeature: {fileID: 1149944383}
-  objectiveManager: {fileID: 574679441}
-  textInformation: {fileID: 590410041}
-  scrapInteraction: {fileID: 230333459}
-  gameController: {fileID: 574679442}
-  isPowerONClicked: 0
-  isPowerOFFClicked: 0
-  isEmergencyStopClicked: 0
-  isEmergencyStopClicked2: 0
-  isResetClicked: 0
-  isLatheOn: 0
-  isZeroReturnClicked: 0
-  isAllClicked: 0
-  isLathingActive: 0
-  areNotesShown: 0
-  isAudioClipPlaying: 0
-  isStartUpSequenceDone: 0
-  hasStartUpBegun: 0
-  canPressHandleJogButton: 1
-  isProgramSelected: 0
-  notes: {fileID: 1725458234}
-  source: {fileID: 1775444563}
-  buttonPressClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}
-  programCount: 1
-  handleJogPosition: 1
-  whichCutItemWasLathed: ' '
---- !u!114 &1596111090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596111088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426b01471b7fb104a8ef7d3689bd9fe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BlackScreen: {fileID: 503520910}
-  AttentionScreen: {fileID: 1388055397}
-  HomeScreen1: {fileID: 2122184917}
-  HomeScreen2: {fileID: 1771734166}
-  ProgramScreen0: {fileID: 2054118315}
-  ProgramScreen1: {fileID: 865410275}
-  ProgramScreen3: {fileID: 1192805286}
-  ProgramScreen6: {fileID: 890432040}
-  ProgramScreen7: {fileID: 1084305992}
-  showBlackScreen: 0
-  showAttentionScreen: 0
-  showHomeScreen1: 0
-  showHomeScreen2: 0
-  isProgramSelectionActive: 0
-  drillController: {fileID: 374627386}
 --- !u!1 &1601448749
 GameObject:
   m_ObjectHideFlags: 0
@@ -37507,7 +37570,7 @@ MonoBehaviour:
   drillController: {fileID: 374627386}
   machineScript: {fileID: 1191750845}
   latheSoundFX: {fileID: 669621792}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 919132149395317116}
   moveUncutObject: 0
   movePartiallyCutObject1: 0
   movePartiallyCutObject2: 0
@@ -40540,7 +40603,7 @@ MonoBehaviour:
   minOpening: 0
   movementSpeed: 35
   waitTime: 2
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
 --- !u!114 &2099531902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40594,7 +40657,7 @@ MonoBehaviour:
   openingClip: {fileID: 8300000, guid: d57dd58116bbbef4c8ff4e08cd5216c5, type: 3}
   closingClip: {fileID: 8300000, guid: 0db762f8912c0594998c1550f3f41adf, type: 3}
   doorController: {fileID: 2099531900}
-  mouseControlPanelInteractable: {fileID: 1596111089}
+  mouseControlPanelInteractable: {fileID: 0}
   isOpeningClipPlaying: 0
   isClosingClipPlaying: 0
   volume: 0.1
@@ -42300,6 +42363,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450653333732289}
+  - component: {fileID: 919132149395317117}
+  - component: {fileID: 919132149395317116}
   m_Layer: 0
   m_Name: ST20-25
   m_TagString: Untagged
@@ -42307,6 +42372,83 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132149395317116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149395317115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9655f7c7a7b972a428de3aa24c173261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorController: {fileID: 2099531900}
+  supportController: {fileID: 988224646}
+  machineScript: {fileID: 1191750845}
+  drillController: {fileID: 374627386}
+  escapeMenu: {fileID: 1589835470}
+  controlPanelLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  controlPanelCamera: {fileID: 1950427763}
+  rayInteractor: {fileID: 1045571686}
+  controlpanelController: {fileID: 0}
+  handleJog: {fileID: 92735200}
+  cleaningFeature: {fileID: 1149944383}
+  objectiveManager: {fileID: 574679441}
+  textInformation: {fileID: 590410041}
+  scrapInteraction: {fileID: 230333459}
+  gameController: {fileID: 574679442}
+  isPowerONClicked: 0
+  isPowerOFFClicked: 0
+  isEmergencyStopClicked: 0
+  isEmergencyStopClicked2: 0
+  isResetClicked: 0
+  isLatheOn: 0
+  isZeroReturnClicked: 0
+  isAllClicked: 0
+  isLathingActive: 0
+  areNotesShown: 0
+  isAudioClipPlaying: 0
+  isStartUpSequenceDone: 0
+  hasStartUpBegun: 0
+  canPressHandleJogButton: 1
+  isProgramSelected: 0
+  notes: {fileID: 1725458234}
+  source: {fileID: 1775444563}
+  buttonPressClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}
+  programCount: 1
+  handleJogPosition: 1
+  whichCutItemWasLathed: ' '
+--- !u!114 &919132149395317117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149395317115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426b01471b7fb104a8ef7d3689bd9fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlackScreen: {fileID: 503520910}
+  AttentionScreen: {fileID: 1388055397}
+  HomeScreen1: {fileID: 2122184917}
+  HomeScreen2: {fileID: 1771734166}
+  ProgramScreen0: {fileID: 2054118315}
+  ProgramScreen1: {fileID: 865410275}
+  ProgramScreen3: {fileID: 1192805286}
+  ProgramScreen6: {fileID: 890432040}
+  ProgramScreen7: {fileID: 1084305992}
+  showBlackScreen: 0
+  showAttentionScreen: 0
+  showHomeScreen1: 0
+  showHomeScreen2: 0
+  isProgramSelectionActive: 0
+  drillController: {fileID: 374627386}
 --- !u!33 &942296542844570528
 MeshFilter:
   m_ObjectHideFlags: 0

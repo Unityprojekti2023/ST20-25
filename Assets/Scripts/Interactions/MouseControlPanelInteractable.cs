@@ -89,7 +89,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isAllClicked = true;
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
                                         objectiveManager.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
@@ -102,7 +102,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                         isAllClicked = true;
                                         controlpanelController.showHomeScreen2 = true;
                                         controlpanelController.showHomeScreen1 = false;
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
                                         objectiveManager.CompleteObjective("Initialize the lathe");
                                     }
                                     PlayAudioClip();
@@ -208,7 +208,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
 
                                         controlpanelController.showHomeScreen1 = false;
                                         controlpanelController.showHomeScreen2 = false;
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
 
                                         objectiveManager.CompleteObjective("Turn the lathe off");
                                     }
@@ -238,7 +238,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     {
                                         controlpanelController.isProgramSelectionActive = true;
                                         controlpanelController.showHomeScreen2 = false;
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
                                     }
                                     PlayAudioClip();
                                 break;
@@ -269,7 +269,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                             drillController.selectedProgram++;
                                         }
 
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
                                         handleJog.updateJogPosition();
                                     }
                                 break;
@@ -291,7 +291,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                             drillController.selectedProgram--;
                                         }
 
-                                        controlpanelController.updateScreenImage();
+                                        controlpanelController.UpdateScreenImage();
                                         handleJog.updateJogPosition();
                                     }
                                 break;
@@ -331,15 +331,15 @@ public class MouseControlPanelInteractable : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(1f, 3f));      // Wait 1-3 seconds before showing first screen
         controlpanelController.showBlackScreen = true;
-        controlpanelController.updateScreenImage();
+        controlpanelController.UpdateScreenImage();
         yield return new WaitForSeconds(Random.Range(1f, 3f));      // Wait 1-3 seconds before updating to "attention" screen
         controlpanelController.showAttentionScreen = true;
         controlpanelController.showBlackScreen = false;
-        controlpanelController.updateScreenImage();
+        controlpanelController.UpdateScreenImage();
         yield return new WaitForSeconds(Random.Range(5f, 10f));     // Wait 5-10 seconds before showing "home screen 1"
         controlpanelController.showHomeScreen1 = true;
         controlpanelController.showAttentionScreen = false;
-        controlpanelController.updateScreenImage();
+        controlpanelController.UpdateScreenImage();
         isStartUpSequenceDone = true;                               // Marking startup sequence as completed
     }
 }

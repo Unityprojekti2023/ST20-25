@@ -39,7 +39,7 @@ public class ControlpanelController : MonoBehaviour
         ProgramScreen7.SetActive(false);
     }
 
-    public void updateScreenImage()                             // Function to update control panel image
+    public void UpdateScreenImage()                             // Function to update control panel image
     {
         if(showBlackScreen){
             BlackScreen.SetActive(true);
