@@ -7,7 +7,6 @@ public class ScrapInteraction : MonoBehaviour
     [Header("References to other scripts")]
     public CleaningFeature cleaningFeature;
     public RayInteractor rayInteractor;
-    public DoorController doorController;
 
     [Header("References to objects")]
     public Transform scrapPile1;
@@ -23,7 +22,7 @@ public class ScrapInteraction : MonoBehaviour
 
     void Update()
     {
-        if(rayInteractor.shovelEquipped && isPlayerNearScrapPiles && doorController.isDoorOpen)                                 // Making sure shovel is equipped, player is near scrappiles and the door is open
+        if(rayInteractor.shovelEquipped && isPlayerNearScrapPiles && DoorController.instance.isDoorOpen)                                 // Making sure shovel is equipped, player is near scrappiles and the door is open
         {
             if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))                                                        // Checking for inputs
             {

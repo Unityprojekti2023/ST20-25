@@ -15,7 +15,6 @@ public class MachineScript : MonoBehaviour
     public Transform partiallyCutObject5;
 
     [Header("References to other scripts")]
-    public DoorController doorController;
     public SupportController supportController;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
     public LatheMiddleTrigger latheMiddleTrigger;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class MouseControlPanelInteractable : MonoBehaviour
 {
     [Header("References to other scripts")]
-    public DoorController doorController;
     public MachineScript machineScript;
     public DrillController drillController;
     public EscapeMenu escapeMenu;
@@ -107,7 +106,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    if (machineScript.isUncutObjectInCuttingPosition && !doorController.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
+                                    if (machineScript.isUncutObjectInCuttingPosition && !DoorController.instance.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
                                     {
                                         if(drillController.selectedProgram >= 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {

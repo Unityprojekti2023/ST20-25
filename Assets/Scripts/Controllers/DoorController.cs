@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
+    public static DoorController instance { get; private set; }
     [Header("Objects")]
     public Transform door;
 
@@ -20,6 +21,19 @@ public class DoorController : MonoBehaviour
     public float waitTime = 1.2f;
 
     public MouseControlPanelInteractable mouseControlPanelInteractable;
+
+    private void Awake()
+    {
+        // Ensure that there is only one instance of this class
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {

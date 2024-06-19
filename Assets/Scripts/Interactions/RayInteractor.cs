@@ -15,7 +15,6 @@ public class RayInteractor : MonoBehaviour
     public TextMeshProUGUI interactText;
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
-    public DoorController doorController;
     public ObjectiveManager objectiveManager;
     public TextInformation textInformation;
     public float interactDistance = 80f;
@@ -76,7 +75,7 @@ public class RayInteractor : MonoBehaviour
             HideInteractText();
         }
 
-        if (shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && doorController.isDoorOpen)
+        if (shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && DoorController.instance.isDoorOpen)
         {
             if (cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
             {
@@ -141,7 +140,7 @@ public class RayInteractor : MonoBehaviour
     {
         if (!shovelEquipped && !caliperEquipped)
         {
-            if (!doorController.isDoorOpen)
+            if (!DoorController.instance.isDoorOpen)
             {
                 ShowInteractText($"Open door: [LMB] or [E]");
             }
@@ -221,7 +220,7 @@ public class RayInteractor : MonoBehaviour
                 interactable.Interact();
                 equipped = true;
                 canInteractAgain = false;
-                StartCoroutine(interactionDelay());
+                StartCoroutine(InteractionDelay());
                 ResetHoldTimer();
             }
             else
@@ -241,7 +240,7 @@ public class RayInteractor : MonoBehaviour
                     interactable.Interact();
                     equipped = false;
                     canInteractAgain = false;
-                    StartCoroutine(interactionDelay());
+                    StartCoroutine(InteractionDelay());
                     ResetHoldTimer();
                 }
             }
@@ -323,7 +322,7 @@ public class RayInteractor : MonoBehaviour
         interactText.gameObject.SetActive(false);
     }
 
-    private IEnumerator interactionDelay()
+    private IEnumerator InteractionDelay()
     {
         yield return new WaitForSeconds(1f);
         canInteractAgain = true;

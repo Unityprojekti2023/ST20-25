@@ -9,7 +9,6 @@ public class EscapeMenu : MonoBehaviour
     public GameObject escapeMenu;
     public GameObject optionsMenu;
     public LatheSoundFX latheSoundFX;
-    public DoorController doorController;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
 
     [Header("References to audio sources")]
@@ -105,13 +104,13 @@ public class EscapeMenu : MonoBehaviour
         }
 
         // If door opening audio clip was playing when game was paused, resuming audio clip
-        if (doorController.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
+        if (DoorController.instance.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
         {
             openingAudioSource.Play();
         }
 
         // If door closing audio clip was playing when game was paused, resuming audio clip
-        if (doorController.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
+        if (DoorController.instance.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
         {
             closingAudioSource.Play();
         }

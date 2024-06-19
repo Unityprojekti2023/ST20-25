@@ -3,28 +3,19 @@ using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
-    [Header("References to other scripts")]
-    public DoorController doorController;
-
-    private void Start()
+    public void Interact()
     {
-        if (doorController == null)                                                                                      // Making sure doorController isnt null
+        // Making sure door is not open, door opening isnt already active and the game isnt paused
+        if (!DoorController.instance.isDoorOpen && !DoorController.instance.isDoorOpeningActive)
         {
-            Debug.LogError("DoorController reference not set in DoorInteractable!");
-            return;
+            // Starting door opening coroutine
+            StartCoroutine(DoorController.instance.OpenDoor());
         }
-
-    }
-
-    public void Interact()                                                                                          // Door interaction function
-    {
-        if (!doorController.isDoorOpen && !doorController.isDoorOpeningActive)                                      // Making sure door is not open, door opening isnt already active and the game isnt paused
+        // Making sure the door is open, door opening isnt already active and the game isnt paused
+        else if (DoorController.instance.isDoorOpen && !DoorController.instance.isDoorClosingActive)
         {
-            StartCoroutine(doorController.OpenDoor());                                                              // Starting door opening coroutine
-        }
-        else if (doorController.isDoorOpen && !doorController.isDoorClosingActive)                                  // Making sure the door is open, door opening isnt already active and the game isnt paused
-        {
-            StartCoroutine(doorController.CloseDoor());                                                             // Starting door closing coroutine
+            // Starting door closing coroutine
+            StartCoroutine(DoorController.instance.CloseDoor());
         }
     }
 }
