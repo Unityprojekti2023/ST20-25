@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour
     [Header("References to other scripts")]
     private ObjectiveManager objectiveManager;
     public EscapeMenu escapeMenu;
+    public TaskManager taskManager;
+    public ClipboardPickup clipboardPickup;
+
 
 
     [Header("References to gameobjects")]
@@ -22,8 +25,6 @@ public class GameController : MonoBehaviour
     public int currentStage = 0;
     public int numberofStages = 9;
     public bool canDisplayNotes = false;
-    
-    private List<string> materialList = new List<string> {"Teräs", "Alumiini"};
 
 
     //Testing stuff
@@ -45,6 +46,9 @@ public class GameController : MonoBehaviour
             endScreenUI.SetActive(false);
         }
 
+        // Get the TaskManager component
+        taskManager = GetComponent<TaskManager>();
+        clipboardPickup = FindObjectOfType<ClipboardPickup>();
         objectiveManager = GetComponent<ObjectiveManager>();
 
 
@@ -67,8 +71,8 @@ public class GameController : MonoBehaviour
         }
 
         // Initialize with the objectives of the first stage
+        taskManager.AssignRandomTask(clipboardPickup.clipboardImageSlot, clipboardPickup.clibBoardTextSlot);
         InitializeStageObjectives();
-        
     }
 
     void Update()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
@@ -10,9 +11,9 @@ public class TaskManager : MonoBehaviour
     public Sprite[] clipboardImage;
 
     [Header("Material list")]
-    private int currentMaterialIndex ;
+    private int currentMaterialIndex;
     private string currentMaterialName;
-    
+
     // Dictionary to map material names to material types
     private Dictionary<string, string> materialToMaterialType = new()
     {
@@ -23,12 +24,12 @@ public class TaskManager : MonoBehaviour
     public void AssignRandomTask(Renderer clipboardImageSlot, TMPro.TextMeshProUGUI clibBoardTextSlot)
     {
         List<string> materialList = new(materialToMaterialType.Keys);
-        foreach (var material in materialList)
-        {
-            Debug.Log(material);
-        }
+
         // Get a random material from the list
         currentMaterialName = materialList[UnityEngine.Random.Range(0, materialList.Count)];
+
+        Debug.Log($"Tasks material is: {currentMaterialName}"); //TODO: remove this line
+
 
         // Get a random clipboard image
         currentMaterialIndex = UnityEngine.Random.Range(0, clipboardImage.Length);

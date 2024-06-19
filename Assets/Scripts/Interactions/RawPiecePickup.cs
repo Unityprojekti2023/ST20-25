@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour, IInteractable
@@ -40,20 +41,21 @@ public class ItemPickup : MonoBehaviour, IInteractable
                 Debug.Log($"Material name: {materialName}");
             }
 
-            if(itemRenderer != null && itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
+            if (itemRenderer != null && itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
             {
-                Debug.Log("Correct material");
+
+                textInfo.UpdateText($"Item [{itemID}] picked up it was the correct material");
             }
             else
             {
-                Debug.Log("Incorrect material");
+                textInfo.UpdateText($"Item [{itemID}] picked up it was the wrong material");
                 return;
             }
 
 
             // Add the item to the player's inventory
             inventoryManager.AddItem(itemID);
-            textInfo.UpdateText($"Item [{itemID}] picked up");
+            //textInfo.UpdateText($"Item [{itemID}] picked up");
             objectiveManager.CompleteObjective($"Pick up {itemID} piece");
 
 

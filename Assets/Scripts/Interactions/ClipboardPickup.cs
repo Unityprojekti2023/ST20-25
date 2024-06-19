@@ -16,8 +16,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     public TextInformation textInfo;
     public ObjectiveManager objectiveManager;
     public CameraController cameraController;
-    public TaskManager taskManager;
-
     [Header("Other variables")]
     public Vector3 newPosition;
     public Vector3 newRotation;
@@ -27,7 +25,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     void Start()
     {
-        taskManager.AssignRandomTask(clipboardImageSlot, clibBoardTextSlot);
+        
         if (clipboard == null)
         {
             Debug.LogError("Clipboard reference not set in ClipboardPickup!");
