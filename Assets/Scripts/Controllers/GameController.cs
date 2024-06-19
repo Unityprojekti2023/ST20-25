@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement; // Import the SceneManagement namespace
 public class GameController : MonoBehaviour
 {
     [Header("References to other scripts")]
-    private ObjectiveManager ObjectiveManager.Instance;
     public EscapeMenu escapeMenu;
     public TaskManager taskManager;
     public ClipboardPickup clipboardPickup;
@@ -49,7 +48,6 @@ public class GameController : MonoBehaviour
         // Get the TaskManager component
         taskManager = GetComponent<TaskManager>();
         clipboardPickup = FindObjectOfType<ClipboardPickup>();
-        ObjectiveManager.Instance = GetComponent<ObjectiveManager>();
 
 
         //Check if playing on Test mode to hide objective list and score.
