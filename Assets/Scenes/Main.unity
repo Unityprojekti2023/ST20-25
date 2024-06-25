@@ -6192,28 +6192,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &187396496
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8818724705100687558}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2849506226877876739, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
 --- !u!1 &191718926
 GameObject:
   m_ObjectHideFlags: 0
@@ -30529,14 +30507,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   escapeMenu: {fileID: 6491055}
   optionsMenu: {fileID: 1675791120}
-  latheSoundFX: {fileID: 669621792}
-  mouseControlPanelInteractable: {fileID: 0}
-  beginningSource: {fileID: 1907502628}
-  endingSource: {fileID: 2143059994}
-  lathingSource: {fileID: 1257516498}
-  idlingSource: {fileID: 1277511273}
-  openingAudioSource: {fileID: 1185801066}
-  closingAudioSource: {fileID: 1213105912}
   isGamePaused: 0
 --- !u!114 &1589835471
 MonoBehaviour:
@@ -41029,28 +40999,6 @@ MonoBehaviour:
   openingSound: {fileID: 8300000, guid: d57dd58116bbbef4c8ff4e08cd5216c5, type: 3}
   closingSound: {fileID: 8300000, guid: 0db762f8912c0594998c1550f3f41adf, type: 3}
   isDoorOpen: 0
---- !u!64 &2099531908
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8480530770715217658}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6081427121767194496, guid: 1a4736e99ce10974c9da4b42aa87d7f3, type: 3}
 --- !u!1 &2104150062
 GameObject:
   m_ObjectHideFlags: 0
@@ -50571,7 +50519,7 @@ GameObject:
   - component: {fileID: 319935088583900924}
   - component: {fileID: 2829096962464193520}
   - component: {fileID: 2587527324966138427}
-  - component: {fileID: 2099531908}
+  - component: {fileID: 8480530770715217661}
   - component: {fileID: 2099531902}
   - component: {fileID: 8480530770715217659}
   - component: {fileID: 8480530770715217660}
@@ -50699,6 +50647,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8480530770715217661
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8480530770715217658}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 1
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.089899, y: 12.5750675, z: 3.9658978}
+  m_Center: {x: -14.666823, y: 12.690974, z: 21.481167}
 --- !u!33 &8497664510623058797
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -51018,7 +50987,7 @@ GameObject:
   - component: {fileID: 1006014822036881630}
   - component: {fileID: 2037699997663011671}
   - component: {fileID: 3332307442645521422}
-  - component: {fileID: 187396496}
+  - component: {fileID: 8818724705100687559}
   m_Layer: 0
   m_Name: ST20-25
   m_TagString: Untagged
@@ -51026,6 +50995,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &8818724705100687559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818724705100687558}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 25.326857, y: 5.222193, z: 0.49486953}
+  m_Center: {x: -15.962533, y: 1.77, z: 21.062752}
 --- !u!4 &8827117388487677456
 Transform:
   m_ObjectHideFlags: 0
