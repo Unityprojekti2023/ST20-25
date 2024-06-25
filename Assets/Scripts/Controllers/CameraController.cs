@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance;
 
     [Header("Cameras and Buttons")]
-    public Camera[] cameras;
+    public List<Camera> cameras;
     public Button[] cameraButtons;
 
     private int activeCameraIndex = 0;
@@ -15,11 +15,7 @@ public class CameraController : MonoBehaviour
     [Header("References to other gameobjects")]
     public GameObject caliper;
     public GameObject crosshair;
-    public Canvas canvas; // Reference to Camera Button Canvas
 
-    [Header("Other Variables")]
-    public bool isMainCamActive = true;
-    
 
     void Awake()
     {
@@ -35,11 +31,15 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        // Hide camera buttons canvas
-        canvas.gameObject.SetActive(false);
+        // Hide all buttons
+        foreach (var button in cameraButtons)
+        {
+            if (button.gameObject.activeSelf)
+                button.gameObject.SetActive(false);
+        }
 
         // Ensure that only one camera is active at a time
-        for (int i = 0; i < cameras.Length; i++)
+        for (int i = 0; i < cameras.Count; i++)
         {
             cameras[i].gameObject.SetActive(i == activeCameraIndex);
         }
@@ -55,12 +55,12 @@ public class CameraController : MonoBehaviour
     public void SwitchToCamera(int index)
     {
         // Check if the index is out of bounds
-        if (index < 0 || index >= cameras.Length)
+        if (index < 0 || index >= cameras.Count)
         {
             Debug.LogError("Invalid camera index");
             return;
         }
-        
+
         // Deactivate the current camera
         cameras[activeCameraIndex].gameObject.SetActive(false);
 
@@ -73,23 +73,71 @@ public class CameraController : MonoBehaviour
         if (activeCameraIndex == 0)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            isMainCamActive = true;
+
+            // Hide all buttons
+            foreach (var button in cameraButtons)
+            {
+                if (button.gameObject.activeSelf)
+                    button.gameObject.SetActive(false);
+            }
             crosshair.SetActive(true);
+        }
+        // Check if active camera is Caliper Camera
+        // TODO: Is there smarter way to do this?
+        else if (index == 5 || index == 6)
+        {
+            Debug.Log("Caliper Camera Active");
+
+            // Show only first button
+            cameraButtons[0].gameObject.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+            crosshair.SetActive(false);
         }
         else
         {
             // Show camera buttons canvas
-            canvas.gameObject.SetActive(true);
+            foreach (var button in cameraButtons)
+            {
+                button.gameObject.SetActive(true);
+            }
 
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-            isMainCamActive = false;
             crosshair.SetActive(false);
 
             // Set buttons interactable
             SetButtonInteractability(cameraButtons[index]);
         }
     }
-    
+
+
+    // TODO: Anyway to do adding and removing instantiated cameras in a better way?
+    public void AddCameraAndSwitchToIt(Camera camera)
+    {
+        Debug.Log("Adding camera");
+        cameras.Add(camera);
+        // Activate the new camera
+        cameras[^1].gameObject.SetActive(true);
+    }
+
+    public void RemoveLatestCamera()
+    {
+        if (cameras.Count > 1)
+        {
+            cameras[cameras.Count - 1].gameObject.SetActive(false);
+            cameras.RemoveAt(cameras.Count - 1);
+            SwitchToCamera(0);
+        }
+    }
+
+
+
+    // Method to check which camera is active
+    public bool IsCameraActive(int index)
+    {
+        return cameras[index].gameObject.activeSelf;
+    }
+
     private void SetButtonInteractability(Button activeButton)
     {
         // Set all but the active button to interactable

@@ -38,7 +38,7 @@ public class CameraFollow : MonoBehaviour
         if (!escapeMenu.isGamePaused)
         {
             // Check if main camera is active
-            if (CameraController.Instance.isMainCamActive)
+            if (CameraController.Instance.IsCameraActive(0))
             {
                 // Calculate the desired position of the camera
                 Vector3 desiredPosition = target.position + offset;

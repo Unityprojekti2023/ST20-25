@@ -32,7 +32,7 @@ public class EscapeMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (CameraController.Instance.isMainCamActive) // Check if main camera is active, if yes then show escape menu
+            if (CameraController.Instance.IsCameraActive(0)) // Check if main camera is active, if yes then show escape menu
             {
                 if (!gameIsPaused)
                 {

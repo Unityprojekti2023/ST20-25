@@ -87,6 +87,9 @@ public class RayInteractor : MonoBehaviour
             case "Clipboard":
                 HandleGenericInteraction(interactable, "Pick up Clipboard: [LMB] or [E]");
                 break;
+            case "ClipboardPlacementPosition":
+                HandleGenericInteraction(interactable, "Place Clipboard: [LMB] or [E]");
+                break;
             case "Measurements":
                 HandleMeasurementInteraction(interactable);
                 break;
