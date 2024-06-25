@@ -55,7 +55,7 @@ public class LatheRightTrigger : MonoBehaviour
         if(other.gameObject.tag== "LatheTrigger")                       // Making sure we collided with the correct object
         {
             counter++;                                                  //Incrementing the counter each time the trigger leaves the collider
-            rayInteractor.scrapPilesThrownIntoCorrectTrashbin = 0;      //Resetting scrapPilesThrownIntoCorrectTrashbin to 0 for next animation cycle
+            //rayInteractor.scrapPilesThrownIntoCorrectTrashbin = 0;      //Resetting scrapPilesThrownIntoCorrectTrashbin to 0 for next animation cycle
             latheSoundFX.endingClipPlayCounter = 0;                     //Resetting endingClipPlayCounter to 0 for next animation cycle (value used to stop ending clip from playing multiple times)
         }
     }

@@ -8,16 +8,6 @@ public class EscapeMenu : MonoBehaviour
     [Header("References to other scripts")]
     public GameObject escapeMenu;
     public GameObject optionsMenu;
-    public LatheSoundFX latheSoundFX;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
-
-    [Header("References to audio sources")]
-    public AudioSource beginningSource;
-    public AudioSource endingSource;
-    public AudioSource lathingSource;
-    public AudioSource idlingSource;
-    public AudioSource openingAudioSource;
-    public AudioSource closingAudioSource;
 
     public static bool gameIsPaused = false;
     public bool isGamePaused = false;
@@ -53,14 +43,9 @@ public class EscapeMenu : MonoBehaviour
     {
         escapeMenu.SetActive(true);     // Show escape menu
         Time.timeScale = 0f;            // Pause game time
+        AudioListener.pause = true;     // Pause audio listener
         Cursor.lockState = CursorLockMode.None;
-        gameIsPaused = true;
-        beginningSource.Pause();        // Pausing "Beginning" audio clip
-        endingSource.Pause();           // Pausing "Endind" audio clip
-        lathingSource.Pause();          // Pausing "Lathing" audio clip
-        idlingSource.Pause();           // Pausing "Idling" audio clip
-        openingAudioSource.Pause();     // Pausing door opening audio clip
-        closingAudioSource.Pause();     // Pausing door closing audio clip
+        gameIsPaused = true;    //TODO: Figure this code out
         isGamePaused = true;
     }
 
@@ -69,6 +54,7 @@ public class EscapeMenu : MonoBehaviour
         escapeMenu.SetActive(false);                // Hide escape menu
         optionsMenu.SetActive(false);               // Hide options menu
         Time.timeScale = 1;                         // Resume game
+        AudioListener.pause = false;                // Resume audio listener
         Cursor.lockState = CursorLockMode.Locked;   // Locking the cursor
         gameIsPaused = false;                       // Update game pause state
 
@@ -76,42 +62,6 @@ public class EscapeMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         isGamePaused = false;
-
-        // If "Beginning" audio clip was playing when game was paused, resuming the audio clip
-        if (latheSoundFX.isBeginningClipPlaying)
-        {
-            beginningSource.Play();
-        }
-
-        // If "Ending" audio clip was playing when game was paused, resuming the audio clip
-        if (latheSoundFX.isEndingClipPlaying && latheSoundFX.endingClipPlayCounter == 0)
-        {
-            endingSource.Play();
-        }
-
-        // If "Lathing" audio clip was playing when game was paused, resuming the audio clip
-        if (latheSoundFX.isLathingClipPlaying)
-        {
-            lathingSource.Play();
-        }
-
-        // If "Idling" audio clip was playing when game was paused, resuming the audio clip
-        if (latheSoundFX.isIdlingClipPlaying)
-        {
-            idlingSource.Play();
-        }
-
-        // If door opening audio clip was playing when game was paused, resuming audio clip
-        if (DoorController.Instance.isDoorOpeningActive && !mouseControlPanelInteractable.isLathingActive)
-        {
-            openingAudioSource.Play();
-        }
-
-        // If door closing audio clip was playing when game was paused, resuming audio clip
-        if (DoorController.Instance.isDoorClosingActive && !mouseControlPanelInteractable.isLathingActive)
-        {
-            closingAudioSource.Play();
-        }
     }
 
     public void Options()

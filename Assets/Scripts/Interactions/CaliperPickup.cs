@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CaliperPickup: MonoBehaviour, IInteractable
+public class CaliperPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     public TextInformation textInfo;
@@ -11,10 +11,8 @@ public class CaliperPickup: MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!rayInteractor.caliperEquipped)
-        {
-            textInfo.UpdateText("Caliber equipped");
-        }
+        // TODO: Check for caliper equipped status
+        textInfo.UpdateText("Caliper equipped");
 
         //if (rayInteractor.caliperEquipped)
         //{

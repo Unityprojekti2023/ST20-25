@@ -16,6 +16,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
     public TextInformation textInformation;
     public ScrapInteraction scrapInteraction;
     public GameController gameController;
+    public DoorInteractable doorInteractable;
 
     [Header("Boolean variables")]
     public bool isPowerONClicked = false;
@@ -105,7 +106,7 @@ public class MouseControlPanelInteractable : MonoBehaviour
                                     break;
 
                                 case "btn_CycleStart":
-                                    if (machineScript.isUncutObjectInCuttingPosition && !DoorController.Instance.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
+                                    if (machineScript.isUncutObjectInCuttingPosition && !doorInteractable.isDoorOpen && isLatheOn && isAllClicked && isProgramSelected && !machineScript.isMachineActive)
                                     {
                                         if(drillController.selectedProgram >= 0 && drillController.selectedProgram <= programCount) // Checking if a valid program is selected
                                         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LockerController : MonoBehaviour,IInteractable
+public class LockerController : MonoBehaviour, IInteractable
 {
     public RayInteractor rayInteractor;
     public TextInformation textInfo;
@@ -11,13 +11,13 @@ public class LockerController : MonoBehaviour,IInteractable
     public GameObject hinge;
     public Transform player;
     public Transform lockerDoor;
-    
+
 
     public bool isLockerDoorOpen = false;
-    
+
     private float totalRotation = 0f;
     private float maxRotation = 90f;
-    
+
     //experimenting, would make much more sense to handle door opening with rays
     void Update()
     {
@@ -53,17 +53,9 @@ public class LockerController : MonoBehaviour,IInteractable
 
     public void Interact()
     {
-        if (!rayInteractor.LockerDoorOpen)
-        {
-            //textInfo.UpdateText("door");
-            isLockerDoorOpen = !isLockerDoorOpen;
-        }
+        //textInfo.UpdateText("door");
+        isLockerDoorOpen = !isLockerDoorOpen;
 
-        if (rayInteractor.LockerDoorOpen)
-        {
-            //textInfo.UpdateText("door");
-            isLockerDoorOpen = !isLockerDoorOpen;
-        }
     }
-    
+
 }

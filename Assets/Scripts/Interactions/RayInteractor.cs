@@ -6,21 +6,34 @@ using System.Collections.Generic;
 public class RayInteractor : MonoBehaviour
 {
     public TextMeshProUGUI interactText;
-    public ScrapInteraction scrapInteraction;
-    public CleaningFeature cleaningFeature;
     public TextInformation textInformation;
     public float interactDistance = 100f;
 
-    float holdDuration = 1.5f; // Adjust the duration as needed
-    float currentHoldTime = 0f;
-    bool carcassInteracted = false;
-    bool glassesInteracted = false;
-    public bool shovelEquipped = false;
-    public bool LockerDoorOpen = false;
-    public bool caliperEquipped = false;
-    bool canInteractAgain = true;
-    public int scrapPilesThrownIntoCorrectTrashbin = 0;
-    public int scrapPilesThrownIntoWrongTrashbin = 0;
+    private float holdDuration = 1.5f; // Adjust the duration as needed
+    private float currentHoldTime = 0f;
+
+    private Dictionary<string, System.Action<IInteractable>> interactableActions;
+
+    void Start()
+    {
+        // Initialize the dictionary with object names and corresponding actions
+        interactableActions = new Dictionary<string, System.Action<IInteractable>>
+        {
+            { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open/Close door: [LMB] or [E]")},
+            { "ControlpanelTrigger", interactable => HandleInteraction(interactable, "Inspect panel: [LMB] or [E]") },
+            { "ST20-25 Puristin", interactable => HandleInteraction(interactable, "Pick up item: [LMB] or [E]")},
+            { "AluminumBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
+            { "SteelBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
+            { "PlacementMat", interactable => HandleInteraction(interactable, "Place Item: [LMB] or [E]") },
+            { "Clipboard", interactable => HandleInteraction(interactable, "Pick up Clipboard: [LMB] or [E]") },
+            { "ClipboardPlacementPosition", interactable => HandleInteraction(interactable, "Place Clipboard: [LMB] or [E]") },
+            { "Measurements", interactable => HandleInteraction(interactable, "Inspect Measurements: [LMB] or [E]")},
+            { "Carcass", interactable => HandleHoldInteraction(interactable, "Hold to put shoes on: [LMB] or [E]") },
+            { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to put safetyglasses on: [LMB] or [E]") },
+            { "Shovel", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
+            { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to equip caliper: [LMB] or [E]") }
+        };
+    }
 
     private void Update()
     {
@@ -28,14 +41,12 @@ public class RayInteractor : MonoBehaviour
         if (mainCamera != null && mainCamera.CompareTag("MainCamera"))
         {
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
             {
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-
                 if (interactable != null)
                 {
-                    HandleInteraction(hit.collider.gameObject.name, interactable);
+                    HandleInteractionRays(hit.collider.gameObject.name, interactable);
                 }
                 else
                 {
@@ -52,138 +63,13 @@ public class RayInteractor : MonoBehaviour
         {
             HideInteractText();
         }
-
-        if (shovelEquipped && scrapInteraction.isPlayerNearScrapPiles && !scrapInteraction.isShovelFull && DoorController.Instance.isDoorOpen)
-        {
-            if (cleaningFeature.isPile1Visible || cleaningFeature.isPile2Visible || cleaningFeature.isPile3Visible)
-            {
-                ShowInteractText($"Press to pick up scraps: [LMB] or [E]");
-            }
-        }
     }
 
-    private void HandleInteraction(string targetName, IInteractable interactable)
+    private void HandleInteractionRays(string targetName, IInteractable interactable)
     {
-        switch (targetName)
+        if (interactableActions.ContainsKey(targetName))
         {
-            case "ST20-25 Luukku":
-                HandleDoorInteraction(interactable);
-                break;
-            case "ControlpanelTrigger":
-                HandleGenericInteraction(interactable, "Inspect panel: [LMB] or [E]");
-                break;
-            case "ST20-25 Puristin":
-                HandlePlaceRemovePieceInteraction(interactable);
-                break;
-            case "AluminumBlank":
-                HandleGenericInteraction(interactable, "Pick up Item: [LMB] or [E]");
-                break;
-            case "SteelBlank":
-                HandleGenericInteraction(interactable, "Pick up Item: [LMB] or [E]");
-                break;
-            case "PlacementMat":
-                HandleGenericInteraction(interactable, "Place Item: [LMB] or [E]");
-                break;
-            case "Clipboard":
-                HandleGenericInteraction(interactable, "Pick up Clipboard: [LMB] or [E]");
-                break;
-            case "ClipboardPlacementPosition":
-                HandleGenericInteraction(interactable, "Place Clipboard: [LMB] or [E]");
-                break;
-            case "Measurements":
-                HandleMeasurementInteraction(interactable);
-                break;
-            case "Carcass":
-                HandleHoldInteraction(interactable, ref carcassInteracted, "Hold to put shoes on: [LMB] or [E]");
-                break;
-            case "Safetyglasses":
-                HandleHoldInteraction(interactable, ref glassesInteracted, "Hold to put safetyglasses on: [LMB] or [E]");
-                break;
-            case "Shovel":
-                HandleEquipInteraction(interactable, ref shovelEquipped, "Hold to equip shovel: [LMB] or [E]", "Hold to unequip shovel: [LMB] or [E]");
-                break;
-            case "CaliperBox":
-                HandleEquipInteraction(interactable, ref caliperEquipped, "Hold to equip caliber: [LMB] or [E]", "Hold to unequip caliber: [LMB] or [E]");
-                break;
-            case "SteelTrashCan":
-                HandleScrapThrowInteraction(interactable, ref scrapPilesThrownIntoWrongTrashbin, "Wrong trash bin! -50 points", "Wrong trash bin! -100 points", 3, 100, 50, false);
-                break;
-            case "AluminiumTrashCan":
-                HandleScrapThrowInteraction(interactable, ref scrapPilesThrownIntoCorrectTrashbin, null, null, 3, 0, 0, true);
-                break;
-            default:
-                HideInteractText();
-                break;
-        }
-    }
-
-    private void HandleDoorInteraction(IInteractable interactable)
-    {
-        if (!shovelEquipped && !caliperEquipped)
-        {
-            if (!DoorController.Instance.isDoorOpen)
-            {
-                ShowInteractText($"Open door: [LMB] or [E]");
-            }
-            else
-            {
-                ShowInteractText($"Close door: [LMB] or [E]");
-            }
-            CheckAndInteract(interactable);
-        }
-    }
-
-    private void HandleGenericInteraction(IInteractable interactable, string text)
-    {
-        if (!shovelEquipped && !caliperEquipped)
-        {
-            ShowInteractText(text);
-            CheckAndInteract(interactable);
-        }
-    }
-
-    private void HandlePlaceRemovePieceInteraction(IInteractable interactable)
-    {
-        if (!shovelEquipped && !caliperEquipped)
-        {
-            ShowInteractText($"Place/Remove piece: [LMB] or [E]");
-            CheckAndInteract(interactable);
-        }
-    }
-
-    private void HandleMeasurementInteraction(IInteractable interactable)
-    {
-        if (caliperEquipped)
-        {
-            ShowInteractText($"Measure Item: [LMB] or [E]");
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
-            {
-                interactable.Interact();
-                CameraController.Instance.SwitchToCamera(4);
-            }
-        }
-    }
-
-    private void HandleHoldInteraction(IInteractable interactable, ref bool interacted, string text)
-    {
-        if (!interacted && !shovelEquipped && !caliperEquipped)
-        {
-            ShowInteractText(text);
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
-            {
-                ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
-                currentHoldTime += Time.deltaTime;
-                if (currentHoldTime >= holdDuration)
-                {
-                    interactable.Interact();
-                    interacted = true;
-                    ResetHoldTimer();
-                }
-            }
-            else
-            {
-                ResetHoldTimer();
-            }
+            interactableActions[targetName](interactable);
         }
         else
         {
@@ -191,98 +77,31 @@ public class RayInteractor : MonoBehaviour
         }
     }
 
-    private void HandleEquipInteraction(IInteractable interactable, ref bool equipped, string equipText, string unequipText)
+    private void HandleInteraction(IInteractable interactable, string text)
     {
-        if (!equipped && canInteractAgain)
-        {
-            ShowInteractText(equipText);
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
-            {
-                interactable.Interact();
-                equipped = true;
-                canInteractAgain = false;
-                StartCoroutine(InteractionDelay());
-                ResetHoldTimer();
-            }
-            else
-            {
-                ResetHoldTimer();
-            }
-        }
-        else if (equipped && canInteractAgain)
-        {
-            ShowInteractText(unequipText);
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
-            {
-                ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
-                currentHoldTime += Time.deltaTime;
-                if (currentHoldTime >= holdDuration)
-                {
-                    interactable.Interact();
-                    equipped = false;
-                    canInteractAgain = false;
-                    StartCoroutine(InteractionDelay());
-                    ResetHoldTimer();
-                }
-            }
-            else
-            {
-                ResetHoldTimer();
-            }
-        }
-        else
-        {
-            HideInteractText();
-        }
-    }
-
-    private void HandleScrapThrowInteraction(IInteractable interactable, ref int scrapCount, string singleThrowText, string multipleThrowText, int threshold, int multipleThrowPenalty, int singleThrowPenalty, bool correctBin)
-    {
-        if (scrapInteraction.isShovelFull && shovelEquipped)
-        {
-            ShowInteractText($"Hold to throw scraps: [LMB] or [E]");
-            if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
-            {
-                ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
-                currentHoldTime += Time.deltaTime;
-                if (currentHoldTime >= holdDuration)
-                {
-                    interactable.Interact();
-                    scrapInteraction.isShovelFull = false;
-                    scrapCount++;
-                    ResetHoldTimer();
-
-                    if (!correctBin)
-                    {
-                        if (scrapCount == threshold)
-                        {
-                            ObjectiveManager.Instance.DeductPoints(multipleThrowPenalty);
-                            textInformation.UpdateText(multipleThrowText);
-                        }
-                        else
-                        {
-                            ObjectiveManager.Instance.DeductPoints(singleThrowPenalty);
-                            textInformation.UpdateText(singleThrowText);
-                        }
-                    }
-                    else if (scrapCount == threshold)
-                    {
-                        ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
-                    }
-                }
-            }
-            else
-            {
-                ResetHoldTimer();
-            }
-        }
-    }
-
-    private void CheckAndInteract(IInteractable interactable)
-    {
+        ShowInteractText(text);
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E))
         {
             interactable.Interact();
+        }
+    }
+
+    private void HandleHoldInteraction(IInteractable interactable, string text)
+    {
+        ShowInteractText(text);
+        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+        {
+            ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+            currentHoldTime += Time.deltaTime;
+            if (currentHoldTime >= holdDuration)
+            {
+                interactable.Interact();
+                ResetHoldTimer();
+            }
+        }
+        else
+        {
+            ResetHoldTimer();
         }
     }
 
@@ -301,11 +120,5 @@ public class RayInteractor : MonoBehaviour
     {
         ResetHoldTimer(); // Reset the timer when hiding the text
         interactText.gameObject.SetActive(false);
-    }
-
-    private IEnumerator InteractionDelay()
-    {
-        yield return new WaitForSeconds(1f);
-        canInteractAgain = true;
     }
 }

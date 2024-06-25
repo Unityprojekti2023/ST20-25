@@ -3,19 +3,42 @@ using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
+    private Animator doorAnimator; // Reference to the door animator
+    public AudioSource audioSource; // Reference to the audio source
+    public AudioClip openingSound; // Reference to the door sound
+    public AudioClip closingSound; // Reference to the door sound
+    public bool isDoorOpen = false; // Boolean to check if the door is open
+
+    void Start()
+    {
+        doorAnimator = GetComponent<Animator>();
+    }
+
     public void Interact()
     {
-        // Making sure door is not open, door opening isnt already active and the game isnt paused
-        if (!DoorController.Instance.isDoorOpen && !DoorController.Instance.isDoorOpeningActive)
+        if (isDoorOpen)
         {
-            // Starting door opening coroutine
-            StartCoroutine(DoorController.Instance.OpenDoor());
+            Debug.Log("Closing door");
+            CloseDoor();
         }
-        // Making sure the door is open, door opening isnt already active and the game isnt paused
-        else if (DoorController.Instance.isDoorOpen && !DoorController.Instance.isDoorClosingActive)
+        else
         {
-            // Starting door closing coroutine
-            StartCoroutine(DoorController.Instance.CloseDoor());
+            Debug.Log("Opening door");
+            OpenDoor();
         }
+    }
+
+    void OpenDoor()
+    {
+        doorAnimator.SetTrigger("OpenDoor");
+        audioSource.PlayOneShot(openingSound);
+        isDoorOpen = true;
+    }
+
+    void CloseDoor()
+    {
+        doorAnimator.SetTrigger("CloseDoor");
+        audioSource.PlayOneShot(closingSound);
+        isDoorOpen = false;
     }
 }

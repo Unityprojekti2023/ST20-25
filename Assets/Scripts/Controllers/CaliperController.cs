@@ -16,7 +16,8 @@ public class CaliperController : MonoBehaviour
 
     void Update()
     {
-        if (rayInteractor.caliperEquipped)      // Checking if caliber is equipped
+        // TODO: CHeck for caliper equipped status
+        /*if (rayInteractor.caliperEquipped)      // Checking if caliber is equipped
         {
             playerCaliper.SetActive(true);                                  
             tableCaliber.SetActive(false);
@@ -27,6 +28,6 @@ public class CaliperController : MonoBehaviour
             playerCaliper.SetActive(false);
             tableCaliber.SetActive(true);
             ObjectiveManager.Instance.CompleteObjective("Unequip caliper");
-        }
+        }*/
     }
 }
