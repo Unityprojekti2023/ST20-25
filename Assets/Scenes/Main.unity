@@ -21752,13 +21752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 1675791124}
-  playerCamera: {fileID: 1047893777}
-  mainCameraButton: {fileID: 1948234512}
-  controlPanelCamerakButton: {fileID: 1728962908}
-  insideCamerakButton: {fileID: 137822031}
-  helpCameraButton: {fileID: 933696565}
   moveSpeed: 300
-  maxYRotation: 80
 --- !u!1 &1047893776
 GameObject:
   m_ObjectHideFlags: 0
@@ -26650,7 +26644,7 @@ MonoBehaviour:
   scrapInteraction: {fileID: 230333459}
   cleaningFeature: {fileID: 1149944383}
   textInformation: {fileID: 590410041}
-  interactDistance: 80
+  interactDistance: 100
   shovelEquipped: 0
   LockerDoorOpen: 0
   caliperEquipped: 0
@@ -26670,6 +26664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionsMenu: {fileID: 1675791124}
   target: {fileID: 2115226145}
+  escapeMenu: {fileID: 1589835470}
   playerCamera: {fileID: 1047893779}
   mainCameraButton: {fileID: 1948234512}
   controlPanelCameraButton: {fileID: 1728962908}
@@ -41168,7 +41163,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 180
-  m_Radius: 50
+  m_Radius: 30
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -41193,7 +41188,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 50
+  m_Radius: 30
   m_Height: 220
   m_Direction: 1
   m_Center: {x: 0, y: 110, z: 0}
@@ -51353,8 +51348,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1189198791}
-  - {fileID: 574679438}
   - {fileID: 1045571684}
+  - {fileID: 574679438}
   - {fileID: 543450653333732289}
   - {fileID: 875081233}
   - {fileID: 15318093}

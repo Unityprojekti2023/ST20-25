@@ -13,7 +13,7 @@ public class RayInteractor : MonoBehaviour
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
     public TextInformation textInformation;
-    public float interactDistance = 80f;
+    public float interactDistance = 100f;
 
     float holdDuration = 1.5f; // Adjust the duration as needed
     float currentHoldTime = 0f;

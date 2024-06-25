@@ -5,6 +5,7 @@ public class CameraFollow : MonoBehaviour
     [Header("References to other scripts")]
     public OptionsMenu optionsMenu; // Reference to the options menu
     public Transform target; // Reference to the player
+    public EscapeMenu escapeMenu; // Reference to the escape menu
 
     [Header("References to Gameobjects")]
     public Camera playerCamera;
@@ -20,6 +21,12 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
+        if(escapeMenu == null)
+        {
+            Debug.LogError("EscapeMenu reference not set in CameraFollow!");
+            return;
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
 
         //Hide camera switch buttons from UI
@@ -36,15 +43,20 @@ public class CameraFollow : MonoBehaviour
             return;
         }
 
-        // Calculate the desired position of the camera
-        Vector3 desiredPosition = target.position + offset;
+        if (!escapeMenu.isGamePaused)
+        {
+            // Calculate the desired position of the camera
+            Vector3 desiredPosition = target.position + offset;
 
-        // Smoothly move the camera to the desired position
-        Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
-        playerCamera.transform.position = smoothedPosition;
+            // Smoothly move the camera to the desired position
+            Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
+            playerCamera.transform.position = smoothedPosition;
 
-        // Handle camera rotation separately
-        RotateCamera();
+            // Handle camera rotation separately
+            RotateCamera();
+        }
+        else
+            return;
     }
 
     void RotateCamera()

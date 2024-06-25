@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Other values")]
     public float moveSpeed = 5.0f;
-    private bool canMove = true;
 
     void Start()
     {
@@ -42,10 +41,5 @@ public class PlayerController : MonoBehaviour
 
         // Apply movement to the character controller
         controller.Move(move * Time.fixedDeltaTime);
-    }
-
-    public void ToggleMovement(bool canMove)
-    {
-        this.canMove = canMove;
     }
 }

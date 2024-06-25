@@ -19,7 +19,7 @@ public class EscapeMenu : MonoBehaviour
     public AudioSource openingAudioSource;
     public AudioSource closingAudioSource;
 
-    public static bool GameIsPaused = false;
+    public static bool gameIsPaused = false;
     public bool isGamePaused = false;
 
     void Start()
@@ -34,7 +34,7 @@ public class EscapeMenu : MonoBehaviour
         {
             if (CameraController.Instance.isMainCamActive) // Check if main camera is active, if yes then show escape menu
             {
-                if (!GameIsPaused)
+                if (!gameIsPaused)
                 {
                     Pause();
                 }
@@ -55,7 +55,7 @@ public class EscapeMenu : MonoBehaviour
         Time.timeScale = 0f;            // Pause game time
         Cursor.visible = true;          // Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
-        GameIsPaused = true;
+        gameIsPaused = true;
         beginningSource.Pause();        // Pausing "Beginning" audio clip
         endingSource.Pause();           // Pausing "Endind" audio clip
         lathingSource.Pause();          // Pausing "Lathing" audio clip
@@ -72,7 +72,7 @@ public class EscapeMenu : MonoBehaviour
         Time.timeScale = 1;                         // Resume game
         Cursor.visible = false;                     // Hide mouse cursor when menu is closed
         Cursor.lockState = CursorLockMode.Locked;   // Locking the cursor
-        GameIsPaused = false;                       // Update game pause state
+        gameIsPaused = false;                       // Update game pause state
 
         // Deselect the button
         EventSystem.current.SetSelectedGameObject(null);
@@ -135,7 +135,7 @@ public class EscapeMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        GameIsPaused = false;
+        gameIsPaused = false;
         escapeMenu.SetActive(false);
         optionsMenu.SetActive(false);
         Time.timeScale = 1;
@@ -147,7 +147,7 @@ public class EscapeMenu : MonoBehaviour
     {
         escapeMenu.SetActive(false);
         optionsMenu.SetActive(false);
-        GameIsPaused = false;
+        gameIsPaused = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }

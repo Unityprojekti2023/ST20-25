@@ -173,11 +173,6 @@ public class GameController : MonoBehaviour
 
         // Find the player object and get the PlayerMovement component
         PlayerController playerController = FindObjectOfType<PlayerController>();
-        if (playerController != null)
-        {
-            // Disable player movement by disabling keyboard inputs
-            playerController.ToggleMovement(false);
-        }
 
         endScoreText.text = $"Your final Score: {ObjectiveManager.Instance.GetCurrentScore()}";
 
