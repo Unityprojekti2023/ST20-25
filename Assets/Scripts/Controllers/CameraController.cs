@@ -32,7 +32,6 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        SetButtonsActive(true);
         // Ensure that only one camera is active at a time
         for (int i = 0; i < cameras.Length; i++)
         {
@@ -76,15 +75,17 @@ public class CameraController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             isMainCamActive = false;
             crosshair.SetActive(false);
+            // Set buttons interactable
+            SetButtonInteractability(cameraButtons[index]);
         }
     }
-
-    // Set Buttons Active
-    public void SetButtonsActive(bool active)
+    
+    private void SetButtonInteractability(Button activeButton)
     {
+        // Set all but the active button to interactable
         foreach (var button in cameraButtons)
         {
-            button.interactable = active;
+            button.interactable = button != activeButton;
         }
     }
 
@@ -118,14 +119,6 @@ public class CameraController : MonoBehaviour
         isMainCamActive = camera == mainCamera;
 
         SetButtonInteractability(button);
-    }
-
-    private void SetButtonInteractability(Button activeButton)
-    {
-        foreach (var button in buttonCameraMap.Keys)
-        {
-            button.interactable = button != activeButton;
-        }
     }
     /*
     public void ActivateCaliperCamera(Camera calibrointiKamera = null)
