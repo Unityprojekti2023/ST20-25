@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour
     private int activeCameraIndex = 0;
 
     [Header("References to other gameobjects")]
-    public GameObject caliper;
     public GameObject crosshair;
 
 
@@ -109,28 +108,6 @@ public class CameraController : MonoBehaviour
             SetButtonInteractability(cameraButtons[index]);
         }
     }
-
-
-    // TODO: Anyway to do adding and removing instantiated cameras in a better way?
-    public void AddCameraAndSwitchToIt(Camera camera)
-    {
-        Debug.Log("Adding camera");
-        cameras.Add(camera);
-        // Activate the new camera
-        cameras[^1].gameObject.SetActive(true);
-    }
-
-    public void RemoveLatestCamera()
-    {
-        if (cameras.Count > 1)
-        {
-            cameras[cameras.Count - 1].gameObject.SetActive(false);
-            cameras.RemoveAt(cameras.Count - 1);
-            SwitchToCamera(0);
-        }
-    }
-
-
 
     // Method to check which camera is active
     public bool IsCameraActive(int index)

@@ -2,30 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Refactor this script to use the IInteractable interface and remove the unnecessary references to other scripts
 public class LatheInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     public MachineScript machineScript;
-    public ItemPickup itemPickup;
+    public RawPiecePickup itemPickup;
     public LatheRightTrigger latheRightTrigger;
     public DrillController drillController;
+    public Transform attachmentPointOfLathe;
+    private string blankInInventory;
 
     public void Interact()
     {
         if (!machineScript.isMachineActive)
         {
-            // Get the item ID of the item in the player's hands
-            string blankInInventory = InventoryManager.Instance.HeldItemID();
+            Debug.Log("Machine is not active");
+            if (InventoryManager.Instance.handsFull)
+            {
+                Debug.Log("Player hands are not full");
+                // Get the item ID of the item in the player's hands
+                blankInInventory = InventoryManager.Instance.HeldItemID();
+            }
+            else
+                return;
+
             //Check if item in players hands is blank
             if (blankInInventory.Contains("blank") && !machineScript.isUncutObjectInCuttingPosition)
             {
+                Debug.Log("Item in players hands is blank");
                 //Check if there is not an uncut item in cutting position
                 if (!machineScript.isUncutObjectInCuttingPosition)
                 {
                     InventoryManager.Instance.RemoveItem(blankInInventory, $"Item [{blankInInventory}] removed");
-                    itemPickup.isUncutItemAlreadyInInventory = false;
+                    InventoryManager.Instance.handsFull = false;
 
-                    machineScript.moveUncutObjectToCuttingPosition();
+
+                    //Move the item to the cutting position from players hands
+                    itemPickup.heldItem.transform.SetPositionAndRotation(attachmentPointOfLathe.position, attachmentPointOfLathe.rotation);
+                    itemPickup.heldItem.transform.parent = attachmentPointOfLathe;
+                    //Set the uncut item to active
+                    itemPickup.heldItem.SetActive(true);
+
+                    //machineScript.moveUncutObjectToCuttingPosition();
                     ObjectiveManager.Instance.CompleteObjective("Place piece in place");
                 }
                 //If there is uncut item in cuttin position remove it and add to players inventory

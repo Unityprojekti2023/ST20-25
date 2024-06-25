@@ -10,7 +10,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     [Header("Other variables")]
     private bool clipboardBeenPickedUp = false;
     public Transform attachmentPoint;
-    public Camera heldClipboardCamera;
+    public Camera heldClipboardCamera; // TODO: Anyway to make script find the camera component without this?
     private bool inspecting = false;
 
     void Start()
@@ -50,16 +50,18 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     {
         if (InventoryManager.Instance.HasItem("clipboard") && !inspecting && Input.GetKeyDown(KeyCode.Mouse1))
         {
+            // TODO: Add functionality to fetch camera component from clipboard object
+
             inspecting = true;
-            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
-            // Switch to clipboard camera
-            CameraController.Instance.AddCameraAndSwitchToIt(heldClipboardCamera);
+            // Switch to clipboard camera on
+            heldClipboardCamera.gameObject.SetActive(true);
         }
         // Switch back to player camera
         else if (InventoryManager.Instance.HasItem("clipboard") && inspecting && Input.GetKeyDown(KeyCode.Mouse1))
         {
             inspecting = false;
-            CameraController.Instance.RemoveLatestCamera();
+            // Switch to clipboard camera off
+            heldClipboardCamera.gameObject.SetActive(false);
         }
         else
             return;

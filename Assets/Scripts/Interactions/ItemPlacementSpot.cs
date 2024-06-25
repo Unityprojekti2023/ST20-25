@@ -8,7 +8,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
     public TextInformation textInfo;
     public EscapeMenu escapeMenu;
     public MouseControlPanelInteractable mouseControlPanelInteractable;
-    public ItemPickup itemPickup;
+    public RawPiecePickup itemPickup;
 
     public GameObject hiddenItem;
     public GameObject hiddenItem2;

@@ -21,6 +21,8 @@ public class TaskManager : MonoBehaviour
         { "Alumiini", "metal06_diffuse" }
     };
 
+    //TODO: Is there better logic for this?
+
     public void AssignRandomTask(Renderer clipboardImageSlot, TMPro.TextMeshProUGUI clibBoardTextSlot)
     {
         List<string> materialList = new(materialToMaterialType.Keys);

@@ -11335,6 +11335,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1436944102497898, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
+      propertyPath: m_Name
+      value: Clipboard_ImageSlot
+      objectReference: {fileID: 0}
     - target: {fileID: 1685343955664076, guid: 72653085a6b827f48b10b434c7972f1c, type: 3}
       propertyPath: m_Name
       value: Clipboard
@@ -12302,7 +12306,7 @@ GameObject:
   - component: {fileID: 550409921}
   - component: {fileID: 550409920}
   m_Layer: 0
-  m_Name: Clipboard_CMR
+  m_Name: Clipboard_Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12988,7 +12992,6 @@ MonoBehaviour:
   - {fileID: 1728962911}
   - {fileID: 137822034}
   - {fileID: 933696567}
-  caliper: {fileID: 1153211534}
   crosshair: {fileID: 1776058121}
 --- !u!1 &578819069
 GameObject:
@@ -14807,9 +14810,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heldItem: {fileID: 0}
   itemID: Steel blank
   isUncutItemAlreadyInInventory: 0
-  attachmentPoint: {fileID: 1451123884}
+  attachmentPointToHands: {fileID: 1451123884}
 --- !u!1 &685890918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5205436311724184837, guid: 8f50af20feff4134bb66b539610c610b, type: 3}
@@ -20681,6 +20685,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &968973083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968973084}
+  m_Layer: 0
+  m_Name: AttachmentPointLathe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968973084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968973083}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1278, y: 1803.6, z: -1018}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 543450653333732289}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &975829872
 GameObject:
   m_ObjectHideFlags: 0
@@ -21373,8 +21408,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1015064792}
   - component: {fileID: 1015064795}
-  - component: {fileID: 1015064794}
-  - component: {fileID: 1015064793}
   m_Layer: 0
   m_Name: DoorTrigger
   m_TagString: Untagged
@@ -21397,46 +21430,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450653333732289}
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
---- !u!114 &1015064793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015064791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77bed4085865e4841a9930b5707e3009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayerNearDoor: 0
---- !u!54 &1015064794
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015064791}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!65 &1015064795
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23570,7 +23563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1149944380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24131,6 +24124,7 @@ MonoBehaviour:
   itemPickup: {fileID: 2062293290}
   latheRightTrigger: {fileID: 864121446}
   drillController: {fileID: 374627386}
+  attachmentPointOfLathe: {fileID: 968973084}
 --- !u!1 &1192805286
 GameObject:
   m_ObjectHideFlags: 0
@@ -39677,9 +39671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heldItem: {fileID: 0}
   itemID: Aluminum blank
   isUncutItemAlreadyInInventory: 0
-  attachmentPoint: {fileID: 1451123884}
+  attachmentPointToHands: {fileID: 1451123884}
 --- !u!65 &2062293292
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42415,6 +42410,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 968973084}
   - {fileID: 1260468833755231043}
   - {fileID: 167671342}
   - {fileID: 810514126}
@@ -51659,29 +51655,28 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1189198791}
-  - {fileID: 1045571684}
   - {fileID: 574679438}
-  - {fileID: 475781430}
-  - {fileID: 543450653333732289}
-  - {fileID: 875081233}
-  - {fileID: 15318093}
   - {fileID: 495883779}
   - {fileID: 672069311}
+  - {fileID: 1045571684}
+  - {fileID: 475781430}
+  - {fileID: 543450653333732289}
+  - {fileID: 431806124}
   - {fileID: 1019734436}
+  - {fileID: 1725458234}
+  - {fileID: 875081233}
+  - {fileID: 15318093}
   - {fileID: 1338607896}
   - {fileID: 41294525}
   - {fileID: 685304919}
   - {fileID: 1091506878}
   - {fileID: 1489922213}
   - {fileID: 1473998183}
-  - {fileID: 431806124}
   - {fileID: 1589835474}
   - {fileID: 1660298065}
   - {fileID: 675125348}
-  - {fileID: 1725458234}
   - {fileID: 131333488}
   - {fileID: 700686228}
-  - {fileID: 68451444}
   - {fileID: 863022248}
   - {fileID: 369689628}
   - {fileID: 1476218919}
@@ -51701,3 +51696,4 @@ SceneRoots:
   - {fileID: 1915117963}
   - {fileID: 739528478}
   - {fileID: 1713039433}
+  - {fileID: 68451444}

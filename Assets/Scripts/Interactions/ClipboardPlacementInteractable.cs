@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
@@ -21,21 +19,23 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 
     void PlaceClipboard()
     {
-        clipboard.transform.position = transform.position;
-        clipboard.transform.rotation = transform.rotation;
+        // Move the clipboard to the attachment point
+        clipboard.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        // Set the clipboard as a child of the table
         clipboard.transform.parent = transform;
 
+        // Enable all children of the clipboard except the camera
         foreach (Transform child in clipboard.transform)
         {
-            if (!child.gameObject.name.Contains("CMR")) // Check if the child is clipboards camera and enable all other children
+            if (!child.gameObject.name.Contains("Camera")) // Check if the child is clipboards camera and enable all other children
             {
                 child.gameObject.SetActive(true);
             }
         }
-        Debug.Log("Clipboard removed from inventory");
         InventoryManager.Instance.RemoveItem("clipboard", "Item [Clipboard] removed from inventory");
-        //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); //Enable later when the objective is added
+        //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); // TODO: Enable later when the objective is added
 
+        // Disable the clipboard's collider from messing with raycasts
         transform.GetComponent<BoxCollider>().enabled = false;
     }
 
