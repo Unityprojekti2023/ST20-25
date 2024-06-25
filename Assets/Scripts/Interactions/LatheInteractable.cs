@@ -39,10 +39,9 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
 
                     //Move the item to the cutting position from players hands
-                    itemPickup.heldItem.transform.SetPositionAndRotation(attachmentPointOfLathe.position, attachmentPointOfLathe.rotation);
-                    itemPickup.heldItem.transform.parent = attachmentPointOfLathe;
-                    //Set the uncut item to active
-                    itemPickup.heldItem.SetActive(true);
+                    InventoryManager.Instance.MoveHeldItemToAttachmentPoint(attachmentPointOfLathe);
+                    //Set the uncut item to active in the cutting position
+                    InventoryManager.Instance.heldItem.SetActive(true);
 
                     //machineScript.moveUncutObjectToCuttingPosition();
                     ObjectiveManager.Instance.CompleteObjective("Place piece in place");

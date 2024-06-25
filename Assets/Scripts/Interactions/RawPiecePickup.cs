@@ -7,7 +7,6 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
     [Header("References to other scripts")]
     private TaskManager taskManager;
     private GameObject topItem;
-    public GameObject heldItem;
 
     public string itemID;
     public bool isUncutItemAlreadyInInventory = false;
@@ -38,7 +37,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             topItem.SetActive(false);
 
             // Instantiate the item in the player's hands
-            heldItem = Instantiate(topItem, attachmentPointToHands.position, attachmentPointToHands.rotation);
+            InventoryManager.Instance.heldItem = Instantiate(topItem, attachmentPointToHands.position, attachmentPointToHands.rotation);
 
 
             // TODO: Is there better logic for checking if the picked blank was correct material? By name containing Directory Key of the material from taskManager?
@@ -61,10 +60,9 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             }
 
         }
-        // Place item pack into the pile if hands are full TODO: Currently has no functionality since heldItem is never set
         else if (InventoryManager.Instance.CheckIfHandsFull() && InventoryManager.Instance.HasItem(itemID))
         {
-            Destroy(heldItem);
+            Destroy(InventoryManager.Instance.heldItem);
             if (topItem != null && topItem.activeSelf == false)
             {
                 topItem.SetActive(true);

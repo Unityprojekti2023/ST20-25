@@ -5,6 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
     private TextInformation textInfo;
+    public GameObject heldItem;
     // Variable to check if hands are full
     public bool handsFull = false;
 
@@ -55,6 +56,13 @@ public class InventoryManager : MonoBehaviour
             return inventory[^1];
         }
         return "";
+    }
+
+    // Method to move heldItem to provided attachement point
+    public void MoveHeldItemToAttachmentPoint(Transform attachmentPoint)
+    {
+        heldItem.transform.SetPositionAndRotation(attachmentPoint.position, attachmentPoint.rotation);
+        heldItem.transform.parent = attachmentPoint;
     }
 
     public bool CheckIfHandsFull()
