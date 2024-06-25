@@ -6,28 +6,17 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController Instance;
 
-    [Header("Cameras")]
-    public GameObject mainCamera;
-    public GameObject controlpanelCamera;
-    public GameObject insideCamera;
-    public GameObject helpCamera;
-    public Camera caliperCamera;
+    [Header("Cameras and Buttons")]
+    public Camera[] cameras;
+    public Button[] cameraButtons;
+
+    private int activeCameraIndex = 0;
+
     public GameObject caliper;
 
     [Header("Other Variables")]
     public bool isMainCamActive = true;
     public GameObject crosshair;
-
-    [Header("References to other scripts")]
-    PlayerController playerController;
-
-    [Header("Buttons for camera switching")]
-    public Button mainCameraButton;
-    public Button panelCameraButton;
-    public Button insideCameraButton;
-    public Button helpCameraButton;
-
-    private Dictionary<Button, GameObject> buttonCameraMap;
 
     void Awake()
     {
@@ -43,35 +32,63 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        buttonCameraMap = new Dictionary<Button, GameObject>
+        SetButtonsActive(true);
+        // Ensure that only one camera is active at a time
+        for (int i = 0; i < cameras.Length; i++)
         {
-            { mainCameraButton, mainCamera },
-            { panelCameraButton, controlpanelCamera },
-            { insideCameraButton, insideCamera },
-            { helpCameraButton, helpCamera }
-        };
-
-        foreach (var entry in buttonCameraMap)
-        {
-            entry.Key.onClick.AddListener(() => ActivateCamera(entry.Value, entry.Key));
+            cameras[i].gameObject.SetActive(i == activeCameraIndex);
         }
 
-        SetInitialCameraState();
-
-        playerController = FindObjectOfType<PlayerController>();
+        // Initialize UI buttons listeners
+        for (int i = 0; i < cameraButtons.Length; i++)
+        {
+            int index = i;
+            cameraButtons[i].onClick.AddListener(() => SwitchToCamera(index));
+        }
     }
 
-    void Update()
+    public void SwitchToCamera(int index)
     {
-        // TODO: Delete this code block closer to the end of the project
-        if (Input.GetKeyDown(KeyCode.H)) ActivateCamera(mainCamera, mainCameraButton);
-        if (Input.GetKeyDown(KeyCode.J)) ActivateCamera(controlpanelCamera, panelCameraButton);
-        if (Input.GetKeyDown(KeyCode.K)) ActivateCamera(insideCamera, insideCameraButton);
-        if (Input.GetKeyDown(KeyCode.L)) ActivateCamera(helpCamera, helpCameraButton);
-        if (Input.GetKeyDown(KeyCode.P)) ActivateCaliperCamera(caliperCamera);
+        // Check if the index is out of bounds
+        if (index < 0 || index >= cameras.Length)
+        {
+            Debug.LogError("Invalid camera index");
+            return;
+        }
+        
+        // Deactivate the current camera
+        cameras[activeCameraIndex].gameObject.SetActive(false);
+
+        // Activate the new camera
+        cameras[index].gameObject.SetActive(true);
+
+        // Update the active camera index
+        activeCameraIndex = index;
+
+        if (activeCameraIndex == 0)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            isMainCamActive = true;
+            crosshair.SetActive(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            isMainCamActive = false;
+            crosshair.SetActive(false);
+        }
     }
 
-    private void SetInitialCameraState()
+    // Set Buttons Active
+    public void SetButtonsActive(bool active)
+    {
+        foreach (var button in cameraButtons)
+        {
+            button.interactable = active;
+        }
+    }
+
+    /*private void SetInitialCameraState()
     {
         mainCamera.SetActive(true);
         controlpanelCamera.SetActive(false);
@@ -81,9 +98,9 @@ public class CameraController : MonoBehaviour
         crosshair.SetActive(true);
 
         SetButtonInteractability(mainCameraButton);
-    }
+    }*/
 
-    private void ActivateCamera(GameObject camera, Button button)
+    /*private void ActivateCamera(GameObject camera, Button button)
     {
         foreach (var cam in buttonCameraMap.Values)
         {
@@ -110,7 +127,7 @@ public class CameraController : MonoBehaviour
             button.interactable = button != activeButton;
         }
     }
-
+    /*
     public void ActivateCaliperCamera(Camera calibrointiKamera = null)
     {
         if (calibrointiKamera == null)
@@ -139,11 +156,12 @@ public class CameraController : MonoBehaviour
         {
             playerController.HidePlayerModel();
         }*/
-    }
+    //}
 
-        // Public methods for activating cameras
-    public void ActivateMainCamera() => ActivateCamera(mainCamera, mainCameraButton);
-    public void ActivateControlpanelCamera() => ActivateCamera(controlpanelCamera, panelCameraButton);
-    public void ActivateInsideCamera() => ActivateCamera(insideCamera, insideCameraButton);
-    public void ActivateHelpCamera() => ActivateCamera(helpCamera, helpCameraButton);
+    // Public methods for activating cameras
+    /*
+public void ActivateMainCamera() => ActivateCamera(mainCamera, mainCameraButton);
+public void ActivateControlpanelCamera() => ActivateCamera(controlpanelCamera, panelCameraButton);
+public void ActivateInsideCamera() => ActivateCamera(insideCamera, insideCameraButton);
+public void ActivateHelpCamera() => ActivateCamera(helpCamera, helpCameraButton);*/
 }

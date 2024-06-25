@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     [Header("References to other scripts")]
-    public PlayerController playerController;
+    public GameObject player;
 
     [Header("References to gameobjects")]
     public GameObject[] popUps;
@@ -17,13 +17,13 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        if (playerController == null)
+        if (player == null)
         {
             Debug.LogError("PlayerController reference not set in TutorialManager!");
             return;
         }
         
-        startPosition = playerController.transform.position;
+        startPosition = player.transform.position;
     }
     void Update()
     {
@@ -46,7 +46,7 @@ public class TutorialManager : MonoBehaviour
         switch (popUpIndex)
         {
             case 0:
-                if (Vector3.Distance(startPosition, playerController.transform.position) >= minDistanceTraveled)
+                if (Vector3.Distance(startPosition, player.transform.position) >= minDistanceTraveled)
                 {
                     popUpIndex++;
                 }

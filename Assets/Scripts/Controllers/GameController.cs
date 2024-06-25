@@ -80,6 +80,7 @@ public class GameController : MonoBehaviour
         {
             anim.SetTrigger("StartLathe");
         }
+
         // Check if all objectives are completed for the current stage
         if (ObjectiveManager.Instance.AreAllObjectivesCompleted())
         {
@@ -88,6 +89,8 @@ public class GameController : MonoBehaviour
 
             // Increase the stage counter
             currentStage++;
+
+            // TODO: Add transition to the next stage with sound etc.
 
             // Empty objectives and add objectives for the next stage
             ObjectiveManager.Instance.EmptyObjective();

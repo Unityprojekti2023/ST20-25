@@ -11,8 +11,6 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     public Renderer clipboardImageSlot;
     public TMPro.TextMeshProUGUI clibBoardTextSlot;
 
-    [Header("References to other scripts")]
-    public CameraController cameraController;
     [Header("Other variables")]
     public Vector3 newPosition;
     public Vector3 newRotation;
@@ -70,7 +68,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         else
         {
             Debug.Log("Trying to activate clipboard camera");
-            cameraController.ActivateCaliperCamera(heldClipboardCamera);
+            CameraController.Instance.SwitchToCamera(5);
         }
     }
 
@@ -79,7 +77,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         if (InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp && Input.GetKeyDown(KeyCode.Mouse1))
         {
             ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
-            cameraController.ActivateCaliperCamera(heldClipboardCamera);
+            CameraController.Instance.SwitchToCamera(5);
         }
         
     }

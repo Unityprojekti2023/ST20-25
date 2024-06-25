@@ -12730,13 +12730,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 574679438}
-  - component: {fileID: 574679437}
   - component: {fileID: 574679439}
   - component: {fileID: 574679440}
   - component: {fileID: 574679441}
   - component: {fileID: 574679442}
   - component: {fileID: 574679443}
   - component: {fileID: 574679444}
+  - component: {fileID: 574679445}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -12744,30 +12744,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &574679437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574679436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a292e13222f8894e8b7a4977fc413da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1047893776}
-  controlpanelCamera: {fileID: 1950427760}
-  insideCamera: {fileID: 1295971600}
-  helpCamera: {fileID: 2088547012}
-  caliperCamera: {fileID: 550409921}
-  caliper: {fileID: 516024381}
-  isMainCamActive: 1
-  crosshair: {fileID: 1776058121}
-  mainCameraButton: {fileID: 1948234515}
-  panelCameraButton: {fileID: 1728962911}
-  insideCameraButton: {fileID: 137822034}
-  helpCameraButton: {fileID: 933696567}
 --- !u!4 &574679438
 Transform:
   m_ObjectHideFlags: 0
@@ -12808,7 +12784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe742b3e2b6641740a5e4907257ceace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 1045571688}
+  player: {fileID: 2115226144}
   popUps:
   - {fileID: 1076682916}
   - {fileID: 1921096964}
@@ -12879,6 +12855,33 @@ MonoBehaviour:
   clipboardImage:
   - {fileID: 21300000, guid: b89c9234e37ddf04f9ea34181a4ef1ed, type: 3}
   - {fileID: 21300000, guid: 226bfa450026f2a41a60710c7370523c, type: 3}
+--- !u!114 &574679445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574679436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a292e13222f8894e8b7a4977fc413da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameras:
+  - {fileID: 1047893779}
+  - {fileID: 1950427763}
+  - {fileID: 1295971603}
+  - {fileID: 2088547015}
+  - {fileID: 1227455793}
+  - {fileID: 550409921}
+  cameraButtons:
+  - {fileID: 1948234515}
+  - {fileID: 1728962911}
+  - {fileID: 137822034}
+  - {fileID: 933696567}
+  caliper: {fileID: 1153211534}
+  isMainCamActive: 1
+  crosshair: {fileID: 1776058121}
 --- !u!1 &578819069
 GameObject:
   m_ObjectHideFlags: 0
@@ -21751,7 +21754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6835028bd455d64ca8e5b7a48b453b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsMenu: {fileID: 1675791124}
   moveSpeed: 300
 --- !u!1 &1047893776
 GameObject:
@@ -26637,9 +26639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a8630df1e46914ea5f101428d7d4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempCamera: {fileID: 1227455793}
-  GameController: {fileID: 574679436}
-  CameraController: {fileID: 574679437}
   interactText: {fileID: 463401077}
   scrapInteraction: {fileID: 230333459}
   cleaningFeature: {fileID: 1149944383}
@@ -32334,7 +32333,6 @@ MonoBehaviour:
   clipboard: {fileID: 1723984893}
   clipboardImageSlot: {fileID: 1279054843}
   clibBoardTextSlot: {fileID: 1836265595}
-  cameraController: {fileID: 574679437}
   newPosition: {x: 83.6, y: 76.5, z: 397.9}
   newRotation: {x: 0, y: -90, z: 0}
   attachmentPoint: {fileID: 1451123884}

@@ -5,10 +5,6 @@ using System.Collections.Generic;
 
 public class RayInteractor : MonoBehaviour
 {
-    
-    public Camera tempCamera;
-    public GameObject GameController;
-    public CameraController CameraController; 
     public TextMeshProUGUI interactText;
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
@@ -25,19 +21,6 @@ public class RayInteractor : MonoBehaviour
     bool canInteractAgain = true;
     public int scrapPilesThrownIntoCorrectTrashbin = 0;
     public int scrapPilesThrownIntoWrongTrashbin = 0;
-
-    private void Start()
-    {
-        if (GameController != null)
-        {
-            // Get the CameraController script attached to the GameController object
-            CameraController = GameController.GetComponent<CameraController>();
-        }
-        else
-        {
-            Debug.LogError("GameController object not found!");
-        }
-    }
 
     private void Update()
     {
@@ -173,7 +156,7 @@ public class RayInteractor : MonoBehaviour
             if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
             {
                 interactable.Interact();
-                CameraController.ActivateCaliperCamera(tempCamera);
+                CameraController.Instance.SwitchToCamera(4);
             }
         }
     }

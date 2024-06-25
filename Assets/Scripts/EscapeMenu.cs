@@ -45,7 +45,7 @@ public class EscapeMenu : MonoBehaviour
                 return; // Return to avoid further execution of code
             }
             
-            CameraController.Instance.ActivateMainCamera(); // Activate main camera if in another camera
+            CameraController.Instance.SwitchToCamera(0); // Activate main camera if in another camera
         }
     }
 
@@ -53,7 +53,6 @@ public class EscapeMenu : MonoBehaviour
     {
         escapeMenu.SetActive(true);     // Show escape menu
         Time.timeScale = 0f;            // Pause game time
-        Cursor.visible = true;          // Show mouse cursor
         Cursor.lockState = CursorLockMode.None;
         gameIsPaused = true;
         beginningSource.Pause();        // Pausing "Beginning" audio clip
@@ -70,7 +69,6 @@ public class EscapeMenu : MonoBehaviour
         escapeMenu.SetActive(false);                // Hide escape menu
         optionsMenu.SetActive(false);               // Hide options menu
         Time.timeScale = 1;                         // Resume game
-        Cursor.visible = false;                     // Hide mouse cursor when menu is closed
         Cursor.lockState = CursorLockMode.Locked;   // Locking the cursor
         gameIsPaused = false;                       // Update game pause state
 

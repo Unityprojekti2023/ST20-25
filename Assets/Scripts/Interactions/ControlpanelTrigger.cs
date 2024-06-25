@@ -15,7 +15,7 @@ public class ControlpanelTrigger : MonoBehaviour, IInteractable
         // Change camera view to control panel camera
         if (cameraController != null && !escapeMenu.isGamePaused)
         {
-            cameraController.ActivateControlpanelCamera();
+            CameraController.Instance.SwitchToCamera(1);
         }
     }
 }

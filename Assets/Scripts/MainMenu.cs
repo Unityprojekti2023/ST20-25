@@ -9,7 +9,6 @@ public class MainMenu : MonoBehaviour
     public Toggle hideUIToggle;
 
     public void Start() {
-        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 

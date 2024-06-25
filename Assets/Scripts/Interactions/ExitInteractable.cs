@@ -9,7 +9,6 @@ public class ExitInteractable : MonoBehaviour, IInteractable
     public void Interact()
     {
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         SceneManager.LoadSceneAsync(mainMenuSceneName);
     }
 }
