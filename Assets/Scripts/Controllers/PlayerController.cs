@@ -5,131 +5,47 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("References to other scripts")]
-    CharacterController controller;
+    private CharacterController controller;
     public OptionsMenu optionsMenu;
-
-    [Header("References to Gameobjects")]
-    public Camera playerCamera;    
-    public GameObject playerModel;
-    public GameObject mainCameraButton;
-    public GameObject controlPanelCamerakButton;
-    public GameObject insideCamerakButton;
-    public GameObject helpCameraButton;
+    private Transform cameraTransform; // Reference to the main camera's transform
 
     [Header("Other values")]
-    public float moveSpeed = 200.0f;
-    public float maxYRotation = 80.0f;
-    private float rotationX = 0;
+    public float moveSpeed = 5.0f;
     private bool canMove = true;
-
-
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        controller = GetComponentInChildren<CharacterController>();
 
-        playerModel = GameObject.FindWithTag("PlayerModel");
-
-        //Hide camera switch buttons from UI
-        mainCameraButton.SetActive(false);
-        controlPanelCamerakButton.SetActive(false);
-        insideCamerakButton.SetActive(false);
-        helpCameraButton.SetActive(false);
+        // Assuming the main camera is tagged as "MainCamera"
+        cameraTransform = Camera.main.transform;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (!EscapeMenu.GameIsPaused && CameraController.Instance != null)
-        {
-            if (CameraController.Instance.isMainCamActive)
-            {
-                if (canMove)
-                {
-                    HandlePlayerInput();
-                    HideCursor();
-                }
-                else
-                {
-                    ShowCursor();
-                }
-            }
-            else
-            {
-                ShowCursor();
-            }
-        }
+            HandlePlayerMovement();
     }
 
-    void HandlePlayerInput()
+    void HandlePlayerMovement()
     {
-        float mouseX = Input.GetAxis("Mouse X") * optionsMenu.GetSensitivity();
-        float mouseY = Input.GetAxis("Mouse Y") * optionsMenu.GetSensitivity();
+        float moveDirectionY = Input.GetAxis("Vertical") * moveSpeed;
+        float moveDirectionX = Input.GetAxis("Horizontal") * moveSpeed;
 
-        transform.Rotate(0, mouseX, 0);
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
 
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -maxYRotation, maxYRotation);
+        forward.y = 0; // Ensure vertical movement is zeroed out
 
-        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        //Vector3 move = (forward.normalized * moveDirectionY + right.normalized * moveDirectionX).normalized;
+        Vector3 move = forward.normalized * moveDirectionY + right.normalized * moveDirectionX;
+        //Vector3 move = transform.right * moveDirectionX + transform.forward * moveDirectionY;
 
-        float moveForward = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
-        float moveSideways = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-
-        Vector3 move = transform.forward * moveForward + transform.right * moveSideways;
-        controller.Move(move);
-    }
-
-    void ShowCursor()
-    {
-        mainCameraButton.SetActive(true);
-        controlPanelCamerakButton.SetActive(true);
-        insideCamerakButton.SetActive(true);
-        helpCameraButton.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    void HideCursor()
-    {
-        mainCameraButton.SetActive(false);
-        controlPanelCamerakButton.SetActive(false);
-        insideCamerakButton.SetActive(false);
-        helpCameraButton.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Apply movement to the character controller
+        controller.Move(move * Time.fixedDeltaTime);
     }
 
     public void ToggleMovement(bool canMove)
     {
         this.canMove = canMove;
-    }
-
-    // Method to show the player model
-    public void ShowPlayerModel()
-    {
-        if (playerModel != null)
-        {
-            Renderer[] renderers = playerModel.GetComponentsInChildren<Renderer>(true);
-
-            foreach (Renderer renderer in renderers)
-            {
-                renderer.enabled = true;
-            }
-        }
-    }
-
-    // Method to hide the player model
-    public void HidePlayerModel()
-    {
-        if (playerModel != null)
-        {
-            Renderer[] renderers = playerModel.GetComponentsInChildren<Renderer>(true);
-
-            foreach (Renderer renderer in renderers)
-            {
-                renderer.enabled = false;
-            }
-        }
     }
 }

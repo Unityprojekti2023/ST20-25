@@ -9,7 +9,7 @@ public class OptionsMenu : MonoBehaviour
     public TextMeshProUGUI sensitivityValueText;
 
     [Header("Mouse sensitivity default value")]
-    private float sensitivityValue = 2.0f;
+    public float mouseSensitivity = 2.0f;
 
 
     // Define a key for PlayerPrefs
@@ -17,30 +17,25 @@ public class OptionsMenu : MonoBehaviour
     void Start()
     {
         // Load sensitivity value from PlayerPrefs, use default if not found
-        sensitivityValue = PlayerPrefs.GetFloat(sensitivityKey, 2.0f);
+        mouseSensitivity = PlayerPrefs.GetFloat(sensitivityKey, 8.0f);
 
-        sensitivitySlider.value = sensitivityValue;
+        sensitivitySlider.value = mouseSensitivity;
         sensitivitySlider.onValueChanged.AddListener(OnSensitivityValueChanged);
         UpdateSensitivityText();
     }
 
     void OnSensitivityValueChanged(float value)
     {
-        sensitivityValue = value;
+        mouseSensitivity = value;
         UpdateSensitivityText();
 
         // Save sensitivity value to PlayerPrefs
-        PlayerPrefs.SetFloat(sensitivityKey, sensitivityValue);
+        PlayerPrefs.SetFloat(sensitivityKey, mouseSensitivity);
         PlayerPrefs.Save();
-    }
-
-    public float GetSensitivity()
-    {
-        return sensitivityValue;
     }
 
     void UpdateSensitivityText()
     {
-        sensitivityValueText.text = sensitivityValue.ToString("F1"); // Display one decimal place
+        sensitivityValueText.text = mouseSensitivity.ToString("F1"); // Display one decimal place
     }
 }

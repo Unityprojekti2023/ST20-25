@@ -9,9 +9,8 @@ public class ItemPickup : MonoBehaviour, IInteractable
     private GameObject topItem;
     private GameObject heldItem;
 
-    public string itemID = "UncutItem";
+    public string itemID;
     public bool isUncutItemAlreadyInInventory = false;
-    public bool isAnItemActiveAlready = false;
 
     [Header("References to other objects")]
     public Transform attachmentPoint;
@@ -23,23 +22,18 @@ public class ItemPickup : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+
+        // Get the top item from the pile
+        topItem = transform.GetChild(transform.childCount - 1).gameObject;
+
         // Check if there are still items in the pile
-        if (transform.childCount > 0 && !InventoryManager.Instance.CheckHands())
+        if (transform.childCount > 0 && !InventoryManager.Instance.CheckIfHandsFull())
         {
             // Check if material is correct
             string currentMaterial = taskManager.GetCurrentMaterialName();
 
-            // Get the top item from the pile
-            topItem = transform.GetChild(transform.childCount - 1).gameObject;
-
-            isAnItemActiveAlready = true;
-
             // Add the item to the player's inventory
-            InventoryManager.Instance.AddItem(itemID, $"Item [{itemID}] picked up");
-            InventoryManager.Instance.ToggleHands();
-
-            // Instantiate the clipboard at the attachment point
-            heldItem = Instantiate(topItem, attachmentPoint.position, attachmentPoint.rotation, attachmentPoint);
+            InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up");
 
             // Hide the topItem
             topItem.SetActive(false);
@@ -62,12 +56,20 @@ public class ItemPickup : MonoBehaviour, IInteractable
         }
 
         // Place item pack into the pile if hands are full
-        else if (InventoryManager.Instance.CheckHands())
+        else if (InventoryManager.Instance.CheckIfHandsFull() && InventoryManager.Instance.HasItem(itemID))
         {
             Destroy(heldItem);
-            topItem.SetActive(true);
-            topItem = null;
-            InventoryManager.Instance.ToggleHands();
+            if (topItem != null && topItem.activeSelf == false)
+            {
+                topItem.SetActive(true);
+                topItem = null;
+
+                InventoryManager.Instance.RemoveItem(itemID, $"Item [{itemID}] removed from inventory");
+            }
+            else
+            {
+                Debug.Log("No item to place");
+            }
         }
     }
 

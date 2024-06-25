@@ -101,18 +101,6 @@ public class CameraController : MonoBehaviour
         isMainCamActive = camera == mainCamera;
 
         SetButtonInteractability(button);
-
-        if (playerController != null)
-        {
-            if (isMainCamActive)
-            {
-                playerController.ShowPlayerModel();
-            }
-            else
-            {
-                playerController.HidePlayerModel();
-            }
-        }
     }
 
     private void SetButtonInteractability(Button activeButton)

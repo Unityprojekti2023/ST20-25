@@ -37,7 +37,7 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         if (!InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp)
         {
             // Add the item to the player's inventory
-            InventoryManager.Instance.AddItem("clipboard","Item [Clipboard] picked up");
+            InventoryManager.Instance.AddItemToInventory("clipboard","Item [Clipboard] picked up");
             ObjectiveManager.Instance.CompleteObjective("Pick up the clipboard");
 
             // Instantiate the clipboard at the attachment point

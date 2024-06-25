@@ -12,11 +12,12 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (DoorController.Instance.isDoorOpen && !machineScript.isMachineActive)
+        if (!machineScript.isMachineActive)
         {
+            // Get the item ID of the item in the player's hands
             string blankInInventory = InventoryManager.Instance.HeldItemID();
-            //Check if player has uncut item in inventory
-            if (blankInInventory.Contains("aihio") && !machineScript.isUncutObjectInCuttingPosition)
+            //Check if item in players hands is blank
+            if (blankInInventory.Contains("blank") && !machineScript.isUncutObjectInCuttingPosition)
             {
                 //Check if there is not an uncut item in cutting position
                 if (!machineScript.isUncutObjectInCuttingPosition)
@@ -30,7 +31,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 //If there is uncut item in cuttin position remove it and add to players inventory
                 else if (machineScript.isUncutObjectInCuttingPosition && !itemPickup.isUncutItemAlreadyInInventory)
                 {
-                    InventoryManager.Instance.AddItem(blankInInventory, $"Item [{blankInInventory}] picked up");
+                    InventoryManager.Instance.AddItemToInventory(blankInInventory, $"Item [{blankInInventory}] picked up");
                     itemPickup.isUncutItemAlreadyInInventory = true;
 
                     machineScript.removeUncutObjectFromCuttingPosition();
@@ -46,7 +47,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
             else if (machineScript.isAnimationComplete)
             {
                 //Add cut item to player inventory
-                InventoryManager.Instance.AddItem("CutItem", "Item [Cut item] picked up");
+                InventoryManager.Instance.AddItemToInventory("CutItem", "Item [Cut item] picked up");
 
                 machineScript.removeUncutObjectFromCuttingPosition();
                 machineScript.removeCutObject1FromCuttingPosition();
@@ -59,10 +60,9 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 ObjectiveManager.Instance.CompleteObjective("Pick up cut piece");
             }
             //Check if player does not have uncut item in inventory and there is uncut item in the machine.
-            else if (!InventoryManager.Instance.CheckHands() && machineScript.isUncutObjectInCuttingPosition)
+            else if (!InventoryManager.Instance.CheckIfHandsFull() && machineScript.isUncutObjectInCuttingPosition)
             {
-                InventoryManager.Instance.AddItem("UncutItem", "Item [Uncut item] picked up");
-                InventoryManager.Instance.ToggleHands();
+                InventoryManager.Instance.AddItemToInventory("UncutItem", "Item [Uncut item] picked up");
 
                 machineScript.removeUncutObjectFromCuttingPosition();
                 machineScript.removeCutObject1FromCuttingPosition();

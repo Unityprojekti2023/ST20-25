@@ -6,7 +6,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance { get; private set; }
     private TextInformation textInfo;
     // Variable to check if hands are full
-    private bool handsFull = false;
+    public bool handsFull = false;
 
     private List<string> inventory = new();
 
@@ -27,9 +27,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(string itemID, string itemInfoText = "")
+    public void AddItemToInventory(string itemID, string itemInfoText = "")
     {
         Debug.Log("Picked item " + itemID);
+        handsFull = true;
         textInfo.UpdateText(itemInfoText);
         inventory.Add(itemID);
     }
@@ -42,6 +43,7 @@ public class InventoryManager : MonoBehaviour
     public void RemoveItem(string itemID, string itemInfoText = "")
     {
         Debug.Log("Removed item " + itemID);
+        handsFull = false;
         textInfo.UpdateText(itemInfoText);
         inventory.Remove(itemID);
     }
@@ -55,14 +57,8 @@ public class InventoryManager : MonoBehaviour
         return "";
     }
 
-    public bool CheckHands()
+    public bool CheckIfHandsFull()
     {
         return handsFull;
-    }
-
-    // Toggle handsFull
-    public void ToggleHands()
-    {
-        handsFull = !handsFull;
     }
 }

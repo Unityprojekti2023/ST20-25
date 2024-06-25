@@ -7,11 +7,8 @@ public class RayInteractor : MonoBehaviour
 {
     
     public Camera tempCamera;
-
-
     public GameObject GameController;
-    public CameraController CameraController;
-
+    public CameraController CameraController; 
     public TextMeshProUGUI interactText;
     public ScrapInteraction scrapInteraction;
     public CleaningFeature cleaningFeature;
@@ -31,7 +28,6 @@ public class RayInteractor : MonoBehaviour
 
     private void Start()
     {
-        //GameController = GameObject.FindGameObjectWithTag("GameController");
         if (GameController != null)
         {
             // Get the CameraController script attached to the GameController object
@@ -96,10 +92,10 @@ public class RayInteractor : MonoBehaviour
             case "ST20-25 Puristin":
                 HandlePlaceRemovePieceInteraction(interactable);
                 break;
-            case "AluminumBlankPile":
+            case "AluminumBlank":
                 HandleGenericInteraction(interactable, "Pick up Item: [LMB] or [E]");
                 break;
-            case "SteelBlankPile":
+            case "SteelBlank":
                 HandleGenericInteraction(interactable, "Pick up Item: [LMB] or [E]");
                 break;
             case "PlacementMat":
