@@ -12884,6 +12884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b03a739849c294485657547ac3aa1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heldItem: {fileID: 0}
+  inventoryAttachmentPoint: {fileID: 1451123884}
   handsFull: 0
 --- !u!114 &574679440
 MonoBehaviour:
@@ -14810,7 +14812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 0}
   itemID: Steel blank
   isUncutItemAlreadyInInventory: 0
   attachmentPointToHands: {fileID: 1451123884}
@@ -20709,13 +20710,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968973083}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1278, y: 1803.6, z: -1018}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalRotation: {x: 0.50000006, y: -0.50000006, z: 0.49999994, w: 0.49999994}
+  m_LocalPosition: {x: -13.7, y: 10.18, z: 18.036001}
+  m_LocalScale: {x: 0.050000004, y: 0.05000001, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 543450653333732289}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1260468833755231043}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &975829872
 GameObject:
   m_ObjectHideFlags: 0
@@ -39671,7 +39672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 0}
   itemID: Aluminum blank
   isUncutItemAlreadyInInventory: 0
   attachmentPointToHands: {fileID: 1451123884}
@@ -42410,7 +42410,6 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 968973084}
   - {fileID: 1260468833755231043}
   - {fileID: 167671342}
   - {fileID: 810514126}
@@ -43161,7 +43160,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 968973084}
   m_Father: {fileID: 543450653333732289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1267941253372098791
