@@ -8,14 +8,13 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     [Header("References to other scripts")]
     public MachineScript machineScript;
     public RawPiecePickup itemPickup;
-    public LatheRightTrigger latheRightTrigger;
-    public DrillController drillController;
     public Transform attachmentPointOfLathe;
     private string latheItemID;
 
+    //TODO: Add function to pick cut item from lathe
+
     public void Interact()
     {
-        //Check if player hands are full
         if (InventoryManager.Instance.handsFull)
         {
             //If full, check if the item in the player's hands is a blank and check if attachemnt point is empty
@@ -32,7 +31,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 Debug.Log("Player hands are full.");
             }
         }
-        // else if players hands are not full
         else if (!InventoryManager.Instance.handsFull)
         {
             //Check if attachemnt point is not empty
@@ -50,5 +48,11 @@ public class LatheInteractable : MonoBehaviour, IInteractable
         {
             Debug.Log("Player hands are not full.");
         }
+    }
+
+    // Set latheItemID to cut items
+    public void SetLatheItemID(string itemID)
+    {
+        latheItemID = itemID;
     }
 }

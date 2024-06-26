@@ -9,10 +9,6 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
     private GameObject topItem;
 
     public string itemID;
-    public bool isUncutItemAlreadyInInventory = false;
-
-    [Header("References to other objects")]
-    public Transform attachmentPointToHands;   //TODO: Add gameObject to players "hand"
 
     private void Start()
     {
@@ -76,11 +72,5 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
                 Debug.Log("No item to place");
             }
         }
-    }
-
-    // TODO: Method to be called destroy the top item in the pile when placed in the lathe
-    public void DestroyTopItem()
-    {
-        Destroy(topItem);
     }
 }

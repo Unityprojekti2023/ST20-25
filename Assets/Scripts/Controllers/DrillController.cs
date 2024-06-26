@@ -33,7 +33,7 @@ public class DrillController : MonoBehaviour
 
     void Update()
     {
-        if (machineScript.moveDrill)     
+        if (machineScript.moveDrill)
         {
             if (moveDrillLeft == true && activeCounter < targetCounter)                             // Checking if its time to move the drill left, and making sure activeCounter is less than animation1counter
             {
