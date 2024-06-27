@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class RayInteractor : MonoBehaviour
 {
+    public static RayInteractor Instance;
     public TextMeshProUGUI interactText;
     public TextInformation textInformation;
     public float interactDistance = 100f;

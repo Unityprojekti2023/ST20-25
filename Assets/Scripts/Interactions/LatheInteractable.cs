@@ -6,8 +6,6 @@ using UnityEngine;
 public class LatheInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    public MachineScript machineScript;
-    public RawPiecePickup itemPickup;
     public Transform attachmentPointOfLathe;
     private string latheItemID;
 
