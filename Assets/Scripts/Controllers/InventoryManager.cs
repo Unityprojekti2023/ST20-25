@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour
     // Variable to check if hands are full
     public bool handsFull = false;
 
-    public List<string> inventory = new(); //TODO: Does this need to be list if only 1 item can be held at a time?
+    private List<string> inventory = new(); //TODO: Does this need to be list if only 1 item can be held at a time?
 
     private void Start()
     {
@@ -80,6 +80,8 @@ public class InventoryManager : MonoBehaviour
     {
         heldItem.transform.parent = attachmentPoint;
         heldItem.transform.localPosition = Vector3.zero;
+
+        heldItem.transform.localRotation = Quaternion.identity;
 
         // Set the heldItem to active to make sure it is visible
         heldItem.SetActive(true);

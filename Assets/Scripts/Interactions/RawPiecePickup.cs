@@ -23,16 +23,13 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
         // Check if there are still items in the pile and the player's hands are not full
         if (transform.childCount > 0 && !InventoryManager.Instance.handsFull)
         {
+            // Instantiate the item in the player's hands
+            GameObject item = Instantiate(topItem);
             // Add the item to the player's inventory
-            InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up");
+            InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up",item);
 
             // Hide the topItem
             topItem.SetActive(false);
-
-            // Instantiate the item in the player's hands
-            // TODO: Is there better way to make Instantiate and use it in AddItemToInventory?
-            InventoryManager.Instance.heldItem = Instantiate(topItem);
-
 
             // TODO: Is there better logic for checking if the picked blank was correct material? By name containing Directory Key of the material from taskManager?
             Renderer itemRenderer = topItem.GetComponent<Renderer>();

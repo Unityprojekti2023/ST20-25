@@ -5,6 +5,7 @@ using UnityEngine;
 public class LatheController : MonoBehaviour
 {
     public LatheTimelineController timelineController;
+    public MistakeGenerator mistakeGenerator;
     public Transform attachmentPoint;
     public GameObject[] cutItemPrefabs;
     public Dictionary<string, GameObject> cutItems = new();
@@ -41,22 +42,21 @@ public class LatheController : MonoBehaviour
 
         if (attachmentPoint.childCount > 0)
         {
-            Material originalMaterial = attachmentPoint.GetChild(0).GetComponent<Renderer>()?.material;
-            if (originalMaterial != null)
+            // Set material of the cut item to match the material of the uncut item
+            ChangeMaterial(selectedPrefab);
+
+            // Generate mistakes on the cut item
+            // TODO: Does this need to be reversable incase want to be able to cut multiple items in one playthrough?
+            // 50% chance to generate mistake
+            if (Random.Range(0, 0) == 0)
             {
-                foreach (Transform child in selectedPrefab.transform)
-                {
-                    Renderer childRenderer = child.GetComponent<Renderer>();
-                    if (childRenderer != null)
-                    {
-                        childRenderer.material = originalMaterial;
-                    }
-                }
+                Debug.Log("Generating mistakes");
+                GenerateMistake(selectedPrefab);
             }
 
             // Instantiate the cut item and set it as a child of the attachment
             GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
-        
+
             // Set intantiated cut items position and rotation of the uncut item
             instantiatedCutItem.transform.localPosition = Vector3.zero;
             instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
@@ -72,6 +72,38 @@ public class LatheController : MonoBehaviour
         else
         {
             Debug.LogError("Attachment point does not contain any item.");
+        }
+    }
+
+    private void GenerateMistake(GameObject item)
+    {
+
+        Transform[] allParts = item.transform.GetComponentsInChildren<Transform>();
+        List<Transform> parts = new();
+        foreach (Transform part in allParts)
+        {
+            if (part.name.Contains("Cylinder"))
+            {
+                parts.Add(part);
+            }
+        }
+
+        mistakeGenerator.GenerateMistakes(parts.ToArray());
+    }
+
+    private void ChangeMaterial(GameObject gameObject)
+    {
+        Material originalMaterial = attachmentPoint.GetChild(0).GetComponent<Renderer>()?.material;
+        if (originalMaterial != null)
+        {
+            foreach (Transform child in gameObject.transform)
+            {
+                Renderer childRenderer = child.GetComponent<Renderer>();
+                if (childRenderer != null)
+                {
+                    childRenderer.material = originalMaterial;
+                }
+            }
         }
     }
 

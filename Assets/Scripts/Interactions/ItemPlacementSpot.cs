@@ -4,48 +4,35 @@ using UnityEngine;
 
 public class ItemPlacementSpot : MonoBehaviour, IInteractable
 {
-    public string requiredItemID = "CutItem"; // The item ID required for placement
     public TextInformation textInfo;
-    public EscapeMenu escapeMenu;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
-    public RawPiecePickup itemPickup;
-
-    public GameObject hiddenItem;
-    public GameObject hiddenItem2;
-    public GameObject hiddenItemMalfunction;
-    public GameObject hiddenItem2Malfunction;
-
-    public MistakeGenerator mistakeGenerator;
+    private RayInteractor rayInteractor;
+    public Transform attachemntPoint;
 
     private void Start()
     {
-        hiddenItem.SetActive(false);
-        hiddenItem2.SetActive(false);
-        hiddenItemMalfunction.SetActive(false);
-        hiddenItem2Malfunction.SetActive(false);
+        rayInteractor = FindObjectOfType<RayInteractor>();
+        if (rayInteractor == null)
+        {
+            Debug.LogError("RayInteractor script not found.");
+        }
     }
 
     public void Interact()
     {
-        //TODO: Takes this to lathe controller
-        // This will generate mistake always when the item is placed on the spot
-        hiddenItem.SetActive(true);
-        Transform[] allParts = hiddenItem.transform.GetComponentsInChildren<Transform>();
-        List<Transform> parts = new();
-        foreach (Transform part in allParts)
+        // Get item from the player's hands
+        string heldItem = InventoryManager.Instance.GetHeldItemID();
+
+        if (heldItem.Contains("cut") && attachemntPoint.childCount == 0)
         {
-            if (part.name.Contains("Cylinder"))
-            {
-                parts.Add(part);
-            }
+            // Remove item from player's hands
+            InventoryManager.Instance.RemoveItem(heldItem, $"Item [{heldItem}] removed", attachemntPoint);
+
+            textInfo.UpdateText("Item [Cut item] removed");
+            ObjectiveManager.Instance.CompleteObjective("Place cut piece on the table");
         }
-
-        mistakeGenerator.GenerateMistakes(parts.ToArray());
-
-        textInfo.UpdateText("Item [Cut item 1] removed");
-        //InventoryManager.Instance.RemoveItem("CutItem", "Item [Cut item 1] removed");
-        mouseControlPanelInteractable.whichCutItemWasLathed = " ";
-        //itemPickup.isUncutItemAlreadyInInventory = false;
-        ObjectiveManager.Instance.CompleteObjective("Place cut piece on the table");
+        else
+        {
+            Debug.Log("Player hands are full.");
+        }
     }
 }
