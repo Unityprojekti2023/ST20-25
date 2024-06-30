@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
+    private RayInteractor rayInteractor; // Reference to the ray interactor
     private Animator doorAnimator; // Reference to the door animator
     public AudioSource audioSource; // Reference to the audio source
     public AudioClip openingSound; // Reference to the door sound
@@ -11,6 +12,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     void Start()
     {
+        // Find the RayInteractor script in the scene
+        rayInteractor = FindObjectOfType<RayInteractor>();
+        if(audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+        // Get the Animator component
         doorAnimator = GetComponent<Animator>();
     }
 
@@ -19,13 +27,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         //Check if door is open and no animation is playing
         if (isDoorOpen && !IsAnimationPlaying())
         {
-            Debug.Log("Closing door");
             CloseDoor();
+            rayInteractor.UpdateInteractionText(transform.name,"Open door: [LMB] or [E]");
         }
         else if (!isDoorOpen && !IsAnimationPlaying())
         {
-            Debug.Log("Opening door");
             OpenDoor();
+            rayInteractor.UpdateInteractionText(transform.name,"Close door: [LMB] or [E]");
         }
     }
 

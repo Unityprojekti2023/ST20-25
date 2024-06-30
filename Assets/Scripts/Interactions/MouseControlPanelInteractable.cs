@@ -94,7 +94,6 @@ public class MouseControlPanelInteractable : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse button pressed on control panel!");
                 Ray ray = cameraControlPanel.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 int layer_mask = LayerMask.GetMask("ControlPanelLayer");
@@ -472,7 +471,8 @@ public class MouseControlPanelInteractable : MonoBehaviour
                     case ControlPanelState.SelectProgramPressed:
                         if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Program"))
                         {
-                            latheController.SetSelectedProgram("SH_1001", controlPanelAnimations.GetProgramSpriteIndex());
+                            // Set the selected animation, object and material to the lathe
+                            latheController.SetSelectedProgram(controlPanelAnimations.GetProgramSpriteIndex());
                             isProgramSelected = true;   //TODO: Is there any otherway to check if program is selected?
 
                             ObjectiveManager.Instance.CompleteObjective("Select a program");

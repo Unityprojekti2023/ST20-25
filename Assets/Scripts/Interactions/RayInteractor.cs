@@ -1,11 +1,9 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
 using System.Collections.Generic;
 
 public class RayInteractor : MonoBehaviour
 {
-    public static RayInteractor Instance;
     public TextMeshProUGUI interactText;
     public TextInformation textInformation;
     public float interactDistance = 100f;
@@ -20,9 +18,9 @@ public class RayInteractor : MonoBehaviour
         // Initialize the dictionary with object names and corresponding actions
         interactableActions = new Dictionary<string, System.Action<IInteractable>>
         {
-            { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open/Close door: [LMB] or [E]")},
+            { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open door: [LMB] or [E]")},
             { "ControlpanelTrigger", interactable => HandleInteraction(interactable, "Inspect panel: [LMB] or [E]") },
-            { "ST20-25 Puristin", interactable => HandleInteraction(interactable, "Pick up item: [LMB] or [E]")},
+            { "AttachmentPointLathe", interactable => HandleInteraction(interactable, "Place item: [LMB] or [E]")},
             { "AluminumBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
             { "SteelBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
             { "PlacementMat", interactable => HandleInteraction(interactable, "Place Item: [LMB] or [E]") },
@@ -103,6 +101,15 @@ public class RayInteractor : MonoBehaviour
         else
         {
             ResetHoldTimer();
+        }
+    }
+
+    //Update interaction text of specific string Key in the dictionary
+    public void UpdateInteractionText(string key, string text)
+    {
+        if (interactableActions.ContainsKey(key))
+        {
+            interactableActions[key] = interactable => HandleInteraction(interactable, text);
         }
     }
 

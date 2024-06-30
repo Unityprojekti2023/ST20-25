@@ -25,26 +25,70 @@ public class LatheController : MonoBehaviour
     }
 
     // Instantiate a cut item by its sprite at the same spot as the original item
-    public void SetSelectedProgram(string sprite, int selectedProgramIndex)
+    public void SetSelectedProgram(int selectedProgramIndex)
     {
-        // Set current timeline
-        timelineController.currentTimeline = selectedProgramIndex;
-
-        // Instantiate cut item
-        //GameObject cutItem = Instantiate(cutItems[sprite], attachmentPoint.position, Quaternion.identity);
-        //cutItem.transform.parent = attachmentPoint;
-        // Show the cut item of the selected program
-        cutItemPrefabs[selectedProgramIndex].SetActive(true);
-
-        // Set material to all cut items children from the uncut item
-        foreach (Transform child in  cutItemPrefabs[selectedProgramIndex].transform)
+        if (selectedProgramIndex < 0 || selectedProgramIndex >= cutItemPrefabs.Length)
         {
-            child.GetComponent<Renderer>().material = attachmentPoint.GetChild(0).GetComponent<Renderer>().material;
+            Debug.LogError("Selected program index is out of bounds.");
+            return;
         }
 
-        // Destroy the uncut item
-        Destroy(attachmentPoint.GetChild(0).gameObject);
-        // Show the cut item
-        attachmentPoint.GetChild(0).gameObject.SetActive(true);
+        // Set current timeline
+        timelineController.currentTimeline = selectedProgramIndex;
+        GameObject selectedPrefab = cutItemPrefabs[selectedProgramIndex];
+        // Show the selected cut item prefab
+        selectedPrefab.SetActive(true);
+
+        if (attachmentPoint.childCount > 0)
+        {
+            Material originalMaterial = attachmentPoint.GetChild(0).GetComponent<Renderer>()?.material;
+            if (originalMaterial != null)
+            {
+                foreach (Transform child in selectedPrefab.transform)
+                {
+                    Renderer childRenderer = child.GetComponent<Renderer>();
+                    if (childRenderer != null)
+                    {
+                        childRenderer.material = originalMaterial;
+                    }
+                }
+            }
+
+            // Instantiate the cut item and set it as a child of the attachment
+            GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
+        
+            // Set intantiated cut items position and rotation of the uncut item
+            instantiatedCutItem.transform.localPosition = Vector3.zero;
+            instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
+
+            // Destroy outelayer objects of instantiated cut item
+            RemoveOuterLayers(instantiatedCutItem);
+
+            // Destroy the uncut item
+            Destroy(attachmentPoint.GetChild(0).gameObject);
+            // Hide instantiated cut item
+            instantiatedCutItem.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Attachment point does not contain any item.");
+        }
+    }
+
+    private void RemoveOuterLayers(GameObject item)
+    {
+        foreach (Transform child in item.transform)
+        {
+            if (child.name.Contains("Outer"))
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    // Hide the shown cut item prefab
+    public void HideCutItem()
+    {
+        cutItemPrefabs[timelineController.currentTimeline].SetActive(false);
     }
 }

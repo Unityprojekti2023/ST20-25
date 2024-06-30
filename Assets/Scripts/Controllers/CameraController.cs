@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class CameraController : MonoBehaviour
 
     [Header("References to other gameobjects")]
     public GameObject crosshair;
+    public TextMeshProUGUI scoreText;
 
 
     void Awake()
@@ -60,6 +62,9 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        // Show the score text
+        scoreText.gameObject.SetActive(true);
+
         // Deactivate the current camera
         cameras[activeCameraIndex].gameObject.SetActive(false);
 
@@ -103,6 +108,9 @@ public class CameraController : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
             crosshair.SetActive(false);
+
+            // Hide the score text
+            scoreText.gameObject.SetActive(false);
 
             // Set buttons interactable
             SetButtonInteractability(cameraButtons[index]);
