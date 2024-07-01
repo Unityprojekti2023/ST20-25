@@ -6,19 +6,17 @@ using UnityEngine;
 
 public class CaliperController : MonoBehaviour
 {
-    public GameObject caliper;
-    public TextMeshPro measurementText; // Use Text if using Unity UI
-    private bool isCaliperAttached = false;
-    private Vector3 offset;
-    private Vector3 startPoint;
-    private Vector3 endPoint;
-    private bool isMeasuring = false;
-
+    [Header("References to other gameobjects")]
     public Camera caliperCamera;
+    public TextMeshPro measurementText; // Use Text if using Unity UI
+    public GameObject caliper;
     private GameObject slidingParts;
+    private bool isCaliperAttached = false;
+    private bool isCaliperRotated = false;
+    private Vector3 offset;
+    private Vector3 slidingPartStartPosition;
 
     // Store the initial local position of the sliding part
-    private Vector3 slidingPartStartPosition;
 
 
     void Start()
@@ -46,6 +44,18 @@ public class CaliperController : MonoBehaviour
         // If the caliper is attached to the mouse, update its position
         if (isCaliperAttached)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //Rotate caliper between vertical and horizontal
+                RotateCaliper();
+            }
+
+            // Detach the caliper if the right mouse button is clicked
+            if (Input.GetMouseButtonDown(1))
+            {
+                isCaliperAttached = !isCaliperAttached;
+            }
+
             float scrollInput = Input.GetAxis("Mouse ScrollWheel"); // mouse scroll input
             Vector3 newPosition = slidingParts.transform.localPosition + 0.5f * scrollInput * Vector3.right;
             newPosition.x = Mathf.Clamp(newPosition.x, -7.8f, 0f);
@@ -83,7 +93,22 @@ public class CaliperController : MonoBehaviour
         // Calculate the distance between the sliding part's current position and the start position
         float distance = Vector3.Distance(slidingPartStartPosition, slidingParts.transform.localPosition);
         // Convert the distance to millimeters (if needed) and update the TextMeshPro or UI Text
-        
+
         measurementText.text = $"{distance * 10:F2}";
+    }
+
+    void RotateCaliper()
+    {
+        isCaliperRotated = !isCaliperRotated;
+
+        // Handle the rotation of the caliper between vertical and horizontal
+        if (isCaliperRotated)
+        {
+            caliper.transform.localRotation = Quaternion.Euler(270f, 270f, 0);
+        }
+        else
+        {
+            caliper.transform.localRotation = Quaternion.Euler(270f, 0, 0);
+        }
     }
 }
