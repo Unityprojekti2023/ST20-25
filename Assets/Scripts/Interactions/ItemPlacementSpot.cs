@@ -25,14 +25,17 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         if (heldItem.Contains("cut") && attachemntPoint.childCount == 0)
         {
             // Remove item from player's hands
-            InventoryManager.Instance.RemoveItem(heldItem, $"Item [{heldItem}] removed", attachemntPoint);
-
-            textInfo.UpdateText("Item [Cut item] removed");
+            InventoryManager.Instance.RemoveItemFromInventory(heldItem, $"Item [{heldItem}] removed", attachemntPoint);
             ObjectiveManager.Instance.CompleteObjective("Place cut piece on the table");
+        }
+        else if(heldItem.Contains("Caliper"))
+        {
+            Debug.Log("Switching to caliper camera");
+            CameraController.Instance.SwitchToCamera(4);
         }
         else
         {
-            Debug.Log("Player hands are full.");
+            Debug.Log("Couldn't place or switch camera");
         }
     }
 }

@@ -22,6 +22,28 @@ public class LatheController : MonoBehaviour
     // Play the timeline
     public void PlayTimeline()
     {
+        GameObject selectedPrefab = cutItemPrefabs[timelineController.currentTimeline];
+
+        // Generate mistakes on the cut item
+        // TODO: Does this need to be reversable incase player switches programs?
+        // 50% chance to generate mistake
+        if (Random.Range(0, 0) == 0)
+        {
+            Debug.Log("Generating mistakes");
+            GenerateMistake(selectedPrefab);
+        }
+
+        // Instantiate the cut item and set it as a child of the attachment
+        GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
+
+        // Set intantiated cut items position and rotation of the uncut item
+        instantiatedCutItem.transform.localPosition = Vector3.zero;
+        instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
+
+        // Destroy outelayer objects of instantiated cut item
+        RemoveOuterLayers(instantiatedCutItem);
+        // Hide instantiated cut item
+        instantiatedCutItem.SetActive(false);
         timelineController.PlayTimeline();
     }
 
@@ -45,29 +67,8 @@ public class LatheController : MonoBehaviour
             // Set material of the cut item to match the material of the uncut item
             ChangeMaterial(selectedPrefab);
 
-            // Generate mistakes on the cut item
-            // TODO: Does this need to be reversable incase want to be able to cut multiple items in one playthrough?
-            // 50% chance to generate mistake
-            if (Random.Range(0, 0) == 0)
-            {
-                Debug.Log("Generating mistakes");
-                GenerateMistake(selectedPrefab);
-            }
-
-            // Instantiate the cut item and set it as a child of the attachment
-            GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
-
-            // Set intantiated cut items position and rotation of the uncut item
-            instantiatedCutItem.transform.localPosition = Vector3.zero;
-            instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
-
-            // Destroy outelayer objects of instantiated cut item
-            RemoveOuterLayers(instantiatedCutItem);
-
             // Destroy the uncut item
             Destroy(attachmentPoint.GetChild(0).gameObject);
-            // Hide instantiated cut item
-            instantiatedCutItem.SetActive(false);
         }
         else
         {

@@ -1,7 +1,11 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-
+public enum InteractableType
+{
+    HandleInteraction,
+    HandleHoldInteraction
+}
 public class RayInteractor : MonoBehaviour
 {
     public TextMeshProUGUI interactText;
@@ -30,7 +34,7 @@ public class RayInteractor : MonoBehaviour
             { "Carcass", interactable => HandleHoldInteraction(interactable, "Hold to put shoes on: [LMB] or [E]") },
             { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to put safetyglasses on: [LMB] or [E]") },
             { "Shovel", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
-            { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to equip caliper: [LMB] or [E]") }
+            { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to pickup caliper: [LMB] or [E]") }
         };
     }
 
@@ -76,6 +80,26 @@ public class RayInteractor : MonoBehaviour
         }
     }
 
+    //Update interaction text of specific string Key in the dictionary
+    public void UpdateInteractionText(string key, string text, InteractableType interactableType = InteractableType.HandleInteraction)
+    {
+        if (interactableActions.ContainsKey(key))
+        {
+            switch (interactableType)
+            {
+                case InteractableType.HandleInteraction:
+                    interactableActions[key] = interactable => HandleInteraction(interactable, text);
+                    break;
+                case InteractableType.HandleHoldInteraction:
+                    interactableActions[key] = interactable => HandleHoldInteraction(interactable, text);
+                    break;
+                default:
+                    Debug.LogError("Invalid InteractableType");
+                    break;
+            }
+        }
+    }
+
     private void HandleInteraction(IInteractable interactable, string text)
     {
         ShowInteractText(text);
@@ -104,15 +128,6 @@ public class RayInteractor : MonoBehaviour
         }
     }
 
-    //Update interaction text of specific string Key in the dictionary
-    public void UpdateInteractionText(string key, string text)
-    {
-        if (interactableActions.ContainsKey(key))
-        {
-            interactableActions[key] = interactable => HandleInteraction(interactable, text);
-        }
-    }
-
     private void ResetHoldTimer()
     {
         currentHoldTime = 0f;
@@ -126,7 +141,6 @@ public class RayInteractor : MonoBehaviour
 
     private void HideInteractText()
     {
-        ResetHoldTimer(); // Reset the timer when hiding the text
         interactText.gameObject.SetActive(false);
     }
 }

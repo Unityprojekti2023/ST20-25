@@ -39,7 +39,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
         {
             //If full, check if the item in the player's hands is a blank and check if attachemnt point is empty
             string heldItem = InventoryManager.Instance.GetHeldItemID();
-            Debug.Log(heldItem + " is in player's hands.");
 
             if (heldItem.Contains("blank") || heldItem.Contains("cut") && attachmentPointOfLathe.childCount == 0)
             {
@@ -47,7 +46,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 latheItemID = InventoryManager.Instance.GetHeldItemID();
 
                 // Remove item from player's hands
-                InventoryManager.Instance.RemoveItem(latheItemID, $"Item [{latheItemID}] removed", attachmentPointOfLathe);
+                InventoryManager.Instance.RemoveItemFromInventory(latheItemID, $"Item [{latheItemID}] removed", attachmentPointOfLathe);
                 // Update the text information
                 rayInteractor.UpdateInteractionText(transform.name, "Pickup item: [LMB] or [E]");
             }

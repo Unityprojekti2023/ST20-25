@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     [Header("References to other gameobjects")]
     public GameObject crosshair;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI objectiveText;
 
 
     void Awake()
@@ -63,7 +64,7 @@ public class CameraController : MonoBehaviour
         }
 
         // Show the score text
-        scoreText.gameObject.SetActive(true);
+        scoreText.gameObject.SetActive(false);
 
         // Deactivate the current camera
         cameras[activeCameraIndex].gameObject.SetActive(false);
@@ -88,9 +89,12 @@ public class CameraController : MonoBehaviour
         }
         // Check if active camera is Caliper Camera
         // TODO: Is there smarter way to do this?
-        else if (index == 5 || index == 6)
+        else if (index == 4)
         {
             Debug.Log("Caliper Camera Active");
+
+            // Hide Objective text
+            objectiveText.gameObject.SetActive(false);
 
             // Show only first button
             cameraButtons[0].gameObject.SetActive(true);

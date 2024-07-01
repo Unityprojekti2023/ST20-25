@@ -63,7 +63,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
                 topItem.SetActive(true);
                 topItem = null;
 
-                InventoryManager.Instance.RemoveItem(itemID, $"Item [{itemID}] removed from inventory");
+                InventoryManager.Instance.RemoveItemFromInventory(itemID, $"Item [{itemID}] removed from inventory");
             }
             else
             {

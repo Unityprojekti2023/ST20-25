@@ -32,7 +32,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
                 child.gameObject.SetActive(true);
             }
         }
-        InventoryManager.Instance.RemoveItem("clipboard", "Item [Clipboard] removed from inventory");
+        InventoryManager.Instance.RemoveItemFromInventory("clipboard", "Item [Clipboard] removed from inventory");
         //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); // TODO: Enable later when the objective is added
 
         // Disable the clipboard's collider from messing with raycasts

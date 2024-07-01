@@ -21,7 +21,6 @@ public class CaliperController : MonoBehaviour
         {
             playerCaliper.SetActive(true);                                  
             tableCaliber.SetActive(false);
-            ObjectiveManager.Instance.CompleteObjective("Equip caliper");
         }
         else if (!rayInteractor.caliperEquipped)  
         {

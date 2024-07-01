@@ -16,6 +16,10 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         textInfo = FindObjectOfType<TextInformation>();
+        if (textInfo == null)
+        {
+            Debug.LogError("TextInformation script not found.");
+        }
     }
 
     private void Awake()
@@ -52,7 +56,7 @@ public class InventoryManager : MonoBehaviour
         return inventory.Contains(itemID);
     }
 
-    public void RemoveItem(string itemID, string itemInfoText = "", Transform transform = null)
+    public void RemoveItemFromInventory(string itemID, string itemInfoText = "", Transform transform = null)
     {
         if (transform != null)
         {
