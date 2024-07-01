@@ -25,20 +25,12 @@ public class GameController : MonoBehaviour
     public int numberofStages = 9;
     public bool canDisplayNotes = false;
 
-
-    //Testing stuff
-    private Animator anim;
-
-
     [Header("Clipboard image")]
     //Array of materials for clipboard image
     public Sprite[] clipboardImage;
 
     void Start()
     {
-        //TESTING ANITMATOR
-        anim = GetComponent<Animator>();
-
         //Hide end score UI
         if (endScreenUI != null)
         {
@@ -75,12 +67,6 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        //TESTING ANIMATOR
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            anim.SetTrigger("StartLathe");
-        }
-
         // Check if all objectives are completed for the current stage
         if (ObjectiveManager.Instance.AreAllObjectivesCompleted())
         {

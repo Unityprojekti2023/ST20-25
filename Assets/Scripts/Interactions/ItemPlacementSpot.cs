@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemPlacementSpot : MonoBehaviour, IInteractable
 {
+    private CaliperController caliperController;
     public TextInformation textInfo;
     private RayInteractor rayInteractor;
     public Transform attachemntPoint;
@@ -14,6 +15,11 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         if (rayInteractor == null)
         {
             Debug.LogError("RayInteractor script not found.");
+        }
+        caliperController = FindObjectOfType<CaliperController>();
+        if (caliperController == null)
+        {
+            Debug.LogError("CaliperController script not found.");
         }
     }
 
@@ -32,6 +38,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         {
             Debug.Log("Switching to caliper camera");
             CameraController.Instance.SwitchToCamera(4);
+            caliperController.ToggleCaliperAttachment();
         }
         else
         {
