@@ -84,6 +84,7 @@ public class RayInteractor : MonoBehaviour
 
     private void HandleInteractionRays(string targetName, IInteractable interactable)
     {
+        // If key contains any part of the target name, show the interaction text
         if (interactableActions.ContainsKey(targetName))
         {
             interactableActions[targetName](interactable);

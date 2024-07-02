@@ -34,7 +34,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 1:
                             latheMiddleTrigger.movePartiallyCutObject1 = false;
-                            cleaningFeature.ShowScrapPile1();
+                            cleaningFeature.ShowScrapPile(0);
                         break;
 
                         case 2:
@@ -43,7 +43,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 3:
                             latheMiddleTrigger.movePartiallyCutObject3 = false;
-                            cleaningFeature.ShowScrapPile2();
+                            cleaningFeature.ShowScrapPile(1);
                         break;
 
                         case 4:
@@ -52,7 +52,7 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 5:
                             latheMiddleTrigger.movePartiallyCutObject5 = false;
-                            cleaningFeature.ShowScrapPile3();
+                            cleaningFeature.ShowScrapPile(2);
                             drillController.moveLatheUp = true;
                             drillController.moveLatheDown = false;
                         break;
@@ -68,17 +68,17 @@ public class LatheLeftTrigger : MonoBehaviour
 
                         case 1:
                             latheMiddleTrigger.movePartiallyCutObject1 = false;
-                            cleaningFeature.ShowScrapPile1();
+                            cleaningFeature.ShowScrapPile(0);
                         break;
 
                         case 2:
                             latheMiddleTrigger.movePartiallyCutObject3 = false;
-                            cleaningFeature.ShowScrapPile2();
+                            cleaningFeature.ShowScrapPile(1);
                         break;
 
                         case 3:
                             latheMiddleTrigger.movePartiallyCutObject5 = false;
-                            cleaningFeature.ShowScrapPile3();
+                            cleaningFeature.ShowScrapPile(2);
                             drillController.moveLatheUp = true;
                             drillController.moveLatheDown = false;
                         break;

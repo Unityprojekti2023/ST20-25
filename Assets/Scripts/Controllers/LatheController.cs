@@ -29,7 +29,7 @@ public class LatheController : MonoBehaviour
         // Generate mistakes on the cut item
         // TODO: Does this need to be reversable incase player switches programs?
         // 50% chance to generate mistake
-        if (Random.Range(0, 0) == 0)
+        if (Random.Range(0, 2) == 0)
         {
             Debug.Log("Generating mistakes");
             GenerateMistake(selectedPrefab);
@@ -101,8 +101,7 @@ public class LatheController : MonoBehaviour
         {
             foreach (Transform child in gameObject.transform)
             {
-                Renderer childRenderer = child.GetComponent<Renderer>();
-                if (childRenderer != null)
+                if (child.TryGetComponent<Renderer>(out var childRenderer))
                 {
                     childRenderer.material = originalMaterial;
                 }
