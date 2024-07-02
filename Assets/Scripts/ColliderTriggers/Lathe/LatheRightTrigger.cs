@@ -7,7 +7,7 @@ public class LatheRightTrigger : MonoBehaviour
     [Header("References to other scripts")]
     public DrillController drillController;
     public MachineScript machineScript;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public ControlPanelInteractable mouseControlPanelInteractable;
     public RayInteractor rayInteractor;
     public LatheSoundFX latheSoundFX;
 

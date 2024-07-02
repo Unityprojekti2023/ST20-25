@@ -102,6 +102,7 @@ public class CameraController : MonoBehaviour
             cameraButtons[0].gameObject.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+
             crosshair.SetActive(false);
         }
         else

@@ -7,7 +7,6 @@ using UnityEngine;
 public class LatheInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
-    private RayInteractor rayInteractor;
     private LatheController latheController;
     public Transform attachmentPointOfLathe;
     private string latheItemID;
@@ -20,13 +19,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
         if (latheController == null)
         {
             Debug.LogError("LatheController script not found.");
-        }
-
-        // Find the RayInteractor script in the scene
-        rayInteractor = FindObjectOfType<RayInteractor>();
-        if (rayInteractor == null)
-        {
-            Debug.LogError("RayInteractor script not found.");
         }
     }
 
@@ -48,7 +40,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 // Remove item from player's hands
                 InventoryManager.Instance.RemoveItemFromInventory(latheItemID, $"Item [{latheItemID}] removed", attachmentPointOfLathe);
                 // Update the text information
-                rayInteractor.UpdateInteractionText(transform.name, "Pickup item: [LMB] or [E]");
+                RayInteractor.instance.UpdateInteractionText(transform.name, "Pickup item: [LMB] or [E]");
             }
             else
             {
@@ -82,10 +74,10 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     private void AddLathesItemToInventory(string itemID = "item")
     {
         // Add the item to the players inventory
-        InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up", attachmentPointOfLathe.GetChild(0).gameObject);
+        InventoryManager.Instance.AddItemToInventory(itemID, "Item added to inventory", attachmentPointOfLathe.GetChild(0).gameObject);
 
         // Update the text information
-        rayInteractor.UpdateInteractionText(transform.name, "Place item: [LMB] or [E]");
+        RayInteractor.instance.UpdateInteractionText(transform.name, "Place item: [LMB] or [E]");
     }
 
     // Set latheItemID to cut items

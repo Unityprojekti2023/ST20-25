@@ -9,7 +9,7 @@ public class SupportController : MonoBehaviour
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
-    MouseControlPanelInteractable controlPanelInteractable;
+    ControlPanelInteractable controlPanelInteractable;
 
     [Header("Movement Values")]
     public float maxLeftXPosition = 47.5f;
@@ -27,7 +27,7 @@ public class SupportController : MonoBehaviour
 
     void Start()
     {
-        controlPanelInteractable = FindObjectOfType<MouseControlPanelInteractable>();           // Getting a reference to the controlpanel interactable script
+        controlPanelInteractable = FindObjectOfType<ControlPanelInteractable>();           // Getting a reference to the controlpanel interactable script
     }
 
     void Update()

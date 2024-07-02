@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System;
 public enum InteractableType
 {
     HandleInteraction,
@@ -8,6 +9,8 @@ public enum InteractableType
 }
 public class RayInteractor : MonoBehaviour
 {
+    public static RayInteractor instance;
+
     public TextMeshProUGUI interactText;
     public TextInformation textInformation;
     public float interactDistance = 100f;
@@ -16,6 +19,17 @@ public class RayInteractor : MonoBehaviour
     private float currentHoldTime = 0f;
 
     private Dictionary<string, System.Action<IInteractable>> interactableActions;
+
+    private void Awake() {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     void Start()
     {
@@ -41,7 +55,7 @@ public class RayInteractor : MonoBehaviour
     private void Update()
     {
         Camera mainCamera = Camera.main;
-        if (mainCamera != null && mainCamera.CompareTag("MainCamera"))
+        if (mainCamera != null && mainCamera.CompareTag("MainCamera") &&  Time.timeScale > 0)
         {
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))

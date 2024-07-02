@@ -8,7 +8,7 @@ public class LatheMiddleTrigger : MonoBehaviour
     public DrillController drillController;
     public MachineScript machineScript;
     public LatheSoundFX latheSoundFX;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public ControlPanelInteractable mouseControlPanelInteractable;
 
     [Header("Variables")]
     float slowSpeed = 1.5f;

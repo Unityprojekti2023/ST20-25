@@ -16,7 +16,7 @@ public class MachineScript : MonoBehaviour
 
     [Header("References to other scripts")]
     public SupportController supportController;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public ControlPanelInteractable mouseControlPanelInteractable;
     public LatheMiddleTrigger latheMiddleTrigger;
 
     [Header("Movement Values")]

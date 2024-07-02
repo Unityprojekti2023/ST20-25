@@ -5,7 +5,7 @@ using UnityEngine;
 public class LatheAudioTrigger : MonoBehaviour
 {
     [Header("References to other scripts")]
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public ControlPanelInteractable mouseControlPanelInteractable;
     public LatheSoundFX latheSoundFX;
 
     [Header("Other values")]

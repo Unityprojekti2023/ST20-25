@@ -15,7 +15,7 @@ public class LightController : MonoBehaviour
 
     [Header("References to other scripts")]
     public MachineScript machineScript;
-    public MouseControlPanelInteractable mouseControlPanelInteractable;
+    public ControlPanelInteractable mouseControlPanelInteractable;
     
     void Start()
     {

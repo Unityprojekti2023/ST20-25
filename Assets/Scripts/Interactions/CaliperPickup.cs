@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class CaliperPickup : MonoBehaviour, IInteractable
 {
-    private RayInteractor rayInteractor;
     public GameObject caliber;
 
     void Start()
     {
-        rayInteractor = FindObjectOfType<RayInteractor>();
-        if (rayInteractor == null)
-        {
-            Debug.LogError("RayInteractor script not found.");
-        }
         if (caliber == null)
         {
             Debug.LogError("Caliber object not found.");
@@ -25,7 +19,7 @@ public class CaliperPickup : MonoBehaviour, IInteractable
         {
             InventoryManager.Instance.AddItemToInventory(caliber.name,"Caliper equipped");
             caliber.SetActive(false);
-            rayInteractor.UpdateInteractionText(transform.name, "Hold to place caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Hold to place caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
             
             ObjectiveManager.Instance.CompleteObjective("Equip caliper");
         }
@@ -33,7 +27,7 @@ public class CaliperPickup : MonoBehaviour, IInteractable
         {
             InventoryManager.Instance.RemoveItemFromInventory(caliber.name,"Caliper unequipped");
             caliber.SetActive(true);
-            rayInteractor.UpdateInteractionText(transform.name, "Hold to pickup caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Hold to pickup caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
 
             
             ObjectiveManager.Instance.CompleteObjective("Unequip caliper");

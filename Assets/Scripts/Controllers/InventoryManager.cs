@@ -62,7 +62,6 @@ public class InventoryManager : MonoBehaviour
             // Set the heldItem hidden for now
             heldItem.SetActive(false);
         }
-
         if (secondaryInteractionText != "")
         {
             this.secondaryInteractionText.text = secondaryInteractionText;

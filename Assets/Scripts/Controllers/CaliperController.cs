@@ -21,7 +21,9 @@ public class CaliperController : MonoBehaviour
 
     void Start()
     {
-        // Find the sliding parts of the caliper
+        // Hide the caliper
+        caliper.SetActive(false);
+        //  Find the sliding parts of the caliper
         slidingParts = caliper.transform.Find("SlidingParts").gameObject;
         if (slidingParts == null)
         {
@@ -39,11 +41,14 @@ public class CaliperController : MonoBehaviour
         if (!caliperCamera.gameObject.activeSelf)
         {
             isCaliperAttached = false;
+            // Hide the caliper
+            caliper.SetActive(false);   // TODO: Any way to make this not being called every frame?
         }
 
         // If the caliper is attached to the mouse, update its position
         if (isCaliperAttached)
         {
+            Cursor.visible = false;
             if (Input.GetMouseButtonDown(0))
             {
                 //Rotate caliper between vertical and horizontal
@@ -54,6 +59,7 @@ public class CaliperController : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 isCaliperAttached = !isCaliperAttached;
+                Cursor.visible = true;
             }
 
             float scrollInput = Input.GetAxis("Mouse ScrollWheel"); // mouse scroll input
@@ -77,6 +83,8 @@ public class CaliperController : MonoBehaviour
     public void ToggleCaliperAttachment()
     {
         isCaliperAttached = !isCaliperAttached;
+        caliper.SetActive(isCaliperAttached);
+        //caliper.SetActive(true);
 
         if (isCaliperAttached)
         {
@@ -104,7 +112,7 @@ public class CaliperController : MonoBehaviour
         // Handle the rotation of the caliper between vertical and horizontal
         if (isCaliperRotated)
         {
-            caliper.transform.localRotation = Quaternion.Euler(270f, 270f, 0);
+            caliper.transform.localRotation = Quaternion.Euler(270f, 90f, 0);
         }
         else
         {

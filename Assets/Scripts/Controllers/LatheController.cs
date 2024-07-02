@@ -10,6 +10,8 @@ public class LatheController : MonoBehaviour
     public GameObject[] cutItemPrefabs;
     public Dictionary<string, GameObject> cutItems = new();
 
+    //TODO: What to do if door is opened while lathe is running?
+
     void Start()
     {
         // Add cut item prefabs to dictionary

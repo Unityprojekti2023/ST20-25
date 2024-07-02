@@ -5,17 +5,10 @@ using UnityEngine;
 public class ItemPlacementSpot : MonoBehaviour, IInteractable
 {
     private CaliperController caliperController;
-    public TextInformation textInfo;
-    private RayInteractor rayInteractor;
     public Transform attachemntPoint;
 
     private void Start()
     {
-        rayInteractor = FindObjectOfType<RayInteractor>();
-        if (rayInteractor == null)
-        {
-            Debug.LogError("RayInteractor script not found.");
-        }
         caliperController = FindObjectOfType<CaliperController>();
         if (caliperController == null)
         {
