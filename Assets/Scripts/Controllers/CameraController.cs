@@ -40,6 +40,8 @@ public class CameraController : MonoBehaviour
                 button.gameObject.SetActive(false);
         }
 
+        // Hide the secondary interaction text
+
         // Ensure that only one camera is active at a time
         for (int i = 0; i < cameras.Count; i++)
         {
@@ -89,7 +91,7 @@ public class CameraController : MonoBehaviour
         }
         // Check if active camera is Caliper Camera
         // TODO: Is there smarter way to do this?
-        else if (index == 4)
+        else if (index == 4 || index == 5)
         {
             Debug.Log("Caliper Camera Active");
 
@@ -118,6 +120,23 @@ public class CameraController : MonoBehaviour
 
             // Set buttons interactable
             SetButtonInteractability(cameraButtons[index]);
+        }
+    }
+
+    // Method to toggle clipboard camera on and off without changing the active camera
+    public void ToggleClipboardCamera(bool turnOn)
+    {
+        if (turnOn)
+        {
+            cameras[5].gameObject.SetActive(turnOn);
+            // Hide Objective text
+            objectiveText.gameObject.SetActive(false);
+        }
+        else
+        {
+            cameras[5].gameObject.SetActive(false);
+            // Hide Objective text
+            objectiveText.gameObject.SetActive(true);
         }
     }
 

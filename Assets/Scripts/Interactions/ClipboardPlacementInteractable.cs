@@ -2,7 +2,28 @@ using UnityEngine;
 
 public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 {
+    [Header("References to other scripts")]
+    public BoxColliderHighlighter boxColliderHighlighter;
+
+    [Header("References to other gameobjects")]
     public GameObject clipboard;
+
+    void Start()
+    {
+        if (clipboard == null)
+        {
+            Debug.LogError("Clipboard reference not set in ClipboardPlacementInteractable!");
+            return;
+        }
+        if (boxColliderHighlighter == null)
+        {
+            Debug.LogError("BoxColliderHighlighter reference not set in ClipboardPlacementInteractable!");
+            return;
+        }
+
+        clipboard.SetActive(true);
+    }
+
     public void Interact()
     {
         if (InventoryManager.Instance.HasItem("clipboard"))
@@ -19,19 +40,14 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 
     void PlaceClipboard()
     {
+        // Hide the box collider highlighter
+        boxColliderHighlighter.HideHighlighter();
+        
         // Move the clipboard to the attachment point
         clipboard.transform.SetPositionAndRotation(transform.position, transform.rotation);
         // Set the clipboard as a child of the table
         clipboard.transform.parent = transform;
 
-        // Enable all children of the clipboard except the camera
-        foreach (Transform child in clipboard.transform)
-        {
-            if (!child.gameObject.name.Contains("Camera")) // Check if the child is clipboards camera and enable all other children
-            {
-                child.gameObject.SetActive(true);
-            }
-        }
         InventoryManager.Instance.RemoveItemFromInventory("clipboard", "Item [Clipboard] removed from inventory");
         //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); // TODO: Enable later when the objective is added
 

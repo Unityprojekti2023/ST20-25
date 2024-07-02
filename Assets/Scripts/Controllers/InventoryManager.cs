@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -7,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 
     private TextInformation textInfo;
     public GameObject heldItem;
+    public TextMeshProUGUI secondaryInteractionText;
     public Transform inventoryAttachmentPoint;
     // Variable to check if hands are full
     public bool handsFull = false;
@@ -34,7 +37,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItemToInventory(string itemID, string itemInfoText = "", GameObject item = null)
+    public void AddItemToInventory(string itemID, string itemInfoText)
+    {
+        AddItemToInventory(itemID, itemInfoText, null, "");
+    }
+
+    public void AddItemToInventory(string itemID, string itemInfoText, GameObject item)
+    {
+        AddItemToInventory(itemID, itemInfoText, item, "");
+    }
+
+    public void AddItemToInventory(string itemID, string itemInfoText, string secondaryInteractionText)
+    {
+        AddItemToInventory(itemID, itemInfoText, null, secondaryInteractionText);
+    }
+
+    public void AddItemToInventory(string itemID, string itemInfoText = "", GameObject item = null, string secondaryInteractionText = "")
     {
         if (item != null)
         {
@@ -43,6 +61,11 @@ public class InventoryManager : MonoBehaviour
 
             // Set the heldItem hidden for now
             heldItem.SetActive(false);
+        }
+
+        if (secondaryInteractionText != "")
+        {
+            this.secondaryInteractionText.text = secondaryInteractionText;
         }
 
         Debug.Log("Picked item " + itemID);
@@ -61,6 +84,11 @@ public class InventoryManager : MonoBehaviour
         if (transform != null)
         {
             MoveHeldItemToAttachmentPoint(transform);
+        }
+
+        if (secondaryInteractionText.text != "")
+        {
+            secondaryInteractionText.text = "";
         }
 
         Debug.Log("Removed item " + itemID);

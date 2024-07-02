@@ -1,16 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class ClipboardPickup : MonoBehaviour, IInteractable
 {
+    [Header("References to other scripts")]
+    public BoxColliderHighlighter boxColliderHighlighter;
+
     [Header("References to other objects")]
     public GameObject clipboard;
     public Renderer clipboardImageSlot;
-    public TMPro.TextMeshProUGUI clibBoardTextSlot;
+    public TextMeshProUGUI clibBoardTextSlot;
 
     [Header("Other variables")]
     private bool clipboardBeenPickedUp = false;
     public Transform attachmentPoint;
-    public Camera heldClipboardCamera; // TODO: Anyway to make script find the camera component without this?
     private bool inspecting = false;
 
     void Start()
@@ -19,6 +22,11 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         if (clipboard == null)
         {
             Debug.LogError("Clipboard reference not set in ClipboardPickup!");
+            return;
+        }
+        if (boxColliderHighlighter == null)
+        {
+            Debug.LogError("BoxColliderHighlighter reference not set in ClipboardPickup!");
             return;
         }
 
@@ -30,12 +38,15 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         if (!InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp)
         {
             // Add the item to the player's inventory
-            InventoryManager.Instance.AddItemToInventory("clipboard", "Item [Clipboard] picked up");
+            InventoryManager.Instance.AddItemToInventory("clipboard", "Item [Clipboard] picked up", "Inspect : RMB");
             ObjectiveManager.Instance.CompleteObjective("Pick up the clipboard");
 
             // Move the clipboard to the attachment point
             clipboard.transform.SetPositionAndRotation(attachmentPoint.position, attachmentPoint.rotation);
             clipboard.transform.parent = attachmentPoint;
+
+            // Show the box collider highlighter
+            boxColliderHighlighter.ShowHighlighter();
 
             clipboardBeenPickedUp = true;
         }
@@ -50,18 +61,16 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     {
         if (InventoryManager.Instance.HasItem("clipboard") && !inspecting && Input.GetKeyDown(KeyCode.Mouse1))
         {
-            // TODO: Add functionality to fetch camera component from clipboard object
-
             inspecting = true;
             // Switch to clipboard camera on
-            heldClipboardCamera.gameObject.SetActive(true);
+            CameraController.Instance.ToggleClipboardCamera(true);
         }
         // Switch back to player camera
         else if (InventoryManager.Instance.HasItem("clipboard") && inspecting && Input.GetKeyDown(KeyCode.Mouse1))
         {
             inspecting = false;
             // Switch to clipboard camera off
-            heldClipboardCamera.gameObject.SetActive(false);
+            CameraController.Instance.ToggleClipboardCamera(false);
         }
         else
             return;
