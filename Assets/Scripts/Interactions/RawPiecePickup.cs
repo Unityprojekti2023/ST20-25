@@ -22,7 +22,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
         {
             // Get the top item from the pile
             topItem = transform.GetChild(transform.childCount - 1).gameObject;
-            
+
             if (topItem.activeSelf == false)
             {
                 Debug.Log("Top item is inactive, destroying it and getting the next one.");
@@ -69,13 +69,28 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             }
 
         }
-        else if (InventoryManager.Instance.handsFull && InventoryManager.Instance.HasItem(itemID))
+        else if (InventoryManager.Instance.HasItem(itemID))
         {
-            Destroy(InventoryManager.Instance.heldItem);
             if (topItem != null && topItem.activeSelf == false)
             {
+                Destroy(InventoryManager.Instance.heldItem);
                 topItem.SetActive(true);
                 topItem = null;
+                InventoryManager.Instance.RemoveItemFromInventory(itemID, $"Item [{itemID}] removed from inventory");
+            }
+            else if (topItem == null)
+            {
+                Destroy(InventoryManager.Instance.heldItem);
+                // Get the latest hidden item from the pile
+                for (int i = transform.childCount - 1; i >= 0; i--)
+                {
+                    if (transform.GetChild(i).gameObject.activeSelf == false)
+                    {
+                        topItem = transform.GetChild(i).gameObject;
+                        break;
+                    }
+                }
+                topItem.SetActive(true);
                 InventoryManager.Instance.RemoveItemFromInventory(itemID, $"Item [{itemID}] removed from inventory");
             }
             else

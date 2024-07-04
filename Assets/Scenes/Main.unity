@@ -7822,6 +7822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topItem: {fileID: 0}
   itemID: Aluminum blank
 --- !u!65 &236120899
 BoxCollider:
@@ -23373,6 +23374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cb695a3acba0f45ba8dcf220d4bb27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topItem: {fileID: 0}
   itemID: Steel blank
 --- !u!65 &1082874451
 BoxCollider:
