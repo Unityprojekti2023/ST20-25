@@ -14,7 +14,6 @@ public class LightController : MonoBehaviour
     public bool isRedLightAlreadyInPosition = false;
 
     [Header("References to other scripts")]
-    public MachineScript machineScript;
     public ControlPanelInteractable mouseControlPanelInteractable;
     
     void Start()
@@ -25,6 +24,7 @@ public class LightController : MonoBehaviour
 
     void Update()
     {
+        /*
         if (machineScript.isMachineActive && !isGreenLightAlreadyInPosition)                        // Checking if machine is active and making sure green light isn't in position yet
         {
             isGreenLightAlreadyInPosition = true;                                                   // Making "isGreenLightAlreadyInPosition" true so the green light isn't moved more than once
@@ -51,6 +51,6 @@ public class LightController : MonoBehaviour
             isRedLightAlreadyInPosition = false;                                                    // Making "isRedLightAlreadyInPosition" false, so it can be moved again next time the machine is powered on
             redLight.Translate(0, -20f, 0);                                                         // "Hiding" the red light
             whiteLight.Translate(0, 20f, 0);                                                        // Moving the white light back to position
-        }
+        }*/
     }
 }

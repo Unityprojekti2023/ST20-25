@@ -39,18 +39,11 @@ public class ControlPanelInteractable : MonoBehaviour
 
     [Header("Variables")]
     public bool isDoorClosed = true;
-    public bool isComputerOn = false;
-    public bool isLatheInitialized = false;
-    public bool isEmergencyStopClicked = false;
-    public bool isZeroReturnClicked = false;
-    public bool isProgramSelected = false;
-
-    [Header("Check if needed")]
-    //TODO: Check if these are needed
-    public bool isPowerONClicked = false;
-    public bool isPowerOFFClicked = false;
-    public bool isLathingActive = false;
-    public int handleJogPosition = 1;
+    private bool isComputerOn = false;
+    private bool isLatheInitialized = false;
+    private bool isEmergencyStopClicked = false;
+    private bool isZeroReturnClicked = false;
+    private bool isProgramSelected = false;
 
 
     void Start()

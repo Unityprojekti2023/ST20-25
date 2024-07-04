@@ -26,7 +26,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             // Instantiate the item in the player's hands
             GameObject item = Instantiate(topItem);
             // Add the item to the player's inventory
-            InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up",item);
+            InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up", item);
 
             // Hide the topItem
             topItem.SetActive(false);
@@ -37,7 +37,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
                 _ = itemRenderer.material.name;
             }
 
-            
+
             // Check if material is correct
             string currentMaterial = taskManager.GetCurrentMaterialName();
 
