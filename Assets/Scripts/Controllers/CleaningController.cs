@@ -11,7 +11,7 @@ public class CleaningController : MonoBehaviour
 
     public GameObject[] trashCans;
     public TextMeshProUGUI interactText;
-    int shovelPileNumber = 0;
+    int cleaningCounter = 0;
     public string scrapMaterial = "";
     bool isShovelEmpty = true;
 
@@ -33,43 +33,10 @@ public class CleaningController : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        // Check if the player is holding the shovel
-        if (InventoryManager.Instance.HasItem("Shovel"))
-        {
-            // Raycast to check if the player is looking at a scrap pile on tag "Cleanable"
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            if (Physics.Raycast(ray, out RaycastHit hit, 300f))
-            {
-                if (hit.collider.CompareTag("Cleanable"))
-                {
-                    interactText.gameObject.SetActive(true);
-                    interactText.text = "Clean scrap pile: [LMB]";
-                    HandleCleaning(hit.collider.gameObject);
-                }
-                else if (hit.collider.CompareTag("TrashCan"))
-                {
-                    interactText.gameObject.SetActive(true);
-                    interactText.text = "Throw away scrap pile: [LMB]";
-                    HandleCleaning(hit.collider.gameObject);
-                }
-                else
-                {
-                    interactText.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
-    }
-
     public void HandleCleaning(GameObject gameObject)
     {
         // Check if the player is pressing the interact button
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && InventoryManager.Instance.HasItem("Shovel"))
         {
             // Check if the scrap pile is active
             if (gameObject.tag == "Cleanable" && isShovelEmpty)
@@ -111,7 +78,7 @@ public class CleaningController : MonoBehaviour
     {
         // Hide the scrap pile based on the pile number
         scrapPile[pileNumber].SetActive(false);
-        shovelPileNumber = pileNumber;
+        cleaningCounter++;
     }
 
     void ThrowAwayScrapPile(GameObject trashCan)
@@ -122,8 +89,14 @@ public class CleaningController : MonoBehaviour
         // Compare the material of the scrap pile with the material assigned to the trash can
         if( scrapMaterial.Contains(trashCanMaterialName))
         {
-            // If the materials match, add points
-            ObjectiveManager.Instance.CompleteObjective("Throw away scrap pile");
+            if(cleaningCounter == scrapPile.Length)
+            {
+                ObjectiveManager.Instance.CompleteObjective("Clean scrap piles");
+            }
+            else
+            {
+                ObjectiveManager.Instance.AddPoints(50);
+            }
             EmptyShovel();
         }
         else
@@ -131,6 +104,8 @@ public class CleaningController : MonoBehaviour
             ObjectiveManager.Instance.DeductPoints(50);
             EmptyShovel();
         }
+
+        
     }
 
     private void EmptyShovel()

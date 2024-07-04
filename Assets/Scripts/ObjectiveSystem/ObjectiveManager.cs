@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -78,12 +79,6 @@ public class ObjectiveManager : MonoBehaviour
         return score;
     }
 
-    public void DeductPoints(int deductionPoints)
-    {
-        score -= deductionPoints;
-        AddScoreEvent("Deduct Points", -deductionPoints); // Add score event for deduction
-    }
-
     //Method to add a score event
     private void AddScoreEvent(string description, int scoreChange)
     {
@@ -95,5 +90,16 @@ public class ObjectiveManager : MonoBehaviour
     public List<ScoreEvent> GetScoreEvents()
     {
         return scoreEvents;
+    }
+
+    public void DeductPoints(int deductionPoints)
+    {
+        score -= deductionPoints;
+        AddScoreEvent("Deduct Points", -deductionPoints); // Add score event for deduction
+    }
+
+    internal void AddPoints(int pointsToAdd)
+    {
+        score += pointsToAdd;
     }
 }

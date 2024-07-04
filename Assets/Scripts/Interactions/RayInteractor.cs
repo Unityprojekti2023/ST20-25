@@ -11,12 +11,12 @@ public class RayInteractor : MonoBehaviour
 {
     public static RayInteractor instance;
 
+    [Header("Cleaning Controller")]
     public CleaningController cleaningController;
 
+    [Header("Interact Text")]
     public TextMeshProUGUI interactText;
-    public TextInformation textInformation;
-    public float interactDistance = 100f;
-
+    private float interactDistance = 120f;
     private float holdDuration = 1.5f; // Adjust the duration as needed
     private float currentHoldTime = 0f;
 
@@ -72,6 +72,19 @@ public class RayInteractor : MonoBehaviour
                 if (interactable != null)
                 {
                     HandleInteractionRays(hit.collider.gameObject.name, interactable);
+                }
+                else if (InventoryManager.Instance.HasItem("Shovel"))
+                {
+                    if (hit.collider.CompareTag("Cleanable"))
+                    {
+                        ShowInteractText("Clean scrap pile: [LMB]");
+                        cleaningController.HandleCleaning(hit.collider.gameObject);
+                    }
+                    else if (hit.collider.CompareTag("TrashCan"))
+                    {
+                        ShowInteractText("Throw away scrap pile: [LMB]");
+                        cleaningController.HandleCleaning(hit.collider.gameObject);
+                    }
                 }
                 else
                 {
@@ -164,7 +177,6 @@ public class RayInteractor : MonoBehaviour
 
     private void HideInteractText()
     {
-        //interactText.gameObject.SetActive(false);
-        return;
+        interactText.gameObject.SetActive(false);
     }
 }
