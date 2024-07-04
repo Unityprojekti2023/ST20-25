@@ -119,7 +119,16 @@ public class CleaningController : MonoBehaviour
         }
         else
         {
-            ObjectiveManager.Instance.DeductPoints(50);
+            if (cleaningCounter == scrapPile.Length)
+            {
+                ObjectiveManager.Instance.DeductPoints(50);
+                ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
+            }
+            else
+            {
+                ObjectiveManager.Instance.DeductPoints(50);
+            }
+
             EmptyShovel();
         }
 
