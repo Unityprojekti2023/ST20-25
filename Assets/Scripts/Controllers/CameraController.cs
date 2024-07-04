@@ -88,6 +88,9 @@ public class CameraController : MonoBehaviour
                     button.gameObject.SetActive(false);
             }
             crosshair.SetActive(true);
+            
+            //TODO: Make this not happen in testing mode
+            scoreText.gameObject.SetActive(true);
         }
         // Check if active camera is Caliper Camera
         // TODO: Is there smarter way to do this?

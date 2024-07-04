@@ -41,6 +41,8 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 InventoryManager.Instance.RemoveItemFromInventory(latheItemID, $"Item [{latheItemID}] removed", attachmentPointOfLathe);
                 // Update the text information
                 RayInteractor.instance.UpdateInteractionText(transform.name, "Pickup item: [LMB] or [E]");
+
+                ObjectiveManager.Instance.CompleteObjective("Place piece in place");
             }
             else
             {
@@ -53,8 +55,10 @@ public class LatheInteractable : MonoBehaviour, IInteractable
             if (attachmentPointOfLathe.childCount > 0 && !attachmentPointOfLathe.GetChild(0).name.Contains("blank"))
             {
                 latheController.HideCutItem();
-                
+
                 AddLathesItemToInventory("cut item");
+                
+                ObjectiveManager.Instance.CompleteObjective("Pick up cut piece");
             }
             else if (attachmentPointOfLathe.childCount > 0 && attachmentPointOfLathe.GetChild(0).name.Contains("blank"))
             {

@@ -25641,6 +25641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timelineController: {fileID: 1150253749}
   mistakeGenerator: {fileID: 574679443}
+  cleaningController: {fileID: 230333459}
   attachmentPoint: {fileID: 968973084}
   cutItemPrefabs:
   - {fileID: 2032142071}
@@ -28431,7 +28432,7 @@ Transform:
   m_GameObject: {fileID: 1262849434}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: -1}
-  m_LocalPosition: {x: -35.399998, y: 0, z: 0}
+  m_LocalPosition: {x: -35.399998, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -29296,8 +29297,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cleaningController: {fileID: 230333459}
   interactText: {fileID: 463401077}
-  textInformation: {fileID: 590410041}
-  interactDistance: 100
 --- !u!114 &1306656179
 MonoBehaviour:
   m_ObjectHideFlags: 0

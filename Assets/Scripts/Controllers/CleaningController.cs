@@ -24,7 +24,7 @@ public class CleaningController : MonoBehaviour
         // Hide all scrap piles at the start of the game
         foreach (GameObject pile in scrapPile)
         {
-            pile.SetActive(true);
+            pile.SetActive(false);
         }
 
         // Populate the dictionary with materials and corresponding trash cans
@@ -46,6 +46,11 @@ public class CleaningController : MonoBehaviour
 
                 // Find scrap pile object of shovel
                 GameObject scrapPileObject = shovel.transform.Find("Scraps").gameObject;
+                // Set material of shovels scrap piles children to that of picked up scrap pile
+                foreach (Transform child in scrapPileObject.transform)
+                {
+                    child.GetComponent<Renderer>().material = gameObject.transform.GetChild(0).GetComponent<Renderer>().material;
+                }
                 scrapPileObject.SetActive(true);
 
                 // Hide the scrap pile
@@ -74,6 +79,18 @@ public class CleaningController : MonoBehaviour
         }
     }
 
+    public void ShowAllScrapPiles(Material material)
+    {
+        foreach (GameObject pile in scrapPile)
+        {
+            pile.SetActive(true);
+            foreach (Transform child in pile.transform)
+            {
+                child.GetComponent<Renderer>().material = material;
+            }
+        }
+    }
+
     void HideScrapPile(int pileNumber)
     {
         // Hide the scrap pile based on the pile number
@@ -87,11 +104,12 @@ public class CleaningController : MonoBehaviour
         string trashCanMaterialName = trashCanMaterial[trashCan];
 
         // Compare the material of the scrap pile with the material assigned to the trash can
-        if( scrapMaterial.Contains(trashCanMaterialName))
+        if (scrapMaterial.Contains(trashCanMaterialName))
         {
-            if(cleaningCounter == scrapPile.Length)
+            if (cleaningCounter == scrapPile.Length)
             {
-                ObjectiveManager.Instance.CompleteObjective("Clean scrap piles");
+                ObjectiveManager.Instance.AddPoints(50);
+                ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
             }
             else
             {
@@ -105,7 +123,7 @@ public class CleaningController : MonoBehaviour
             EmptyShovel();
         }
 
-        
+
     }
 
     private void EmptyShovel()

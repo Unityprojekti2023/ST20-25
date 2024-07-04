@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour
 
             case 6:
                 ObjectiveManager.Instance.AddObjective("Equip shovel", 100);
-                ObjectiveManager.Instance.AddObjective("Clean metal scraps", 100);
+                ObjectiveManager.Instance.AddObjective("Clean metal scraps", 0);
                 break;
 
             case 7:

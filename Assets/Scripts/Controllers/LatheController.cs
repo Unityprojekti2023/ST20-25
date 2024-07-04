@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class LatheController : MonoBehaviour
 {
+    [Header("References")]
     public LatheTimelineController timelineController;
     public MistakeGenerator mistakeGenerator;
+    public CleaningController cleaningController;
+
+    [Header("Lathe settings")]
     public Transform attachmentPoint;
     public GameObject[] cutItemPrefabs;
     public Dictionary<string, GameObject> cutItems = new();
+
+    private Material currentMaterial;
 
     //TODO: What to do if door is opened while lathe is running?
 
@@ -27,7 +33,6 @@ public class LatheController : MonoBehaviour
         GameObject selectedPrefab = cutItemPrefabs[timelineController.currentTimeline];
 
         // Generate mistakes on the cut item
-        // TODO: Does this need to be reversable incase player switches programs?
         // 50% chance to generate mistake
         if (Random.Range(0, 2) == 0)
         {
@@ -47,6 +52,7 @@ public class LatheController : MonoBehaviour
         // Hide instantiated cut item
         instantiatedCutItem.SetActive(false);
         timelineController.PlayTimeline();
+        ShowScrapPile();
     }
 
     // Instantiate a cut item by its sprite at the same spot as the original item
@@ -78,6 +84,11 @@ public class LatheController : MonoBehaviour
         }
     }
 
+    public void ShowScrapPile()
+    {
+        cleaningController.ShowAllScrapPiles(currentMaterial);
+    }
+
     private void GenerateMistake(GameObject item)
     {
 
@@ -96,14 +107,14 @@ public class LatheController : MonoBehaviour
 
     private void ChangeMaterial(GameObject gameObject)
     {
-        Material originalMaterial = attachmentPoint.GetChild(0).GetComponent<Renderer>()?.material;
-        if (originalMaterial != null)
+        currentMaterial = attachmentPoint.GetChild(0).GetComponent<Renderer>()?.material;
+        if (currentMaterial != null)
         {
             foreach (Transform child in gameObject.transform)
             {
                 if (child.TryGetComponent<Renderer>(out var childRenderer))
                 {
-                    childRenderer.material = originalMaterial;
+                    childRenderer.material = currentMaterial;
                 }
             }
         }

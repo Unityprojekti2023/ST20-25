@@ -63,6 +63,8 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
         {
             inspecting = true;
             // Switch to clipboard camera on
+            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
+
             CameraController.Instance.ToggleClipboardCamera(true);
         }
         // Switch back to player camera

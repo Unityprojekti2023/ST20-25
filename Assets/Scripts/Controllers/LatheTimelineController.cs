@@ -9,8 +9,15 @@ public class LatheTimelineController : MonoBehaviour
     public PlayableAsset[] playableAssets;
     public int currentTimeline = 0;
 
+    private LatheController latheController;
+
     void Start()
     {
+        latheController = FindObjectOfType<LatheController>();
+        if (latheController == null)
+        {
+            Debug.LogError("No latheController found in LatheTimelineController");
+        }
         //Null check PlayableAssets
         if (playableAssets == null || playableAssets.Length == 0)
         {
