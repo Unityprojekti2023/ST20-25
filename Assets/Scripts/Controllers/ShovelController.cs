@@ -18,15 +18,14 @@ public class ShovelController : MonoBehaviour
     void Update()
     {
         // TODO: Fix this code
-        /*
-        if(rayInteractor.shovelEquipped && !scrapInteraction.isShovelFull)      // Checking if shovel is equipped and shovel is not full
+        /*if(InventoryManager.Instance.handsFull && !scrapInteraction.isShovelFull)      // Checking if shovel is equipped and shovel is not full
         {
             playerEmptyShovel.SetActive(true);                                  // Setting empty shovel as active
             playerFullShovel.SetActive(false);
             propShovel.SetActive(false);
             ObjectiveManager.Instance.CompleteObjective("Equip shovel");
         } 
-        else if(rayInteractor.shovelEquipped && scrapInteraction.isShovelFull)  // Checking if shovel is equipped and shovel is full
+        else if(InventoryManager.Instance.handsFull && scrapInteraction.isShovelFull)  // Checking if shovel is equipped and shovel is full
         {
             playerEmptyShovel.SetActive(false);
             playerFullShovel.SetActive(true);                                   // Setting full shovel as active

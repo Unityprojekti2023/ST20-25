@@ -11,6 +11,8 @@ public class RayInteractor : MonoBehaviour
 {
     public static RayInteractor instance;
 
+    public CleaningController cleaningController;
+
     public TextMeshProUGUI interactText;
     public TextInformation textInformation;
     public float interactDistance = 100f;
@@ -20,7 +22,8 @@ public class RayInteractor : MonoBehaviour
 
     private Dictionary<string, System.Action<IInteractable>> interactableActions;
 
-    private void Awake() {
+    private void Awake()
+    {
         if (instance == null)
         {
             instance = this;
@@ -33,6 +36,11 @@ public class RayInteractor : MonoBehaviour
 
     void Start()
     {
+        if (cleaningController == null)
+        {
+            cleaningController = FindObjectOfType<CleaningController>();
+        }
+
         // Initialize the dictionary with object names and corresponding actions
         interactableActions = new Dictionary<string, System.Action<IInteractable>>
         {
@@ -47,7 +55,7 @@ public class RayInteractor : MonoBehaviour
             { "Measurements", interactable => HandleInteraction(interactable, "Inspect Measurements: [LMB] or [E]")},
             { "Carcass", interactable => HandleHoldInteraction(interactable, "Hold to put shoes on: [LMB] or [E]") },
             { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to put safetyglasses on: [LMB] or [E]") },
-            { "Shovel", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
+            { "ShovelOrigin", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
             { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to pickup caliper: [LMB] or [E]") }
         };
     }
@@ -55,7 +63,7 @@ public class RayInteractor : MonoBehaviour
     private void Update()
     {
         Camera mainCamera = Camera.main;
-        if (mainCamera != null && mainCamera.CompareTag("MainCamera") &&  Time.timeScale > 0)
+        if (mainCamera != null && mainCamera.CompareTag("MainCamera") && Time.timeScale > 0)
         {
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             if (Physics.Raycast(ray, out RaycastHit hit, interactDistance))
@@ -156,6 +164,7 @@ public class RayInteractor : MonoBehaviour
 
     private void HideInteractText()
     {
-        interactText.gameObject.SetActive(false);
+        //interactText.gameObject.SetActive(false);
+        return;
     }
 }

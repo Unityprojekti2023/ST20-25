@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
+    public static TaskManager instance;
+
     [Header("Clipboard image")]
     //Array of materials for clipboard image
     public Sprite[] clipboardImage;
@@ -20,6 +22,18 @@ public class TaskManager : MonoBehaviour
         { "Teräs", "metal02_diffuse" },
         { "Alumiini", "metal06_diffuse" }
     };
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     //TODO: Is there better logic for this?
 

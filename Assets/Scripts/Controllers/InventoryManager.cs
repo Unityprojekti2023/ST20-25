@@ -60,7 +60,7 @@ public class InventoryManager : MonoBehaviour
             MoveHeldItemToAttachmentPoint(inventoryAttachmentPoint);
 
             // Set the heldItem hidden for now
-            heldItem.SetActive(false);
+            //heldItem.SetActive(false);
         }
         if (secondaryInteractionText != "")
         {
