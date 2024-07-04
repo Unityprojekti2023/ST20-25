@@ -6,7 +6,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     private TaskManager taskManager;
-    private GameObject topItem;
+    public GameObject topItem;
 
     public string itemID;
 
@@ -17,12 +17,26 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        // Get the top item from the pile
-        topItem = transform.GetChild(transform.childCount - 1).gameObject;
-
         // Check if there are still items in the pile and the player's hands are not full
         if (transform.childCount > 0 && !InventoryManager.Instance.handsFull)
         {
+            // Get the top item from the pile
+            topItem = transform.GetChild(transform.childCount - 1).gameObject;
+            
+            if (topItem.activeSelf == false)
+            {
+                Debug.Log("Top item is inactive, destroying it and getting the next one.");
+                // Get the next active item from the pile
+                for (int i = transform.childCount - 1; i >= 0; i--)
+                {
+                    if (transform.GetChild(i).gameObject.activeSelf)
+                    {
+                        topItem = transform.GetChild(i).gameObject;
+                        break;
+                    }
+                }
+            }
+
             // Instantiate the item in the player's hands
             GameObject item = Instantiate(topItem);
             // Add the item to the player's inventory
@@ -62,7 +76,6 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             {
                 topItem.SetActive(true);
                 topItem = null;
-
                 InventoryManager.Instance.RemoveItemFromInventory(itemID, $"Item [{itemID}] removed from inventory");
             }
             else
