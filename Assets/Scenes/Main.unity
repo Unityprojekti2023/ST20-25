@@ -18099,7 +18099,7 @@ Transform:
   m_GameObject: {fileID: 852150911}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 482, y: 0, z: 985.6}
+  m_LocalPosition: {x: 430.1, y: 0, z: 833.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21582,7 +21582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f815f7ac1b60342a2a2766cdde5e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textInfo: {fileID: 0}
   shoes: {fileID: 1791382031}
   areShoesEquipped: 0
 --- !u!1 &1040481533
@@ -37820,7 +37819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glassesPickup: {fileID: 369689624}
-  shoePickup: {fileID: 0}
+  shoePickup: {fileID: 1037523007}
   textInformation: {fileID: 590410041}
   objectiveManager: {fileID: 574679441}
   hasPlayerEnteredWorkArea: 0

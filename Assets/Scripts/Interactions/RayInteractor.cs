@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 public enum InteractableType
 {
     HandleInteraction,
@@ -90,18 +91,20 @@ public class RayInteractor : MonoBehaviour
                 }
                 else
                 {
-                    ResetHoldTimer();
                     HideInteractText();
+                    ResetHoldTimer(); // Reset the timer when nothing is interactable
                 }
             }
             else
             {
                 HideInteractText();
+                ResetHoldTimer(); // Reset the timer when nothing is interactable
             }
         }
         else
         {
             HideInteractText();
+            ResetHoldTimer(); // Reset the timer when the game is paused
         }
     }
 
@@ -150,20 +153,37 @@ public class RayInteractor : MonoBehaviour
     private void HandleHoldInteraction(IInteractable interactable, string text)
     {
         ShowInteractText(text);
-        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.E))
+
+        // Check if the mouse button or key is pressed to start holding
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
         {
-            ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+            // Start the hold interaction process
+            StartCoroutine(HoldInteractionCoroutine(interactable));
+        }
+    }
+
+    private IEnumerator HoldInteractionCoroutine(IInteractable interactable)
+    {
+        currentHoldTime = 0f; // Reset the hold timer
+
+        while (Input.GetMouseButton(0) || Input.GetKey(KeyCode.E))
+        {
+            // Increment the hold timer based on the elapsed time
             currentHoldTime += Time.deltaTime;
+            ShowInteractText($"Time Left: {holdDuration - currentHoldTime:F1}s");
+
             if (currentHoldTime >= holdDuration)
             {
-                interactable.Interact();
-                ResetHoldTimer();
+                interactable.Interact(); // Trigger the interaction
+                break; // Exit the coroutine
             }
+
+            yield return null; // Wait until the next frame
         }
-        else
-        {
-            ResetHoldTimer();
-        }
+
+        // Reset the hold timer once the interaction is complete or the button is released
+        ResetHoldTimer();
+        HideInteractText();
     }
 
     private void ResetHoldTimer()

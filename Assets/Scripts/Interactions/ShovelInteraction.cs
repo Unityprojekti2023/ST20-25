@@ -23,13 +23,16 @@ public class ShovelInteraction : MonoBehaviour, IInteractable
             shovelRotation = shovel.transform.eulerAngles;
 
             InventoryManager.Instance.AddItemToInventory("Shovel", "Shovel picked up", shovel);
+            // Update the text information
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Place shovel: [LMB] or [E]", InteractableType.HandleHoldInteraction);
 
             ObjectiveManager.Instance.CompleteObjective("Equip shovel");
         }
         else if (InventoryManager.Instance.handsFull && InventoryManager.Instance.HasItem("Shovel"))
         {
             InventoryManager.Instance.RemoveItemFromInventory("Shovel", "Shovel placed back", transform);
-
+            // Update the text information
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Pickup shovel: [LMB] or [E]", InteractableType.HandleHoldInteraction);
             // Apply saved position and rotation to shovel
             shovel.transform.position = shovelPosition;
             shovel.transform.eulerAngles = shovelRotation;
