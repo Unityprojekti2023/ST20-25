@@ -9,7 +9,7 @@ public class TextInformation : MonoBehaviour
     private TextMeshProUGUI textComponent;
 
     private Coroutine hideCoroutine;
-    public float logDuration = 1.5f;
+    public float logDuration = 2.5f;
 
     void Start()
     {

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class MouseLook : MonoBehaviour
 {
     [Header("References to other scripts")]
     public OptionsMenu optionsMenu; // Reference to the options menu
     public Transform target; // Reference to the player
     public EscapeMenu escapeMenu; // Reference to the escape menu
 
-    [Header("References to Gameobjects")]
+    [Header("References to GameObjects")]
     public Camera playerCamera; // Reference to the player's camera
 
     [Header("Camera Settings")]
@@ -19,43 +19,33 @@ public class CameraFollow : MonoBehaviour
     {
         if (escapeMenu == null)
         {
-            Debug.LogError("EscapeMenu reference not set in CameraFollow!");
+            Debug.LogError("EscapeMenu reference not set in MouseLook!");
             return;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
-
-        //Hide camera switch buttons from UI
     }
+
     void LateUpdate()
     {
         if (target == null)
         {
-            Debug.LogError("Target not set in CameraFollow!");
+            Debug.LogError("Target not set in MouseLook!");
             return;
         }
 
         if (!escapeMenu.isGamePaused)
         {
-            // Check if main camera is active
-            if (CameraController.Instance.IsCameraActive(0))
-            {
-                // Calculate the desired position of the camera
-                Vector3 desiredPosition = target.position + offset;
+            // Calculate the desired position of the camera
+            Vector3 desiredPosition = target.position + offset;
 
-                // Smoothly move the camera to the desired position
-                Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
-                playerCamera.transform.position = smoothedPosition;
+            // Smoothly move the camera to the desired position
+            Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
+            playerCamera.transform.position = smoothedPosition;
 
-                // Handle camera rotation separately
-                RotateCamera();
-            }
-            else
-                return;
-
+            // Handle camera rotation separately
+            RotateCamera();
         }
-        else
-            return;
     }
 
     void RotateCamera()

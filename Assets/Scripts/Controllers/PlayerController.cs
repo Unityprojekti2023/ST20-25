@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-            HandlePlayerMovement();
+        HandlePlayerMovement();
     }
 
     void HandlePlayerMovement()
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         Vector3 right = cameraTransform.right;
 
         forward.y = 0; // Ensure vertical movement is zeroed out
+        right.y = 0; // Ensure horizontal movement is zeroed out
 
         // Normalize the vectors to prevent faster diagonal movement
         Vector3 move = forward.normalized * moveDirectionY + right.normalized * moveDirectionX;
