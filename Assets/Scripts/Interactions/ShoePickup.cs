@@ -10,10 +10,14 @@ public class ShoesPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         // Logic for handling Shoes interaction
-        InventoryManager.Instance.AddItemToInventory("Shoes");
-        textInfo.UpdateText("Shoes added");
+        InventoryManager.Instance.AddItemToInventory("Shoes", "Shoes added");
         ObjectiveManager.Instance.CompleteObjective("Put on safety shoes");
         areShoesEquipped = true;
         shoes.SetActive(false);
+
+        if(!shoes.activeSelf)
+        {
+            shoes.SetActive(true);
+        }
     }
 }
