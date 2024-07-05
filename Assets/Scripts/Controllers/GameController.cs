@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // Import the SceneManagement namespace
 
 public class GameController : MonoBehaviour
 {
@@ -83,10 +82,10 @@ public class GameController : MonoBehaviour
             InitializeStageObjectives();
 
             // Check if all stages are completed
-            if (currentStage >= numberofStages)
+            /*if (currentStage >= numberofStages)
             {
                 TransitionToEndScreen();
-            }
+            }*/
         }
 
         //Display current score
@@ -150,21 +149,5 @@ public class GameController : MonoBehaviour
                 Debug.Log("All stages completed!");
                 break;
         }
-    }
-
-
-    void TransitionToEndScreen()
-    {
-        if (endScreenUI != null)
-        {
-            endScreenUI.SetActive(true);
-        }
-
-        // Find the player object and get the PlayerMovement component
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-
-        endScoreText.text = $"Your final Score: {ObjectiveManager.Instance.GetCurrentScore()}";
-
-        escapeMenu.Pause();
     }
 }

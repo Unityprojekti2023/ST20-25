@@ -56,7 +56,8 @@ public class RayInteractor : MonoBehaviour
             { "Carcass", interactable => HandleHoldInteraction(interactable, "Hold to put shoes on: [LMB] or [E]") },
             { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to put safetyglasses on: [LMB] or [E]") },
             { "ShovelOrigin", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
-            { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to pickup caliper: [LMB] or [E]") }
+            { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to pickup caliper: [LMB] or [E]") },
+            { "ExitDoor", interactable => HandleInteraction(interactable, "Interact to end run: [LMB] or [E]") }
         };
     }
 

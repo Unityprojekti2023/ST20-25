@@ -1,15 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ExitInteractable : MonoBehaviour, IInteractable
 {
-    public string mainMenuSceneName = "MainMenu";
+    public EscapeMenu escapeMenu;
+    public GameObject endScreenUI;
+    public TextMeshProUGUI endScoreText;
+
     public void Interact()
     {
-        Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadSceneAsync(mainMenuSceneName);
+        TransitionToEndScreen();
+    }
+
+    void TransitionToEndScreen()
+    {
+        if (endScreenUI != null)
+        {
+            endScreenUI.SetActive(true);
+        }
+
+        endScoreText.text = $"Your final Score: {ObjectiveManager.Instance.GetCurrentScore()}";
+
+        escapeMenu.Pause();
     }
 }
 
