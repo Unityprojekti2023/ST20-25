@@ -50,12 +50,14 @@ public class GameController : MonoBehaviour
             if (objectiveList != null)
             {
                 objectiveList.gameObject.SetActive(false);
-            } 
+            }
             if (scoreText != null)
             {
                 scoreText.gameObject.SetActive(false);
             }
-        } else {
+        }
+        else
+        {
             canDisplayNotes = true;
         }
 
@@ -80,12 +82,6 @@ public class GameController : MonoBehaviour
             // Empty objectives and add objectives for the next stage
             ObjectiveManager.Instance.EmptyObjective();
             InitializeStageObjectives();
-
-            // Check if all stages are completed
-            /*if (currentStage >= numberofStages)
-            {
-                TransitionToEndScreen();
-            }*/
         }
 
         //Display current score
@@ -143,6 +139,12 @@ public class GameController : MonoBehaviour
 
             case 9:
                 ObjectiveManager.Instance.AddObjective("Unequip caliper", 100);
+                break;
+
+            case 10:
+                ObjectiveManager.Instance.AddObjective("Remove safety shoes", 100);
+                ObjectiveManager.Instance.AddObjective("Remove safety glasses", 100);
+
                 break;
 
             default:

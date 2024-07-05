@@ -20,7 +20,7 @@ public class GlassesPickup : MonoBehaviour, IInteractable
 
     private void RemoveGlasses()
     {
-        ObjectiveManager.Instance.CompleteObjective("Remove safety shoes");
+        ObjectiveManager.Instance.CompleteObjective("Remove safety glasses");
         // Update the text information
         RayInteractor.instance.UpdateInteractionText(transform.name, "Put on glasses: [LMB] or [E]", InteractableType.HandleHoldInteraction);
         areGlassesEquipped = false;
@@ -29,7 +29,7 @@ public class GlassesPickup : MonoBehaviour, IInteractable
 
     private void EquipGlasses()
     {
-        ObjectiveManager.Instance.CompleteObjective("Put on safety shoes");
+        ObjectiveManager.Instance.CompleteObjective("Put on safety glasses");
         // Update the text information
         RayInteractor.instance.UpdateInteractionText(transform.name, "Remove glasses: [LMB] or [E]", InteractableType.HandleHoldInteraction);
         areGlassesEquipped = true;
