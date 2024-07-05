@@ -620,6 +620,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &18650445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6889772118655608593, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+  m_PrefabInstance: {fileID: 875081233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &28105006
 GameObject:
   m_ObjectHideFlags: 0
@@ -16029,6 +16034,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &723475906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7367341573849839789, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+  m_PrefabInstance: {fileID: 875081233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &725037296
 GameObject:
   m_ObjectHideFlags: 0
@@ -19162,9 +19172,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ST20-25 Light
       objectReference: {fileID: 0}
+    - target: {fileID: 6336382852147888304, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6889772118655608593, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7367341573849839789, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
       propertyPath: m_Name
       value: LightWhite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367341573849839789, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9042844985594187249, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
       propertyPath: m_Name
@@ -19186,11 +19208,41 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.764
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4636413305982035899, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+    - {fileID: 7545418524022279777, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+    - {fileID: 8728181464918179673, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+    - {fileID: 7724325064800422380, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+    - {fileID: 1429216735316872295, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+    - {fileID: 6748886943030478241, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5015922740572665198, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 875081235}
   m_SourcePrefab: {fileID: 100100000, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+--- !u!1 &875081234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5015922740572665198, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+  m_PrefabInstance: {fileID: 875081233}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &875081235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875081234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b41f3d6674c2ba4c9f9e5fd7b5899d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 723475906}
+  - {fileID: 1080933215}
+  - {fileID: 18650445}
 --- !u!1 &884101727
 GameObject:
   m_ObjectHideFlags: 0
@@ -22881,6 +22933,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076682916}
   m_CullTransparentMesh: 1
+--- !u!1 &1080933215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6336382852147888304, guid: 8de83126517248449ab3ef6dadf116d0, type: 3}
+  m_PrefabInstance: {fileID: 875081233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1082874448
 GameObject:
   m_ObjectHideFlags: 0
@@ -44365,6 +44422,7 @@ MonoBehaviour:
   controlPanelAnimations: {fileID: 1150253750}
   latheController: {fileID: 1150253748}
   textInformation: {fileID: 590410041}
+  lightController: {fileID: 875081235}
   notes: {fileID: 1725458233}
   cameraControlPanel: {fileID: 1950427763}
   buttonSoundClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}

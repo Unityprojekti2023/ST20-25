@@ -29,6 +29,7 @@ public class ControlPanelInteractable : MonoBehaviour
     public ControlPanelAnimations controlPanelAnimations;
     public LatheController latheController;
     public TextInformation textInformation;
+    public LightController lightController;
 
     [Header("References to objects and files")]
     public GameObject notes;
@@ -124,13 +125,13 @@ public class ControlPanelInteractable : MonoBehaviour
         }
     }
 
-    public void OnDialRotated (bool isPositive)
+    public void OnDialRotated(bool isPositive)
     {
         if (isPositive)
         {
             currentState = ControlPanelState.HandlePlusPressed;
         }
-        else 
+        else
         {
             currentState = ControlPanelState.HandleMinusPressed;
         }
@@ -161,6 +162,7 @@ public class ControlPanelInteractable : MonoBehaviour
                 switch (state)
                 {
                     case ControlPanelState.PowerOnPressed:
+                        lightController.TurnOnLight(2);
                         controlPanelAnimations.PlayStartupAnimation();
                         break;
 
@@ -174,6 +176,7 @@ public class ControlPanelInteractable : MonoBehaviour
                             isProgramSelected = false;
                             isComputerOn = true;
                             isEmergencyStopClicked = false;
+                            lightController.TurnOnLight(1);
                             controlPanelAnimations.SetSprite("HomeScreen1");
                             ObjectiveManager.Instance.CompleteObjective("Turn on the lathe");
                         }
@@ -256,6 +259,7 @@ public class ControlPanelInteractable : MonoBehaviour
                         if (isEmergencyStopClicked)
                         {
                             isComputerOn = false;
+                            lightController.TurnOnLight(0);
                             // Hide control panel screens
                             controlPanelAnimations.HideSpriteRenderer();
                             ObjectiveManager.Instance.CompleteObjective("Turn the lathe off");
