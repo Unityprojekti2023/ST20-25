@@ -1,16 +1,13 @@
-[System.Serializable]
 public class Objective
 {
-    public string description;
+    public string Description;
     public bool isCompleted;
-    public bool isVisualCompleted;
-    public int scoreValue;
+    public int Points;
 
-    public Objective(string description, int scoreValue)
+    public Objective(string description, int points)
     {
-        this.description = description;
-        this.isCompleted = false;
-        this.isVisualCompleted = false;
-        this.scoreValue = scoreValue;
+        this.Description = description;
+        isCompleted = false;
+        this.Points = points;
     }
 }

@@ -6,7 +6,6 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
     [Header("References to other scripts")]
-    public EscapeMenu escapeMenu;
     public TaskManager taskManager;
     public ClipboardPickup clipboardPickup;
 
@@ -14,14 +13,12 @@ public class GameController : MonoBehaviour
 
     [Header("References to gameobjects")]
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI objectiveList;
     public GameObject endScreenUI;
 
 
     [Header("Other values")]
     public int currentStage = 0;
-    public int numberofStages = 9;
     public bool canDisplayNotes = false;
 
     [Header("Clipboard image")]
@@ -71,13 +68,8 @@ public class GameController : MonoBehaviour
         // Check if all objectives are completed for the current stage
         if (ObjectiveManager.Instance.AreAllObjectivesCompleted())
         {
-            // All objectives for the current stage are completed, proceed to the next stage
-            Debug.Log($"Stage {currentStage + 1} objectives completed! Proceed to the next stage.");
-
             // Increase the stage counter
             currentStage++;
-
-            // TODO: Add transition to the next stage with sound etc.
 
             // Empty objectives and add objectives for the next stage
             ObjectiveManager.Instance.EmptyObjective();
@@ -101,6 +93,7 @@ public class GameController : MonoBehaviour
             case 1:
                 ObjectiveManager.Instance.AddObjective("Pick up the clipboard", 50);
                 ObjectiveManager.Instance.AddObjective("Inspect the drawing", 50);
+                ObjectiveManager.Instance.AddObjective("Place the clipboard on the table", 50);
                 break;
 
             case 2:
@@ -135,6 +128,7 @@ public class GameController : MonoBehaviour
 
             case 8:
                 ObjectiveManager.Instance.AddObjective("Equip caliper", 100);
+                ObjectiveManager.Instance.AddObjective("Use caliper to measure the piece", 100);
                 break;
 
             case 9:

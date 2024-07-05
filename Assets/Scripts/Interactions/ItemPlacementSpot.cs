@@ -29,9 +29,9 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         }
         else if(heldItem.Contains("Caliper"))
         {
-            Debug.Log("Switching to caliper camera");
             CameraController.Instance.SwitchToCamera(4);
             caliperController.ToggleCaliperAttachment();
+            ObjectiveManager.Instance.CompleteObjective("Use caliper to measure the piece");
         }
         else
         {

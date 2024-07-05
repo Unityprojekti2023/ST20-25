@@ -16,18 +16,18 @@ public class ObjectiveUI : MonoBehaviour
     {
         string objectiveText = "Objectives:\n";
 
-        foreach (Objective obj in ObjectiveManager.Instance.objectives)
+        foreach (Objective obj in ObjectiveManager.Instance.currentObjectives)
         {
             string status = obj.isCompleted ? " [Completed]" : "";
 
             if (obj.isCompleted)
             {
                 // Apply green color to completed objectives
-                objectiveText += $"<color=#{ColorUtility.ToHtmlStringRGB(completedColor)}>{obj.description}{status}</color>\n";
+                objectiveText += $"<color=#{ColorUtility.ToHtmlStringRGB(completedColor)}>{obj.Description}{status}</color>\n";
             }
             else
             {
-                objectiveText += $"{obj.description}{status}\n";
+                objectiveText += $"{obj.Description}{status}\n";
             }
         }
 

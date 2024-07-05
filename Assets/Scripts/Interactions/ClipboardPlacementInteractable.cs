@@ -29,6 +29,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
         if (InventoryManager.Instance.HasItem("clipboard"))
         {
             PlaceClipboard();
+            ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table");
         }
         else
         {
