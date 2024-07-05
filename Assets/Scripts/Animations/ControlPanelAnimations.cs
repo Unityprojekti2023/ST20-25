@@ -54,26 +54,33 @@ public class ControlPanelAnimations : MonoBehaviour
     }
 
     // Method to set sprite renderer to next program sprite
-    public void SetNextProgramSprite()
+    // Call this method with `true` to move to the next sprite and `false` to move to the previous sprite
+    public void SetProgramSprite(bool next)
     {
         int currentIndex = GetProgramSpriteIndex();
 
-        // If current index is -1, set first sprite in programSprites array
+        // If current index is -1, set the first sprite in the programSprites array
         if (currentIndex == -1)
         {
             spriteRenderer.sprite = programSprites[0];
         }
         else
         {
-            // If current index is not the last index in the array, set the next sprite in the array
-            if (currentIndex + 1 < programSprites.Length)
+            // Determine the new index based on the direction
+            int newIndex;
+
+            if (next)
             {
-                spriteRenderer.sprite = programSprites[currentIndex + 1];
+                // Move to the next sprite
+                newIndex = (currentIndex + 1) % programSprites.Length;
             }
             else
             {
-                spriteRenderer.sprite = programSprites[0];
+                // Move to the previous sprite
+                newIndex = (currentIndex - 1 + programSprites.Length) % programSprites.Length;
             }
+
+            spriteRenderer.sprite = programSprites[newIndex];
         }
     }
 

@@ -124,6 +124,19 @@ public class ControlPanelInteractable : MonoBehaviour
         }
     }
 
+    public void OnDialRotated (bool isPositive)
+    {
+        if (isPositive)
+        {
+            currentState = ControlPanelState.HandlePlusPressed;
+        }
+        else 
+        {
+            currentState = ControlPanelState.HandleMinusPressed;
+        }
+        HandleStateChange(currentState);
+    }
+
     void HandleStateChange(ControlPanelState state)
     {
         // Play button press audio clip
@@ -201,14 +214,14 @@ public class ControlPanelInteractable : MonoBehaviour
                     case ControlPanelState.HandlePlusPressed:
                         if (controlPanelAnimations.DoesRendererContainString("Program"))
                         {
-                            controlPanelAnimations.SetNextProgramSprite();
+                            controlPanelAnimations.SetProgramSprite(true);
                         }
                         break;
 
                     case ControlPanelState.HandleMinusPressed:
                         if (controlPanelAnimations.DoesRendererContainString("Program"))
                         {
-                            controlPanelAnimations.SetNextProgramSprite();
+                            controlPanelAnimations.SetProgramSprite(false);
                         }
                         break;
 
