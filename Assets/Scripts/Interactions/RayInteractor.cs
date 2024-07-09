@@ -76,7 +76,7 @@ public class RayInteractor : MonoBehaviour
                 {
                     HandleInteractionRays(hit.collider.gameObject.name, interactable);
                 }
-                else if (InventoryManager.Instance.HasItem("Shovel"))
+                else if (InventoryManager.Instance.IsItemInInventory("Shovel"))
                 {
                     if (hit.collider.CompareTag("Cleanable"))
                     {

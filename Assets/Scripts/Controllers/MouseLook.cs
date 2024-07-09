@@ -7,7 +7,7 @@ public class MouseLook : MonoBehaviour
     public Transform target; // Reference to the player
     public EscapeMenu escapeMenu; // Reference to the escape menu
 
-    [Header("References to GameObjects")]
+    [Header("References to Gameobjects")]
     public Camera playerCamera; // Reference to the player's camera
 
     [Header("Camera Settings")]
@@ -19,33 +19,43 @@ public class MouseLook : MonoBehaviour
     {
         if (escapeMenu == null)
         {
-            Debug.LogError("EscapeMenu reference not set in MouseLook!");
+            Debug.LogError("EscapeMenu reference not set in CameraFollow!");
             return;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
-    }
 
+        //Hide camera switch buttons from UI
+    }
     void LateUpdate()
     {
         if (target == null)
         {
-            Debug.LogError("Target not set in MouseLook!");
+            Debug.LogError("Target not set in CameraFollow!");
             return;
         }
 
         if (!escapeMenu.isGamePaused)
         {
-            // Calculate the desired position of the camera
-            Vector3 desiredPosition = target.position + offset;
+            // Check if main camera is active
+            if (CameraController.Instance.IsCameraActive(0))
+            {
+                // Calculate the desired position of the camera
+                Vector3 desiredPosition = target.position + offset;
 
-            // Smoothly move the camera to the desired position
-            Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
-            playerCamera.transform.position = smoothedPosition;
+                // Smoothly move the camera to the desired position
+                Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
+                playerCamera.transform.position = smoothedPosition;
 
-            // Handle camera rotation separately
-            RotateCamera();
+                // Handle camera rotation separately
+                RotateCamera();
+            }
+            else
+                return;
+
         }
+        else
+            return;
     }
 
     void RotateCamera()

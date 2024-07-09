@@ -28,7 +28,7 @@ public class ShovelInteraction : MonoBehaviour, IInteractable
 
             ObjectiveManager.Instance.CompleteObjective("Equip shovel");
         }
-        else if (InventoryManager.Instance.handsFull && InventoryManager.Instance.HasItem("Shovel"))
+        else if (InventoryManager.Instance.handsFull && InventoryManager.Instance.IsItemInInventory("Shovel"))
         {
             InventoryManager.Instance.RemoveItemFromInventory("Shovel", "Shovel placed back", transform);
             // Update the text information
@@ -39,6 +39,5 @@ public class ShovelInteraction : MonoBehaviour, IInteractable
 
             ObjectiveManager.Instance.CompleteObjective("Unequip shovel");
         }
-
     }
 }

@@ -9,33 +9,13 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
     [Header("References to other objects")]
     public GameObject clipboard;
     public Renderer clipboardImageSlot;
-    public TextMeshProUGUI clibBoardTextSlot;
-
-    [Header("Other variables")]
-    private bool clipboardBeenPickedUp = false;
     public Transform attachmentPoint;
+    public TextMeshProUGUI clibBoardTextSlot;
     private bool inspecting = false;
-
-    void Start()
-    {
-
-        if (clipboard == null)
-        {
-            Debug.LogError("Clipboard reference not set in ClipboardPickup!");
-            return;
-        }
-        if (boxColliderHighlighter == null)
-        {
-            Debug.LogError("BoxColliderHighlighter reference not set in ClipboardPickup!");
-            return;
-        }
-
-        clipboard.SetActive(true);
-    }
 
     public void Interact()
     {
-        if (!InventoryManager.Instance.HasItem("clipboard") && !clipboardBeenPickedUp)
+        if (!InventoryManager.Instance.handsFull)
         {
             // Add the item to the player's inventory
             InventoryManager.Instance.AddItemToInventory("clipboard", "Item [Clipboard] picked up", "Inspect : RMB");
@@ -47,32 +27,31 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
             // Show the box collider highlighter
             boxColliderHighlighter.ShowHighlighter();
-
-            clipboardBeenPickedUp = true;
         }
         else
-        {
-            Debug.Log("Trying to activate clipboard camera");
-            CameraController.Instance.SwitchToCamera(5);
-        }
+            return;
     }
 
     private void Update()
     {
-        if (InventoryManager.Instance.HasItem("clipboard") && !inspecting && Input.GetKeyDown(KeyCode.Mouse1))
+        if (InventoryManager.Instance.IsItemInInventory("clipboard") && Input.GetKeyDown(KeyCode.Mouse1))
         {
-            inspecting = true;
-            // Switch to clipboard camera on
-            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
+            if (!inspecting)
+            {
+                inspecting = true;
+                // Switch to clipboard camera on
+                ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
 
-            CameraController.Instance.ToggleClipboardCamera(true);
-        }
-        // Switch back to player camera
-        else if (InventoryManager.Instance.HasItem("clipboard") && inspecting && Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            inspecting = false;
-            // Switch to clipboard camera off
-            CameraController.Instance.ToggleClipboardCamera(false);
+                CameraController.Instance.ToggleClipboardCamera(true);
+            }
+            else if (inspecting)
+            {
+                inspecting = false;
+                // Switch to clipboard camera off
+                CameraController.Instance.ToggleClipboardCamera(false);
+            }
+            else
+                return;
         }
         else
             return;

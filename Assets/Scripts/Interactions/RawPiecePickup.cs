@@ -69,7 +69,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             }
 
         }
-        else if (InventoryManager.Instance.HasItem(itemID))
+        else if (InventoryManager.Instance.IsItemInInventory(itemID))
         {
             if (topItem != null && topItem.activeSelf == false)
             {

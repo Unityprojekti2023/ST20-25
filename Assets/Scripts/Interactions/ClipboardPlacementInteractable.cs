@@ -8,28 +8,15 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
     [Header("References to other gameobjects")]
     public GameObject clipboard;
 
-    void Start()
-    {
-        if (clipboard == null)
-        {
-            Debug.LogError("Clipboard reference not set in ClipboardPlacementInteractable!");
-            return;
-        }
-        if (boxColliderHighlighter == null)
-        {
-            Debug.LogError("BoxColliderHighlighter reference not set in ClipboardPlacementInteractable!");
-            return;
-        }
-
-        clipboard.SetActive(true);
-    }
-
     public void Interact()
     {
-        if (InventoryManager.Instance.HasItem("clipboard"))
+        if (InventoryManager.Instance.IsItemInInventory("clipboard"))
         {
             PlaceClipboard();
-            ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table");
+        }
+        else if (transform.childCount > 0)
+        {
+            CameraController.Instance.SwitchToCamera(5);
         }
         else
         {
@@ -43,17 +30,18 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
     {
         // Hide the box collider highlighter
         boxColliderHighlighter.HideHighlighter();
-        
+
         // Move the clipboard to the attachment point
         clipboard.transform.SetPositionAndRotation(transform.position, transform.rotation);
         // Set the clipboard as a child of the table
         clipboard.transform.parent = transform;
 
         InventoryManager.Instance.RemoveItemFromInventory("clipboard", "Item [Clipboard] removed from inventory");
-        //ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table"); // TODO: Enable later when the objective is added
+        RayInteractor.instance.UpdateInteractionText(transform.name, "Inspect the assigment: [LMB] or [E]");
+        ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table");
 
         // Disable the clipboard's collider from messing with raycasts
-        transform.GetComponent<BoxCollider>().enabled = false;
+        clipboard.transform.GetComponent<BoxCollider>().enabled = false;
     }
 
 }

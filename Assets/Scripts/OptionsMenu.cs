@@ -33,15 +33,15 @@ public class OptionsMenu : MonoBehaviour
         volumeSlider.value = volume;
         sensitivitySlider.onValueChanged.AddListener(OnSensitivityValueChanged);
         volumeSlider.onValueChanged.AddListener(OnVolumeValueChanged);
-        UpdateSensitivityText(sensitivityValueText);
-        UpdateSensitivityText(volumeValueText);
+        sensitivityValueText.text = mouseSensitivity.ToString("F1");
+        volumeValueText.text = volume.ToString();
     }
 
     private void OnVolumeValueChanged(float value)
     {
         audioSource.volume = value / 100;
         volume = value;
-        UpdateSensitivityText(volumeValueText);
+        volumeValueText.text = volume.ToString();
         PlayerPrefs.SetFloat(volumeKey, volume);
         PlayerPrefs.Save();
     }
@@ -49,7 +49,7 @@ public class OptionsMenu : MonoBehaviour
     void OnSensitivityValueChanged(float value)
     {
         mouseSensitivity = value;
-        UpdateSensitivityText(sensitivityValueText);
+        sensitivityValueText.text = mouseSensitivity.ToString("F1");
 
         // Save sensitivity value to PlayerPrefs
         PlayerPrefs.SetFloat(sensitivityKey, mouseSensitivity);

@@ -36,7 +36,7 @@ public class CleaningController : MonoBehaviour
     public void HandleCleaning(GameObject gameObject)
     {
         // Check if the player is pressing the interact button
-        if (Input.GetMouseButtonDown(0) && InventoryManager.Instance.HasItem("Shovel"))
+        if (Input.GetMouseButtonDown(0) && InventoryManager.Instance.IsItemInInventory("Shovel"))
         {
             // Check if the scrap pile is active
             if (gameObject.tag == "Cleanable" && isShovelEmpty)

@@ -23,7 +23,7 @@ public class CaliperPickup : MonoBehaviour, IInteractable
             
             ObjectiveManager.Instance.CompleteObjective("Equip caliper");
         }
-        else if(InventoryManager.Instance.handsFull && InventoryManager.Instance.HasItem(caliber.name))
+        else if(InventoryManager.Instance.handsFull && InventoryManager.Instance.IsItemInInventory(caliber.name))
         {
             InventoryManager.Instance.RemoveItemFromInventory(caliber.name,"Caliper unequipped");
             caliber.SetActive(true);

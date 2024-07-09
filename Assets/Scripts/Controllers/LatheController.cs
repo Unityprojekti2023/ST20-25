@@ -8,6 +8,7 @@ public class LatheController : MonoBehaviour
     public LatheTimelineController timelineController;
     public MistakeGenerator mistakeGenerator;
     public CleaningController cleaningController;
+    public TextInformation textInformation; //TODO This and one in controlpanel interactable should reworked to be in one place?
 
     [Header("Lathe settings")]
     public Transform attachmentPoint;
@@ -30,32 +31,41 @@ public class LatheController : MonoBehaviour
     // Play the timeline
     public void PlayTimeline()
     {
-        GameObject selectedPrefab = cutItemPrefabs[timelineController.currentTimeline];
-
-        // Generate mistakes on the cut item
-        // 50% chance to generate mistake
-        if (Random.Range(0, 2) == 0)
+        if (attachmentPoint.childCount > 0)
         {
-            Debug.Log("Generating mistakes");
-            GenerateMistake(selectedPrefab);
+            GameObject selectedPrefab = cutItemPrefabs[timelineController.currentTimeline];
+
+            // Generate mistakes on the cut item
+            // 50% chance to generate mistake
+            if (Random.Range(0, 2) == 0)
+            {
+                Debug.Log("Generating mistakes");
+                GenerateMistake(selectedPrefab);
+            }
+
+            // Instantiate the cut item and set it as a child of the attachment
+            GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
+
+            // Set intantiated cut items position and rotation of the uncut item
+            instantiatedCutItem.transform.localPosition = Vector3.zero;
+            instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
+
+            // Destroy outelayer objects of instantiated cut item
+            RemoveOuterLayers(instantiatedCutItem);
+            // Hide instantiated cut item
+            instantiatedCutItem.SetActive(false);
+            timelineController.PlayTimeline();
+            ShowScrapPile();
         }
-
-        // Instantiate the cut item and set it as a child of the attachment
-        GameObject instantiatedCutItem = Instantiate(cutItems[selectedPrefab.name], attachmentPoint);
-
-        // Set intantiated cut items position and rotation of the uncut item
-        instantiatedCutItem.transform.localPosition = Vector3.zero;
-        instantiatedCutItem.transform.rotation = cutItems[selectedPrefab.name].transform.rotation;
-
-        // Destroy outelayer objects of instantiated cut item
-        RemoveOuterLayers(instantiatedCutItem);
-        // Hide instantiated cut item
-        instantiatedCutItem.SetActive(false);
-        timelineController.PlayTimeline();
-        ShowScrapPile();
+        else
+        {
+            textInformation.UpdateText("There is no item to cut.");
+        }
     }
 
     // Instantiate a cut item by its sprite at the same spot as the original item
+
+    //TODO: Would it be smart to move this partly to PlayTimeLine method? So if there is no uncut item when program is selected it would do that logic when play is pressed
     public void SetSelectedProgram(int selectedProgramIndex)
     {
         if (selectedProgramIndex < 0 || selectedProgramIndex >= cutItemPrefabs.Length)
@@ -67,11 +77,12 @@ public class LatheController : MonoBehaviour
         // Set current timeline
         timelineController.currentTimeline = selectedProgramIndex;
         GameObject selectedPrefab = cutItemPrefabs[selectedProgramIndex];
-        // Show the selected cut item prefab
-        selectedPrefab.SetActive(true);
 
         if (attachmentPoint.childCount > 0)
         {
+            // Show the selected cut item prefab
+            selectedPrefab.SetActive(true);
+
             // Set material of the cut item to match the material of the uncut item
             ChangeMaterial(selectedPrefab);
 
@@ -80,7 +91,7 @@ public class LatheController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Attachment point does not contain any item.");
+            textInformation.UpdateText("There is no item in lathe");
         }
     }
 

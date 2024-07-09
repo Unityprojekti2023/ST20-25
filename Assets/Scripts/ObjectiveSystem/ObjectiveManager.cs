@@ -35,22 +35,6 @@ public class ObjectiveManager : MonoBehaviour
     public void EmptyObjective()
     {
         currentObjectives.Clear();
-        
-        //Debug print all objectives
-        foreach (Objective obj in allObjectives)
-        {
-            Debug.Log(obj.Description);
-        }
-
-        Debug.Log("All objectives cleared");
-
-        
-        foreach (Objective obj in currentObjectives)
-        {
-            Debug.Log(obj.Description);
-        }
-        Debug.Log("Current objectives cleared");
-
     }
 
     // Mark an objective as completed and update the score

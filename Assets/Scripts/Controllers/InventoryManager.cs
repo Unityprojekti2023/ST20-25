@@ -54,47 +54,60 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItemToInventory(string itemID, string itemInfoText = "", GameObject item = null, string secondaryInteractionText = "")
     {
-        if (item != null)
+        if (!handsFull)
         {
-            heldItem = item;
-            MoveHeldItemToAttachmentPoint(inventoryAttachmentPoint);
+            if (item != null)
+            {
+                heldItem = item;
+                MoveHeldItemToAttachmentPoint(inventoryAttachmentPoint);
 
-            // Set the heldItem hidden for now
-            //heldItem.SetActive(false);
+                // Set the heldItem hidden for now
+                //heldItem.SetActive(false);
+            }
+            if (secondaryInteractionText != "")
+            {
+                this.secondaryInteractionText.text = secondaryInteractionText;
+            }
+
+            Debug.Log("Picked item " + itemID);
+            handsFull = true;
+            textInfo.UpdateText(itemInfoText);
+            inventory.Add(itemID);
         }
-        if (secondaryInteractionText != "")
-        {
-            this.secondaryInteractionText.text = secondaryInteractionText;
-        }
-
-        Debug.Log("Picked item " + itemID);
-        handsFull = true;
-        textInfo.UpdateText(itemInfoText);
-        inventory.Add(itemID);
-    }
-
-    public bool HasItem(string itemID)
-    {
-        return inventory.Contains(itemID);
+        else
+            textInfo.UpdateText("Hands are full");
     }
 
     public void RemoveItemFromInventory(string itemID, string itemInfoText = "", Transform transform = null)
     {
-        if (transform != null)
+        if (handsFull)
         {
-            MoveHeldItemToAttachmentPoint(transform);
-        }
+            if (transform != null)
+            {
+                MoveHeldItemToAttachmentPoint(transform);
+            }
 
-        if (secondaryInteractionText.text != "")
+            if (secondaryInteractionText.text != "")
+            {
+                secondaryInteractionText.text = "";
+            }
+
+            Debug.Log("Removed item " + itemID);
+            handsFull = false;
+            heldItem = null;
+            textInfo.UpdateText(itemInfoText);
+            inventory.Remove(itemID);
+        }
+        else
         {
-            secondaryInteractionText.text = "";
+            textInfo.UpdateText("Hands are empty");
+            Debug.Log("Trying to remove item from empty hands, but hands are empty.");
         }
+    }
 
-        Debug.Log("Removed item " + itemID);
-        handsFull = false;
-        heldItem = null;
-        textInfo.UpdateText(itemInfoText);
-        inventory.Remove(itemID);
+    public bool IsItemInInventory(string itemID)
+    {
+        return inventory.Contains(itemID);
     }
 
     public string GetHeldItemID()
@@ -116,11 +129,5 @@ public class InventoryManager : MonoBehaviour
 
         // Set the heldItem to active to make sure it is visible
         heldItem.SetActive(true);
-    }
-
-    // TODO: Is this needed or just check the handsFull variable?
-    public bool CheckIfHandsFull()
-    {
-        return handsFull;
     }
 }
