@@ -34,6 +34,12 @@ public class LatheController : MonoBehaviour
     {
         if (attachmentPoint.childCount > 0)
         {
+            // Show the selected cut item prefab
+            selectedPrefab.SetActive(true);
+
+            // Set material of the cut item to match the material of the uncut item
+            ChangeMaterial(selectedPrefab);
+            
             // Generate mistakes on the cut item
             // 50% chance to generate mistake
             if (Random.Range(0, 2) == 0)
@@ -62,7 +68,7 @@ public class LatheController : MonoBehaviour
         }
         else
         {
-            textInformation.UpdateText("There is no item to cut.");
+            textInformation.UpdateText("There is no item inserted into the machine");
         }
     }
 
@@ -86,19 +92,6 @@ public class LatheController : MonoBehaviour
         // Set current timeline
         timelineController.currentTimeline = selectedProgramIndex;
         selectedPrefab = cutItemPrefabs[selectedProgramIndex];
-
-        if (attachmentPoint.childCount > 0)
-        {
-            // Show the selected cut item prefab
-            selectedPrefab.SetActive(true);
-
-            // Set material of the cut item to match the material of the uncut item
-            ChangeMaterial(selectedPrefab);
-        }
-        else
-        {
-            textInformation.UpdateText("There is no item in lathe");
-        }
     }
 
     public void ShowScrapPile()

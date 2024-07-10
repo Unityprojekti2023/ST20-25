@@ -2,7 +2,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RawPiecePickup : MonoBehaviour, IInteractable
+public class BlankPickup : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     private TaskManager taskManager;
@@ -59,7 +59,7 @@ public class RawPiecePickup : MonoBehaviour, IInteractable
             if (itemRenderer != null && itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
             {
                 // If the item is the correct material, complete the objective
-                ObjectiveManager.Instance.CompleteObjective($"Pick up correct raw piece");
+                ObjectiveManager.Instance.CompleteObjective($"Pick up correct blank");
             }
             else
             {

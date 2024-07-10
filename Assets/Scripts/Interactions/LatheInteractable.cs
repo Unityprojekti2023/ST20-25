@@ -39,7 +39,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 // Update the text information
                 RayInteractor.instance.UpdateInteractionText(transform.name, "Pickup item: [LMB] or [E]");
 
-                ObjectiveManager.Instance.CompleteObjective("Place piece in place");
+                ObjectiveManager.Instance.CompleteObjective("Place piece into the machine");
             }
             else
             {

@@ -40,7 +40,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 
         InventoryManager.Instance.RemoveItemFromInventory("clipboard", "Item [Clipboard] removed from inventory");
         RayInteractor.instance.UpdateInteractionText(transform.name, "Inspect the assigment: [LMB] or [E]");
-        ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the table");
+        ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the worktable");
 
         // Disable the clipboard's collider from messing with raycasts
         clipboard.transform.GetComponent<BoxCollider>().enabled = false;

@@ -8,19 +8,28 @@ public class MainMenu : MonoBehaviour
 {
     public Toggle hideUIToggle;
 
-    public void Start() {
+    public void Start()
+    {
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnStartButton()
     {
-        Debug.Log("Start Game!");
+        Debug.Log("Start practice game!");
+        PlayerPrefs.SetInt("HideUI", 0);
 
-        if (hideUIToggle != null)
-        {
-            int hideUIValue = hideUIToggle.isOn ? 1 : 0;
-            PlayerPrefs.SetInt("HideUI", hideUIValue);
-        }
+        Debug.Log("Hide UI: " + PlayerPrefs.GetInt("HideUI"));
+
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnTestButton()
+    {
+        Debug.Log("Start test game!");
+        PlayerPrefs.SetInt("HideUI", 1);
+
+        Debug.Log("Hide UI: " + PlayerPrefs.GetInt("HideUI"));
+
 
         SceneManager.LoadScene(1);
     }

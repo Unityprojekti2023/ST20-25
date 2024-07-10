@@ -86,6 +86,7 @@ public class HelpControlPanelManager : MonoBehaviour
             else
             {
                 currentButtonIndex = 0;
+                HideAllHelpImages();
                 ResetButtons();
             }
         }

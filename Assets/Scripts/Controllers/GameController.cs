@@ -14,12 +14,12 @@ public class GameController : MonoBehaviour
     [Header("References to gameobjects")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI objectiveList;
+    public Canvas practiceModeUI;
     public GameObject endScreenUI;
 
 
     [Header("Other values")]
     public int currentStage = 0;
-    public bool canDisplayNotes = false;
 
     [Header("Clipboard image")]
     //Array of materials for clipboard image
@@ -39,23 +39,9 @@ public class GameController : MonoBehaviour
 
 
         //Check if playing on Test mode to hide objective list and score.
-        if (PlayerPrefs.GetInt("HideUI", 0) == 1)
+        if (PlayerPrefs.GetInt("HideUI") == 1)
         {
-            canDisplayNotes = false;
-
-            // Hide UI element if it exists
-            if (objectiveList != null)
-            {
-                objectiveList.gameObject.SetActive(false);
-            }
-            if (scoreText != null)
-            {
-                scoreText.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            canDisplayNotes = true;
+            practiceModeUI.gameObject.SetActive(false);
         }
 
         // Initialize with the objectives of the first stage
@@ -93,12 +79,12 @@ public class GameController : MonoBehaviour
             case 1:
                 ObjectiveManager.Instance.AddObjective("Pick up the clipboard", 50);
                 ObjectiveManager.Instance.AddObjective("Inspect the drawing", 50);
-                ObjectiveManager.Instance.AddObjective("Place the clipboard on the table", 50);
+                ObjectiveManager.Instance.AddObjective("Place the clipboard on the worktable", 50);
                 break;
 
             case 2:
-                ObjectiveManager.Instance.AddObjective("Pick up correct raw piece", 100);
-                ObjectiveManager.Instance.AddObjective("Place piece in place", 100);
+                ObjectiveManager.Instance.AddObjective("Pick up correct blank", 100);
+                ObjectiveManager.Instance.AddObjective("Place piece into the machine", 100);
                 break;
 
             case 3:
