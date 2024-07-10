@@ -114,6 +114,7 @@ public class ControlPanelInteractable : MonoBehaviour
     public void OnDialRotated(bool isPositive)
     {
         currentState = isPositive ? ControlPanelState.HandlePlusPressed : ControlPanelState.HandleMinusPressed;
+        helpControlPanelManager.NextHelpHighlight("dialHandle");
         HandleStateChange(currentState);
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HelpControlPanelManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class HelpControlPanelManager : MonoBehaviour
     public GameObject[] buttons;
     public Material highlightMaterial;
     private Material[] originalMaterials;
+    public SpriteRenderer[] helpImages;
+
+    Dictionary<GameObject, SpriteRenderer> buttonToImageMap;
 
 
     int currentButtonIndex = 0;
@@ -24,6 +28,15 @@ public class HelpControlPanelManager : MonoBehaviour
         {
             originalMaterials[i] = buttons[i].GetComponent<Renderer>().material;
         }
+
+        // Initialize button to image map
+        buttonToImageMap = new Dictionary<GameObject, SpriteRenderer>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttonToImageMap.Add(buttons[i], helpImages[i]);
+        }
+
+        HideAllHelpImages();
     }
 
     public void ToggleHelpHighlight(bool isHelpActive)
@@ -37,6 +50,7 @@ public class HelpControlPanelManager : MonoBehaviour
         else
         {
             mistakeCounter = 0;
+            HideAllHelpImages();
             ResetButtons();
         }
     }
@@ -49,15 +63,20 @@ public class HelpControlPanelManager : MonoBehaviour
             // Check if current button index is not the last button in the array
             if (currentButtonIndex < buttons.Length - 1)
             {
-                // Increase current button index
                 currentButtonIndex++;
-
-                // Check if highlight is active
                 if (isHighlightActive)
                 {
                     // Reset all buttons and highlight current button
                     ResetButtons();
                     buttons[currentButtonIndex].GetComponent<Renderer>().material = highlightMaterial;
+
+                    if (buttonToImageMap.TryGetValue(buttons[currentButtonIndex], out SpriteRenderer helpImage))
+                    {
+                        HideAllHelpImages();
+                        // Enable the help image for the current button if it exists
+                        if (helpImage != null)
+                            helpImage.enabled = true;
+                    }
                 }
                 else
                 {
@@ -80,6 +99,16 @@ public class HelpControlPanelManager : MonoBehaviour
                     CheckIfTooManyMistakes();
                 }
             }
+        }
+    }
+
+    private void HideAllHelpImages()
+    {
+        // Set all help images to hidden
+        for (int i = 0; i < helpImages.Length; i++)
+        {
+            if (helpImages[i] != null)
+                helpImages[i].enabled = false;
         }
     }
 
