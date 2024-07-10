@@ -13,6 +13,7 @@ public class LatheController : MonoBehaviour
     [Header("Lathe settings")]
     public Transform attachmentPoint;
     public GameObject[] cutItemPrefabs;
+    GameObject selectedPrefab;
     public Dictionary<string, GameObject> cutItems = new();
 
     private Material currentMaterial;
@@ -33,14 +34,12 @@ public class LatheController : MonoBehaviour
     {
         if (attachmentPoint.childCount > 0)
         {
-            GameObject selectedPrefab = cutItemPrefabs[timelineController.currentTimeline];
-
             // Generate mistakes on the cut item
             // 50% chance to generate mistake
             if (Random.Range(0, 2) == 0)
             {
                 Debug.Log("Generating mistakes");
-                GenerateMistake(selectedPrefab);
+                GenerateMistakeToLathesItem(selectedPrefab);
             }
 
             // Instantiate the cut item and set it as a child of the attachment
@@ -54,6 +53,10 @@ public class LatheController : MonoBehaviour
             RemoveOuterLayers(instantiatedCutItem);
             // Hide instantiated cut item
             instantiatedCutItem.SetActive(false);
+
+            // Destroy the uncut item
+            Destroy(attachmentPoint.GetChild(0).gameObject);
+
             timelineController.PlayTimeline();
             ShowScrapPile();
         }
@@ -68,6 +71,12 @@ public class LatheController : MonoBehaviour
     //TODO: Would it be smart to move this partly to PlayTimeLine method? So if there is no uncut item when program is selected it would do that logic when play is pressed
     public void SetSelectedProgram(int selectedProgramIndex)
     {
+        // Make sure all cutItemPrefabs are hidden
+        foreach (GameObject cutItemPrefab in cutItemPrefabs)
+        {
+            cutItemPrefab.SetActive(false);
+        }
+
         if (selectedProgramIndex < 0 || selectedProgramIndex >= cutItemPrefabs.Length)
         {
             Debug.LogError("Selected program index is out of bounds.");
@@ -76,7 +85,7 @@ public class LatheController : MonoBehaviour
 
         // Set current timeline
         timelineController.currentTimeline = selectedProgramIndex;
-        GameObject selectedPrefab = cutItemPrefabs[selectedProgramIndex];
+        selectedPrefab = cutItemPrefabs[selectedProgramIndex];
 
         if (attachmentPoint.childCount > 0)
         {
@@ -85,9 +94,6 @@ public class LatheController : MonoBehaviour
 
             // Set material of the cut item to match the material of the uncut item
             ChangeMaterial(selectedPrefab);
-
-            // Destroy the uncut item
-            Destroy(attachmentPoint.GetChild(0).gameObject);
         }
         else
         {
@@ -100,7 +106,7 @@ public class LatheController : MonoBehaviour
         cleaningController.ShowAllScrapPiles(currentMaterial);
     }
 
-    private void GenerateMistake(GameObject item)
+    private void GenerateMistakeToLathesItem(GameObject item)
     {
 
         Transform[] allParts = item.transform.GetComponentsInChildren<Transform>();

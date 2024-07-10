@@ -12,6 +12,8 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
     {
         if (InventoryManager.Instance.IsItemInInventory("clipboard"))
         {
+            // Make sure clipboard camera is off
+            CameraController.Instance.ToggleClipboardCamera(false);
             PlaceClipboard();
         }
         else if (transform.childCount > 0)

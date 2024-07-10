@@ -30,6 +30,7 @@ public class ControlPanelInteractable : MonoBehaviour
     public LatheController latheController;
     public TextInformation textInformation;
     public LightController lightController;
+    private HelpControlPanelManager helpControlPanelManager;
 
     [Header("References to objects and files")]
     public GameObject notes;
@@ -40,242 +41,253 @@ public class ControlPanelInteractable : MonoBehaviour
 
     [Header("Variables")]
     public bool isDoorClosed = true;
-    private bool isComputerOn = false;
-    private bool isLatheInitialized = false;
-    private bool isEmergencyStopClicked = false;
-    private bool isZeroReturnClicked = false;
-    private bool isProgramSelected = false;
+    bool isComputerOn = false;
+    bool isLatheInitialized = false;
+    bool isEmergencyStopClicked = false;
+    bool isZeroReturnClicked = false;
+    bool isProgramSelected = false;
 
+    private Dictionary<string, ControlPanelState> buttonToStateMap;
 
     void Start()
     {
-        //Move notes under the floor (Y Axis)
         source.volume = 0.05f;
-        //Hide notes
         notes.SetActive(false);
 
         latheAudioSource = GetComponent<AudioSource>();
+        helpControlPanelManager = GetComponent<HelpControlPanelManager>();
+
+        InitializeButtonToStateMap();
     }
+
     void Update()
     {
-        // Check if controlPanelCamera is active before proceeding
         if (CameraController.Instance.IsCameraActive(1))
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = cameraControlPanel.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                int layer_mask = LayerMask.GetMask("ControlPanelLayer");
+                HandleMouseClick();
+            }
+        }
+    }
 
-                //Perform a raycast to detect the button that was clicked
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
+    private void InitializeButtonToStateMap()
+    {
+        buttonToStateMap = new Dictionary<string, ControlPanelState>
+        {
+            { "btnPowerON", ControlPanelState.PowerOnPressed },
+            { "btnPowerOFF", ControlPanelState.PowerOffPressed },
+            { "btnEmergencyStop", ControlPanelState.EmergencyStopPressed },
+            { "btnReset", ControlPanelState.ResetPressed },
+            { "btnHelp", ControlPanelState.HelpPressed },
+            { "btnZeroReturn", ControlPanelState.ZeroReturnPressed },
+            { "btnALL", ControlPanelState.AllPressed },
+            { "btnPowerUpRestart", ControlPanelState.PowerUpRestartPressed },
+            { "btnListProgram", ControlPanelState.ListProgramPressed },
+            { "btnSelectProgram", ControlPanelState.SelectProgramPressed },
+            { "btnCycleStart", ControlPanelState.CycleStartPressed },
+        };
+    }
+
+    private void HandleMouseClick()
+    {
+        Ray ray = cameraControlPanel.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("ControlPanelLayer")))
+        {
+            string hitButton = hit.collider.gameObject.name;
+            if (buttonToStateMap.TryGetValue(hitButton, out ControlPanelState newState))
+            {
+                currentState = newState;
+                if (!controlPanelAnimations.isPlaying)
                 {
-                    string hitButton = hit.collider.gameObject.name;
-                    Debug.Log("Hit button: " + hitButton);
-
-                    switch (hitButton)
-                    {
-                        case "btnPowerON":
-                            currentState = ControlPanelState.PowerOnPressed;
-                            break;
-                        case "btnPowerOFF":
-                            currentState = ControlPanelState.PowerOffPressed;
-                            break;
-                        case "btnEmergencyStop":
-                            currentState = ControlPanelState.EmergencyStopPressed;
-                            break;
-                        case "btnReset":
-                            currentState = ControlPanelState.ResetPressed;
-                            break;
-                        case "btnHelp":
-                            currentState = ControlPanelState.HelpPressed;
-                            break;
-                        case "btnZeroReturn":
-                            currentState = ControlPanelState.ZeroReturnPressed;
-                            break;
-                        case "btnALL":
-                            currentState = ControlPanelState.AllPressed;
-                            break;
-                        case "btnPowerUpRestart":
-                            currentState = ControlPanelState.PowerUpRestartPressed;
-                            break;
-                        case "btnListProgram":
-                            currentState = ControlPanelState.ListProgramPressed;
-                            break;
-                        case "btnSelectProgram":
-                            currentState = ControlPanelState.SelectProgramPressed;
-                            break;
-                        case "btnCycleStart":
-                            currentState = ControlPanelState.CycleStartPressed;
-                            break;
-                        case "btnHandleJogPlus":
-                            currentState = ControlPanelState.HandlePlusPressed;     //TODO: Make the jog functional
-                            break;
-                        case "btnHandleJogMinus":
-                            currentState = ControlPanelState.HandleMinusPressed;    //TODO: Make the jog functional
-                            break;
-                        default:
-                            currentState = ControlPanelState.Idle;
-                            break;
-                    }
-                    // Handle the button press on currentState
-                    HandleStateChange(currentState);
+                    helpControlPanelManager.NextHelpHighlight(hitButton);
                 }
+                HandleStateChange(currentState);
+            }
+            else
+            {
+                currentState = ControlPanelState.Idle;
             }
         }
     }
 
     public void OnDialRotated(bool isPositive)
     {
-        if (isPositive)
-        {
-            currentState = ControlPanelState.HandlePlusPressed;
-        }
-        else
-        {
-            currentState = ControlPanelState.HandleMinusPressed;
-        }
+        currentState = isPositive ? ControlPanelState.HandlePlusPressed : ControlPanelState.HandleMinusPressed;
         HandleStateChange(currentState);
     }
 
     void HandleStateChange(ControlPanelState state)
     {
-        // Play button press audio clip
         PlayAudioClip();
 
-        // Handle help button press and notes display
-        if (state == ControlPanelState.HelpPressed && !notes.activeSelf)
+        if (state == ControlPanelState.HelpPressed)
         {
-            notes.SetActive(true);
+            ToggleHelpAndNotes();
         }
-        else if (state == ControlPanelState.HelpPressed && notes.activeSelf)
+        else
         {
-            notes.SetActive(false);
-        }
-
-        // If animation is playing do not allow state changes
-        if (!controlPanelAnimations.isPlaying)
-        {
-            // Perform actions based on the current state
-            if (!isComputerOn)
+            if (!controlPanelAnimations.isPlaying)
             {
-                switch (state)
+                if (!isComputerOn)
                 {
-                    case ControlPanelState.PowerOnPressed:
-                        lightController.TurnOnLight(2);
-                        controlPanelAnimations.PlayStartupAnimation();
-                        break;
-
-                    case ControlPanelState.EmergencyStopPressed:
-                        isEmergencyStopClicked = true;
-                        break;
-
-                    case ControlPanelState.ResetPressed:
-                        if (isEmergencyStopClicked)
-                        {
-                            isProgramSelected = false;
-                            isComputerOn = true;
-                            isEmergencyStopClicked = false;
-                            lightController.TurnOnLight(1);
-                            controlPanelAnimations.SetSprite("HomeScreen1");
-                            ObjectiveManager.Instance.CompleteObjective("Turn on the lathe");
-                        }
-                        break;
+                    HandleStateWhenComputerIsOff(state);
+                }
+                else
+                {
+                    HandleStateWhenComputerIsOn(state);
                 }
             }
-            else if (isComputerOn)  //TODO: Does this need to be else if?
-            {
-                // Switch case when computer is on
-                switch (state)
-                {
-                    case ControlPanelState.ZeroReturnPressed:
-                        isZeroReturnClicked = true;
-                        break;
-
-                    case ControlPanelState.AllPressed:  // Pressing "Zero Return" + "All" does the same exact thing as "Power Up Restart"
-                        if (isZeroReturnClicked)
-                        {
-                            controlPanelAnimations.SetSprite("HomeScreen2");
-                            isLatheInitialized = true;
-                        }
-                        //TODO: Is there possibility of this and PowerUpRestartPressed being called at the same time or otherwise bugged?
-                        ObjectiveManager.Instance.CompleteObjective("Initialize the lathe");
-                        break;
-
-                    case ControlPanelState.PowerUpRestartPressed:   // Pressing this button once does the same exact thing as Zero Return + ALL
-                        controlPanelAnimations.SetSprite("HomeScreen2");
-                        isLatheInitialized = true;
-                        ObjectiveManager.Instance.CompleteObjective("Initialize the lathe");
-                        break;
-
-                    case ControlPanelState.ListProgramPressed:
-                        if (isLatheInitialized)
-                            controlPanelAnimations.SetSprite("Program0");
-                        //TODO: Logic for when different programs are selected
-                        break;
-
-                    case ControlPanelState.HandlePlusPressed:
-                        if (controlPanelAnimations.DoesRendererContainString("Program"))
-                        {
-                            controlPanelAnimations.SetProgramSprite(true);
-                        }
-                        break;
-
-                    case ControlPanelState.HandleMinusPressed:
-                        if (controlPanelAnimations.DoesRendererContainString("Program"))
-                        {
-                            controlPanelAnimations.SetProgramSprite(false);
-                        }
-                        break;
-
-                    case ControlPanelState.SelectProgramPressed:
-                        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Program"))
-                        {
-                            // Set the selected animation, object and material to the lathe
-                            latheController.SetSelectedProgram(controlPanelAnimations.GetProgramSpriteIndex());
-                            isProgramSelected = true;   //TODO: Is there any otherway to check if program is selected?
-
-                            ObjectiveManager.Instance.CompleteObjective("Select a program");
-                        }
-                        break;
-
-                    case ControlPanelState.CycleStartPressed:
-                        if (isProgramSelected && !latheController.timelineController.IsPlaying() && isDoorClosed)
-                        {
-                            latheController.PlayTimeline();
-                            ObjectiveManager.Instance.CompleteObjective("Run a program");
-                        }
-                        else
-                        {
-                            textInformation.UpdateText("Not all conditions are met to run program!");
-                        }
-                        break;
-
-                    case ControlPanelState.EmergencyStopPressed:
-                        isEmergencyStopClicked = true;
-                        break;
-
-                    case ControlPanelState.PowerOffPressed:
-                        if (isEmergencyStopClicked)
-                        {
-                            isComputerOn = false;
-                            lightController.TurnOnLight(0);
-                            // Hide control panel screens
-                            controlPanelAnimations.HideSpriteRenderer();
-                            ObjectiveManager.Instance.CompleteObjective("Turn the lathe off");
-                        }
-                        break;
-                }
-
-            }
-
         }
-
     }
 
-    public void PlayAudioClip()                                     // Function for playing button press audio clip
+    private void HandleStateWhenComputerIsOff(ControlPanelState state)
     {
-        // Check if audio clip is already playing
+        switch (state)
+        {
+            case ControlPanelState.PowerOnPressed:
+                TurnOnComputer();
+                break;
+            case ControlPanelState.EmergencyStopPressed:
+                isEmergencyStopClicked = true;
+                break;
+            case ControlPanelState.ResetPressed:
+                ResetAfterEmergencyStop();
+                break;
+        }
+    }
+
+    private void HandleStateWhenComputerIsOn(ControlPanelState state)
+    {
+        switch (state)
+        {
+            case ControlPanelState.ZeroReturnPressed:
+                isZeroReturnClicked = true;
+                break;
+            case ControlPanelState.AllPressed:
+                InitializeLathe();
+                break;
+            case ControlPanelState.PowerUpRestartPressed:
+                isZeroReturnClicked = true;
+                InitializeLathe();
+                break;
+            case ControlPanelState.ListProgramPressed:
+                ListPrograms();
+                break;
+            case ControlPanelState.SelectProgramPressed:
+                SelectProgram();
+                break;
+            case ControlPanelState.CycleStartPressed:
+                StartProgramCycle();
+                break;
+            case ControlPanelState.EmergencyStopPressed:
+                isEmergencyStopClicked = true;
+                break;
+            case ControlPanelState.PowerOffPressed:
+                TurnOffComputer();
+                break;
+            case ControlPanelState.HandlePlusPressed:
+            case ControlPanelState.HandleMinusPressed:
+                ChangeProgram(state == ControlPanelState.HandlePlusPressed);
+                break;
+        }
+    }
+
+    private void TurnOnComputer()
+    {
+        lightController.TurnOnLight(2);
+        controlPanelAnimations.PlayStartupAnimation();
+    }
+
+    private void ResetAfterEmergencyStop()
+    {
+        if (isEmergencyStopClicked)
+        {
+            isProgramSelected = false;
+            isComputerOn = true;
+            isEmergencyStopClicked = false;
+            lightController.TurnOnLight(1);
+            controlPanelAnimations.SetSprite("HomeScreen1");
+            ObjectiveManager.Instance.CompleteObjective("Turn on the lathe");
+        }
+    }
+
+    private void InitializeLathe()
+    {
+        if (isZeroReturnClicked)
+        {
+            controlPanelAnimations.SetSprite("HomeScreen2");
+            isLatheInitialized = true;
+            ObjectiveManager.Instance.CompleteObjective("Initialize the lathe");
+        }
+    }
+
+    private void ListPrograms()
+    {
+        if (isLatheInitialized)
+        {
+            controlPanelAnimations.SetSprite("Program0");
+        }
+    }
+
+    private void SelectProgram()
+    {
+        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Program"))
+        {
+            latheController.SetSelectedProgram(controlPanelAnimations.GetProgramSpriteIndex());
+            isProgramSelected = true;
+            ObjectiveManager.Instance.CompleteObjective("Select a program");
+        }
+    }
+
+    private void StartProgramCycle()
+    {
+        if (isProgramSelected && !latheController.timelineController.IsPlaying() && isDoorClosed)
+        {
+            latheController.PlayTimeline();
+            ObjectiveManager.Instance.CompleteObjective("Run a program");
+        }
+        else
+        {
+            textInformation.UpdateText("Not all conditions are met to run program!");
+        }
+    }
+
+    private void TurnOffComputer()
+    {
+        if (isEmergencyStopClicked)
+        {
+            isComputerOn = false;
+            lightController.TurnOnLight(0);
+            controlPanelAnimations.HideSpriteRenderer();
+            ObjectiveManager.Instance.CompleteObjective("Turn the lathe off");
+        }
+    }
+
+    private void ChangeProgram(bool isPositive)
+    {
+        if (controlPanelAnimations.DoesRendererContainString("Program"))
+        {
+            controlPanelAnimations.SetProgramSprite(isPositive);
+        }
+    }
+
+    private void ToggleHelpAndNotes()
+    {
+        if (!notes.activeSelf)
+        {
+            helpControlPanelManager.ToggleHelpHighlight(true);
+            notes.SetActive(true);
+        }
+        else
+        {
+            helpControlPanelManager.ToggleHelpHighlight(false);
+            notes.SetActive(false);
+        }
+    }
+
+    public void PlayAudioClip()
+    {
         if (!latheAudioSource.isPlaying)
         {
             latheAudioSource.PlayOneShot(buttonSoundClip);

@@ -31,6 +31,8 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    //TODO: check if this script can be simplified
+
     void Start()
     {
         // Hide all buttons
@@ -68,7 +70,6 @@ public class CameraController : MonoBehaviour
         // Show the score text
         scoreText.gameObject.SetActive(false);
 
-
         // Deactivate the current camera
         cameras[activeCameraIndex].gameObject.SetActive(false);
 
@@ -99,8 +100,6 @@ public class CameraController : MonoBehaviour
         // TODO: Is there smarter way to do this?
         else if (index == 4 || index == 5)
         {
-            Debug.Log("Caliper Camera Active");
-
             // Hide Objective text
             objectiveText.gameObject.SetActive(false);
 

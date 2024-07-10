@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-//TODO: Refactor this script to use the IInteractable interface and remove the unnecessary references to other scripts
 public class LatheInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
@@ -11,7 +10,6 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     public Transform attachmentPointOfLathe;
     private string latheItemID;
 
-    //TODO: Add function to pick cut item from lathe
     void Start()
     {
         // Find the LatheController script in the scene
@@ -24,10 +22,9 @@ public class LatheInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        // TODO: Implement logic to stop player from picking up the item if the Lathe is running
 
         // Check if player's hands are full
-        if (InventoryManager.Instance.handsFull)
+        if (InventoryManager.Instance.handsFull && attachmentPointOfLathe.childCount == 0)
         {
             //If full, check if the item in the player's hands is a blank and check if attachemnt point is empty
             string heldItem = InventoryManager.Instance.GetHeldItemID();
