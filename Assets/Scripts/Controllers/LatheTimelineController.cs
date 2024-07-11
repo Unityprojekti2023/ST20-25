@@ -69,6 +69,7 @@ public class LatheTimelineController : MonoBehaviour
         {
             return playableDirector.state == PlayState.Playing;
         }
-        return false;
+        else
+            return false;
     }
 }

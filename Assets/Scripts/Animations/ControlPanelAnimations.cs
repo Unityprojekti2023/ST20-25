@@ -9,6 +9,7 @@ public class ControlPanelAnimations : MonoBehaviour
     [Header("Sprite Arrays")]
     public Sprite[] startupSprites; // Array of sprites of startup animation
     public Sprite[] programSprites; // Array of sprites of program animations
+    public Sprite[] memorySprites; // Array of sprites of memory animations
     public Sprite[] otherSprites; // Array of sprites of other animations
 
     public bool isPlaying = false;
@@ -20,8 +21,8 @@ public class ControlPanelAnimations : MonoBehaviour
 
     public void PlayStartupAnimation()
     {
-
         spriteRenderer.enabled = true;
+        spriteRenderer.sprite = startupSprites[0];
         StartCoroutine(PlayAnimation(startupSprites, Random.Range(1f, 3f)));
         // Do something after the animation is done
     }
@@ -94,7 +95,7 @@ public class ControlPanelAnimations : MonoBehaviour
     {
         // Show the sprite renderer
         spriteRenderer.enabled = true;  //TODO is this ideal way to do this?
-        
+
         isPlaying = true;
         foreach (Sprite sprite in sprites)
         {
@@ -111,11 +112,17 @@ public class ControlPanelAnimations : MonoBehaviour
     {
         for (int i = 0; i < programSprites.Length; i++)
         {
-            if (spriteRenderer.sprite == programSprites[i])
+            if (spriteRenderer.sprite == programSprites[i] || spriteRenderer.sprite == memorySprites[i])
             {
                 return i;
             }
         }
         return -1;
+    }
+
+    internal void SwitchToMemoryScreen()
+    {
+        // Go to same index of memory sprite as current program sprite
+        spriteRenderer.sprite = memorySprites[GetProgramSpriteIndex()];
     }
 }

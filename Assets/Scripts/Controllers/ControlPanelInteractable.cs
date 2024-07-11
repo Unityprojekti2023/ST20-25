@@ -19,6 +19,7 @@ public enum ControlPanelState
     CycleStartPressed,
     HandlePlusPressed,
     HandleMinusPressed,
+    MemoryPressed,
 }
 
 public class ControlPanelInteractable : MonoBehaviour
@@ -40,13 +41,13 @@ public class ControlPanelInteractable : MonoBehaviour
     public AudioSource source;
 
     [Header("Variables")]
-    public bool isDoorClosed = true;
     bool isComputerOn = false;
     bool isLatheInitialized = false;
     bool isEmergencyStopClicked = false;
     bool isZeroReturnClicked = false;
     bool isProgramSelected = false;
-
+    public bool isDoorClosed = true;
+    
     private Dictionary<string, ControlPanelState> buttonToStateMap;
 
     void Start()
@@ -84,6 +85,7 @@ public class ControlPanelInteractable : MonoBehaviour
             { "btnALL", ControlPanelState.AllPressed },
             { "btnPowerUpRestart", ControlPanelState.PowerUpRestartPressed },
             { "btnListProgram", ControlPanelState.ListProgramPressed },
+            { "btnMemory", ControlPanelState.MemoryPressed },
             { "btnSelectProgram", ControlPanelState.SelectProgramPressed },
             { "btnCycleStart", ControlPanelState.CycleStartPressed },
         };
@@ -175,6 +177,9 @@ public class ControlPanelInteractable : MonoBehaviour
             case ControlPanelState.ListProgramPressed:
                 ListPrograms();
                 break;
+            case ControlPanelState.MemoryPressed:
+                MemoryProgram();
+                break;
             case ControlPanelState.SelectProgramPressed:
                 SelectProgram();
                 break;
@@ -193,6 +198,7 @@ public class ControlPanelInteractable : MonoBehaviour
                 break;
         }
     }
+
 
     private void TurnOnComputer()
     {
@@ -230,10 +236,18 @@ public class ControlPanelInteractable : MonoBehaviour
             controlPanelAnimations.SetSprite("Program0");
         }
     }
+    private void MemoryProgram()
+    {
+        // Switch from program to memory screen
+        if (isLatheInitialized)
+        {
+            controlPanelAnimations.SwitchToMemoryScreen();
+        }
+    }
 
     private void SelectProgram()
     {
-        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Program"))
+        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Memory"))
         {
             latheController.SetSelectedProgram(controlPanelAnimations.GetProgramSpriteIndex());
             isProgramSelected = true;

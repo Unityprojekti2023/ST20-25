@@ -3625,7 +3625,6 @@ Transform:
   - {fileID: 6876804342375175900}
   - {fileID: 8796187630772105473}
   - {fileID: 4774166538876733441}
-  - {fileID: 6721265926682941867}
   - {fileID: 5280273934115702466}
   - {fileID: 6595887436173254439}
   - {fileID: 2974669907649451631}
@@ -9611,7 +9610,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dd489e54305531c4ba5bf4a11c97a147, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 844caa8b2abb93a4c9d568fefaefc0e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -21187,11 +21186,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 77595cb08237ba04cad71cc59512d621, type: 3}
   - {fileID: 21300000, guid: 7baf68e9274ff0b44adcc6f8ba9c2812, type: 3}
   programSprites:
-  - {fileID: 21300000, guid: 7ea5a23c99db5f6418c8eff32b13c7f3, type: 3}
-  - {fileID: 21300000, guid: 50f6dc59ae9bec84f9002f9248080315, type: 3}
-  - {fileID: 21300000, guid: b1bb745a95a52014d864078e31199b85, type: 3}
-  - {fileID: 21300000, guid: 132d4c3e4cce1a147a0a926bcf7b474d, type: 3}
-  - {fileID: 21300000, guid: e2e2cbca1687d734293233bfda9c2ac1, type: 3}
+  - {fileID: 21300000, guid: 844caa8b2abb93a4c9d568fefaefc0e5, type: 3}
+  - {fileID: 21300000, guid: db9afe668b0063147bb5e751f5fff5e1, type: 3}
+  - {fileID: 21300000, guid: 5e2f937924802de48a1972b9742f031d, type: 3}
+  - {fileID: 21300000, guid: 80e17843fc4dc9e488896648fd4852eb, type: 3}
+  - {fileID: 21300000, guid: e00ab1131be896c42b5239f812f02dcc, type: 3}
+  memorySprites:
+  - {fileID: 21300000, guid: 3328a17feacdf484680650056b20745b, type: 3}
+  - {fileID: 21300000, guid: 122706a71bfeb954a904755dd4052f82, type: 3}
+  - {fileID: 21300000, guid: 17bb176a361c3c34d976743ebe8c90de, type: 3}
+  - {fileID: 21300000, guid: 8e41303391b607d4c8e51673305d7f79, type: 3}
+  - {fileID: 21300000, guid: c500820a9f805f74b912f99e435dde0c, type: 3}
   otherSprites:
   - {fileID: 21300000, guid: b492e2e536b026946a6d9ff4ffc75853, type: 3}
   isPlaying: 0
@@ -30616,6 +30621,7 @@ MonoBehaviour:
   caliperCamera: {fileID: 1227455793}
   measurementText: {fileID: 1135322186}
   caliper: {fileID: 1341103199611384594}
+  secondaryInteractionText: {fileID: 2006531837}
 --- !u!1 &1704179733
 GameObject:
   m_ObjectHideFlags: 0
@@ -37013,7 +37019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2006531837
@@ -37070,8 +37076,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 32
-  m_VerticalAlignment: 4096
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -37079,7 +37085,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -37099,7 +37105,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 16.965912, w: 0}
+  m_margin: {x: 0, y: 0, z: -154.94836, w: -184.32053}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -39701,6 +39707,7 @@ Transform:
   - {fileID: 3924232458221090491}
   - {fileID: 318724665}
   - {fileID: 4083501151386541596}
+  - {fileID: 6721265926682941867}
   - {fileID: 1927767947}
   - {fileID: 1626985592}
   - {fileID: 2062115364}
@@ -40096,7 +40103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7518045ff1a9bc540b3e6ac992152d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlPanelInteractable: {fileID: 919132149395317119}
+  latheController: {fileID: 1150253748}
   audioSource: {fileID: 8480530770715217660}
   openingSound: {fileID: 8300000, guid: d57dd58116bbbef4c8ff4e08cd5216c5, type: 3}
   closingSound: {fileID: 8300000, guid: 0db762f8912c0594998c1550f3f41adf, type: 3}
@@ -41205,8 +41212,9 @@ GameObject:
   - component: {fileID: 6721265926682941867}
   - component: {fileID: 5932666498541048661}
   - component: {fileID: 4628347513090455963}
+  - component: {fileID: 6721265926682941868}
   m_Layer: 6
-  m_Name: MEMORY
+  m_Name: btnMemory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43276,7 +43284,7 @@ MonoBehaviour:
   cameraControlPanel: {fileID: 1950427763}
   buttonSoundClip: {fileID: 8300000, guid: 2327ab0aa388f5d4daac9cd0628b4f25, type: 3}
   source: {fileID: 961783180}
-  isDoorClosed: 1
+  isLatherRunning: 0
 --- !u!114 &919132149395317120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43296,6 +43304,7 @@ MonoBehaviour:
   - {fileID: 2076850630378056640}
   - {fileID: 7199088262306146138}
   - {fileID: 1186771466}
+  - {fileID: 182104280471109335}
   - {fileID: 318724664}
   - {fileID: 6512510688575418007}
   highlightMaterial: {fileID: 2100000, guid: cfb1a831ab629f94491b8a2e1151050a, type: 2}
@@ -43306,6 +43315,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 2008413664}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 1597642657}
   mistakeCounter: 0
@@ -56488,12 +56498,33 @@ Transform:
   m_GameObject: {fileID: 182104280471109335}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000017881389, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.169937, y: -11.430087, z: -0.00000910759}
+  m_LocalPosition: {x: -26.169922, y: -11.429999, z: 0.00014686584}
   m_LocalScale: {x: 90, y: 90, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 179478291}
+  m_Father: {fileID: 2087599480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6721265926682941868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182104280471109335}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.029637583, y: 0.028923426, z: 0.0040550157}
+  m_Center: {x: -0.00000047683716, y: 0.00000023841858, z: 0.0000009536743}
 --- !u!4 &6721557987869987991
 Transform:
   m_ObjectHideFlags: 0

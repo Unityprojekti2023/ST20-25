@@ -18,16 +18,16 @@ public class CaliperPickup : MonoBehaviour, IInteractable
         if (!InventoryManager.Instance.handsFull)
         {
             InventoryManager.Instance.AddItemToInventory(caliber.name,"Caliper equipped");
-            caliber.SetActive(false);
             RayInteractor.instance.UpdateInteractionText(transform.name, "Hold to place caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
+            caliber.SetActive(false);
             
             ObjectiveManager.Instance.CompleteObjective("Equip caliper");
         }
         else if(InventoryManager.Instance.handsFull && InventoryManager.Instance.IsItemInInventory(caliber.name))
         {
             InventoryManager.Instance.RemoveItemFromInventory(caliber.name,"Caliper unequipped");
-            caliber.SetActive(true);
             RayInteractor.instance.UpdateInteractionText(transform.name, "Hold to pickup caliper: [LMB] or [E]", InteractableType.HandleHoldInteraction);
+            caliber.SetActive(true);
 
             
             ObjectiveManager.Instance.CompleteObjective("Unequip caliper");

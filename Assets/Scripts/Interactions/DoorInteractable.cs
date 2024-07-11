@@ -5,6 +5,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 {
     [Header("References to other scripts")]
     public ControlPanelInteractable controlPanelInteractable;
+    public LatheController latheController;
 
     [Header("References to Animator and Audio Source")]
     private Animator doorAnimator; // Reference to the door animator
@@ -24,22 +25,25 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        // Get the current state of the lathe door
-        bool isDoorClosed = controlPanelInteractable.isDoorClosed;
-        Debug.Log("Door is closed: " + isDoorClosed);
+        if (!IsAnimationPlaying() && !latheController.isLatheRunning)
+        {
+            // Get the current state of the lathe door
+            bool isDoorClosed = controlPanelInteractable.isDoorClosed;
+            Debug.Log("Door is closed: " + isDoorClosed);
 
-        //Check if door is open and no animation is playing
-        if (!isDoorClosed && !IsAnimationPlaying())
-        {
-            controlPanelInteractable.isDoorClosed = true;
-            CloseDoor();
-            RayInteractor.instance.UpdateInteractionText(transform.name, "Open door: [LMB] or [E]");
-        }
-        else if (isDoorClosed && !IsAnimationPlaying())
-        {
-            controlPanelInteractable.isDoorClosed = false;
-            OpenDoor();
-            RayInteractor.instance.UpdateInteractionText(transform.name, "Close door: [LMB] or [E]");
+            //Check if door is open and no animation is playing
+            if (!isDoorClosed)
+            {
+                controlPanelInteractable.isDoorClosed = true;
+                CloseDoor();
+                RayInteractor.instance.UpdateInteractionText(transform.name, "Open door: [LMB] or [E]");
+            }
+            else if (isDoorClosed)
+            {
+                controlPanelInteractable.isDoorClosed = false;
+                OpenDoor();
+                RayInteractor.instance.UpdateInteractionText(transform.name, "Close door: [LMB] or [E]");
+            }
         }
     }
 

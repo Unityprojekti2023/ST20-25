@@ -67,12 +67,8 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        // Show the score text
-        scoreText.gameObject.SetActive(false);
-
         // Deactivate the current camera
         cameras[activeCameraIndex].gameObject.SetActive(false);
-
         // Activate the new camera
         cameras[index].gameObject.SetActive(true);
 
@@ -90,10 +86,7 @@ public class CameraController : MonoBehaviour
                     button.gameObject.SetActive(false);
             }
             crosshair.SetActive(true);
-            
-            //TODO: Make this not happen in testing mode
             scoreText.gameObject.SetActive(true);
-            
             objectiveText.gameObject.SetActive(true);
         }
         // Check if active camera is Caliper Camera
@@ -107,7 +100,7 @@ public class CameraController : MonoBehaviour
             cameraButtons[0].gameObject.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-
+            Cursor.visible = false;
             crosshair.SetActive(false);
         }
         else

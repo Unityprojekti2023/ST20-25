@@ -13,10 +13,11 @@ public class LatheController : MonoBehaviour
     [Header("Lathe settings")]
     public Transform attachmentPoint;
     public GameObject[] cutItemPrefabs;
-    GameObject selectedPrefab;
-    public Dictionary<string, GameObject> cutItems = new();
-
+    private GameObject selectedPrefab;
     private Material currentMaterial;
+
+    public bool isLatheRunning = false;
+    public Dictionary<string, GameObject> cutItems = new();
 
     //TODO: What to do if door is opened while lathe is running?
 
@@ -26,6 +27,18 @@ public class LatheController : MonoBehaviour
         foreach (GameObject cutItem in cutItemPrefabs)
         {
             cutItems.Add(cutItem.name, cutItem);
+        }
+    }
+
+    void Update()
+    {
+        if (isLatheRunning)
+        {
+            if (!timelineController.IsPlaying())
+            {
+                isLatheRunning = false;
+                ShowScrapPile();
+            }
         }
     }
 
@@ -64,7 +77,7 @@ public class LatheController : MonoBehaviour
             Destroy(attachmentPoint.GetChild(0).gameObject);
 
             timelineController.PlayTimeline();
-            ShowScrapPile();
+            isLatheRunning = true;
         }
         else
         {
@@ -72,16 +85,8 @@ public class LatheController : MonoBehaviour
         }
     }
 
-    // Instantiate a cut item by its sprite at the same spot as the original item
-
-    //TODO: Would it be smart to move this partly to PlayTimeLine method? So if there is no uncut item when program is selected it would do that logic when play is pressed
     public void SetSelectedProgram(int selectedProgramIndex)
     {
-        // Make sure all cutItemPrefabs are hidden
-        foreach (GameObject cutItemPrefab in cutItemPrefabs)
-        {
-            cutItemPrefab.SetActive(false);
-        }
 
         if (selectedProgramIndex < 0 || selectedProgramIndex >= cutItemPrefabs.Length)
         {

@@ -29,11 +29,13 @@ public class LockerInteractor : MonoBehaviour, IInteractable
         {
             // Set the target rotation to close the door
             targetRotation = Quaternion.Euler(-90, 0, 0);
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Open door: [LMB] or [E]", InteractableType.HandleInteraction);
         }
         else
         {
             // Set the target rotation to open the door
             targetRotation = Quaternion.Euler(-90, 0, -90);
+            RayInteractor.instance.UpdateInteractionText(transform.name, "Close door: [LMB] or [E]", InteractableType.HandleInteraction);
         }
 
         isDoorOpen = !isDoorOpen; // Toggle the door state

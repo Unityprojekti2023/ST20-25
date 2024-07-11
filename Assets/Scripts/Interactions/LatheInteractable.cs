@@ -80,10 +80,4 @@ public class LatheInteractable : MonoBehaviour, IInteractable
         // Update the text information
         RayInteractor.instance.UpdateInteractionText(transform.name, "Place item: [LMB] or [E]");
     }
-
-    // Set latheItemID to cut items
-    public void SetLatheItemID(string itemID)
-    {
-        latheItemID = itemID;
-    }
 }

@@ -8,16 +8,16 @@ public class CaliperController : MonoBehaviour
 {
     [Header("References to other gameobjects")]
     public Camera caliperCamera;
-    public TextMeshPro measurementText; // Use Text if using Unity UI
+    public TextMeshPro measurementText;
     public GameObject caliper;
+    public TextMeshProUGUI secondaryInteractionText;
     private GameObject slidingParts;
-    private bool isCaliperAttached = false;
-    private bool isCaliperRotated = false;
-    private Vector3 offset;
-    private Vector3 slidingPartStartPosition;
 
-    // Store the initial local position of the sliding part
-
+    Vector3 offset;
+    Vector3 slidingPartStartPosition;
+    bool isCaliperAttached = false;
+    bool isCaliperRotated = false;
+    bool isFirstAttach = true;  //TODO: Is there a better way to handle not rotating the caliper on the first attach?
 
     void Start()
     {
@@ -38,56 +38,66 @@ public class CaliperController : MonoBehaviour
     void Update()
     {
         // Check if the caliper camera is active
-        if (!caliperCamera.gameObject.activeSelf)
+        if (caliperCamera.gameObject.activeSelf)
         {
-            isCaliperAttached = false;
-            // Hide the caliper
-            caliper.SetActive(false);   // TODO: Any way to make this not being called every frame?
-        }
-
-        // If the caliper is attached to the mouse, update its position
-        if (isCaliperAttached)
-        {
-            Cursor.visible = false;
-            if (Input.GetMouseButtonDown(0))
-            {
-                //Rotate caliper between vertical and horizontal
-                RotateCaliper();
-            }
-
             // Detach the caliper if the right mouse button is clicked
             if (Input.GetMouseButtonDown(1))
             {
-                isCaliperAttached = !isCaliperAttached;
-                Cursor.visible = true;
+                ToggleCaliperAttachment();
+                Cursor.visible = !Cursor.visible;
             }
 
-            float scrollInput = Input.GetAxis("Mouse ScrollWheel"); // mouse scroll input
-            Vector3 newPosition = slidingParts.transform.localPosition + 0.5f * scrollInput * Vector3.right;
-            newPosition.x = Mathf.Clamp(newPosition.x, -7.8f, 0f);
-            // Round the position to 2 decimal places
-            newPosition.x = (float)Math.Round(newPosition.x, 2);
+            // If the caliper is attached to the mouse, update its position
+            if (isCaliperAttached)
+            {
+                if (Input.GetMouseButtonDown(0) && !isFirstAttach)
+                {
+                    //Rotate caliper between vertical and horizontal
+                    RotateCaliper();
+                }
 
-            slidingParts.transform.localPosition = newPosition;
+                float scrollInput = Input.GetAxis("Mouse ScrollWheel"); // mouse scroll input
+                Vector3 newPosition = slidingParts.transform.localPosition + 0.5f * scrollInput * Vector3.right;
+                newPosition.x = Mathf.Clamp(newPosition.x, -7.8f, 0f);
+                // Round the position to 2 decimal places
+                newPosition.x = (float)Math.Round(newPosition.x, 2);
 
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition.z = 10.0f; // Set the distance from the camera
-            Vector3 worldPosition = caliperCamera.ScreenToWorldPoint(mousePosition);
-            caliper.transform.position = worldPosition + offset;
+                slidingParts.transform.localPosition = newPosition;
 
-            // Update the measurement in real-time
-            UpdateMeasurement();
+                Vector3 mousePosition = Input.mousePosition;
+                mousePosition.z = 10.0f; // Set the distance from the camera
+                Vector3 worldPosition = caliperCamera.ScreenToWorldPoint(mousePosition);
+                caliper.transform.position = worldPosition + offset;
+
+                // Update the measurement in real-time
+                UpdateMeasurement();
+
+                isFirstAttach = false;
+            }
+            else if (!caliperCamera.gameObject.activeSelf)
+            {
+                isCaliperAttached = false;
+
+                secondaryInteractionText.text = "";
+
+                if (Cursor.visible)
+                    Cursor.visible = false;
+                // Hide the caliper
+                if (caliper.activeSelf)
+                    caliper.SetActive(false);
+            }
         }
     }
 
     public void ToggleCaliperAttachment()
     {
         isCaliperAttached = !isCaliperAttached;
-        caliper.SetActive(isCaliperAttached);
-        //caliper.SetActive(true);
+        caliper.SetActive(true);
+        isFirstAttach = true;
 
         if (isCaliperAttached)
         {
+            secondaryInteractionText.text = "Press [RMB] to lock the caliper";
             // Calculate the offset between the caliper and the mouse position
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10.0f; // Set the distance from the camera
