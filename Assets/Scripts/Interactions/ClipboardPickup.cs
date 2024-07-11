@@ -42,13 +42,13 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
                 // Switch to clipboard camera on
                 ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
 
-                CameraController.Instance.ToggleClipboardCamera(true);
+                CameraController.Instance.ToggleClipboardCamera();
             }
             else if (inspecting)
             {
                 inspecting = false;
                 // Switch to clipboard camera off
-                CameraController.Instance.ToggleClipboardCamera(false);
+                CameraController.Instance.ToggleClipboardCamera();
             }
             else
                 return;

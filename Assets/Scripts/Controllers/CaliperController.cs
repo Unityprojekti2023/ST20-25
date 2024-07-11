@@ -10,7 +10,6 @@ public class CaliperController : MonoBehaviour
     public Camera caliperCamera;
     public TextMeshPro measurementText;
     public GameObject caliper;
-    public TextMeshProUGUI secondaryInteractionText;
     private GameObject slidingParts;
 
     Vector3 offset;
@@ -74,18 +73,18 @@ public class CaliperController : MonoBehaviour
 
                 isFirstAttach = false;
             }
-            else if (!caliperCamera.gameObject.activeSelf)
-            {
-                isCaliperAttached = false;
+        }
+        //TODO: Fix this. Code will never get to this point because of the if statement above
+        else if (!caliperCamera.gameObject.activeSelf && !isFirstAttach)
+        {
+            isCaliperAttached = false;
+            isFirstAttach = true;
 
-                secondaryInteractionText.text = "";
-
-                if (Cursor.visible)
-                    Cursor.visible = false;
-                // Hide the caliper
-                if (caliper.activeSelf)
-                    caliper.SetActive(false);
-            }
+            if (Cursor.visible)
+                Cursor.visible = false;
+            // Hide the caliper
+            if (caliper.activeSelf)
+                caliper.SetActive(false);
         }
     }
 
@@ -93,11 +92,9 @@ public class CaliperController : MonoBehaviour
     {
         isCaliperAttached = !isCaliperAttached;
         caliper.SetActive(true);
-        isFirstAttach = true;
 
         if (isCaliperAttached)
         {
-            secondaryInteractionText.text = "Press [RMB] to lock the caliper";
             // Calculate the offset between the caliper and the mouse position
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10.0f; // Set the distance from the camera

@@ -29,7 +29,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         }
         else if(heldItem.Contains("Caliper"))
         {
-            CameraController.Instance.SwitchToCamera(4);
+            CameraController.Instance.SwitchToCamera(5);
             caliperController.ToggleCaliperAttachment();
             ObjectiveManager.Instance.CompleteObjective("Use caliper to measure the piece");
         }

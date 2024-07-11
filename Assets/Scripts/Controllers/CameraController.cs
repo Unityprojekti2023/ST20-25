@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,14 +12,24 @@ public class CameraController : MonoBehaviour
     [Header("Cameras and Buttons")]
     public List<Camera> cameras;
     public Button[] cameraButtons;
-
-    private int activeCameraIndex = 0;
+    public Button drawingButton;
 
     [Header("References to other gameobjects")]
     public GameObject crosshair;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI objectiveText;
-
+    public TextMeshProUGUI secondaryInteractionText;
+    bool toggleClipCam;
+    int activeCameraIndex = 0;
+    private enum CameraIndex
+    {
+        Main,
+        ControlPanel,
+        Lathe,
+        Notes,
+        Clipboard,
+        Measuring
+    }
 
     void Awake()
     {
@@ -31,7 +43,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    //TODO: check if this script can be simplified
+    //TODO: Rework this script to be more modular and cleaner
 
     void Start()
     {
@@ -41,10 +53,9 @@ public class CameraController : MonoBehaviour
             if (button.gameObject.activeSelf)
                 button.gameObject.SetActive(false);
         }
+        drawingButton.gameObject.SetActive(false);
 
-        // Hide the secondary interaction text
-
-        // Ensure that only one camera is active at a time
+        // Ensure that only one camera is active at the start
         for (int i = 0; i < cameras.Count; i++)
         {
             cameras[i].gameObject.SetActive(i == activeCameraIndex);
@@ -56,6 +67,9 @@ public class CameraController : MonoBehaviour
             int index = i;
             cameraButtons[i].onClick.AddListener(() => SwitchToCamera(index));
         }
+
+        // Initialize drawing button listener to ToggleClipboardCamera
+        drawingButton.onClick.AddListener(() => ToggleClipboardCamera());
     }
 
     public void SwitchToCamera(int index)
@@ -67,73 +81,110 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        // Deactivate the current camera
-        cameras[activeCameraIndex].gameObject.SetActive(false);
-        // Activate the new camera
-        cameras[index].gameObject.SetActive(true);
+        cameras[activeCameraIndex].gameObject.SetActive(false);     // Deactivate the current camera
+        cameras[index].gameObject.SetActive(true);                  // Activate the new camera
+        activeCameraIndex = index;                                  // Update the active camera index
 
-        // Update the active camera index
-        activeCameraIndex = index;
-
-        if (activeCameraIndex == 0)
+        switch ((CameraIndex)index)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-
-            // Hide all buttons
-            foreach (var button in cameraButtons)
-            {
-                if (button.gameObject.activeSelf)
-                    button.gameObject.SetActive(false);
-            }
-            crosshair.SetActive(true);
-            scoreText.gameObject.SetActive(true);
-            objectiveText.gameObject.SetActive(true);
-        }
-        // Check if active camera is Caliper Camera
-        // TODO: Is there smarter way to do this?
-        else if (index == 4 || index == 5)
-        {
-            // Hide Objective text
-            objectiveText.gameObject.SetActive(false);
-
-            // Show only first button
-            cameraButtons[0].gameObject.SetActive(true);
-
-            Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-            Cursor.visible = false;
-            crosshair.SetActive(false);
-        }
-        else
-        {
-            // Show camera buttons canvas
-            foreach (var button in cameraButtons)
-            {
-                button.gameObject.SetActive(true);
-            }
-
-            Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-            crosshair.SetActive(false);
-
-            // Hide the score text
-            scoreText.gameObject.SetActive(false);
-
-            // Set buttons interactable
-            SetButtonInteractability(cameraButtons[index]);
+            case CameraIndex.Main:
+                HandleMainCamera();
+                break;
+            case CameraIndex.ControlPanel:
+                HandleControlPanelCamera(index);
+                break;  
+            case CameraIndex.Lathe:            
+                HandleControlPanelCamera(index);
+                break;
+            case CameraIndex.Notes:
+                HandleControlPanelCamera(index);
+                break;
+            case CameraIndex.Clipboard:
+                HandleClipboardCamera();
+                break;
+            case CameraIndex.Measuring:
+                HandleMeasuringCamera();
+                break;
         }
     }
 
-    // Method to toggle clipboard camera on and off without changing the active camera
-    public void ToggleClipboardCamera(bool turnOn)
+    private void HandleControlPanelCamera(int cameraIndex)
     {
-        if (turnOn)
+        // Show camera buttons canvas
+        foreach (var button in cameraButtons)
         {
-            cameras[5].gameObject.SetActive(turnOn);
+            button.gameObject.SetActive(true);
+        }
+
+        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        crosshair.SetActive(false);
+
+        // Hide the score text
+        scoreText.gameObject.SetActive(false);
+
+        // Set buttons interactable
+        SetButtonInteractability(cameraButtons[cameraIndex]);
+    }
+
+    private void HandleMainCamera()
+    {
+        secondaryInteractionText.text = "";
+        drawingButton.gameObject.SetActive(false);
+        // Lock the cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        // Show the crosshair
+        crosshair.SetActive(true);
+        // Show the score text
+        scoreText.gameObject.SetActive(true);
+        // Show the objective text
+        objectiveText.gameObject.SetActive(true);
+
+        // Hide all buttons
+        foreach (var button in cameraButtons)
+        {
+            if (button.gameObject.activeSelf)
+                button.gameObject.SetActive(false);
+        }
+    }
+    private void HandleClipboardCamera()
+    {
+        // Hide Objective text
+        objectiveText.gameObject.SetActive(false);
+        // Show only first button
+        cameraButtons[0].gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        Cursor.visible = true;
+        crosshair.SetActive(false);
+    }
+
+    private void HandleMeasuringCamera()
+    {
+
+        secondaryInteractionText.text = "Press [RMB] to lock the caliper";
+
+        // Hide Objective text
+        objectiveText.gameObject.SetActive(false);
+        // Show only first button
+        cameraButtons[0].gameObject.SetActive(true);
+        drawingButton.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        Cursor.visible = false;
+        crosshair.SetActive(false);
+    }
+
+    // Method to toggle clipboard camera on and off without changing the active camera
+    public void ToggleClipboardCamera()
+    {
+        toggleClipCam = !toggleClipCam;
+        if (toggleClipCam)
+        {
+            cameras[4].gameObject.SetActive(toggleClipCam);
             // Hide Objective text
             objectiveText.gameObject.SetActive(false);
         }
         else
         {
-            cameras[5].gameObject.SetActive(false);
+            cameras[4].gameObject.SetActive(false);
             // Hide Objective text
             objectiveText.gameObject.SetActive(true);
         }

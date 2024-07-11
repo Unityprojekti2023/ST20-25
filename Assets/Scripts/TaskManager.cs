@@ -19,8 +19,8 @@ public class TaskManager : MonoBehaviour
     // Dictionary to map material names to material types
     private Dictionary<string, string> materialToMaterialType = new()
     {
-        { "Teräs", "metal02_diffuse" },
-        { "Alumiini", "metal06_diffuse" }
+        { "Steel", "metal02_diffuse" },
+        { "Aluminum", "metal06_diffuse" }
     };
 
     private void Awake()

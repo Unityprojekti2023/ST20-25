@@ -47,7 +47,7 @@ public class ControlPanelInteractable : MonoBehaviour
     bool isZeroReturnClicked = false;
     bool isProgramSelected = false;
     public bool isDoorClosed = true;
-    
+
     private Dictionary<string, ControlPanelState> buttonToStateMap;
 
     void Start()
@@ -242,15 +242,15 @@ public class ControlPanelInteractable : MonoBehaviour
         if (isLatheInitialized)
         {
             controlPanelAnimations.SwitchToMemoryScreen();
+            isProgramSelected = true;
         }
     }
 
     private void SelectProgram()
     {
-        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Memory"))
+        if (isLatheInitialized && controlPanelAnimations.DoesRendererContainString("Program"))
         {
             latheController.SetSelectedProgram(controlPanelAnimations.GetProgramSpriteIndex());
-            isProgramSelected = true;
             ObjectiveManager.Instance.CompleteObjective("Select a program");
         }
     }
