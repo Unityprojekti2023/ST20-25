@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     public List<Camera> cameras;
     public Button[] cameraButtons;
     public Button drawingButton;
+    public GameObject clipboardSpot;
 
     [Header("References to other gameobjects")]
     public GameObject crosshair;
@@ -42,8 +43,6 @@ public class CameraController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    //TODO: Rework this script to be more modular and cleaner
 
     void Start()
     {
@@ -84,6 +83,7 @@ public class CameraController : MonoBehaviour
         cameras[activeCameraIndex].gameObject.SetActive(false);     // Deactivate the current camera
         cameras[index].gameObject.SetActive(true);                  // Activate the new camera
         activeCameraIndex = index;                                  // Update the active camera index
+        Cursor.visible = true;                                      // Makes sure that the cursor is visible when not locked
 
         switch ((CameraIndex)index)
         {
@@ -160,13 +160,18 @@ public class CameraController : MonoBehaviour
     private void HandleMeasuringCamera()
     {
 
-        secondaryInteractionText.text = "Press [RMB] to lock the caliper";
+        secondaryInteractionText.text = "Press: [RMB] to show mouse";
 
         // Hide Objective text
         objectiveText.gameObject.SetActive(false);
         // Show only first button
         cameraButtons[0].gameObject.SetActive(true);
-        drawingButton.gameObject.SetActive(true);
+        // Check if clipboard has been placed to it's spot
+        if ( clipboardSpot.transform.childCount > 0)
+        {
+            drawingButton.gameObject.SetActive(true);
+        }
+
         Cursor.lockState = CursorLockMode.None; // Unlock the cursor
         Cursor.visible = false;
         crosshair.SetActive(false);

@@ -38,7 +38,6 @@ public class ControlPanelInteractable : MonoBehaviour
     public Camera cameraControlPanel;
     public AudioClip buttonSoundClip;
     private AudioSource latheAudioSource;
-    public AudioSource source;
 
     [Header("Variables")]
     bool isComputerOn = false;
@@ -52,7 +51,6 @@ public class ControlPanelInteractable : MonoBehaviour
 
     void Start()
     {
-        source.volume = 0.05f;
         notes.SetActive(false);
 
         latheAudioSource = GetComponent<AudioSource>();
@@ -259,6 +257,7 @@ public class ControlPanelInteractable : MonoBehaviour
     {
         if (isProgramSelected && !latheController.timelineController.IsPlaying() && isDoorClosed)
         {
+            helpControlPanelManager.ToggleHelpHighlight(false);
             latheController.PlayTimeline();
             ObjectiveManager.Instance.CompleteObjective("Run a program");
         }

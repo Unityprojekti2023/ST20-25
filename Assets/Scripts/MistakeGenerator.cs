@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MistakeGenerator : MonoBehaviour
+//TODO: Work on this so that not all parts are modified each time, and see if need to change modification logic
 {
     [Header("Minimun and maximum values for random length and thickness")]
     // The minimum and maximum values for the length and thickness of the parts

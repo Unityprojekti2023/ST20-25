@@ -41,6 +41,8 @@ public class BlankPickup : MonoBehaviour, IInteractable
             GameObject item = Instantiate(topItem);
             // Add the item to the player's inventory
             InventoryManager.Instance.AddItemToInventory(itemID, $"Item [{itemID}] picked up", item);
+            // Rotate the item to horizontal position
+            item.transform.localEulerAngles = new Vector3(0, 90, 0);
 
             // Hide the topItem
             topItem.SetActive(false);

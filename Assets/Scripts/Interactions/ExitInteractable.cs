@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ExitInteractable : MonoBehaviour, IInteractable
 {
@@ -10,8 +9,11 @@ public class ExitInteractable : MonoBehaviour, IInteractable
     public GameObject endScreenUI;
     public TextMeshProUGUI endScoreText;
 
+    //TODO: Fix this
+
     public void Interact()
     {
+        ObjectiveManager.Instance.CompleteObjective("End assigment by exiting throught the corridor door");
         TransitionToEndScreen();
     }
 

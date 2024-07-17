@@ -17,8 +17,8 @@ public class RayInteractor : MonoBehaviour
 
     [Header("Interact Text")]
     public TextMeshProUGUI interactText;
-    private float interactDistance = 120f;
-    private float holdDuration = 1.5f; // Adjust the duration as needed
+    private readonly float interactDistance = 120f;
+    private readonly float holdDuration = 1.5f; // Adjust the duration as needed
     private float currentHoldTime = 0f;
 
     private Dictionary<string, System.Action<IInteractable>> interactableActions;

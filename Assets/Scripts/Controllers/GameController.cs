@@ -124,7 +124,9 @@ public class GameController : MonoBehaviour
             case 10:
                 ObjectiveManager.Instance.AddObjective("Remove safety shoes", 100);
                 ObjectiveManager.Instance.AddObjective("Remove safety glasses", 100);
-
+                break;
+            case 11:
+                ObjectiveManager.Instance.AddObjective("End assigment by exiting throught the corridor door", 0);
                 break;
 
             default:

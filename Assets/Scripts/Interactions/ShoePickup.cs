@@ -10,13 +10,9 @@ public class ShoesPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (areShoesEquipped)
-        {
             RemoveShoes();
-        }
         else
-        {
             EquipShoes();
-        }
     }
 
     private void RemoveShoes()

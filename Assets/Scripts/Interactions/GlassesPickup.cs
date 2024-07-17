@@ -9,13 +9,9 @@ public class GlassesPickup : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (areGlassesEquipped)
-        {
             RemoveGlasses();
-        }
         else
-        {
             EquipGlasses();
-        }
     }
 
     private void RemoveGlasses()

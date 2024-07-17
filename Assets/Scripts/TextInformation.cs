@@ -13,7 +13,7 @@ public class TextInformation : MonoBehaviour
 
     void Start()
     {
-        textComponent = GetComponent<TMPro.TextMeshProUGUI>();
+        textComponent = GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateText(string message)

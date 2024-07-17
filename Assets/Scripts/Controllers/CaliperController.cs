@@ -74,7 +74,6 @@ public class CaliperController : MonoBehaviour
                 isFirstAttach = false;
             }
         }
-        //TODO: Fix this. Code will never get to this point because of the if statement above
         else if (!caliperCamera.gameObject.activeSelf && !isFirstAttach)
         {
             isCaliperAttached = false;
@@ -108,7 +107,6 @@ public class CaliperController : MonoBehaviour
         // Calculate the distance between the sliding part's current position and the start position
         float distance = Vector3.Distance(slidingPartStartPosition, slidingParts.transform.localPosition);
         // Convert the distance to millimeters (if needed) and update the TextMeshPro or UI Text
-
         measurementText.text = $"{distance * 10:F2}";
     }
 

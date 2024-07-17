@@ -7,19 +7,16 @@ using UnityEngine;
 public class HelpControlPanelManager : MonoBehaviour
 {
     [Header("References to other objects")]
-    public GameObject[] buttons;
     public Material highlightMaterial;
+    public GameObject[] buttons;
     private Material[] originalMaterials;
     public SpriteRenderer[] helpImages;
 
-    Dictionary<GameObject, SpriteRenderer> buttonToImageMap;
-
-
-    int currentButtonIndex = 0;
+    [Header("Optional Steps")]
+    public bool[] optionalSteps;
+    int currentButtonIndex = 0; 
+    int mistakeCounter;
     bool isHighlightActive = false;
-    public int mistakeCounter;
-
-    //TODO: How to make this work so that player can't keep pressing same button to increasing the index
 
     void Start()
     {
@@ -29,14 +26,13 @@ public class HelpControlPanelManager : MonoBehaviour
             originalMaterials[i] = buttons[i].GetComponent<Renderer>().material;
         }
 
-        // Initialize button to image map
-        buttonToImageMap = new Dictionary<GameObject, SpriteRenderer>();
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            buttonToImageMap.Add(buttons[i], helpImages[i]);
-        }
-
         HideAllHelpImages();
+
+        // Initialize the optionalSteps array if it is not set or its length doesn't match buttons length
+        if (optionalSteps == null || optionalSteps.Length != buttons.Length)
+        {
+            optionalSteps = new bool[buttons.Length];
+        }
     }
 
     public void ToggleHelpHighlight(bool isHelpActive)
@@ -45,7 +41,7 @@ public class HelpControlPanelManager : MonoBehaviour
         if (isHighlightActive)
         {
             ResetButtons();
-            buttons[currentButtonIndex].GetComponent<Renderer>().material = highlightMaterial;
+            HighlightCurrentButton();
         }
         else
         {
@@ -57,6 +53,7 @@ public class HelpControlPanelManager : MonoBehaviour
 
     public void NextHelpHighlight(string hitButton)
     {
+        Debug.Log("NextHelpHighlight: " + hitButton);
         // Check if hit object button is current button index
         if (buttons[currentButtonIndex].name == hitButton)
         {
@@ -66,17 +63,8 @@ public class HelpControlPanelManager : MonoBehaviour
                 currentButtonIndex++;
                 if (isHighlightActive)
                 {
-                    // Reset all buttons and highlight current button
-                    ResetButtons();
-                    buttons[currentButtonIndex].GetComponent<Renderer>().material = highlightMaterial;
-
-                    if (buttonToImageMap.TryGetValue(buttons[currentButtonIndex], out SpriteRenderer helpImage))
-                    {
-                        HideAllHelpImages();
-                        // Enable the help image for the current button if it exists
-                        if (helpImage != null)
-                            helpImage.enabled = true;
-                    }
+                    // Highlight the current button
+                    HighlightCurrentButton();
                 }
                 else
                 {
@@ -90,15 +78,26 @@ public class HelpControlPanelManager : MonoBehaviour
                 ResetButtons();
             }
         }
+        // Else if the current button is optional and the next button is pressed skip the optional one
+        else if (optionalSteps[currentButtonIndex] && buttons[currentButtonIndex + 1].name == hitButton)
+        {
+            currentButtonIndex += 2;
+            if (isHighlightActive)
+            {
+                // Highlight the current button
+                HighlightCurrentButton();
+            }
+            else
+            {
+                ResetButtons();
+            }
+        }
         else
         {
-            // Check if hit button is included in the buttons array
-            for (int i = 0; i < buttons.Length; i++)
+            // Exlude the dial handle from generating mistakes
+            if( hitButton != "dialHandle")
             {
-                if (buttons[i].name == hitButton)
-                {
-                    CheckIfTooManyMistakes();
-                }
+                CheckIfTooManyMistakes();
             }
         }
     }
@@ -131,6 +130,23 @@ public class HelpControlPanelManager : MonoBehaviour
         for (int i = 0; i < buttons.Length; i++)
         {
             buttons[i].GetComponent<Renderer>().material = originalMaterials[i];
+        }
+    }
+
+    private void HighlightCurrentButton()
+    {
+        ResetButtons();
+        buttons[currentButtonIndex].GetComponent<Renderer>().material = highlightMaterial;
+
+        if (helpImages[currentButtonIndex] != null)
+        {
+            HideAllHelpImages();
+            // Enable the help image for the current button if it exists
+            helpImages[currentButtonIndex].enabled = true;
+        }
+        else
+        {
+            HideAllHelpImages();
         }
     }
 }
