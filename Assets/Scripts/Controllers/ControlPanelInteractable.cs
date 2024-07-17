@@ -35,6 +35,7 @@ public class ControlPanelInteractable : MonoBehaviour
 
     [Header("References to objects and files")]
     public GameObject notes;
+    public GameObject nonImplementedButtonsParent;
     public Camera cameraControlPanel;
     public AudioClip buttonSoundClip;
     private AudioSource latheAudioSource;
@@ -48,7 +49,6 @@ public class ControlPanelInteractable : MonoBehaviour
     public bool isDoorClosed = true;
 
     private Dictionary<string, ControlPanelState> buttonToStateMap;
-
     void Start()
     {
         notes.SetActive(false);
@@ -107,6 +107,11 @@ public class ControlPanelInteractable : MonoBehaviour
             else
             {
                 currentState = ControlPanelState.Idle;
+                if (!controlPanelAnimations.isPlaying)
+                {
+                    PlayAudioClip();
+                    helpControlPanelManager.NextHelpHighlight(hitButton);
+                }
             }
         }
     }

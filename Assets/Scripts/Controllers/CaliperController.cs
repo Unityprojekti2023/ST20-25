@@ -78,9 +78,7 @@ public class CaliperController : MonoBehaviour
         {
             isCaliperAttached = false;
             isFirstAttach = true;
-
-            if (Cursor.visible)
-                Cursor.visible = false;
+            
             // Hide the caliper
             if (caliper.activeSelf)
                 caliper.SetActive(false);
