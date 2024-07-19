@@ -76,18 +76,22 @@ public class RayInteractor : MonoBehaviour
                 {
                     HandleInteractionRays(hit.collider.gameObject.name, interactable);
                 }
-                else if (InventoryManager.Instance.IsItemInInventory("Shovel"))
+                else if (hit.collider.CompareTag("Cleanable"))
                 {
-                    if (hit.collider.CompareTag("Cleanable"))
-                    {
-                        ShowInteractText("Clean scrap pile: [LMB]");
-                        cleaningController.HandleCleaning(hit.collider.gameObject);
-                    }
-                    else if (hit.collider.CompareTag("TrashCan"))
+                    ShowInteractText("Clean scrap pile: [LMB]");
+                    cleaningController.HandleCleaning(hit.collider.gameObject);
+                }
+                else if (hit.collider.CompareTag("TrashCan"))
+                {
+                    if (InventoryManager.Instance.IsItemInInventory("Shovel"))
                     {
                         ShowInteractText("Throw away scrap pile: [LMB]");
-                        cleaningController.HandleCleaning(hit.collider.gameObject);
                     }
+                    else
+                    {
+                        ShowInteractText("Throw away held cut item: [LMB]");
+                    }
+                    cleaningController.HandleCleaning(hit.collider.gameObject);
                 }
                 else
                 {

@@ -18,6 +18,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        bool areHandFull = InventoryManager.Instance.handsFull;
         // Get item from the player's hands
         string heldItem = InventoryManager.Instance.GetHeldItemID();
 
@@ -32,6 +33,11 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
             CameraController.Instance.SwitchToCamera(5);
             caliperController.ToggleCaliperAttachment();
             ObjectiveManager.Instance.CompleteObjective("Use caliper to measure the piece");
+        }
+        else if(!areHandFull && attachemntPoint.childCount > 0)
+        {
+            // Add item to player's hands
+            InventoryManager.Instance.AddItemToInventory("cut item", $"Item [{heldItem}] picked up", attachemntPoint.GetChild(0).gameObject);
         }
         else
         {

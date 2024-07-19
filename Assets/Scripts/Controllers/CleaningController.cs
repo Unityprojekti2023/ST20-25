@@ -10,7 +10,6 @@ public class CleaningController : MonoBehaviour
     public GameObject shovel;
 
     public GameObject[] trashCans;
-    public TextMeshProUGUI interactText;
     int cleaningCounter = 0;
     public string scrapMaterial = "";
     bool isShovelEmpty = true;
@@ -24,7 +23,7 @@ public class CleaningController : MonoBehaviour
         // Hide all scrap piles at the start of the game
         foreach (GameObject pile in scrapPile)
         {
-            pile.SetActive(false);
+            pile.SetActive(true); //TODO: Change back to false when done testing
         }
 
         // Populate the dictionary with materials and corresponding trash cans
@@ -35,37 +34,58 @@ public class CleaningController : MonoBehaviour
 
     public void HandleCleaning(GameObject gameObject)
     {
-        // Check if the player is pressing the interact button
-        if (Input.GetMouseButtonDown(0) && InventoryManager.Instance.IsItemInInventory("Shovel"))
+        if (Input.GetMouseButtonDown(0))
         {
-            // Check if the scrap pile is active
-            if (gameObject.tag == "Cleanable" && isShovelEmpty)
+            // Check if the player is pressing the interact button
+            if (InventoryManager.Instance.IsItemInInventory("Shovel"))
             {
-                isShovelEmpty = false;
-                scrapMaterial = gameObject.transform.GetChild(0).GetComponent<Renderer>().material.name;
-
-                // Find scrap pile object of shovel
-                GameObject scrapPileObject = shovel.transform.Find("Scraps").gameObject;
-                // Set material of shovels scrap piles children to that of picked up scrap pile
-                foreach (Transform child in scrapPileObject.transform)
+                // Check if the scrap pile is active
+                if (gameObject.CompareTag("Cleanable") && isShovelEmpty)
                 {
-                    child.GetComponent<Renderer>().material = gameObject.transform.GetChild(0).GetComponent<Renderer>().material;
-                }
-                scrapPileObject.SetActive(true);
+                    isShovelEmpty = false;
+                    scrapMaterial = gameObject.transform.GetChild(0).GetComponent<Renderer>().material.name;
 
-                // Hide the scrap pile
-                HideScrapPile(Array.IndexOf(scrapPile, gameObject));
+                    // Find scrap pile object of shovel
+                    GameObject scrapPileObject = shovel.transform.Find("Scraps").gameObject;
+                    // Set material of shovels scrap piles children to that of picked up scrap pile
+                    foreach (Transform child in scrapPileObject.transform)
+                    {
+                        child.GetComponent<Renderer>().material = gameObject.transform.GetChild(0).GetComponent<Renderer>().material;
+                    }
+                    scrapPileObject.SetActive(true);
+
+                    // Hide the scrap pile
+                    HideScrapPile(Array.IndexOf(scrapPile, gameObject));
+                }
+                else if (gameObject.CompareTag("TrashCan") && !isShovelEmpty)
+                {
+                    // Throw away the scrap pile
+                    ThrowAwayScrapPile(gameObject);
+                }
+                else
+                {
+                    return;
+                }
             }
-            else if (gameObject.tag == "TrashCan" && !isShovelEmpty)
+            else if (InventoryManager.Instance.IsItemInInventory("cut item"))
             {
-                // Throw away the scrap pile
-                ThrowAwayScrapPile(gameObject);
+                if (gameObject.CompareTag("TrashCan"))
+                {
+                    GameObject item = InventoryManager.Instance.heldItem;
+                    if (item.CompareTag("WronglyCutItem"))
+                    {
+                        ObjectiveManager.Instance.AddPoints(50);
+                    }
+                    else
+                    {
+                        ObjectiveManager.Instance.DeductPoints(50);
+                    }
+                    Destroy(item);
+                }
             }
-            else
-            {
-                return;
-            }
+
         }
+
     }
 
     public void ShowScrapPile(int pileNumber, Material material)

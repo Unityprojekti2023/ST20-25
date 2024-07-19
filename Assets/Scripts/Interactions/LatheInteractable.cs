@@ -54,7 +54,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 latheController.HideCutItem();
 
                 AddLathesItemToInventory("cut item");
-                
+
                 ObjectiveManager.Instance.CompleteObjective("Pick up cut piece");
             }
             else if (attachmentPointOfLathe.childCount > 0 && attachmentPointOfLathe.GetChild(0).name.Contains("blank"))
@@ -72,10 +72,12 @@ public class LatheInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    private void AddLathesItemToInventory(string itemID = "item")
+    private void AddLathesItemToInventory(string itemID)
     {
         // Add the item to the players inventory
         InventoryManager.Instance.AddItemToInventory(itemID, "Item added to inventory", attachmentPointOfLathe.GetChild(0).gameObject);
+        // TODO: This is not rotating cut item to horizontal position only blank items
+        InventoryManager.Instance.heldItem.transform.localEulerAngles = new Vector3(0, 90, 0);
 
         // Update the text information
         RayInteractor.instance.UpdateInteractionText(transform.name, "Place item: [LMB] or [E]");
