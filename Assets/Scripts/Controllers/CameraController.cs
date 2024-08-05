@@ -92,8 +92,8 @@ public class CameraController : MonoBehaviour
                 break;
             case CameraIndex.ControlPanel:
                 HandleControlPanelCamera(index);
-                break;  
-            case CameraIndex.Lathe:            
+                break;
+            case CameraIndex.Lathe:
                 HandleControlPanelCamera(index);
                 break;
             case CameraIndex.Notes:
@@ -107,6 +107,7 @@ public class CameraController : MonoBehaviour
                 break;
         }
     }
+
 
     private void HandleControlPanelCamera(int cameraIndex)
     {
@@ -167,7 +168,7 @@ public class CameraController : MonoBehaviour
         // Show only first button
         cameraButtons[0].gameObject.SetActive(true);
         // Check if clipboard has been placed to it's spot
-        if ( clipboardSpot.transform.childCount > 0)
+        if (clipboardSpot.transform.childCount > 0)
         {
             drawingButton.gameObject.SetActive(true);
         }

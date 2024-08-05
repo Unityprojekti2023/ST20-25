@@ -15,7 +15,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
             // Make sure clipboard camera is off
             if (CameraController.Instance.IsCameraActive(4))
                 CameraController.Instance.ToggleClipboardCamera();
-            
+
             PlaceClipboard();
         }
         else if (transform.childCount > 0)
@@ -27,7 +27,6 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
             Debug.Log("No clipboard in inventory");
             return;
         }
-
     }
 
     void PlaceClipboard()

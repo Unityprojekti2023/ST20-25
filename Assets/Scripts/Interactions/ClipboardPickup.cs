@@ -34,26 +34,31 @@ public class ClipboardPickup : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (InventoryManager.Instance.IsItemInInventory("clipboard") && Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (!inspecting)
+            if (InventoryManager.Instance.IsItemInInventory("clipboard"))
             {
-                inspecting = true;
-                // Switch to clipboard camera on
-                ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
+                if (!inspecting)
+                {
+                    inspecting = true;
+                    // Switch to clipboard camera on
+                    ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
 
-                CameraController.Instance.ToggleClipboardCamera();
+                    CameraController.Instance.ToggleClipboardCamera();
+                }
+                else if (inspecting)
+                {
+                    inspecting = false;
+                    // Switch to clipboard camera off
+                    CameraController.Instance.ToggleClipboardCamera();
+                }
             }
-            else if (inspecting)
+            // Prevent right click from switching camera when measuring
+            else if (!CameraController.Instance.IsCameraActive(5) && CameraController.Instance.IsCameraActive(4))
             {
-                inspecting = false;
-                // Switch to clipboard camera off
-                CameraController.Instance.ToggleClipboardCamera();
+                CameraController.Instance.SwitchToCamera(0);
             }
-            else
-                return;
         }
-        else
-            return;
+
     }
 }
