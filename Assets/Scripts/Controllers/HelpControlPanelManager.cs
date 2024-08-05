@@ -81,6 +81,7 @@ public class HelpControlPanelManager : MonoBehaviour
         // Else if the current button is optional and the next button is pressed skip the optional one
         else if (optionalSteps[currentButtonIndex] && buttons[currentButtonIndex + 1].name == hitButton)
         {
+            // TODO: This messes up help if select program is pressed another time. Is there a way to stages helps before and after running a program?
             currentButtonIndex += 2;
             if (isHighlightActive)
             {

@@ -119,6 +119,7 @@ public class GameController : MonoBehaviour
 
             case 9:
                 ObjectiveManager.Instance.AddObjective("Unequip caliper", 100);
+                ObjectiveManager.Instance.AddObjective("Turn in cut piece", 0);
                 break;
 
             case 10:

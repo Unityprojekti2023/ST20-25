@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 public enum InteractableType
 {
     HandleInteraction,
@@ -45,21 +46,22 @@ public class RayInteractor : MonoBehaviour
         // Initialize the dictionary with object names and corresponding actions
         interactableActions = new Dictionary<string, System.Action<IInteractable>>
         {
-            { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open door: [LMB] or [E]")},
+            { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open lathe door: [LMB] or [E]")},
             { "ControlpanelTrigger", interactable => HandleInteraction(interactable, "Inspect panel: [LMB] or [E]") },
-            { "AttachmentPointLathe", interactable => HandleInteraction(interactable, "Place item: [LMB] or [E]")},
-            { "AluminumBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
-            { "SteelBlank", interactable => HandleInteraction(interactable, "Pick up Item: [LMB] or [E]") },
-            { "PlacementMat", interactable => HandleInteraction(interactable, "Place Item: [LMB] or [E]") },
-            { "Clipboard", interactable => HandleInteraction(interactable, "Pick up Clipboard: [LMB] or [E]") },
-            { "ClipboardPlacementPosition", interactable => HandleInteraction(interactable, "Place Clipboard: [LMB] or [E]") },
-            { "Measurements", interactable => HandleInteraction(interactable, "Inspect Measurements: [LMB] or [E]")},
-            { "Locker", interactable => HandleInteraction(interactable, "Open door: [LMB] or [E]")},
-            { "Shoes", interactable => HandleHoldInteraction(interactable, "Hold to put shoes on: [LMB] or [E]") },
-            { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to put safetyglasses on: [LMB] or [E]") },
+            { "AttachmentPointLathe", interactable => HandleInteraction(interactable, "Place held item: [LMB] or [E]")},
+            { "AluminumBlank", interactable => HandleInteraction(interactable, "Pick up blank: [LMB] or [E]") },
+            { "SteelBlank", interactable => HandleInteraction(interactable, "Pick up blank: [LMB] or [E]") },
+            { "PlacementMat", interactable => HandleInteraction(interactable, "Place cut piece: [LMB] or [E]") },
+            { "TurnInMat", interactable => HandleInteraction(interactable, "Turn in cut piece: [LMB] or [E]") },
+            { "Clipboard", interactable => HandleInteraction(interactable, "Pick up clipboard: [LMB] or [E]") },
+            { "ClipboardPlacementPosition", interactable => HandleInteraction(interactable, "Place clipboard: [LMB] or [E]") },
+            { "Measurements", interactable => HandleInteraction(interactable, "Measure: [LMB] or [E]")},
+            { "Locker", interactable => HandleInteraction(interactable, "Open locker door: [LMB] or [E]")},
+            { "Shoes", interactable => HandleHoldInteraction(interactable, "Hold to equip shoes: [LMB] or [E]") },
+            { "Safetyglasses", interactable => HandleHoldInteraction(interactable, "Hold to equip safetyglasses: [LMB] or [E]") },
             { "ShovelOrigin", interactable => HandleHoldInteraction(interactable, "Hold to equip shovel: [LMB] or [E]") },
             { "CaliperBox", interactable => HandleHoldInteraction(interactable, "Hold to pickup caliper: [LMB] or [E]") },
-            { "ExitDoor", interactable => HandleInteraction(interactable, "Interact to end run: [LMB] or [E]") }
+            { "ExitDoor", interactable => HandleInteraction(interactable, "End run: [LMB] or [E]") }
         };
     }
 
@@ -89,26 +91,29 @@ public class RayInteractor : MonoBehaviour
                     }
                     else
                     {
-                        ShowInteractText("Throw away held cut item: [LMB]");
+                        ShowInteractText("Throw away held piece: [LMB]");
                     }
                     cleaningController.HandleCleaning(hit.collider.gameObject);
                 }
                 else
                 {
                     HideInteractText();
-                    ResetHoldTimer(); // Reset the timer when nothing is interactable
                 }
             }
             else
             {
                 HideInteractText();
-                ResetHoldTimer(); // Reset the timer when nothing is interactable
+                // Check if mouse button is down to cancel the hold interaction
+                if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.E))
+                {
+                    // Break the hold interaction process
+                    StopAllCoroutines();
+                }
             }
         }
         else
         {
             HideInteractText();
-            ResetHoldTimer(); // Reset the timer when the game is paused
         }
     }
 
@@ -161,6 +166,7 @@ public class RayInteractor : MonoBehaviour
         // Check if the mouse button or key is pressed to start holding
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("Hold Interaction");
             // Start the hold interaction process
             StartCoroutine(HoldInteractionCoroutine(interactable));
         }
@@ -168,8 +174,6 @@ public class RayInteractor : MonoBehaviour
 
     private IEnumerator HoldInteractionCoroutine(IInteractable interactable)
     {
-        currentHoldTime = 0f; // Reset the hold timer
-
         while (Input.GetMouseButton(0) || Input.GetKey(KeyCode.E))
         {
             // Increment the hold timer based on the elapsed time

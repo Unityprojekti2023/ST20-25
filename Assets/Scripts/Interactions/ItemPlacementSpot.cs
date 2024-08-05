@@ -25,7 +25,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         if (heldItem.Contains("cut") && attachemntPoint.childCount == 0)
         {
             // Remove item from player's hands
-            InventoryManager.Instance.RemoveItemFromInventory(heldItem, $"Item [{heldItem}] removed", attachemntPoint);
+            InventoryManager.Instance.RemoveItemFromInventory(heldItem, $"Piece placed down", attachemntPoint);
             ObjectiveManager.Instance.CompleteObjective("Place cut piece on the table");
         }
         else if(heldItem.Contains("Caliper"))
@@ -37,7 +37,7 @@ public class ItemPlacementSpot : MonoBehaviour, IInteractable
         else if(!areHandFull && attachemntPoint.childCount > 0)
         {
             // Add item to player's hands
-            InventoryManager.Instance.AddItemToInventory("cut item", $"Item [{heldItem}] picked up", attachemntPoint.GetChild(0).gameObject);
+            InventoryManager.Instance.AddItemToInventory("cut item", $"Piece picked up", attachemntPoint.GetChild(0).gameObject);
         }
         else
         {

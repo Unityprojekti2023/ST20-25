@@ -16,6 +16,7 @@ TagManager:
   - ObjectTrigger
   - Cleanable
   - TrashCan
+  - WronglyCutItem
   layers:
   - Default
   - TransparentFX

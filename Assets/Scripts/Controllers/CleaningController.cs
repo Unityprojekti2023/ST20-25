@@ -23,7 +23,7 @@ public class CleaningController : MonoBehaviour
         // Hide all scrap piles at the start of the game
         foreach (GameObject pile in scrapPile)
         {
-            pile.SetActive(true); //TODO: Change back to false when done testing
+            pile.SetActive(false);
         }
 
         // Populate the dictionary with materials and corresponding trash cans
@@ -69,19 +69,7 @@ public class CleaningController : MonoBehaviour
             }
             else if (InventoryManager.Instance.IsItemInInventory("cut item"))
             {
-                if (gameObject.CompareTag("TrashCan"))
-                {
-                    GameObject item = InventoryManager.Instance.heldItem;
-                    if (item.CompareTag("WronglyCutItem"))
-                    {
-                        ObjectiveManager.Instance.AddPoints(50);
-                    }
-                    else
-                    {
-                        ObjectiveManager.Instance.DeductPoints(50);
-                    }
-                    Destroy(item);
-                }
+                ThrowAwayCutItem(gameObject);
             }
 
         }
@@ -116,6 +104,37 @@ public class CleaningController : MonoBehaviour
         // Hide the scrap pile based on the pile number
         scrapPile[pileNumber].SetActive(false);
         cleaningCounter++;
+    }
+
+    private void ThrowAwayCutItem(GameObject trashCan)
+    {
+        if (trashCan.CompareTag("TrashCan"))
+        {
+            GameObject item = InventoryManager.Instance.heldItem;
+            string itemMaterial = item.transform.GetChild(0).GetComponent<Renderer>().material.name;
+
+            // Check if the material of the item is the same as the trash can
+            if (itemMaterial.Contains(trashCanMaterial[trashCan]))
+            {
+                if (item.CompareTag("WronglyCutItem"))
+                {
+                    // Add points if the item is wrongly cut and right trash can is used
+                    ObjectiveManager.Instance.AddPoints(100);
+                }
+                else
+                {
+                    // Deduct points if the item is not wrongly cut
+                    ObjectiveManager.Instance.DeductPoints(50);
+                }
+            }
+            else
+            {
+                // Deduct points if the item is not of the same material as the trash can
+                ObjectiveManager.Instance.DeductPoints(100);
+            }
+            Destroy(item);
+        }
+
     }
 
     void ThrowAwayScrapPile(GameObject trashCan)
