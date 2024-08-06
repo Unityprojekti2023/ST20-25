@@ -38,7 +38,7 @@ public class DialRotator : MonoBehaviour
         {
             // Get the mouse position in world space
             Ray ray = controlpanelCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, LayerMask.GetMask("ControlPanelLayer")))
             {
                 // Check if the mouse is within the dial's collider bounds
                 if (hit.collider == GetComponent<Collider>())

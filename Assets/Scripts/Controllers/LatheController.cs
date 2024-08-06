@@ -59,6 +59,8 @@ public class LatheController : MonoBehaviour
             {
                 Debug.Log("Generating mistakes");
                 GenerateMistakeToLathesItem(selectedPrefab);
+                //Set selected prefabs tag to WronglyCutItem
+                selectedPrefab.tag = "WronglyCutItem";
             }
 
             // Instantiate the cut item and set it as a child of the attachment

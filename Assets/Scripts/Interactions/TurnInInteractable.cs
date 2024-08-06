@@ -22,18 +22,21 @@ public class TurnInInteractable : MonoBehaviour, IInteractable
             // Check if material is correct
             string currentMaterial = taskManager.GetCurrentMaterialName();
 
-            InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece turned in", transform);
+            //TODO: Make it so game wont tell if piece was correct or not in testing mode.
+
 
             if (item.CompareTag("WronglyCutItem"))
             {
                 if (!itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
                 {
                     // Deduct points if the item is wrongly cut and wrong material
+                    InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with Wrong material with mistakes turned in", transform);
                     PointDeduction(200);
                 }
                 else
                 {
                     // Deduct points if the item is wrongly cut but correct material
+                    InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with mistakes turned in", transform);
                     PointDeduction(100);
                 }
 
@@ -43,11 +46,13 @@ public class TurnInInteractable : MonoBehaviour, IInteractable
                 if (itemRenderer.material.name.Contains(taskManager.GetMaterialType(currentMaterial)))
                 {
                     // Add points if the item is correctly cut and correct material
+                    InventoryManager.Instance.RemoveItemFromInventory("cut item", "Correct piece turned in", transform);
                     PointAddition(200);
                 }
                 else
                 {
                     // Add points if the item is correctly cut but wrong material
+                    InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with wrong material turned in.", transform);
                     PointAddition(100);
                 }
             }
