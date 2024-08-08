@@ -132,6 +132,7 @@ public class CleaningController : MonoBehaviour
                 // Deduct points if the item is not of the same material as the trash can
                 ObjectiveManager.Instance.DeductPoints(100);
             }
+            InventoryManager.Instance.RemoveItemFromInventory("cut item", "Item thrown away");
             Destroy(item);
         }
 
