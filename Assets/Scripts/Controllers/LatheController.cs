@@ -93,6 +93,7 @@ public class LatheController : MonoBehaviour
         if (selectedProgramIndex < 0 || selectedProgramIndex >= cutItemPrefabs.Length)
         {
             Debug.LogError("Selected program index is out of bounds.");
+            textInformation.UpdateText("No animation found for the selected program");
             return;
         }
 
