@@ -17,6 +17,7 @@ public class HelpControlPanelManager : MonoBehaviour
     int currentButtonIndex = 0; 
     int mistakeCounter;
     bool isHighlightActive = false;
+    private bool firstPartCompleted = false;
 
     void Start()
     {
@@ -54,13 +55,40 @@ public class HelpControlPanelManager : MonoBehaviour
     public void NextHelpHighlight(string hitButton)
     {
         Debug.Log("NextHelpHighlight: " + hitButton);
-        // Check if hit object button is current button index
-        if (buttons[currentButtonIndex].name == hitButton)
+        
+        // If first part is not completed, only show buttons 0-8
+        if (!firstPartCompleted)
         {
-            // Check if current button index is not the last button in the array
-            if (currentButtonIndex < buttons.Length - 1)
+            // Check if hit object button is current button index
+            if (buttons[currentButtonIndex].name == hitButton)
             {
-                currentButtonIndex++;
+                // Check if current button index is not the last button in the first part
+                if (currentButtonIndex < 8)
+                {
+                    currentButtonIndex++;
+                    if (isHighlightActive)
+                    {
+                        // Highlight the current button
+                        HighlightCurrentButton();
+                    }
+                    else
+                    {
+                        ResetButtons();
+                    }
+                }
+                else
+                {
+                    // Complete the first part
+                    firstPartCompleted = true;
+                    currentButtonIndex = 0;
+                    HideAllHelpImages();
+                    ResetButtons();
+                }
+            }
+            else if (optionalSteps[currentButtonIndex] && buttons[currentButtonIndex + 1].name == hitButton)
+            {
+                //TODO: Is there possibility of bug here?
+                currentButtonIndex += 2;
                 if (isHighlightActive)
                 {
                     // Highlight the current button
@@ -73,32 +101,57 @@ public class HelpControlPanelManager : MonoBehaviour
             }
             else
             {
-                currentButtonIndex = 0;
-                HideAllHelpImages();
-                ResetButtons();
-            }
-        }
-        // Else if the current button is optional and the next button is pressed skip the optional one
-        else if (optionalSteps[currentButtonIndex] && buttons[currentButtonIndex + 1].name == hitButton)
-        {
-            // TODO: This messes up help if select program is pressed another time. Is there a way to stages helps before and after running a program?
-            currentButtonIndex += 2;
-            if (isHighlightActive)
-            {
-                // Highlight the current button
-                HighlightCurrentButton();
-            }
-            else
-            {
-                ResetButtons();
+                // Exclude the dial handle from generating mistakes
+                if (hitButton != "dialHandle")
+                {
+                    CheckIfTooManyMistakes();
+                }
             }
         }
         else
         {
-            // Exlude the dial handle from generating mistakes
-            if( hitButton != "dialHandle")
+            // If first part is completed, show buttons 9-10
+            if (buttons[currentButtonIndex].name == hitButton)
             {
-                CheckIfTooManyMistakes();
+                if (currentButtonIndex < buttons.Length - 1)
+                {
+                    currentButtonIndex++;
+                    if (isHighlightActive)
+                    {
+                        HighlightCurrentButton();
+                    }
+                    else
+                    {
+                        ResetButtons();
+                    }
+                }
+                else
+                {
+                    currentButtonIndex = 0;
+                    HideAllHelpImages();
+                    ResetButtons();
+                }
+            }
+            else
+            {
+                // Exclude the dial handle from generating mistakes
+                if (hitButton != "dialHandle")
+                {
+                    CheckIfTooManyMistakes();
+                }
+            }
+        }
+    }
+
+    // Method to start the second part of the help sequence
+    public void StartSecondPart()
+    {
+        if (firstPartCompleted)
+        {
+            currentButtonIndex = 9; // Start at button 9
+            if (isHighlightActive)
+            {
+                HighlightCurrentButton();
             }
         }
     }

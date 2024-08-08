@@ -146,6 +146,25 @@ public class ObjectiveManager : MonoBehaviour
         return allObjectives;
     }
 
+    public int GetCurrentStage()
+    {
+        return currentStage;
+    }
+
+    public bool CheckIfObjectiveIsCompleted(string description)
+    {
+        foreach (var stage in stageObjectives)
+        {
+            Objective objective = stage.Value.FirstOrDefault(obj => obj.Description == description);
+
+            if (objective != null && objective.isCompleted)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void GoToNextStage()
     {
         currentStage++;

@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     [Header("References to gameobjects")]
     public Canvas practiceModeUI;
     public GameObject endScreenUI;
+    public GameObject highlightSpot;
 
 
     [Header("Other values")]
@@ -45,5 +46,17 @@ public class GameController : MonoBehaviour
         // Initialize with the objectives of the first stage
         taskManager.AssignRandomTask(clipboardPickup.clipboardImageSlot, clipboardPickup.clibBoardTextSlot);
         //TODO: How to initialize objects
+    }
+
+    void Update()
+    {
+        if(ObjectiveManager.Instance.GetCurrentStage() == 1 && !ObjectiveManager.Instance.CheckIfObjectiveIsCompleted("Pick up the clipboard"))
+        {
+            highlightSpot.SetActive(true);
+        }
+        else
+        {
+            highlightSpot.SetActive(false);
+        }
     }
 }

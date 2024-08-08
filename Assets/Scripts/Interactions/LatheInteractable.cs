@@ -8,6 +8,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
     [Header("References to other scripts")]
     private LatheController latheController;
     public Transform attachmentPointOfLathe;
+    public HelpControlPanelManager helpControlPanelManager;
     private string latheItemID;
 
     void Start()
@@ -56,6 +57,7 @@ public class LatheInteractable : MonoBehaviour, IInteractable
                 AddLathesItemToInventory("cut item");
 
                 ObjectiveManager.Instance.CompleteObjective("Pick up cut piece");
+                helpControlPanelManager.StartSecondPart();
             }
             else if (attachmentPointOfLathe.childCount > 0 && attachmentPointOfLathe.GetChild(0).name.Contains("blank"))
             {
