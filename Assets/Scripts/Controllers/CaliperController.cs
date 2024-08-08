@@ -9,7 +9,9 @@ public class CaliperController : MonoBehaviour
     [Header("References to other gameobjects")]
     public Camera caliperCamera;
     public TextMeshPro measurementText;
+    public GameObject notepad;
     public GameObject caliper;
+    public Camera measumentCamera;
     private GameObject slidingParts;
 
     Vector3 offset;
@@ -17,6 +19,7 @@ public class CaliperController : MonoBehaviour
     bool isCaliperAttached = false;
     bool isCaliperRotated = false;
     bool isFirstAttach = true;  //TODO: Is there a better way to handle not rotating the caliper on the first attach?
+    float cameraPositionZ;
 
     void Start()
     {
@@ -32,6 +35,9 @@ public class CaliperController : MonoBehaviour
         {
             slidingPartStartPosition = slidingParts.transform.localPosition;
         }
+
+        // Save camera position z
+        cameraPositionZ = measumentCamera.transform.localPosition.z;
     }
 
     void Update()
@@ -39,6 +45,28 @@ public class CaliperController : MonoBehaviour
         // Check if the caliper camera is active
         if (caliperCamera.gameObject.activeSelf)
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //Add current measurement to notepad
+                notepad.GetComponent<TextMeshPro>().text += measurementText.text + "\n";
+
+            }
+            else if (Input.GetKeyDown(KeyCode.X))
+            {
+                // Clear last line from notepad
+                ClearLastLineFromNotepad();
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                // Move camera local position to -40.5 on z axis
+                measumentCamera.transform.localPosition = new Vector3(measumentCamera.transform.localPosition.x, measumentCamera.transform.localPosition.y, -40.5f);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                // Move camera back to saved position
+                measumentCamera.transform.localPosition = new Vector3(measumentCamera.transform.localPosition.x, measumentCamera.transform.localPosition.y, cameraPositionZ);
+            }
+
             // Detach the caliper if the right mouse button is clicked
             if (Input.GetMouseButtonDown(1))
             {
@@ -78,7 +106,7 @@ public class CaliperController : MonoBehaviour
         {
             isCaliperAttached = false;
             isFirstAttach = true;
-            
+
             // Hide the caliper
             if (caliper.activeSelf)
                 caliper.SetActive(false);
@@ -120,6 +148,29 @@ public class CaliperController : MonoBehaviour
         else
         {
             caliper.transform.localRotation = Quaternion.Euler(270f, 0, 0);
+        }
+    }
+
+    private void ClearLastLineFromNotepad()
+    {
+        TextMeshPro notepadTextMesh = notepad.GetComponent<TextMeshPro>();
+        string[] lines = notepadTextMesh.text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if (lines.Length > 0)
+        {
+            // Remove the last line
+            int newLength = lines.Length - 1;
+            string[] newLines = new string[newLength];
+            Array.Copy(lines, newLines, newLength);
+
+            // Join the new array back into a single string
+            notepadTextMesh.text = string.Join("\n", newLines);
+
+            // Ensure the text ends with a newline character
+            if (notepadTextMesh.text.Length > 0 && !notepadTextMesh.text.EndsWith("\n"))
+            {
+                notepadTextMesh.text += "\n";
+            }
         }
     }
 }

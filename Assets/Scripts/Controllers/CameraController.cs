@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
@@ -69,6 +70,18 @@ public class CameraController : MonoBehaviour
 
         // Initialize drawing button listener to ToggleClipboardCamera
         drawingButton.onClick.AddListener(() => ToggleClipboardCamera());
+    }
+
+    void Update()
+    {
+        //If caliper camera is on and H is pressed, show help menu
+        if (cameras[5].gameObject.activeSelf && Input.GetKeyDown(KeyCode.H))
+        {
+            // Toggle secondary interaction text from current text to help string
+            secondaryInteractionText.text = secondaryInteractionText.text == "[H] for Help\n" ? 
+            "[Q] & [E] to switch views\n[Space] to save measurement\n[X] to erase last measurement\n[RMB] to show mouse" : "[H] for Help\n";
+            
+        }
     }
 
     public void SwitchToCamera(int index)
@@ -160,9 +173,8 @@ public class CameraController : MonoBehaviour
 
     private void HandleMeasuringCamera()
     {
-
-        secondaryInteractionText.text = "Press: [RMB] to show mouse";
-
+        secondaryInteractionText.text = 
+        "[H] for Help\n";
         // Hide Objective text
         objectiveText.gameObject.SetActive(false);
         // Show only first button
