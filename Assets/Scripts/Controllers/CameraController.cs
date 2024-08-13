@@ -78,9 +78,9 @@ public class CameraController : MonoBehaviour
         if (cameras[5].gameObject.activeSelf && Input.GetKeyDown(KeyCode.H))
         {
             // Toggle secondary interaction text from current text to help string
-            secondaryInteractionText.text = secondaryInteractionText.text == "[H] for Help\n" ? 
+            secondaryInteractionText.text = secondaryInteractionText.text == "[H] for Help\n" ?
             "[Q] & [E] to switch views\n[Space] to save measurement\n[X] to erase last measurement\n[RMB] to show mouse" : "[H] for Help\n";
-            
+
         }
     }
 
@@ -173,7 +173,7 @@ public class CameraController : MonoBehaviour
 
     private void HandleMeasuringCamera()
     {
-        secondaryInteractionText.text = 
+        secondaryInteractionText.text =
         "[H] for Help\n";
         // Hide Objective text
         objectiveText.gameObject.SetActive(false);
@@ -204,7 +204,10 @@ public class CameraController : MonoBehaviour
         {
             cameras[4].gameObject.SetActive(false);
             // Hide Objective text
-            objectiveText.gameObject.SetActive(true);
+            if (!cameras[5].gameObject.activeSelf)
+            {
+                objectiveText.gameObject.SetActive(true);
+            }
         }
     }
 

@@ -17,7 +17,7 @@ public class CaliperController : MonoBehaviour
     Vector3 offset;
     Vector3 slidingPartStartPosition;
     bool isCaliperAttached = false;
-    bool isCaliperRotated = false;
+    bool isCaliperRotated = true;
     bool isFirstAttach = true;  //TODO: Is there a better way to handle not rotating the caliper on the first attach?
     float cameraPositionZ;
 

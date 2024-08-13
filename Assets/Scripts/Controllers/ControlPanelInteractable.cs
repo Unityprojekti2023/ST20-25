@@ -190,6 +190,11 @@ public class ControlPanelInteractable : MonoBehaviour
                 StartProgramCycle();
                 break;
             case ControlPanelState.EmergencyStopPressed:
+                if (latheController.timelineController.IsPlaying())
+                {
+                    //TODO: Implement emergency stop animation
+                    latheController.timelineController.StopTimeline();
+                }
                 isEmergencyStopClicked = true;
                 break;
             case ControlPanelState.PowerOffPressed:

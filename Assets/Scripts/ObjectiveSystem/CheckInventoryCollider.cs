@@ -6,7 +6,6 @@ public class CheckInventoryCollider : MonoBehaviour
     public GameController gameController;
 
     [Header("Other values")]
-    public int deductionPoints = 50; // Adjust the points to deduct as needed
     private bool hasTriggered = false;
 
     private void OnTriggerEnter(Collider other)
@@ -16,7 +15,7 @@ public class CheckInventoryCollider : MonoBehaviour
             // Check if the current stage is past the first one
             if (gameController.currentStage == 0)
             {
-                ObjectiveManager.Instance.DeductPoints(deductionPoints);
+                ObjectiveManager.Instance.DeductPoints(ScoreValues.LOW);
 
                 // Set the flag to true to prevent further triggers
                 hasTriggered = true;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class TurnInInteractable : MonoBehaviour, IInteractable
 {
@@ -31,13 +32,13 @@ public class TurnInInteractable : MonoBehaviour, IInteractable
                 {
                     // Deduct points if the item is wrongly cut and wrong material
                     InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with Wrong material with mistakes turned in", transform);
-                    PointDeduction(200);
+                    PointDeduction(ScoreValues.HIGH);
                 }
                 else
                 {
                     // Deduct points if the item is wrongly cut but correct material
                     InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with mistakes turned in", transform);
-                    PointDeduction(100);
+                    PointDeduction(ScoreValues.MEDIUM);
                 }
 
             }
@@ -47,13 +48,13 @@ public class TurnInInteractable : MonoBehaviour, IInteractable
                 {
                     // Add points if the item is correctly cut and correct material
                     InventoryManager.Instance.RemoveItemFromInventory("cut item", "Correct piece turned in", transform);
-                    PointAddition(200);
+                    PointAddition(ScoreValues.HIGH);
                 }
                 else
                 {
                     // Add points if the item is correctly cut but wrong material
                     InventoryManager.Instance.RemoveItemFromInventory("cut item", "Piece with wrong material turned in.", transform);
-                    PointAddition(100);
+                    PointAddition(ScoreValues.MEDIUM);
                 }
             }
         }

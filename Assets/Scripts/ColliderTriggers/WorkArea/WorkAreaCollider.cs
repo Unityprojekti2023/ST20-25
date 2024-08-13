@@ -22,21 +22,21 @@ public class WorkAreaCollider : MonoBehaviour
                 if(!glassesPickup.areGlassesEquipped && !shoePickup.areShoesEquipped)                           //If neither shoes or glasses are equipped, deducting 200 points
                 {
                     textInformation.UpdateText("-200 Points for not equipping shoes or safetyglasses!");
-                    objectiveManager.DeductPoints(200);
+                    objectiveManager.DeductPoints(ScoreValues.HIGH);
                     hasPlayerEnteredWorkArea = true;
                 } 
 
                 else if(glassesPickup.areGlassesEquipped && !shoePickup.areShoesEquipped)                       //If shoes are not equipped, but glasses are, deducting 100 points
                 {
                     textInformation.UpdateText("-100 Points for not equipping shoes!");
-                    objectiveManager.DeductPoints(100);
+                    objectiveManager.DeductPoints(ScoreValues.MEDIUM);
                     hasPlayerEnteredWorkArea = true;
                 } 
 
                 else if(!glassesPickup.areGlassesEquipped && shoePickup.areShoesEquipped)                       //If glasses are not equipped, but shoes are, deducting 100 points
                 {
                     textInformation.UpdateText("-100 Points for not equipping safetyglasses!");
-                    objectiveManager.DeductPoints(100);
+                    objectiveManager.DeductPoints(ScoreValues.MEDIUM);
                     hasPlayerEnteredWorkArea = true;
                 }
             }

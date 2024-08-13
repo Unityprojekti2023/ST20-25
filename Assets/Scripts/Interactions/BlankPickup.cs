@@ -66,7 +66,7 @@ public class BlankPickup : MonoBehaviour, IInteractable
             else
             {
                 // Else deduct points
-                ObjectiveManager.Instance.DeductPoints(50); //TODO: Anyway to make point deduction more dynamic and easy from ObjectiveManager? Ie. Have low, medium and high point deduction methods?
+                ObjectiveManager.Instance.DeductPoints(ScoreValues.LOW);
                 return;
             }
 

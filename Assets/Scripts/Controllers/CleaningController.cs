@@ -119,18 +119,18 @@ public class CleaningController : MonoBehaviour
                 if (item.CompareTag("WronglyCutItem"))
                 {
                     // Add points if the item is wrongly cut and right trash can is used
-                    ObjectiveManager.Instance.AddPoints(100);
+                    ObjectiveManager.Instance.AddPoints(ScoreValues.MEDIUM);
                 }
                 else
                 {
                     // Deduct points if the item is not wrongly cut
-                    ObjectiveManager.Instance.DeductPoints(50);
+                    ObjectiveManager.Instance.DeductPoints(ScoreValues.LOW);
                 }
             }
             else
             {
                 // Deduct points if the item is not of the same material as the trash can
-                ObjectiveManager.Instance.DeductPoints(100);
+                ObjectiveManager.Instance.DeductPoints(ScoreValues.MEDIUM);
             }
             InventoryManager.Instance.RemoveItemFromInventory("cut item", "Item thrown away");
             Destroy(item);
@@ -148,12 +148,12 @@ public class CleaningController : MonoBehaviour
         {
             if (cleaningCounter == scrapPile.Length)
             {
-                ObjectiveManager.Instance.AddPoints(50);
+                ObjectiveManager.Instance.AddPoints(ScoreValues.LOW);
                 ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
             }
             else
             {
-                ObjectiveManager.Instance.AddPoints(50);
+                ObjectiveManager.Instance.AddPoints(ScoreValues.LOW);
             }
             EmptyShovel();
         }
@@ -161,12 +161,12 @@ public class CleaningController : MonoBehaviour
         {
             if (cleaningCounter == scrapPile.Length)
             {
-                ObjectiveManager.Instance.DeductPoints(50);
+                ObjectiveManager.Instance.DeductPoints(ScoreValues.LOW);
                 ObjectiveManager.Instance.CompleteObjective("Clean metal scraps");
             }
             else
             {
-                ObjectiveManager.Instance.DeductPoints(50);
+                ObjectiveManager.Instance.DeductPoints(ScoreValues.LOW);
             }
 
             EmptyShovel();
