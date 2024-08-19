@@ -120,11 +120,21 @@ public class CaliperController : MonoBehaviour
 
         if (isCaliperAttached)
         {
+            /*
             // Calculate the offset between the caliper and the mouse position
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10.0f; // Set the distance from the camera
             Vector3 worldPosition = caliperCamera.ScreenToWorldPoint(mousePosition);
-            offset = caliper.transform.position - worldPosition;
+            offset = caliper.transform.position - worldPosition;*/
+            // Get the current mouse position in screen space
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = 10.0f; // Set the distance from the camera
+
+            // Convert screen space to world space
+            Vector3 worldPosition = caliperCamera.ScreenToWorldPoint(mousePosition);
+
+            // Move the caliper to the mouse position
+            caliper.transform.position = worldPosition;
         }
     }
 

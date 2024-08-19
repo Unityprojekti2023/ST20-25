@@ -86,6 +86,8 @@ public class CameraController : MonoBehaviour
 
     public void SwitchToCamera(int index)
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         // Check if the index is out of bounds
         if (index < 0 || index >= cameras.Count)
         {
@@ -93,10 +95,13 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        cameras[activeCameraIndex].gameObject.SetActive(false);     // Deactivate the current camera
+        if (index != 4)
+        {
+            cameras[activeCameraIndex].gameObject.SetActive(false);     // Deactivate the current camera
+        }
+
         cameras[index].gameObject.SetActive(true);                  // Activate the new camera
         activeCameraIndex = index;                                  // Update the active camera index
-        Cursor.visible = true;                                      // Makes sure that the cursor is visible when not locked
 
         switch ((CameraIndex)index)
         {
@@ -131,6 +136,7 @@ public class CameraController : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        Cursor.visible = true;
         crosshair.SetActive(false);
 
         // Hide the score text
@@ -144,8 +150,7 @@ public class CameraController : MonoBehaviour
     {
         secondaryInteractionText.text = "";
         drawingButton.gameObject.SetActive(false);
-        // Lock the cursor
-        Cursor.lockState = CursorLockMode.Locked;
+
         // Show the crosshair
         crosshair.SetActive(true);
         // Show the score text
@@ -159,13 +164,19 @@ public class CameraController : MonoBehaviour
             if (button.gameObject.activeSelf)
                 button.gameObject.SetActive(false);
         }
+
+        // Lock and hide the cursor for gameplay interaction
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     private void HandleClipboardCamera()
     {
         // Hide Objective text
         objectiveText.gameObject.SetActive(false);
+
         // Show only first button
         cameraButtons[0].gameObject.SetActive(true);
+
         Cursor.lockState = CursorLockMode.None; // Unlock the cursor
         Cursor.visible = true;
         crosshair.SetActive(false);
@@ -175,19 +186,23 @@ public class CameraController : MonoBehaviour
     {
         secondaryInteractionText.text =
         "[H] for Help\n";
+
         // Hide Objective text
         objectiveText.gameObject.SetActive(false);
+
         // Show only first button
         cameraButtons[0].gameObject.SetActive(true);
+
         // Check if clipboard has been placed to it's spot
         if (clipboardSpot.transform.childCount > 0)
         {
             drawingButton.gameObject.SetActive(true);
         }
 
-        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         crosshair.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Method to toggle clipboard camera on and off without changing the active camera

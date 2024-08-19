@@ -20,7 +20,17 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        HandlePlayerMovement();
+        if (CameraController.Instance.IsCameraActive(0))
+        {
+            if(GlobalFlags.IsClipboardPlaced && CameraController.Instance.IsCameraActive(4))
+            {
+                return;
+            }
+            else
+            {
+                HandlePlayerMovement();
+            }
+        }
     }
 
     void HandlePlayerMovement()

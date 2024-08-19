@@ -27,6 +27,7 @@ public class MouseLook : MonoBehaviour
 
         //Hide camera switch buttons from UI
     }
+
     void LateUpdate()
     {
         if (target == null)
@@ -35,27 +36,31 @@ public class MouseLook : MonoBehaviour
             return;
         }
 
-        if (!escapeMenu.isGamePaused)
+        if (!escapeMenu.isGamePaused) // Ensure game is not paused
         {
-            // Check if main camera is active
+            // Check if camera 0 is active
             if (CameraController.Instance.IsCameraActive(0))
             {
-                // Calculate the desired position of the camera
-                Vector3 desiredPosition = target.position + offset;
+                // Check if clipboard is placed and camera 4 is active
+                if (GlobalFlags.IsClipboardPlaced && CameraController.Instance.IsCameraActive(4))
+                {
+                    // If clipboard is placed and camera 4 is active, do nothing (mouse look won't work)
+                    return;
+                }
+                else
+                {
+                    // Calculate the desired position of the camera
+                    Vector3 desiredPosition = target.position + offset;
 
-                // Smoothly move the camera to the desired position
-                Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
-                playerCamera.transform.position = smoothedPosition;
+                    // Smoothly move the camera to the desired position
+                    Vector3 smoothedPosition = Vector3.Lerp(playerCamera.transform.position, desiredPosition, smoothSpeed);
+                    playerCamera.transform.position = smoothedPosition;
 
-                // Handle camera rotation separately
-                RotateCamera();
+                    // Handle camera rotation separately
+                    RotateCamera();
+                }
             }
-            else
-                return;
-
         }
-        else
-            return;
     }
 
     void RotateCamera()

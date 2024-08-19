@@ -21,6 +21,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
         else if (transform.childCount > 0)
         {
             CameraController.Instance.SwitchToCamera(4);
+            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
         }
         else
         {
@@ -45,6 +46,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 
         // Disable the clipboard's collider from messing with raycasts
         clipboard.transform.GetComponent<BoxCollider>().enabled = false;
+        GlobalFlags.IsClipboardPlaced = true;
     }
 
 }

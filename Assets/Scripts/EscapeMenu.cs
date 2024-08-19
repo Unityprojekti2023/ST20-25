@@ -45,6 +45,7 @@ public class EscapeMenu : MonoBehaviour
         Time.timeScale = 0f;            // Pause game time
         AudioListener.pause = true;     // Pause audio listener
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         gameIsPaused = true;    //TODO: Figure this code out
         isGamePaused = true;
     }
