@@ -28,5 +28,13 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnVRButton()
+    {
+        PlayerPrefs.SetInt("HideUI", 0);
+        Debug.Log("Hide UI: " + PlayerPrefs.GetInt("HideUI"));
+
+        SceneManager.LoadScene(2);
+    }
 }
 
