@@ -52,7 +52,7 @@ public class VRRayInteractor : MonoBehaviour
         interactableActions = new Dictionary<string, System.Action<IInteractable>>
         {
             { "ST20-25 Luukku", interactable => HandleInteraction(interactable, "Open lathe door: Trigger") },
-            { "ControlpanelTrigger", interactable => HandleInteraction(interactable, "Inspect panel: Trigger") },
+            //{ "ControlpanelTrigger", interactable => HandleInteraction(interactable, "Inspect panel: Trigger") },
             { "AttachmentPointLathe", interactable => HandleInteraction(interactable, "Place held item: Trigger") },
             { "AluminumBlank", interactable => HandleInteraction(interactable, "Pick up blank: Trigger") },
             { "SteelBlank", interactable => HandleInteraction(interactable, "Pick up blank: Trigger") },

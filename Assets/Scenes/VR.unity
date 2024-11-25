@@ -51479,6 +51479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9655f7c7a7b972a428de3aa24c173261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightHandController: {fileID: 1333119398}
   controlPanelAnimations: {fileID: 1150253750}
   latheController: {fileID: 1150253748}
   textInformation: {fileID: 590410041}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public enum ControlPanelState
 {
@@ -25,6 +26,8 @@ public enum ControlPanelState
 public class ControlPanelInteractable : MonoBehaviour
 {
     private ControlPanelState currentState = ControlPanelState.Idle;
+
+    public ActionBasedController rightHandController;
 
     [Header("References to other scripts")]
     public ControlPanelAnimations controlPanelAnimations;
@@ -61,13 +64,19 @@ public class ControlPanelInteractable : MonoBehaviour
 
     void Update()
     {
-        if (CameraController.Instance.IsCameraActive(1))
-        {
-            if (Input.GetMouseButtonDown(0))
+        //if (CameraController.Instance.IsCameraActive(1))
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        HandleMouseClick();
+        //    }
+        //}
+        
+         if (rightHandController.selectAction.action.triggered)
             {
                 HandleMouseClick();
             }
-        }
+        
     }
 
     private void InitializeButtonToStateMap()
@@ -91,7 +100,8 @@ public class ControlPanelInteractable : MonoBehaviour
 
     private void HandleMouseClick()
     {
-        Ray ray = cameraControlPanel.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = cameraControlPanel.ScreenPointToRay(Input.mousePosition);// mouse control
+        Ray ray = new Ray(rightHandController.transform.position, rightHandController.transform.forward);//vr control
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("ControlPanelLayer")))
         {
             string hitButton = hit.collider.gameObject.name;
