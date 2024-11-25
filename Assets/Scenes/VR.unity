@@ -11486,7 +11486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -21065,6 +21065,7 @@ Transform:
   m_Children:
   - {fileID: 1227460605}
   - {fileID: 1904777669}
+  - {fileID: 1451123884}
   m_Father: {fileID: 610017623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &996606508
@@ -22435,7 +22436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1047893777
 Transform:
   m_ObjectHideFlags: 0
@@ -22448,8 +22449,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 154, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1451123884}
+  m_Children: []
   m_Father: {fileID: 2115226145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1047893779
@@ -27857,6 +27857,7 @@ GameObject:
   - component: {fileID: 1306656175}
   - component: {fileID: 1306656178}
   - component: {fileID: 1306656179}
+  - component: {fileID: 1306656180}
   m_Layer: 0
   m_Name: PlayerScripts
   m_TagString: Untagged
@@ -27911,6 +27912,22 @@ MonoBehaviour:
   playerCamera: {fileID: 1522463795}
   offset: {x: 0, y: 154, z: 0}
   smoothSpeed: 0.125
+--- !u!114 &1306656180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306656174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e65cca2d222d94aa54c0e55c0d2637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHandController: {fileID: 1333119398}
+  rayLine: {fileID: 1333119396}
+  cleaningController: {fileID: 230333459}
+  interactText: {fileID: 463401077}
 --- !u!1 &1313095246
 GameObject:
   m_ObjectHideFlags: 0
@@ -30813,13 +30830,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451123883}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 23.3, y: -17.6, z: 48}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1047893777}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
+  m_Father: {fileID: 996606507}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
 --- !u!1 &1454276812
 GameObject:
   m_ObjectHideFlags: 0
