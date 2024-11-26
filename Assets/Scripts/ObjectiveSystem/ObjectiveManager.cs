@@ -81,7 +81,7 @@ public class ObjectiveManager : MonoBehaviour
         stageObjectives[8] = new List<Objective>()
         {
         new("Equip caliper", ScoreValues.LOW),
-        new("Use caliper to measure the piece", ScoreValues.MEDIUM),
+        //new("Use caliper to measure the piece", ScoreValues.MEDIUM),
         new("Unequip caliper", ScoreValues.LOW),
         new("Turn in cut piece", 0) //Score is given by turnin script that call objective Complete
         };

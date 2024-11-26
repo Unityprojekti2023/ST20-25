@@ -18,11 +18,11 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
 
             PlaceClipboard();
         }
-        else if (transform.childCount > 0)
-        {
-            CameraController.Instance.SwitchToCamera(4);
-            ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
-        }
+        //else if (transform.childCount > 0)
+        //{
+        //    CameraController.Instance.SwitchToCamera(4);
+        //    ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
+        //}
         else
         {
             Debug.Log("No clipboard in inventory");
@@ -43,6 +43,7 @@ public class ClipboardPlacementInteractable : MonoBehaviour, IInteractable
         InventoryManager.Instance.RemoveItemFromInventory("clipboard", "Item [Clipboard] removed from inventory");
         RayInteractor.instance.UpdateInteractionText(transform.name, "Inspect the assigment: [LMB] or [E]");
         ObjectiveManager.Instance.CompleteObjective("Place the clipboard on the worktable");
+        ObjectiveManager.Instance.CompleteObjective("Inspect the drawing");
 
         // Disable the clipboard's collider from messing with raycasts
         clipboard.transform.GetComponent<BoxCollider>().enabled = false;
