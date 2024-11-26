@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class CleaningController : MonoBehaviour
 {
+    public ActionBasedController rightHandController;
+
     public GameObject[] scrapPile;
     public GameObject shovel;
 
@@ -34,7 +37,8 @@ public class CleaningController : MonoBehaviour
 
     public void HandleCleaning(GameObject gameObject)
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if (rightHandController.selectAction.action.triggered)
         {
             // Check if the player is pressing the interact button
             if (InventoryManager.Instance.IsItemInInventory("Shovel"))
