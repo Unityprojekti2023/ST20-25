@@ -11,6 +11,7 @@ public class VRRayInteractor : MonoBehaviour
 
     [Header("VR Controller")]
     public ActionBasedController rightHandController; // Assign your right controller in the inspector
+    public ActionBasedController leftHandController;
     public LineRenderer rayLine; // Optional for visualizing the ray
 
     [Header("Cleaning Controller")]
@@ -116,6 +117,8 @@ public class VRRayInteractor : MonoBehaviour
         {
             HideInteractText();
         }
+
+        
     }
 
     private void HandleInteractionRays(string targetName, IInteractable interactable)

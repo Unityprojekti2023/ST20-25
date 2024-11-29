@@ -28196,6 +28196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightHandController: {fileID: 1333119398}
+  leftHandController: {fileID: 0}
   rayLine: {fileID: 1333119396}
   cleaningController: {fileID: 230333459}
   interactText: {fileID: 532312017}
@@ -43105,6 +43106,7 @@ MonoBehaviour:
   objectivesScrollView: {fileID: 183749531}
   endScoreText: {fileID: 812134735}
   objectivePrefab: {fileID: 3848803797773768120, guid: 132a0f200c5d4d049a2e4556fcf26c34, type: 3}
+  leftHandController: {fileID: 996606512}
 --- !u!114 &1930955255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43122,6 +43124,7 @@ MonoBehaviour:
   objectivesScrollView: {fileID: 0}
   endScoreText: {fileID: 0}
   objectivePrefab: {fileID: 0}
+  leftHandController: {fileID: 996606512}
 --- !u!65 &1930955257
 BoxCollider:
   m_ObjectHideFlags: 0
